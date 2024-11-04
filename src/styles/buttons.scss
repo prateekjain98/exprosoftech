@@ -26,7 +26,7 @@
   }
 
   &-regular {
-    @apply bg-dark px-10 py-4 text-base font-normal text-light hover:bg-tertiary;
+    @apply bg-dark px-10 py-4 text-base font-normal text-light hover:bg-primary;
   }
 
   &-icon {
@@ -46,7 +46,7 @@
     @apply gap-x-2 bg-transparent p-0;
 
     &:hover {
-      @apply text-tertiary [&_svg]:text-tertiary;
+      @apply text-primary [&_svg]:text-primary;
       .icon-wrapper {
         @apply gap-x-0;
       }
@@ -80,22 +80,27 @@
 }
 
 .btn-primary {
-  @apply border-primary bg-primary text-white hover:border-secondary hover:bg-secondary hover:text-dark;
-  @apply [&:hover_.icon-wrapper]:bg-dark [&:hover_svg]:text-light [&_.icon-wrapper]:bg-secondary [&_svg]:text-dark;
-  &-light {
-    @apply border-light bg-light text-dark hover:border-secondary hover:bg-secondary hover:text-dark;
-    @apply [&:hover_.icon-wrapper]:bg-dark [&:hover_svg]:text-light [&_.icon-wrapper]:bg-secondary [&_svg]:text-dark;
-  }
+  @apply border-primary bg-primary text-white 
+         hover:border-[#4B83FB] hover:bg-[#4B83FB] hover:text-white
+         active:border-[#2251C5] active:bg-[#2251C5];
+  @apply [&:hover_.icon-wrapper]:bg-[#2251C5] [&:hover_svg]:text-white 
+         [&_.icon-wrapper]:bg-[#4B83FB] [&_svg]:text-white;
 }
 
 .btn-light {
   @apply border-light bg-light text-dark hover:border-dark hover:bg-dark hover:text-light [&:hover_svg]:text-light [&_svg]:text-dark;
 }
 .btn-dark {
-  @apply border-dark bg-dark text-white hover:border-tertiary hover:bg-tertiary [&_svg]:text-light;
+  @apply border-dark bg-dark text-white 
+         hover:border-primary hover:bg-primary 
+         active:border-[#2251C5] active:bg-[#2251C5] 
+         [&_svg]:text-white;
 }
 
 .btn-outline-primary {
-  @apply border-border bg-transparent bg-white text-dark hover:border-secondary hover:bg-secondary hover:text-dark;
-  @apply [&:hover_.icon-wrapper]:bg-dark [&:hover_svg]:text-light [&_.icon-wrapper]:bg-theme-light [&_svg]:text-dark;
+  @apply border-[#BAD6FE] bg-white text-primary
+         hover:border-primary hover:bg-[#F0F7FF] hover:text-primary
+         active:bg-[#E6F0FF];
+  @apply [&:hover_.icon-wrapper]:bg-primary [&:hover_svg]:text-white 
+         [&_.icon-wrapper]:bg-[#F0F7FF] [&_svg]:text-primary;
 }

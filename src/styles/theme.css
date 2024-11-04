@@ -1,0 +1,11 @@
+:root {
+  --primary-color: #336AEA;
+  --primary-light: #5684EE;
+  --primary-dark: #1E51D1;
+  
+  /* Secondary shades of blue */
+  --secondary-100: #E8EFFD;
+  --secondary-200: #C5D7FB;
+  --secondary-300: #93B4F8;
+  --secondary-400: #6691F5;
+} 

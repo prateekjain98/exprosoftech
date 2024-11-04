@@ -1,25 +1,15 @@
 ---
 # Banner
-title: "Your Trusted Partner in Comprehensive Web Security"
-description: "Securing Your Digital World: Your Trusted Partner in Data Protection with <br> Cutting-Edge Solutions for Comprehensive Data Security."
-bg_image: "/images/banner-bg.png"
+title: "Empowering Strategic Business Transformation"
+description: "Our solution integrates a B2B loyalty platform, multi-channel automation, and AI-driven sales tools to help teams meet targets and improve customer engagement."
 images:
-  - src: "/images/banner-main.png" # Main Image
-    alt: "image alt"
-  - src: "/images/banner-1.png"
-    height: "72px"
-    alt: "image alt"
-  - src: "/images/banner-2.png"
-    height: "114px"
-    alt: "image alt"
-  - src: "/images/banner-3.png"
-    height: "134px"
-    alt: "image alt"
+  - src: "/images/hero.png"
+    alt: "Hero image showing business transformation platform"
 buttons:
   - enable: true
-    label: "Get Started"
+    label: "Book a call"
     link: "/contact/"
   - enable: true
-    label: "Learn More"
+    label: "Download Deck"
     link: "/about/"
 ---

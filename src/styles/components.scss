@@ -96,23 +96,23 @@
   }
 
   &.note {
-    @apply text-[#1B83E2];
-    @apply border-current;
+    @apply text-[#336AEA];
+    @apply border-current bg-[#F0F7FF];
   }
 
   &.tip {
-    @apply text-[#40D294];
-    @apply border-current;
+    @apply text-[#4B83FB];
+    @apply border-current bg-[#F5F9FF];
   }
 
   &.info {
-    @apply text-[#E3A72C];
-    @apply border-current;
+    @apply text-[#60A5FA];
+    @apply border-current bg-[#FAFCFF];
   }
 
   &.warning {
-    @apply text-[#DB2C23];
-    @apply border-current;
+    @apply text-[#EF4444];
+    @apply border-current bg-[#FEF2F2];
   }
 }
 
@@ -192,9 +192,9 @@
   @apply prose-img:max-w-full prose-img:rounded-3xl;
   @apply prose-hr:border-border;
   @apply prose-p:text-lg/[inherit] prose-p:text-text;
-  @apply prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-l-[10px] prose-blockquote:border-primary prose-blockquote:bg-theme-light prose-blockquote:px-8 prose-blockquote:py-10 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic prose-blockquote:text-dark;
+  @apply prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-l-[10px] prose-blockquote:border-primary prose-blockquote:bg-[#F0F7FF] prose-blockquote:px-8 prose-blockquote:py-10 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic prose-blockquote:text-dark;
   @apply prose-pre:rounded-lg prose-pre:bg-theme-light;
-  @apply prose-code:px-1 prose-code:text-primary;
+  @apply prose-code:px-1 prose-code:text-[#336AEA] prose-code:bg-[#F0F7FF];
   @apply prose-strong:text-dark;
   @apply prose-a:text-text prose-a:underline hover:prose-a:text-primary;
   @apply prose-li:text-text;
