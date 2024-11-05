@@ -1,0 +1,101 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const features = [
+  {
+    tagline: "Flexible Production for a Dynamic Market",
+    title: "Agile Manufacturing Solutions",
+    description: "Streamline material, manpower, and machinery to efficiently meet shifting market demands. Our adaptable processes ensure production aligns with changing needs, maximizing resource use and supporting sales with agility..",
+    image: "/images/FeatureImgOne.png"
+  },
+  {
+    tagline: "Empowering Sales to Meet Market Needs",
+    title: "Market Aligned Sales Process",
+    description: "Align your sales strategies with actual market demand to ensure seamless channel sales transformation. By synchronizing your sales process with market needs, we help you drive efficiency, better customer engagement, and growth in target markets.",
+    image: "/images/FeatureImgTwo.png"
+  },
+  {
+    tagline: "Empowering Businesses with Data-Driven Insights",
+    title: "Real-Time IT Solutions",
+    description: "Our consultancy provides cutting-edge IT infrastructure combined with advanced data analytics to ensure seamless real-time monitoring and execution. We design and implement robust systems that allow you to stay ahead in today's fast-paced environment.",
+    image: "/images/FeatureImgThree.png"
+  },
+  {
+    tagline: "Skilled Teams, Smart Systems, Superior Results",
+    title: "People & Systems",
+    description: "Our consultancy optimizes your workforce and technology to drive performance. By building skilled teams and implementing advanced systems, we streamline operations, boost productivity, and ensure sustainable growth, enabling your business to adapt and excel in dynamic markets.",
+    image: "/images/FeatureImgFour.png"
+  }
+];
+---
+
+<div class="sticky-features mt-10">
+  {features.map((item, mindex) => {
+    const { tagline, title, description, image } = item;
+    return (
+      <div
+        class={`overflow-hidden rounded-3xl mb-10 last:mb-0 lg:sticky h-auto lg:h-[500px] ${
+          mindex === 1 ? "lg:top-[160px]" : "lg:top-[120px]"
+        }`}
+        style="background-color: #1a1a1a;"
+      >
+        <div class="row g-0 flex flex-col lg:flex-row">
+          {/* Left Content Side */}
+          <div class="lg:col-6" data-aos="fade-up-sm">
+            <div class="p-6 md:p-10 lg:p-26 min-h-full">
+              {tagline && (
+                <p 
+                  class="text-sm uppercase tracking-wider  !text-white mb-4"
+                  data-aos="fade-up-sm"
+                >
+                  {tagline}
+                </p>
+              )}
+              {title && (
+                <h2
+                  class="text-2xl lg:h1 mb-6 lg:mb-12  !text-white leading-tight lg:leading-[100%]"
+                  data-aos="fade-up-sm"
+                  set:html={markdownify(title)}
+                />
+              )}
+              {description && (
+                <p
+                  class="text-base lg:text-md/relaxed  !text-gray-300 leading-[100%]"
+                  data-aos="fade-up-sm"
+                  data-aos-delay="100"
+                  set:html={markdownify(description)}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Right Image Side */}
+          <div class="lg:col-6">
+            <div class="h-full flex items-center justify-center p-4 md:p-8 lg:p-12">
+              {image && (
+                <ImageMod
+                  src={image}
+                  alt={title}
+                  class="w-full max-w-[300px] lg:max-w-[400px] rounded-lg"
+                  data-aos="fade-up-sm"
+                  data-aos-delay="200"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+<style>
+  .sticky-features {
+    min-height: 150vh; /* Reduced for mobile */
+    @media (min-width: 1024px) {
+      min-height: 200vh; /* Original height for desktop */
+    }
+  }
+</style>

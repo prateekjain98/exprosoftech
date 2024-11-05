@@ -1,7 +1,8 @@
 ---
-subtitle: "Key Features"
-title: "In-Depth Explanation of Our Web Security Features"
-description: Your Trusted Partner in Data Protection with Cutting-Edge Solutions for <br> Comprehensive Data Security.
+subtitle: "Strategic Solutions for Sustainable Growth"
+title: "Expert Guidance for 
+Business Transformation"
+description: Our consultancy offers expert insights and tailored strategies to overcome challenges, optimize operations, and drive growth. We deliver actionable solutions that turn your vision into reality, ensuring long-term success and scalability.
 list:
   - title: "Continuously evaluates potential security threats and impact"
     description: "This includes suggesting security patches, policy updates, and other preventive measures to reduce the likelihood and impact of threats."

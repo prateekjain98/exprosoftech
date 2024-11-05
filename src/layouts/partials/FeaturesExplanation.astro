@@ -2,6 +2,7 @@
 import ImageMod from "@/components/ImageMod.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
+import SectionHeader from "../components/SectionHeader.astro";
 
 interface FeaturesExplanation {
   title: string;
@@ -26,20 +27,13 @@ const { title, image, subtitle, description, list }: FeaturesExplanation = (
       <div class="container">
         <div class="row">
           {!hideHeadingBar && (
-            <div class="mx-auto text-center lg:col-10 xl:col-7" data-aos="fade-up-sm">
-              {subtitle && (
-                <p
-                  class="mb-2 font-medium text-tertiary"
-                  set:html={markdownify(subtitle)}
-                />
-              )}
-              {title && <h2 class="mb-6" set:html={markdownify(title)} />}
-              {description && (
-                <p
-                  class="text-lg/[inherit]"
-                  set:html={markdownify(description)}
-                />
-              )}
+            <div class="mx-auto lg:col-10 xl:col-7">
+              <SectionHeader
+                tagline={subtitle}
+                heading={title}
+                subheading={description}
+                alignment="center"
+              />
             </div>
           )}
           <div class="col-12 pt-20">

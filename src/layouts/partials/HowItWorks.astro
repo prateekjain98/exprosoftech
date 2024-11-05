@@ -2,6 +2,7 @@
 import ImageMod from "@/components/ImageMod.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
+import SectionHeader from "../components/SectionHeader.astro";
 
 interface HowItWorks {
   title: string;
@@ -19,56 +20,60 @@ const { title, subtitle, description, list }: HowItWorks = (
 ).data;
 ---
 
-{
-  (
-    <section class="section">
-      <div class="container">
-        <div class="row">
-          <div class="mx-auto text-center lg:col-10" data-aos="fade-up-sm">
-            {subtitle && (
-              <p
-                class="mb-2 text-tertiary font-medium"
-                set:html={markdownify(subtitle)}
-              />
-            )}
-            {title && <h2 class="mb-6" set:html={markdownify(title)} />}
-            {description && (
-              <p
-                class="text-lg/[inherit]"
-                set:html={markdownify(description)}
-              />
-            )}
-          </div>
-          <div class="col-12 pt-20">
-            <div class="row g-4 justify-center">
-              {list?.map((item, index) => (
-                <div
-                  class="md:col-6 lg:col-4"
-                  data-aos="fade-up-sm"
-                  data-aos-delay={index * 100}>
-                  <div class="min-h-full rounded-xl bg-theme-light px-6 py-12 text-center md:rounded-3xl">
-                    {item.icon && (
-                      <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
-                        <ImageMod
-                          class="h-6 w-6 object-cover"
-                          src={item.icon}
-                          alt={`icon related to ${item.title}`}
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto lg:col-10">
+        <SectionHeader
+          tagline={subtitle}
+          heading={title}
+          subheading={description}
+          alignment="center"
+        />
+      </div>
+      <div class="col-12 pt-20">
+        <div class="row g-4 justify-center">
+          {
+            list?.map((item, index) => (
+              <div
+                class="md:col-6 lg:col-4"
+                data-aos="fade-up-sm"
+                data-aos-delay={index * 100}
+              >
+                <div class="group min-h-full rounded-3xl bg-white p-6 transition-all shadow-md">
+                  {/* Image Container */}
+                  <div class="mb-6">
+                    <div class="aspect-square w-full rounded-2xl ">
+                      {item.icon && (
+                        <img 
+                          src={item.icon} 
+                          alt={`icon related to ${item.title}`} 
+                          class="h-full w-full object-contain transition-transform group-hover:scale-110" 
                         />
-                      </div>
-                    )}
+                      )}
+                    </div>
+                  </div>
+                  {/* Content Container */}
+                  <div class="text-left">
                     {item.title && (
-                      <h3 class="h5 mb-2" set:html={markdownify(item.title)} />
+                      <h3 
+                        class="h5 mb-3 text-xl font-semibold text-dark" 
+                        set:html={markdownify(item.title)} 
+                      />
                     )}
                     {item.description && (
-                      <p set:html={markdownify(item.description)} />
+                      <p 
+                        class="text-text"
+                        set:html={markdownify(item.description)} 
+                      />
                     )}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            ))
+          }
         </div>
       </div>
-    </section>
-  )
-}
+    </div>
+  </div>
+</section>
