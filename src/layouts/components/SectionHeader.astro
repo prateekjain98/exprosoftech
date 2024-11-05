@@ -1,0 +1,40 @@
+---
+interface Props {
+  tagline?: string;
+  heading: string;
+  subheading?: string;
+  alignment?: "left" | "center";
+  className?: string;
+}
+
+const { 
+  tagline, 
+  heading, 
+  subheading, 
+  alignment = "center",
+  className = ""
+} = Astro.props;
+---
+
+<div 
+  class:list={[
+    "flex flex-col gap-3",
+    alignment === "center" ? "text-center" : "text-left",
+    className
+  ]}
+  data-aos="fade-up-sm"
+>
+  {tagline && (
+    <div class={`flex ${alignment === "center" ? "justify-center" : "justify-start"}`}>
+      <span class="inline-block px-4 py-1.5 bg-[#d8ebff] border border-white rounded-full text-dark text-sm font-medium shadow-sm">
+        {tagline}
+      </span>
+    </div>
+  )}
+  <h2 class="mb-4" set:html={heading} />
+  {subheading && (
+    <p class="text-lg/[inherit] text-text max-w-3xl mx-auto">
+      {subheading}
+    </p>
+  )}
+</div> 
