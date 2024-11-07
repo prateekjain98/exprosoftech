@@ -1,22 +1,22 @@
 {
   "main": [
     {
-      "name": "facebook",
+      "name": "Products",
       "icon": "FaFacebook",
       "link": "https://www.facebook.com/"
     },
     {
-      "name": "twitter",
+      "name": "Consulting",
       "icon": "FaTwitter",
       "link": "https://twitter.com/"
     },
     {
-      "name": "github",
+      "name": "Services",
       "icon": "FaGithub",
       "link": "https://www.github.com/"
     },
     {
-      "name": "linkedin",
+      "name": "Contact Us",
       "icon": "FaLinkedin",
       "link": "https://www.linkedin.com/"
     }
