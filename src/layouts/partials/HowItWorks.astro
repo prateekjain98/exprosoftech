@@ -21,9 +21,9 @@ const { title, subtitle, description, list }: HowItWorks = (
 ---
 
 <section class="section">
-  <div class="container">
+  <div class="max-w-[85rem] mx-auto px-3">
     <div class="row">
-      <div class="mx-auto lg:col-10">
+      <div class="mx-auto lg:col-11">
         <SectionHeader
           tagline={subtitle}
           heading={title}
@@ -40,24 +40,24 @@ const { title, subtitle, description, list }: HowItWorks = (
                 data-aos="fade-up-sm"
                 data-aos-delay={index * 100}
               >
-                <div class="group min-h-full rounded-3xl bg-white p-6 transition-all shadow-md">
+                <div class="min-h-full rounded-3xl bg-white p-4 transition-all shadow-xl">
                   {/* Image Container */}
-                  <div class="mb-6">
+                  <div class="mb-3">
                     <div class="aspect-square w-full rounded-2xl ">
                       {item.icon && (
                         <img 
                           src={item.icon} 
                           alt={`icon related to ${item.title}`} 
-                          class="h-full w-full object-contain transition-transform group-hover:scale-110" 
+                          class="h-full w-full object-contain" 
                         />
                       )}
                     </div>
                   </div>
                   {/* Content Container */}
-                  <div class="text-left">
+                  <div class="text-left mb-4">
                     {item.title && (
                       <h3 
-                        class="h5 mb-3 text-xl font-semibold text-dark" 
+                        class="h5 mb-2 md:text-3xl font-medium text-dark tracking-wide" 
                         set:html={markdownify(item.title)} 
                       />
                     )}

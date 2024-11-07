@@ -1,0 +1,137 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import SectionHeader from "./SectionHeader.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const features = [
+  {
+    number: "01",
+    title: "Customer Loyalty",
+    subheading: "Empowering Global Brands with Next-Gen Loyalty Solutions",
+    description: "Seamlessly integrating personalized experiences, real-time  data analytics, and customer engagement strategies to drive sustainable growth and build lasting relationships worldwide.",
+    image: "/images/leftImgOne.png"
+  },
+  {
+    number: "02",
+    title: "Inside Sales Solutions",
+    subheading: "Driving Business Growth with Targeted Engagement",
+    description: "Inside Sales is your gateway to unlocking global reach and driving sales efficiency. Our approach focuses on quality prospecting of decision-makers, ensuring that every interaction is impactful and results-driven.",
+    image: "/images/leftImgTwo.jpg"
+  },
+  {
+    number: "03",
+    title: "Go-To-Market Strategy",
+    subheading: "Empowering Global Brands with Next-Gen Loyalty Solutions",
+    description: "Achieve peak performance through our operational excellence programs. We streamline workflows, reduce inefficiencies, and implement best practices to maximize your organizational productivity.",
+    image: "/images/leftImgThree.jpg"
+  }
+];
+
+const sectionHeader = {
+  tagline: "Strategic Solutions for Sustainable Growth",
+  heading: "Expert Guidance for Business Transformation",
+  subheading: "Our consultancy offers expert insights and tailored strategies to overcome challenges, optimize operations, and drive growth. We deliver actionable solutions that turn your vision into reality, ensuring long-term success and scalability."
+};
+---
+
+<section class="py-16">
+  <div class="container max-w-7xl mx-auto">
+    <SectionHeader
+      tagline={sectionHeader.tagline}
+      heading={sectionHeader.heading}
+      subheading={sectionHeader.subheading}
+    />
+
+    <div class="mt-16 lg:flex gap-16">
+      <!-- Sticky Image Container - Updated with overflow-hidden -->
+      <div class="hidden lg:block lg:w-1/2">
+        <div class="sticky top-32 p-6">
+          <div class="relative aspect-square overflow-hidden rounded-xl">
+            {features.map((feature, index) => (
+              <div 
+                class="feature-image absolute inset-0 w-full h-full"
+                data-index={index}
+              >
+                <ImageMod
+                  src={feature.image}
+                  alt={`Feature ${index + 1}`}
+                  class="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Content Container -->
+      <div class="lg:w-1/2">
+        {features.map((feature, index) => (
+          <div 
+            class="feature-section mb-24 last:mb-0 p-6 rounded-xl min-h-screen flex flex-col justify-start pt-[20vh]"
+            data-index={index}
+          >
+            <div class="space-y-12">
+              <span class="text-[80px] font-light text-gray-200 leading-none block mb-8">{feature.number}</span>
+              <div class="space-y-6">
+                <h3 class="text-4xl font-bold" set:html={markdownify(feature.title)} />
+                <h4 class="text-xl text-gray-600 font-medium max-w-md" set:html={markdownify(feature.subheading)} />
+                <p class="text-gray-600 max-w-md leading-relaxed mt-4" set:html={markdownify(feature.description)} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function handleScroll() {
+    const sections = document.querySelectorAll('.feature-section');
+    const images = document.querySelectorAll('.feature-image');
+    
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      const index = parseInt(section.getAttribute('data-index') || '0');
+      const correspondingImage = document.querySelector(`.feature-image[data-index="${index}"]`);
+      
+      // Calculate how much of the section is visible
+      const sectionHeight = (section as HTMLElement).offsetHeight;
+      const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+      const visibilityRatio = Math.max(0, Math.min(1, visibleHeight / sectionHeight));
+      
+      if (correspondingImage) {
+        // Show image when its section is more than 50% visible
+        if (visibilityRatio > 0.5) {
+          (correspondingImage as HTMLElement).style.opacity = '1';
+        } else {
+          (correspondingImage as HTMLElement).style.opacity = '0';
+        }
+        
+        // Higher index = higher z-index for proper stacking
+        (correspondingImage as HTMLElement).style.zIndex = index.toString();
+      }
+    });
+  }
+
+  // Add scroll event listener
+  window.addEventListener('scroll', handleScroll);
+  // Initial check
+  handleScroll();
+</script>
+
+<style>
+  .feature-section {
+    background-color: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .feature-image {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .feature-image[data-index="0"] {
+    opacity: 1;
+  }
+</style>

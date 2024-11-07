@@ -1,0 +1,143 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { getEntry } from "astro:content";
+import SectionHeader from "./SectionHeader.astro";
+
+const { title, subtitle, description, stories } = (
+  await getEntry("sections", "client-stories")
+).data;
+---
+
+<section class="section ">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto lg:col-11">
+        <SectionHeader
+          tagline={subtitle}
+          heading={title}
+          subheading={description}
+          alignment="center"
+        />
+      </div>
+      
+      <div class="col-12 mt-16 bg-gradient-to-r from-white via-[#e4ecfd] to-white py-4">
+        <!-- Carousel Container -->
+        <div class="relative">
+          <!-- Slides Container -->
+          <div class="carousel-container overflow-hidden">
+            <div class="carousel-slides flex transition-transform duration-300">
+              {
+                stories?.map((story: any, index: number) => (
+                  <div
+                    class="story-slide w-full flex-shrink-0"
+                    data-index={index}
+                  >
+                    <div class="mx-auto max-w-4xl">
+                      <div class="flex flex-col md:flex-row items-center gap-8 rounded-2xl  p-6 ">
+                        {/* Image Side */}
+                        <div class="md:w-fit">
+                          <div class="aspect-square w-[20rem] h-auto overflow-hidden rounded-xl">
+                            <img
+                              src={story.image}
+                              alt={story.title}
+                              class="h-full w-full object-contain"
+                            />
+                          </div>
+                        </div>
+                        
+                        {/* Content Side */}
+                        <div class="md:w-2/3 flex flex-col gap-4 justify-evenly">
+                          <p class="text-text text-sm">{story.content}</p>
+                          <h3 class="h4 mt-2 text-primary">{story.title}</h3>
+                          <p class="">{story.company}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          {/* Navigation Dots */}
+          <div class="mt-8 flex justify-center gap-3">
+            {
+              stories?.map((_: any, index: number) => (
+                <button
+                  class={`carousel-dot h-3 w-3 rounded-full border-2 border-primary transition-all duration-300 ${index === 0 ? 'active' : ''}`}
+                  data-index={index}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .carousel-dot {
+    background-color: transparent;
+    cursor: pointer;
+    border-color: var(--primary-color);
+  }
+  
+  .carousel-dot:hover {
+    background-color: var(--primary-color);
+    
+    opacity: 0.7;
+  }
+  
+  .carousel-dot.active {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+  }
+</style>
+
+<script>
+  class Carousel {
+    container: HTMLElement;
+    slides: HTMLElement;
+    dots: NodeListOf<HTMLElement>;
+    currentIndex: number = 0;
+
+    constructor() {
+      this.container = document.querySelector('.carousel-container')!;
+      this.slides = document.querySelector('.carousel-slides')!;
+      this.dots = document.querySelectorAll('.carousel-dot');
+      
+      this.init();
+    }
+
+    init() {
+      // Set initial active state
+      this.updateSlide(0);
+      
+      // Add click handlers to dots
+      this.dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => this.updateSlide(index));
+      });
+    }
+
+    updateSlide(index: number) {
+      // Update current index
+      this.currentIndex = index;
+      
+      // Move slides
+      const slideWidth = this.container.offsetWidth;
+      this.slides.style.transform = `translateX(-${slideWidth * index}px)`;
+      
+      // Update dots
+      this.dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+  }
+
+  // Initialize carousel when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new Carousel();
+  });
+</script> 

@@ -1,5 +1,5 @@
 ---
-import Logo from "@/components/Logo.astro";
+import ImageMod from "@/components/ImageMod.astro";
 import Social from "@/components/Social.astro";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
@@ -7,115 +7,126 @@ import social from "@/config/social.json";
 import { markdownify } from "@/lib/utils/textConverter";
 
 const { footer_menu, footer_quick_links } = menu;
+const { logo, logo_width, logo_height, title } = config.site;
 ---
 
-<footer class="bg-[#161C52] py-16">
-  <div class="container">
-    <div class="row flex justify-between">
-      <!-- Logo, Description and Subscription Section -->
-      <div class="col-12 lg:col-4 mb-12 lg:mb-0">
-        <div class="space-y-8">
-          <div>
-            <Logo />
-          </div>
-          
-          <div>
-            <p class="text-gray-300 max-w-md">
+<footer class="bg-dark py-16">
+  <div class="max-w-[85rem] mx-auto px-3">
+    <div class="row">
+      <!-- Main Footer Content -->
+      <div class="flex flex-col lg:flex-row justify-between w-full gap-12">
+        <!-- Left Section: Logo & Description -->
+        <div class="lg:w-1/3">
+          <div class="space-y-8">
+            <a href="/" class="block">
+              <ImageMod
+                src="/images/WhiteLogo.png"
+                class="h-auto w-[140px] md:w-[160px]"
+                width={Number(logo_width.replace("px", "")) * 2}
+                height={Number(logo_height.replace("px", "")) * 2}
+                alt={title}
+                format="webp"
+              />
+            </a>
+            <p class="text-light/70 max-w-md">
               Streamline operations with cutting-edge solutions that future-proof your business.
             </p>
-          </div>
-          
-          {config.subscription?.enable && (
-            <div class="pt-4">
-              <form
-                action={config.subscription.action}
-                method="post"
-                class="flex flex-col sm:flex-row gap-2"
-              >
-                <input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  class="bg-[#2d2a5d] text-white placeholder:text-gray-400 rounded-full px-4 py-2 flex-grow focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-                <button 
-                  type="submit"
-                  class="bg-white text-[#1e1b4b] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors whitespace-nowrap"
+            
+            {config.subscription?.enable && (
+              <div class="pt-0">
+                <form
+                  action={config.subscription.action}
+                  method="post"
+                  class="flex flex-row gap-2"
                 >
-                  Subscribe
-                </button>
-              </form>
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email" 
+                    class="bg-dark/50 text-light placeholder:text-light/50 rounded-full px-4 py-2 flex-grow focus:outline-none focus:ring-2 focus:ring-primary border border-light/10"
+                    required
+                  />
+                  <button 
+                    type="submit"
+                    class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-primary/90 transition-colors whitespace-nowrap"
+                  >
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <!-- Right Section: Links Grid -->
+        <div class="lg:w-1/2">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:pt-8">
+            <!-- Quick Links -->
+            <div>
+              <h3 class="text-light text-lg font-medium mb-6">Quick Links</h3>
+              <ul class="space-y-4">
+                {footer_quick_links?.map((link) => (
+                  <li>
+                    <a 
+                      href={link.url} 
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
+
+            <!-- Other Links -->
+            <div>
+              <h3 class="text-light text-lg font-medium mb-6">Other Links</h3>
+              <ul class="space-y-4">
+                {footer_menu?.map((link) => (
+                  <li>
+                    <a 
+                      href={link.url} 
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- Social Media -->
+            <div>
+              <h3 class="text-light text-lg font-medium mb-6">Social Media</h3>
+              <ul class="space-y-4">
+                {social.main.map((link) => (
+                  <li>
+                    <a 
+                      href={link.link} 
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Quick Links Section -->
-      <div class="col-12 lg:col-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <!-- Quick Links -->
-          <div class="space-y-6">
-            <h3 class="text-white text-lg font-medium">Quick Links</h3>
-            <ul class="space-y-4">
-              <li><a href="/home" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
-              <li><a href="/feature" class="text-gray-300 hover:text-white transition-colors">Feature</a></li>
-              <li><a href="/company" class="text-gray-300 hover:text-white transition-colors">Company</a></li>
-              <li><a href="/pricing" class="text-gray-300 hover:text-white transition-colors">Pricing</a></li>
-            </ul>
-          </div>
-
-          <!-- Other Links -->
-          <div class="space-y-6">
-            <h3 class="text-white text-lg font-medium">Other Links</h3>
-            <ul class="space-y-4">
-              <li><a href="/blog" class="text-gray-300 hover:text-white transition-colors">Blog</a></li>
-              <li><a href="/blog-details" class="text-gray-300 hover:text-white transition-colors">Blog Details</a></li>
-              <li><a href="/contact" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
-            </ul>
-          </div>
-
-          <!-- Social Media -->
-          <div class="space-y-6">
-            <h3 class="text-white text-lg font-medium">Social Media</h3>
-            <ul class="space-y-4">
-              <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Facebook</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Twitter</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Github</a></li>
-              <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Linkedin</a></li>
-            </ul>
-          </div>
-        </div>
+      <!-- Copyright -->
+      <div class="mt-16 pt-8 border-t border-light/10 text-center">
+        <p class="text-light/50">
+          Copyright 2024 By GreyMetre Consultants. Designed & Developed by 
+          <a href="#" class="text-light/70 hover:text-primary transition-colors">
+            Suprdash
+          </a>
+        </p>
       </div>
-    </div>
-
-    <!-- Copyright -->
-    <div class="mt-16 pt-8 border-t border-gray-700 text-center text-gray-400">
-      <p>Copyright 2024 By Your Company. Designed & Developed by <a href="#" class="text-white hover:text-gray-300">Themefisher</a></p>
     </div>
   </div>
 </footer>
 
-<style>
-  /* Add any custom styles here */
-  .container {
-    @apply max-w-7xl mx-auto px-4;
-  }
-  
-  .row {
-    @apply flex flex-wrap -mx-4;
-  }
-  
-  .col-12 {
-    @apply w-full px-4;
-  }
-  
-  @screen lg {
-    .lg\:col-4 {
-      @apply w-1/3;
-    }
-    
-    .lg\:col-8 {
-      @apply w-2/3;
-    }
-  }
-</style>
+

@@ -30,7 +30,7 @@ const { title, description, buttons, images }: Banner = (
 {
   (
     <section class="pt-8 pb-16 lg:pt-12 lg:pb-24">
-      <div class="container">
+      <div class="max-w-[85rem] mx-auto px-3 ">
         <div class="row items-center justify-between">
           {/* Left Column - Content */}
           <div class="mb-8 lg:mb-0 text-center lg:text-left lg:col-6">
@@ -50,17 +50,24 @@ const { title, description, buttons, images }: Banner = (
             )}
             {buttons && (
               <ul class="flex flex-wrap lg:justify-start justify-center gap-4">
-                {buttons.map(({ label, link }, index) => (
+              {buttons.map(({ label, link }, index) => (
                   <li data-aos="fade-up-sm" data-aos-delay={100 + index * 50}>
                     <a
-                      class={`${index === 0 ? "btn-primary" : "btn-outline-primary"} btn `}
+                      class={`${index === 0 ? "btn-primary" : "btn-outline-primary"} btn shadow-md`}
                       href={link}
                       target={link.startsWith("http") ? "_blank" : "_self"}
                       rel="noopener"
                     >
                       {label}
                       <span class="sr-only">Details</span>
-                      <span class="icon-wrapper">
+                      <DynamicIcon
+                        icon={
+                          label === "Download Deck"
+                            ? "FaDownload"
+                            : "FaArrowRight"
+                        }
+                      />
+                      {/* <span class="icon-wrapper">
                         <span class="icon">
                           <DynamicIcon
                             icon={
@@ -70,16 +77,7 @@ const { title, description, buttons, images }: Banner = (
                             }
                           />
                         </span>
-                        <span class="icon" aria-hidden="true">
-                          <DynamicIcon
-                            icon={
-                              label === "Download Deck"
-                                ? "FaDownload"
-                                : "FaArrowRight"
-                            }
-                          />
-                        </span>
-                      </span>
+                      </span> */}
                     </a>
                   </li>
                 ))}
@@ -96,7 +94,7 @@ const { title, description, buttons, images }: Banner = (
                   alt={images[0].alt}
                   width={580}
                   height={480}
-                  class="w-full h-auto rounded-lg object-cover"
+                  class="w-full h-auto rounded-lg object-cover p-4"
                 />
               </div>
             </div>

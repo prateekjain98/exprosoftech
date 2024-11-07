@@ -116,16 +116,11 @@ const { pathname } = Astro.url;
         {
           navigation_button.enable && (
             <a
-              class="btn btn-dark mt-2 lg:hidden"
+              class="btn btn-primary mt-2 lg:hidden"
               href={navigation_button.link}>
               {navigation_button.label}
-              <span class="icon-wrapper">
-                <span class="icon">
-                  <DynamicIcon icon={"FaArrowRight"} />
-                </span>
-                <span class="icon" aria-hidden="true">
-                  <DynamicIcon icon={"FaArrowRight"} />
-                </span>
+              <span class="ml-2">
+                <DynamicIcon icon={"FaArrowRight"} />
               </span>
             </a>
           )
@@ -135,16 +130,16 @@ const { pathname } = Astro.url;
         {
           navigation_button.enable && (
             <a
-              class="btn btn-dark hidden lg:flex"
+              class="btn btn-primary hidden lg:flex"
               href={navigation_button.link}>
               {navigation_button.label}
               <span class="icon-wrapper">
                 <span class="icon">
                   <DynamicIcon icon={"FaArrowRight"} />
                 </span>
-                <span class="icon" aria-hidden="true">
+                {/* <span class="icon" aria-hidden="true">  // This is the second arrow
                   <DynamicIcon icon={"FaArrowRight"} />
-                </span>
+                </span> */}
               </span>
             </a>
           )
