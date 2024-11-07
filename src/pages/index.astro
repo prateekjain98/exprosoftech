@@ -8,6 +8,9 @@ import FeaturesExplanation from "@/partials/FeaturesExplanation.astro";
 import PricingSection from "@/partials/PricingSection.astro";
 import Testimonial from "@/partials/Testimonial.astro";
 import CallToAction from "@/partials/CallToAction.astro";
+import ScrollableFeatures from "@/components/ScrollableFeatures.astro";
+import Faq from "@/partials/Faq.astro";
+import ClientStories from "@/layouts/components/ClientStories.astro";
 ---
 
 <Base>
@@ -17,7 +20,10 @@ import CallToAction from "@/partials/CallToAction.astro";
   <FeaturesGrid />
   <!-- <Features /> -->
   <FeaturesExplanation />
-  <PricingSection />
-  <Testimonial visible_testimonial={3} />
+  <ScrollableFeatures />
+  <!-- <PricingSection />
+  <Testimonial visible_testimonial={3} /> -->
+  <ClientStories />
+  <Faq />
   <CallToAction />
 </Base>

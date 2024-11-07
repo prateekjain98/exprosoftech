@@ -1,0 +1,39 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+interface Props {
+  label: string;
+  link: string;
+  variant?: "primary" | "outline-primary";
+  className?: string;
+}
+
+const { 
+  label, 
+  link, 
+  variant = "primary",
+  className = ""
+} = Astro.props;
+
+const isExternal = link.startsWith("http");
+---
+
+<a
+  class={`inline-flex items-center justify-center px-6 py-2 text-base font-medium rounded-lg transition-all duration-200 ${className}`}
+  href={link}
+  target={isExternal ? "_blank" : "_self"}
+  rel={isExternal ? "noopener noreferrer" : ""}
+>
+  {label}
+  {label.toLowerCase().includes('call') && 
+    <span class="ml-2">
+      <DynamicIcon icon="FaArrowRight" />
+    </span>
+  }
+</a>
+
+<style>
+  a:hover {
+    transform: translateY(-1px);
+  }
+</style> 

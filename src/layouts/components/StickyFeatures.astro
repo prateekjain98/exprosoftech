@@ -31,71 +31,163 @@ const features = [
 ];
 ---
 
-<div class="sticky-features mt-10">
-  {features.map((item, mindex) => {
-    const { tagline, title, description, image } = item;
-    return (
-      <div
-        class={`overflow-hidden rounded-3xl mb-10 last:mb-0 lg:sticky h-auto lg:h-[500px] ${
-          mindex === 1 ? "lg:top-[160px]" : "lg:top-[120px]"
-        }`}
-        style="background-color: #1a1a1a;"
-      >
-        <div class="row g-0 flex flex-col lg:flex-row">
-          {/* Left Content Side */}
-          <div class="lg:col-6" data-aos="fade-up-sm">
-            <div class="p-6 md:p-10 lg:p-26 min-h-full">
-              {tagline && (
-                <p 
-                  class="text-sm uppercase tracking-wider  !text-white mb-4"
-                  data-aos="fade-up-sm"
-                >
-                  {tagline}
-                </p>
-              )}
-              {title && (
-                <h2
-                  class="text-2xl lg:h1 mb-6 lg:mb-12  !text-white leading-tight lg:leading-[100%]"
-                  data-aos="fade-up-sm"
-                  set:html={markdownify(title)}
-                />
-              )}
-              {description && (
-                <p
-                  class="text-base lg:text-md/relaxed  !text-gray-300 leading-[100%]"
-                  data-aos="fade-up-sm"
-                  data-aos-delay="100"
-                  set:html={markdownify(description)}
-                />
-              )}
-            </div>
-          </div>
+<div class="sticky-container relative flex gap-16 max-w-[1320px] mx-auto px-4 lg:px-8">
+  <!-- Vertical Navigation -->
+  <div class="hidden lg:block sticky h-fit top-0 w-[300px] pt-[150px]">
+    <nav class="vertical-nav space-y-10 pl-8 border-l border-gray-200">
+      {features.map((item, index) => (
+        <button
+          class="nav-item text-left transition-all duration-300 hover:text-primary pl-6 -ml-[1px] relative group"
+          data-target={`feature-${index}`}
+        >
+          <span class="block text-sm text-gray-400 mb-3">{item.tagline}</span>
+          <span class="font-medium text-lg block leading-snug">{item.title}</span>
+          <span class="absolute left-0 top-0 h-full w-[2px] bg-primary opacity-0 transition-opacity duration-300 nav-indicator"></span>
+        </button>
+      ))}
+    </nav>
+  </div>
 
-          {/* Right Image Side */}
-          <div class="lg:col-6">
-            <div class="h-full flex items-center justify-center p-4 md:p-8 lg:p-12">
-              {image && (
-                <ImageMod
-                  src={image}
-                  alt={title}
-                  class="w-full max-w-[300px] lg:max-w-[400px] rounded-lg"
-                  data-aos="fade-up-sm"
-                  data-aos-delay="200"
-                />
-              )}
+  <!-- Features Content -->
+  <div class="sticky-features mt-10 flex-1 space-y-32">
+    {features.map((item, mindex) => {
+      const { tagline, title, description, image } = item;
+      return (
+        <div
+          id={`feature-${mindex}`}
+          class="overflow-hidden rounded-3xl lg:sticky lg:top-[120px] h-[500px]"
+          style="background-color: #1E293B;"
+        >
+          <div class="flex flex-col lg:flex-row h-full">
+            {/* Left Content Side */}
+            <div class="lg:w-1/2" data-aos="fade-up-sm">
+              <div class="p-6 md:p-14 lg:p-16 xl:p-10 flex flex-col justify-center">
+                {tagline && (
+                  <p 
+                    class="text-sm uppercase tracking-wider !text-white mb-8"
+                    data-aos="fade-up-sm"
+                  >
+                    {tagline}
+                  </p>
+                )}
+                {title && (
+                  <h2
+                    class="text-2xl lg:text-3xl xl:text-4xl mb-8 !text-white leading-tight font-semibold"
+                    data-aos="fade-up-sm"
+                    set:html={markdownify(title)}
+                  />
+                )}
+                {description && (
+                  <p
+                    class="text-xs lg:text-lg !text-gray-300 leading-relaxed"
+                    data-aos="fade-up-sm"
+                    data-aos-delay="100"
+                    set:html={markdownify(description)}
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Right Image Side */}
+            <div class="lg:w-1/2 h-full">
+              <div class="p-6 md:p-8 lg:p-10 xl:p-12 h-full flex items-center justify-center">
+                {image && (
+                  <ImageMod
+                    src={image}
+                    alt={title}
+                    class="w-full h-auto max-w-[400px] lg:max-w-[520px] rounded-lg object-cover"
+                    data-aos="fade-up-sm"
+                    data-aos-delay="200"
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-  })}
+      );
+    })}
+  </div>
 </div>
 
 <style>
   .sticky-features {
-    min-height: 150vh; /* Reduced for mobile */
+    min-height: 150vh;
     @media (min-width: 1024px) {
-      min-height: 200vh; /* Original height for desktop */
+      min-height: 250vh;
     }
   }
+
+  .nav-item {
+    @apply opacity-60 transition-all duration-300;
+  }
+
+  .nav-item.active {
+    @apply opacity-100;
+  }
+
+  .nav-item.active .nav-indicator {
+    @apply opacity-100;
+  }
+
+  /* Hover effect for nav items */
+  .nav-item:hover {
+    @apply opacity-100;
+  }
+
+  /* Add subtle transition for nav items */
+  .vertical-nav button {
+    @apply transform transition-transform duration-300;
+  }
+
+  .vertical-nav button:hover {
+    @apply translate-x-1;
+  }
+
+  /* Active state styling */
+  .nav-item.active {
+    @apply border-l-2 border-primary -ml-[2px];
+  }
 </style>
+
+<script>
+  // Handle navigation click and scroll
+  const navItems = document.querySelectorAll('.nav-item');
+  const features = document.querySelectorAll('.sticky-features > div');
+
+  // Update active state based on scroll position
+  const updateActiveState = () => {
+    const scrollPosition = window.scrollY;
+    
+    features.forEach((feature, index) => {
+      const featureTop = (feature as HTMLElement).offsetTop;
+      const featureBottom = featureTop + (feature as HTMLElement).offsetHeight;
+      
+      if (scrollPosition >= featureTop - 200 && scrollPosition < featureBottom) {
+        navItems.forEach(item => item.classList.remove('active'));
+        navItems[index].classList.add('active');
+      }
+    });
+  };
+
+  // Add click handlers to nav items
+  navItems.forEach((item: Element) => {
+    item.addEventListener('click', () => {
+      const targetId = (item as HTMLElement).dataset.target;
+      if (targetId) {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }
+    });
+  });
+
+  // Update active state on scroll
+  window.addEventListener('scroll', updateActiveState);
+  
+  // Initial state update
+  updateActiveState();
+</script>

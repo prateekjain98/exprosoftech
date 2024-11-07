@@ -1,5 +1,6 @@
 ---
 import ImageMod from "@/components/ImageMod.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
 
@@ -26,20 +27,13 @@ const { title, subtitle, description, left_image, right_image, quote }: About =
     <section class="section">
       <div class="container">
         <div class="row">
-          <div class="mx-auto text-center lg:col-8" data-aos="fade-up-sm">
-            {subtitle && (
-              <p
-                class="mb-2 font-medium text-tertiary"
-                set:html={markdownify(subtitle)}
-              />
-            )}
-            {title && <h2 class="mb-6" set:html={markdownify(title)} />}
-            {description && (
-              <p
-                class="text-lg/[inherit]"
-                set:html={markdownify(description)}
-              />
-            )}
+          <div class="mx-auto text-center lg:col-12" data-aos="fade-up-sm">
+            <SectionHeader
+              heading={title}
+              tagline={subtitle}
+              subheading={description}
+              alignment="center"
+            />
           </div>
           <div class="col-12 pt-20" data-aos="fade-up-sm" data-aos-delay="200">
             <div class="row g-4 justify-center">

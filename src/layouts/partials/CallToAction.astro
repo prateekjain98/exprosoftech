@@ -45,7 +45,7 @@ const { enable, title, description, image, button }: CallToAction = (
               />
               {button.enable && (
                 <a
-                  class="btn btn-primary-light"
+                  class="btn btn-primary"
                   href={button.link}
                   target={button.link.startsWith("http") ? "_blank" : "_self"}
                   rel="noopener"
@@ -56,9 +56,9 @@ const { enable, title, description, image, button }: CallToAction = (
                     <span class="icon">
                       <DynamicIcon icon={"FaArrowRight"} />
                     </span>
-                    <span class="icon" aria-hidden="true">
+                    {/* <span class="icon" aria-hidden="true">
                       <DynamicIcon icon={"FaArrowRight"} />
-                    </span>
+                    </span> */}
                   </span>
                 </a>
               )}

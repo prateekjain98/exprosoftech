@@ -1,77 +1,33 @@
 .btn {
-  @apply inline-flex cursor-pointer flex-nowrap items-center gap-2 gap-x-4 overflow-hidden whitespace-nowrap rounded-full border border-transparent py-1.5 pe-2 ps-8 text-base font-medium capitalize transition duration-300 md:text-lg/[inherit];
+  @apply inline-flex cursor-pointer flex-nowrap items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border border-[#336AEA] px-6 py-1 text-base font-medium capitalize transition duration-300 md:text-lg/[inherit];
 
-  @apply [&:hover_.icon-wrapper_.icon]:translate-x-full #{!important};
-  @apply [&:hover_.icon-wrapper_.icon:first-child]:opacity-100;
-  @apply [&:hover_.icon-wrapper_.icon:last-child]:opacity-0;
-
-  &:hover .icon:last-child {
-    @apply transition-[opacity,transform] duration-[0.6s] ease-in-out;
-  }
-
-  .icon-wrapper {
-    @apply flex h-12 w-12 justify-end overflow-hidden rounded-full transition-all duration-300;
-    .icon {
-      @apply flex h-12 min-w-12 items-center justify-center gap-x-0 align-middle text-dark transition-all;
-      transition-duration: 0.4s;
-
-      svg {
-        @apply h-5 w-5;
-      }
-
-      &:first-child {
-        @apply translate-x-1/2 opacity-0;
-      }
-    }
+  svg {
+    @apply h-5 w-5;
   }
 
   &-regular {
-    @apply bg-dark px-10 py-4 text-base font-normal text-light hover:bg-primary;
+    @apply bg-dark px-6 py-4 text-base font-normal text-light hover:bg-[#336AEA];
   }
 
   &-icon {
     @apply h-14 w-8 items-center justify-center p-0 #{!important};
-    @apply [&:hover_.icon-wrapper]:gap-x-0 [&_.icon-wrapper]:gap-x-4;
-
-    .icon-wrapper,
-    .icon {
-      @apply w-full;
-    }
-    .icon {
-      @apply min-w-full #{!important};
-    }
   }
 
   &-text {
     @apply gap-x-2 bg-transparent p-0;
 
     &:hover {
-      @apply text-primary [&_svg]:text-primary;
-      .icon-wrapper {
-        @apply gap-x-0;
-      }
+      @apply text-[#336AEA] [&_svg]:text-[#336AEA];
     }
-    .icon-wrapper {
-      @apply h-6 w-6 gap-x-3;
-    }
-    .icon {
-      @apply h-6 w-6 min-w-6 #{!important};
-      svg {
-        @apply h-4 w-4 #{!important};
-      }
+    
+    svg {
+      @apply h-4 w-4;
     }
   }
 
   &-primary,
   &-outline-primary {
-    @apply pe-2 ps-8;
-  }
-  &-light,
-  &-dark {
-    .icon-wrapper,
-    .icon {
-      @apply w-8;
-    }
+    @apply px-6 py-2;
   }
 }
 
@@ -80,27 +36,26 @@
 }
 
 .btn-primary {
-  @apply border-primary bg-primary text-white 
+  @apply border-[#195DC1] bg-[#336AEA] text-white border-2
          hover:border-[#4B83FB] hover:bg-[#4B83FB] hover:text-white
          active:border-[#2251C5] active:bg-[#2251C5];
-  @apply [&:hover_.icon-wrapper]:bg-[#2251C5] [&:hover_svg]:text-white 
-         [&_.icon-wrapper]:bg-[#4B83FB] [&_svg]:text-white;
+  @apply [&_svg]:text-white;
 }
 
 .btn-light {
-  @apply border-light bg-light text-dark hover:border-dark hover:bg-dark hover:text-light [&:hover_svg]:text-light [&_svg]:text-dark;
+  @apply border-[#336AEA] bg-light text-dark hover:border-dark hover:bg-dark hover:text-light [&:hover_svg]:text-light [&_svg]:text-dark;
 }
+
 .btn-dark {
-  @apply border-dark bg-dark text-white 
-         hover:border-primary hover:bg-primary 
+  @apply border-[#336AEA] bg-dark text-white 
+         hover:border-[#336AEA] hover:bg-[#336AEA] 
          active:border-[#2251C5] active:bg-[#2251C5] 
          [&_svg]:text-white;
 }
 
 .btn-outline-primary {
-  @apply border-[#BAD6FE] bg-white text-primary
-         hover:border-primary hover:bg-[#F0F7FF] hover:text-primary
+  @apply border-0 bg-transparent text-[#336AEA]
+         hover:bg-[#F0F7FF] hover:text-[#336AEA]
          active:bg-[#E6F0FF];
-  @apply [&:hover_.icon-wrapper]:bg-primary [&:hover_svg]:text-white 
-         [&_.icon-wrapper]:bg-[#F0F7FF] [&_svg]:text-primary;
+  @apply [&_svg]:text-[#336AEA];
 }
