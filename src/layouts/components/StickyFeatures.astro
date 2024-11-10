@@ -121,17 +121,18 @@ const features = [
     @apply opacity-60 transition-all duration-300;
   }
 
+  /* Updated active state styles */
   .nav-item.active {
-    @apply opacity-100;
+    @apply opacity-100 text-primary !important;
   }
 
   .nav-item.active .nav-indicator {
     @apply opacity-100;
   }
 
-  /* Hover effect for nav items */
-  .nav-item:hover {
-    @apply opacity-100;
+  /* Updated hover styles to not override active state */
+  .nav-item:hover:not(.active) {
+    @apply opacity-100 text-primary;
   }
 
   /* Add subtle transition for nav items */
@@ -143,9 +144,9 @@ const features = [
     @apply translate-x-1;
   }
 
-  /* Active state styling */
+  /* Remove the border-left from active state since we're using the indicator */
   .nav-item.active {
-    @apply border-l-2 border-primary -ml-[2px];
+    @apply -ml-[1px];
   }
 </style>
 
@@ -156,22 +157,44 @@ const features = [
 
   // Update active state based on scroll position
   const updateActiveState = () => {
-    const scrollPosition = window.scrollY;
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+    let activeFound = false;
     
     features.forEach((feature, index) => {
       const featureTop = (feature as HTMLElement).offsetTop;
       const featureBottom = featureTop + (feature as HTMLElement).offsetHeight;
       
-      if (scrollPosition >= featureTop - 200 && scrollPosition < featureBottom) {
-        navItems.forEach(item => item.classList.remove('active'));
+      if (scrollPosition >= featureTop && scrollPosition < featureBottom) {
+        navItems.forEach(item => {
+          item.classList.remove('active');
+          (item as HTMLElement).style.removeProperty('color');
+        });
         navItems[index].classList.add('active');
+        activeFound = true;
       }
     });
+
+    if (!activeFound && window.scrollY < (features[0] as HTMLElement).offsetTop) {
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        (item as HTMLElement).style.removeProperty('color');
+      });
+      navItems[0].classList.add('active');
+    }
   };
 
-  // Add click handlers to nav items
+  // Updated click handler
   navItems.forEach((item: Element) => {
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (e) => {
+      // Remove active class from all items
+      navItems.forEach(nav => {
+        nav.classList.remove('active');
+        (nav as HTMLElement).style.removeProperty('color');
+      });
+      
+      // Add active class to clicked item
+      item.classList.add('active');
+      
       const targetId = (item as HTMLElement).dataset.target;
       if (targetId) {
         const targetElement = document.getElementById(targetId);
@@ -189,5 +212,6 @@ const features = [
   window.addEventListener('scroll', updateActiveState);
   
   // Initial state update
+  window.addEventListener('load', updateActiveState);
   updateActiveState();
 </script>
