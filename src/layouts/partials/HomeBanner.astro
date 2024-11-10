@@ -53,7 +53,7 @@ const { title, description, buttons, images }: Banner = (
               {buttons.map(({ label, link }, index) => (
                   <li data-aos="fade-up-sm" data-aos-delay={100 + index * 50}>
                     <a
-                      class={`${index === 0 ? "btn-primary" : "btn-outline-primary"} btn shadow-md`}
+                      class={`${index === 0 ? "btn-primary" : "btn-outline-primary"} btn`}
                       href={link}
                       target={link.startsWith("http") ? "_blank" : "_self"}
                       rel="noopener"
