@@ -19,48 +19,75 @@ const { title, subtitle, description, list }: Faq = (
 ).data;
 ---
 
-{
-  (
-    <section class="section">
-      <div class="container">
-        <div class="row">
-          <div class="lg:col-10 mx-auto">
-            <SectionHeader
-              tagline={subtitle}
-              heading={title}
-              subheading={description}
-              alignment="center"
-            />
-          </div>
-          <div class="col-12 pt-20" data-aos="fade-up-sm" data-aos-delay={100}>
-            <div class="row g-4 justify-center">
-              {list?.map((item, index) => (
-                <div class="lg:col-10">
-                  <div class={item.active ? "accordion active" : "accordion"}>
-                    {item.title && (
-                      <button
-                        class="accordion-header"
-                        aria-label="toggle accordion content">
-                        <span class="text-base" set:html={`${index + 1}.`} />
-                        <span set:html={item.title} />
-                      </button>
-                    )}
-                    {item.description && (
-                      <div
-                        class="accordion-content"
-                        set:html={item.description}
-                      />
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+<section class="section">
+  <div class="container">
+    <div class="row items-center">
+      {/* Left Column - Text Content */}
+      <div class="lg:col-5" data-aos="fade-right">
+        <div class="mb-8 lg:mb-0">
+          {subtitle && <p class="text-primary mb-4">{subtitle}</p>}
+          {title && <h2 class="mb-4">{title}</h2>}
+          {description && <p class="text-lg">{description}</p>}
         </div>
       </div>
-    </section>
-  )
-}
+
+      {/* Right Column - Accordions */}
+      <div class="lg:col-7" data-aos="fade-left">
+        <div class="lg:pl-12">
+          {list?.map((item) => (
+            <div class="mb-4">
+              <div class={item.active ? "accordion active" : "accordion"}>
+                {item.title && (
+                  <button
+                    class="accordion-header"
+                    aria-label="toggle accordion content">
+                    <span set:html={item.title} />
+                    <span class="icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="plus-icon"
+                      >
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                      </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="minus-icon"
+                      >
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                      </svg>
+                    </span>
+                  </button>
+                )}
+                {item.description && (
+                  <div class="accordion-content">
+                    <div set:html={item.description} />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <script>
   function faqInit() {
@@ -76,3 +103,50 @@ const { title, subtitle, description, list }: Faq = (
 
   document.addEventListener("astro:page-load", faqInit);
 </script>
+
+<style>
+  .accordion {
+    @apply border-b border-border overflow-hidden;
+  }
+  .accordion-header {
+    @apply flex w-full items-center justify-between py-4 text-left cursor-pointer;
+  }
+  .accordion-content {
+    @apply grid transition-all duration-300 ease-in-out;
+    grid-template-rows: 0fr;
+  }
+  .accordion.active .accordion-content {
+    grid-template-rows: 1fr;
+  }
+  
+  /* Wrapper div for the content to enable smooth animation */
+  .accordion-content > div {
+    @apply overflow-hidden;
+  }
+  
+  /* Icon styles */
+  .icon {
+    @apply relative h-6 w-6 transition-transform duration-300;
+  }
+  
+  .plus-icon,
+  .minus-icon {
+    @apply absolute transition-all duration-300 ease-in-out;
+  }
+  
+  .minus-icon {
+    @apply opacity-0;
+  }
+  
+  .accordion.active .plus-icon {
+    @apply opacity-0;
+  }
+  
+  .accordion.active .minus-icon {
+    @apply opacity-100;
+  }
+  
+  .accordion.active .icon {
+    @apply rotate-180;
+  }
+</style>
