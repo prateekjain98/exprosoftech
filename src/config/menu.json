@@ -1,19 +1,82 @@
 {
   "main": [
-    
     {
       "name": "Home",
       "url": "/"
+    },
+    {
+      "name": "Products",
+      "url": "",
+      "hasChildren": true,
+      "children":[
+        {
+          "name": "SFA",
+          "url": "/sfa"
+        },
+        {
+          "name": "Loyalty Engine",
+          "url": "/loyalty_engine"
+        }
+      ]
+    },
+    {
+      "name": "Consulting",
+      "url": "",
+      "hasChildren": true,
+      "children":[
+        {
+          "name": "TOC Consulting",
+          "url": "/toc_consulting"
+        },
+        {
+          "name": "Manufacturing Transformation",
+          "url": "/manufacturing_transformation"
+        },
+        {
+          "name": "Supply Chain Transformation",
+          "url": "/supply_chain_transformation"
+        },
+        {
+          "name": "Sales Transformation",
+          "url": "/sales_transformation"
+        },
+        {
+          "name": "Digital Transformation",
+          "url": "/digital_transformation"
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "url": "",
+      "hasChildren": true,
+      "children":[
+        {
+          "name": "Loyalty Management",
+          "url": "/loyalty_management"
+        },
+        {
+          "name": "Channel Reach Expansion",
+          "url": "/channel_reach_expansion"
+        },
+        {
+          "name": "B2B Sales",
+          "url": "/b2b_sales"
+        }
+      ]
     },
     {
       "name": "About Us",
       "url": "/about/"
     },
     {
-      "name": "Contact Us",
+      "name": "Blog",
+      "url": "/blog/"
+    },
+    {
+      "name": "Contact",
       "url": "/contact/"
     }
-    
   ],
   "footer_menu": [
     {

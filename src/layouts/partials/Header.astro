@@ -27,8 +27,8 @@ const { pathname } = Astro.url;
 
 <div
   class={`header-wrapper ${Astro.url.pathname === "/" ? "relative" : !errorPage && "pb-6"}`}>
-  <header class="header relative">
-    <nav class="navbar container relative z-10">
+  <header class="header relative bg-white drop-shadow-md z-[999]">
+    <nav class="navbar relative z-[9999] px-4">
       <!-- logo -->
       <div class="order-0">
         <Logo />
@@ -63,7 +63,7 @@ const { pathname } = Astro.url;
         {
           main.map((menu) => (
             <>
-              {/* {menu.hasChildren ? (
+              {menu.hasChildren ? (
                 <li class="nav-item nav-dropdown group relative">
                   <span
                     class={`nav-link inline-flex items-center ${
@@ -81,24 +81,29 @@ const { pathname } = Astro.url;
                       </svg>
                     </span>
                   </span>
-                  <ul class="nav-dropdown-list max-lg:hidden lg:invisible lg:absolute lg:translate-y-1 lg:opacity-0 lg:transition-all lg:duration-300 lg:group-hover:visible lg:group-hover:block lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
-                    {menu.children?.map((child) => (
-                      <li class="nav-dropdown-item">
-                        <a
-                          href={child.url}
-                          aria-label={child.name}
-                          class={`nav-dropdown-link block ${
-                            (pathname === `${child.url}/` ||
-                              pathname === child.url) &&
-                            "active"
-                          }`}>
-                          {child.name}
-                        </a>
-                      </li>
-                    ))}
+                  <ul class="nav-dropdown-list">
+                    <div class="container-box" data-items={menu.children?.length}>
+                      {menu.children?.map((child) => (
+                        <li class="nav-dropdown-item">
+                          <a
+                            href={child.url}
+                            aria-label={child.name}
+                            class={`nav-dropdown-link ${
+                              (pathname === `${child.url}/` ||
+                                pathname === child.url) &&
+                              "active"
+                            }`}
+                          >
+                            <div class="link-content">
+                              {child.name}
+                            </div>
+                          </a>
+                        </li>
+                      ))}
+                    </div>
                   </ul>
                 </li>
-              ) : ( */}
+              ) : (
                 <li class="nav-item">
                   <a
                     href={menu.url}
@@ -109,7 +114,7 @@ const { pathname } = Astro.url;
                     {menu.name}
                   </a>
                 </li>
-     
+              )}
             </>
           ))
         }
