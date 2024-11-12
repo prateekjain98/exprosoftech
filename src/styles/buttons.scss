@@ -1,5 +1,5 @@
 .btn {
-  @apply inline-flex cursor-pointer flex-nowrap items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border border-[#336AEA] px-6 py-1 text-base font-medium capitalize transition duration-300 md:text-lg/[inherit];
+  @apply inline-flex cursor-pointer flex-nowrap items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border border-[#336AEA] px-6 py-1 text-base font-medium capitalize transition duration-300 md:text-lg/[inherit] ;
 
   svg {
     @apply h-5 w-5;
@@ -36,9 +36,9 @@
 }
 
 .btn-primary {
-  @apply border-[#4f89e1] text-white border-2
+  @apply border-[#195dc1] bg-[#2e78e6] text-white border-2
          hover:border-[#4B83FB] hover:bg-[#4B83FB] hover:text-white
-         active:border-[#2251C5] active:bg-[#2251C5];
+         active:border-[#2251C5] active:bg-[#2251C5]  drop-shadow-[0_3px_4px_rgba(0,0,0,0.6)];
   @apply [&_svg]:text-white;
   background: linear-gradient(to top, #387FE7, #5792EB);
 }
