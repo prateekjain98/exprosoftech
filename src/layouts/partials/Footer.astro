@@ -3,7 +3,7 @@ import ImageMod from "@/components/ImageMod.astro";
 import Social from "@/components/Social.astro";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
-import social from "@/config/social.json";
+import product from "@/config/product.json";
 import { markdownify } from "@/lib/utils/textConverter";
 
 const { footer_menu, footer_quick_links } = menu;
@@ -62,7 +62,7 @@ const { logo, logo_width, logo_height, title } = config.site;
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:pt-8">
             <!-- Quick Links -->
             <div>
-              <h3 class="text-light text-lg font-medium mb-6">Quick Links</h3>
+              <h3 class="text-light text-lg font-medium mb-6">Services</h3>
               <ul class="space-y-4">
                 {footer_quick_links?.map((link) => (
                   <li>
@@ -96,9 +96,9 @@ const { logo, logo_width, logo_height, title } = config.site;
 
             <!-- Social Media -->
             <div>
-              <h3 class="text-light text-lg font-medium mb-6">Social Media</h3>
+              <h3 class="text-light text-lg font-medium mb-6">Product</h3>
               <ul class="space-y-4">
-                {social.main.map((link) => (
+                {product.links.map((link) => (
                   <li>
                     <a 
                       href={link.link} 

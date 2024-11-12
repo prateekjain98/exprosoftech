@@ -11,11 +11,11 @@
       "children":[
         {
           "name": "SFA",
-          "url": "/sfa"
+          "url": "/sfa/"
         },
         {
           "name": "Loyalty Engine",
-          "url": "/loyalty_engine"
+          "url": "/loyalty-engine/"
         }
       ]
     },
@@ -26,23 +26,23 @@
       "children":[
         {
           "name": "TOC Consulting",
-          "url": "/toc_consulting"
+          "url": "/toc-consultancy/"
         },
         {
           "name": "Manufacturing Transformation",
-          "url": "/manufacturing_transformation"
+          "url": "/manufacturing-transformation/"
         },
         {
           "name": "Supply Chain Transformation",
-          "url": "/supply_chain_transformation"
+          "url": "/supply-chain-transformation/"
         },
         {
           "name": "Sales Transformation",
-          "url": "/sales_transformation"
+          "url": "/sales-transformation/"
         },
-        {
+        { 
           "name": "Digital Transformation",
-          "url": "/digital_transformation"
+          "url": "/digital-transformation/"
         }
       ]
     },
@@ -53,15 +53,15 @@
       "children":[
         {
           "name": "Loyalty Management",
-          "url": "/loyalty_management"
+          "url": "/loyalty-management/"
         },
         {
           "name": "Channel Reach Expansion",
-          "url": "/channel_reach_expansion"
+          "url": "/channel-reach-expansion/"
         },
         {
           "name": "B2B Sales",
-          "url": "/b2b_sales"
+          "url": "/b2b-sales/"
         }
       ]
     },
@@ -81,37 +81,37 @@
   "footer_menu": [
     {
       "name": "TOC Consulting",
-      "url": "#"
+      "url": "/toc-consultancy/"
     },
     {
       "name": "Manufacturing Transformation",
-      "url": "#"
+      "url": "/manufacturing-transformation/"
     },
     {
       "name": "Supply Chain Transformation",
-      "url": "#"
+      "url": "/supply-chain-transformation/"
     },
     {
       "name": "Sales Transformation",
-      "url": "#"
+      "url": "/sales-transformation/"
     },
     {
       "name": "Digital Transformation",
-      "url": "#"
+      "url": "/digital-transformation/"
     }
   ],
   "footer_quick_links": [
     {
       "name": "Loyalty Management",
-      "url": "#"
+      "url": "/loyalty-management/"
     },
     {
       "name": "Channel Reach Expansion",
-      "url": "#"
+      "url": "/channel-reach-expansion/"
     },
     {
       "name": "B2B Sales",
-      "url": "#"
+      "url": "/b2b-sales/"
     }
   ]
 }
