@@ -66,7 +66,6 @@ input#nav-toggle:checked ~ #nav-menu {
     position: fixed;
     width: 100%;
     left: 0;
-    margin-left: calc(-50vw + 50%);
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -79,12 +78,12 @@ input#nav-toggle:checked ~ #nav-menu {
       padding-top: 1.5rem;
       padding-bottom: 2rem;
       
-      // Modern grid layout
+      // Modern grid layout with centered items
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 300px));
       gap: 2rem;
-      justify-content: start;
-
+      justify-content: center;
+      
       // For 2 or fewer items
       &[data-items="1"],
       &[data-items="2"] {
@@ -109,6 +108,26 @@ input#nav-toggle:checked ~ #nav-menu {
       @apply block py-3 px-5 text-dark/90 hover:text-primary rounded-xl transition-all duration-200;
       @apply hover:bg-[#F0F7FF] hover:shadow-sm hover:-translate-y-0.5;
       @apply flex items-center justify-between gap-3;
+      
+      // Enhanced default gradient
+      background: linear-gradient(
+        110deg,
+        #F8FAFF 0%,
+        #F0F7FF 40%,
+        #E8F1FF 100%
+      );
+      border: 1px solid rgba(240, 247, 255, 0.8);
+
+      // Enhanced hover gradient
+      &:hover {
+        background: linear-gradient(
+          110deg,
+          #F0F7FF 0%,
+          #E8F1FF 50%,
+          #F0F7FF 100%
+        );
+        border-color: rgba(51, 106, 234, 0.1);
+      }
 
       // Content wrapper
       .link-content {
