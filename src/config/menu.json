@@ -10,45 +10,45 @@
       "url": "/about/"
     },
     {
-      "name": "Products",
-      "url": "/products/"
-    },
-    {
-      "name": "Services",
-      "url": "/services/"
-    },
-    {
-      "name": "Pricing",
-      "url": "/pricing/"
+      "name": "Contact Us",
+      "url": "/contact/"
     }
     
   ],
   "footer_menu": [
     {
-      "name": "Feature",
-      "url": "/feature/"
+      "name": "TOC Consulting",
+      "url": "#"
     },
     {
-      "name": "Pricing",
-      "url": "/pricing/"
+      "name": "Manufacturing Transformation",
+      "url": "#"
     },
     {
-      "name": "Blog",
-      "url": "/blog/"
+      "name": "Supply Chain Transformation",
+      "url": "#"
+    },
+    {
+      "name": "Sales Transformation",
+      "url": "#"
+    },
+    {
+      "name": "Digital Transformation",
+      "url": "#"
     }
   ],
   "footer_quick_links": [
     {
-      "name": "Terms",
-      "url": "/terms-conditions/"
+      "name": "Loyalty Management",
+      "url": "#"
     },
     {
-      "name": "Privacy Policy",
-      "url": "/privacy-policy/"
+      "name": "Channel Reach Expansion",
+      "url": "#"
     },
     {
-      "name": "Support",
-      "url": "/support/"
+      "name": "B2B Sales",
+      "url": "#"
     }
   ]
 }
