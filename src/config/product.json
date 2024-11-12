@@ -1,0 +1,14 @@
+{
+    "links": [
+        {
+            "name": "SFA",
+            "link": "/sfa/"
+        },
+        {
+            "name": "Loyalty Engine",
+            "link": "/loyalty-engine/"
+        }
+    ]
+      
+        
+  }
