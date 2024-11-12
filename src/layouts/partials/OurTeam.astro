@@ -2,6 +2,7 @@
 import ImageMod from "@/components/ImageMod.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
+import SectionHeader from "@/layouts/components/SectionHeader.astro";
 
 interface OurTeam {
   title: string;
@@ -25,19 +26,11 @@ const { title, subtitle, description, list }: OurTeam = (
       <div class="container">
         <div class="row">
           <div class="mx-auto text-center lg:col-10" data-aos="fade-up-sm">
-            {subtitle && (
-              <p
-                class="mb-2 font-medium text-tertiary"
-                set:html={markdownify(subtitle)}
-              />
-            )}
-            {title && <h2 class="mb-6" set:html={markdownify(title)} />}
-            {description && (
-              <p
-                class="text-lg/[inherit]"
-                set:html={markdownify(description)}
-              />
-            )}
+            <SectionHeader
+              tagline={subtitle}
+              heading={title}
+              subheading={description}
+            />
           </div>
           <div class="col-12 pt-20" data-aos="fade-up-sm" data-aos-delay="200">
             <div class="row g-4 justify-center">
