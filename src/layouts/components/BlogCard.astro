@@ -65,12 +65,12 @@ const { title, image, date } = data;
       <p class="mb-6">{plainify(body?.slice(0, Number(summary_length)))}</p>
     )
   }
-  <a class="btn btn-text" href={`/${blog_folder}/${slug}/`}>
+  <a class="btn btn-text border-none" href={`/${blog_folder}/${slug}/`}>
     Read More
     <div class="icon-wrapper">
-      <span class="icon">
+      <!-- <span class="icon">
         <DynamicIcon className="w-4" icon={"FaArrowRight"} />
-      </span>
+      </span> -->
       <span class="icon" aria-hidden="true">
         <DynamicIcon className="w-4" icon={"FaArrowRight"} />
       </span>
