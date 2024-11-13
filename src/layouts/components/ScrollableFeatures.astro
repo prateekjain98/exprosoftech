@@ -42,8 +42,8 @@ const sectionHeader = {
       subheading={sectionHeader.subheading}
     />
 
-    <div class="mt-16 lg:flex gap-16">
-      <!-- Sticky Image Container - Updated with overflow-hidden -->
+    <div class="mt-16 lg:flex gap-16" id="features-container">
+      <!-- Sticky Image Container -->
       <div class="hidden lg:block lg:w-1/2">
         <div class="sticky top-32 p-6">
           <div class="relative aspect-square overflow-hidden rounded-xl">
@@ -64,10 +64,15 @@ const sectionHeader = {
       </div>
 
       <!-- Scrollable Content Container -->
-      <div class="lg:w-1/2">
+      <div class="lg:w-1/2 relative" id="scroll-content">
+        <div class="absolute left-0 top-0 h-full w-[3px] bg-neutral-100 rounded-full" id="progress-track">
+          <!-- Progress bar with gradient -->
+          <div class="absolute top-0 w-full bg-gradient-to-b from-[#336AEA40] via-[#336AEA80] to-[#336AEA] rounded-full" id="progress-bar"></div>
+        </div>
+
         {features.map((feature, index) => (
           <div 
-            class="feature-section mb-24 last:mb-0 p-6 rounded-xl min-h-screen flex flex-col justify-start pt-[20vh]"
+            class="feature-section mb-24 last:mb-0 p-6 pl-8 rounded-xl min-h-screen flex flex-col justify-start pt-[20vh]"
             data-index={index}
           >
             <div class="space-y-12">
@@ -87,9 +92,30 @@ const sectionHeader = {
 
 <script>
   function handleScroll() {
+    const container = document.getElementById('features-container');
+    const scrollContent = document.getElementById('scroll-content');
+    const progressBar = document.getElementById('progress-bar');
     const sections = document.querySelectorAll('.feature-section');
     const images = document.querySelectorAll('.feature-image');
     
+    if (!container || !scrollContent || !progressBar) return;
+
+    // Calculate scroll progress with offset
+    const containerRect = container.getBoundingClientRect();
+    const scrollRect = scrollContent.getBoundingClientRect();
+    
+    // Adjust the starting point to be when the first section enters viewport
+    const startOffset = window.innerHeight * 0.2; // 20% of viewport height
+    const scrollableDistance = scrollRect.height - window.innerHeight + startOffset;
+    
+    const progress = Math.max(0, Math.min(1, 
+      (-containerRect.top + startOffset) / scrollableDistance
+    ));
+
+    // Update progress bar height
+    progressBar.style.height = `${progress * 100}%`;
+
+    // Handle feature sections visibility
     sections.forEach((section) => {
       const rect = section.getBoundingClientRect();
       const index = parseInt(section.getAttribute('data-index') || '0');
@@ -114,9 +140,7 @@ const sectionHeader = {
     });
   }
 
-  // Add scroll event listener
   window.addEventListener('scroll', handleScroll);
-  // Initial check
   handleScroll();
 </script>
 
@@ -133,5 +157,13 @@ const sectionHeader = {
 
   .feature-image[data-index="0"] {
     opacity: 1;
+  }
+
+  #progress-track {
+    mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 100%);
+  }
+
+  #progress-bar {
+    transition: height 0.3s ease;
   }
 </style>
