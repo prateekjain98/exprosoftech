@@ -11,11 +11,15 @@
       "children":[
         {
           "name": "SFA",
-          "url": "/sfa/"
+          "url": "/sfa/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Loyalty Engine",
-          "url": "/loyalty-engine/"
+          "url": "/loyalty-engine/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         }
       ]
     },
@@ -26,23 +30,33 @@
       "children":[
         {
           "name": "TOC Consulting",
-          "url": "/toc-consultancy/"
+          "url": "/toc-consultancy/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Manufacturing Transformation",
-          "url": "/manufacturing-transformation/"
+          "url": "/manufacturing-transformation/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Supply Chain Transformation",
-          "url": "/supply-chain-transformation/"
+          "url": "/supply-chain-transformation/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Sales Transformation",
-          "url": "/sales-transformation/"
+          "url": "/sales-transformation/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         },
         { 
           "name": "Digital Transformation",
-          "url": "/digital-transformation/"
+          "url": "/digital-transformation/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         }
       ]
     },
@@ -53,15 +67,21 @@
       "children":[
         {
           "name": "Loyalty Management",
-          "url": "/loyalty-management/"
+          "url": "/loyalty-management/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Channel Reach Expansion",
-          "url": "/channel-reach-expansion/"
+          "url": "/channel-reach-expansion/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "B2B Sales",
-          "url": "/b2b-sales/"
+          "url": "/b2b-sales/",
+ 
+          "description": "Find your ideal buyers and get more meetings booked"
         }
       ]
     },

@@ -13,6 +13,16 @@ input#nav-toggle:checked ~ #nav-menu {
 
 .header {
   @apply pb-2 pt-2;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+  
+  &.header-sticky {
+    @apply shadow-md backdrop-blur-lg bg-white/90;
+  }
+
+  &.header-hidden {
+    transform: translateY(-100%);
+  }
 
   // navbar items
   .navbar {
@@ -69,6 +79,7 @@ input#nav-toggle:checked ~ #nav-menu {
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: -0.2rem;
     
     // Container for dropdown content
     .container-box {

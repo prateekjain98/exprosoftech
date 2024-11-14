@@ -9,6 +9,7 @@ import ImageMod from "@/components/ImageMod.astro";
 export interface ChildNavigationLink {
   name: string;
   url: string;
+  description?: string;
 }
 
 export interface NavigationLink {
@@ -27,7 +28,7 @@ const { pathname } = Astro.url;
 
 <div
   class={`header-wrapper ${Astro.url.pathname === "/" ? "relative" : !errorPage && "pb-6"}`}>
-  <header class="header relative bg-white drop-shadow-md z-[999]">
+  <header class="header relative bg-white drop-shadow-sm z-[999]">
     <nav class="navbar relative z-[9999] px-4">
       <!-- logo -->
       <div class="order-0">
@@ -88,14 +89,17 @@ const { pathname } = Astro.url;
                           <a
                             href={child.url}
                             aria-label={child.name}
-                            class={`nav-dropdown-link ${
+                            class={`nav-dropdown-link block p-4 hover:bg-slate-50 rounded-lg ${
                               (pathname === `${child.url}/` ||
                                 pathname === child.url) &&
                               "active"
                             }`}
                           >
-                            <div class="link-content">
-                              {child.name}
+                            <div class="flex flex-col">
+                              <span class="text-base font-medium text-gray-900">{child.name}</span>
+                              {child.description && (
+                                <span class="text-sm text-gray-500">{child.description}</span>
+                              )}
                             </div>
                           </a>
                         </li>
