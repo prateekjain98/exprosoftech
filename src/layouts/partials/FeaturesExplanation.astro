@@ -44,7 +44,7 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
           <div class="sticky-wrapper">
             <div class="stacked-container">
               {/* First Section */}
-              <div class="stacked-section absolute inset-0">
+              <div class="stacked-section first-section">
                 <div class="col-12">
                   <div class="relative flex justify-center gap-3 max-xl:flex-wrap xl:mb-12 xl:mt-16 xl:flex-col xl:items-center xl:gap-y-8">
                     {/* Features List */}
@@ -102,7 +102,7 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
               </div>
 
               {/* Second Section */}
-              <div class="stacked-section absolute inset-0 dark-overlay">
+              <div class="stacked-section second-section">
                 <div class="col-12">
                   <div class="relative flex justify-center gap-3 max-xl:flex-wrap xl:mb-12 xl:mt-16 xl:flex-col xl:items-center xl:gap-y-8">
                     {/* Features List */}
@@ -169,31 +169,68 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
 
 <style>
   .sticky-wrapper {
-    height: 115vh;
+    height: auto;
+    margin-bottom: 2rem;
   }
 
+  /* Mobile-first styles */
   .stacked-container {
-    position: sticky;
-    top: 0;
-    height: 110vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    height: auto;
+    overflow: visible;
+    padding: 2rem 0;
   }
 
   .stacked-section {
-    position: absolute;
+    position: relative;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    transition: opacity 0.3s ease-out;
-    transform: scale(0.8);
-    display: flex;
-    align-items: center;
+    height: auto;
+    transform: none;
+    margin-bottom: 4rem;
   }
 
+  .second-section {
+    opacity: 1;
+  }
+
+  /* Desktop styles */
+  @media (min-width: 1024px) {
+    .sticky-wrapper {
+      height: 115vh;
+      margin-bottom: 4rem;
+    }
+
+    .stacked-container {
+      position: sticky;
+      top: 0;
+      height: 110vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .stacked-section {
+      position: absolute;
+      background-color: white;
+      height: 100%;
+      transform: scale(0.8);
+      margin-bottom: 0;
+    }
+
+    .second-section {
+      color: black;
+      background-color: white;
+      opacity: 1;
+    }
+
+    .second-section.fade-out {
+      opacity: 0;
+    }
+  }
+
+  /* Rest of your existing styles */
   .stacked-section .col-12 {
     padding-top: 0;
     width: 100%;
@@ -204,41 +241,26 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
     margin-bottom: 1rem;
   }
 
+  /* Adjust image sizes for mobile */
   .stacked-section .order-1 img {
-    max-width: 80%;
+    max-width: 60%;
+    margin: 2rem auto;
   }
 
-  .stacked-section .gap-y-8 {
-    gap: 1rem;
-  }
-
-  .stacked-section .gap-x-3 {
-    gap: 0.75rem;
-  }
-
-  .stacked-section .xl\:max-w-\[370px\] {
-    max-width: 300px;
-  }
-
-  .stacked-section.dark-overlay {
-    color: black;
-    background-color: white;
-    opacity: 1;
-  }
-
-  .stacked-section.dark-overlay.fade-out {
-    opacity: 0;
-  }
-
-  @media (max-width: 1280px) {
-    .stacked-section {
-      transform: scale(0.85);
+  @media (min-width: 768px) {
+    .stacked-section .order-1 img {
+      max-width: 80%;
     }
   }
 
+  /* Other responsive adjustments */
   @media (max-width: 768px) {
-    .stacked-section {
-      transform: scale(0.9);
+    .stacked-section .xl\:max-w-\[370px\] {
+      max-width: 100%;
+    }
+    
+    .stacked-section .gap-y-8 {
+      gap: 1.5rem;
     }
   }
 </style>
@@ -246,32 +268,40 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const stickyWrapper = document.querySelector('.sticky-wrapper');
-    const darkOverlay = document.querySelector('.dark-overlay') as HTMLElement;
+    const secondSection = document.querySelector('.second-section') as HTMLElement;
     
     const handleScroll = () => {
-      if (!stickyWrapper || !darkOverlay) return;
+      // For mobile screens, keep second section visible
+      if (window.innerWidth < 1024) {
+        if (secondSection) {
+          secondSection.style.opacity = "1";
+        }
+        return;
+      }
+      
+      // Desktop opacity effect
+      if (!stickyWrapper || !secondSection) return;
       
       const rect = stickyWrapper.getBoundingClientRect();
       const progress = -rect.top / (rect.height - window.innerHeight);
       
-      // Adjusted fade timing - starts later and takes longer to complete
       if (progress >= 0 && progress <= 1) {
-        // Start fade at 50% and complete by 90% of the scroll
-        const fadeStart = 0.5;  // Changed from 0.3
-        const fadeEnd = 0.9;    // Changed from 0.7
+        const fadeStart = 0.5;
+        const fadeEnd = 0.9;
         
         if (progress < fadeStart) {
-          darkOverlay.style.opacity = "1";
+          secondSection.style.opacity = "1";
         } else if (progress > fadeEnd) {
-          darkOverlay.style.opacity = "0";
+          secondSection.style.opacity = "0";
         } else {
           const fadeProgress = (progress - fadeStart) / (fadeEnd - fadeStart);
-          darkOverlay.style.opacity = (1 - fadeProgress).toString();
+          secondSection.style.opacity = (1 - fadeProgress).toString();
         }
       }
     };
 
+    window.addEventListener('resize', handleScroll);
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    handleScroll();
   });
 </script>
