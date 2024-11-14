@@ -28,7 +28,7 @@ const { pathname } = Astro.url;
 
 <div
   class={`header-wrapper ${Astro.url.pathname === "/" ? "relative" : !errorPage && "pb-6"}`}>
-  <header class="header relative bg-white drop-shadow-sm z-[999]">
+  <header class="header bg-white drop-shadow-sm z-[999]">
     <nav class="navbar relative z-[9999] px-4">
       <!-- logo -->
       <div class="order-0">
@@ -171,3 +171,34 @@ const { pathname } = Astro.url;
     />
   </div>
 </div>
+
+<script>
+  // Handle sticky header behavior
+  const header = document.querySelector('.header') as HTMLElement;
+  let lastScroll = 0;
+  
+  const handleScroll = () => {
+    const currentScroll = window.scrollY;
+    
+    // Make header sticky after scrolling down 100px
+    if (currentScroll > 100) {
+      header.classList.add('header-sticky');
+    } else {
+      header.classList.remove('header-sticky');
+    }
+    
+    // Hide header when scrolling down, show when scrolling up
+    if (currentScroll > lastScroll && currentScroll > 200) {
+      header.classList.add('header-hidden');
+    } else {
+      header.classList.remove('header-hidden');
+    }
+    
+    lastScroll = currentScroll;
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  
+  // Initial check
+  handleScroll();
+</script>
