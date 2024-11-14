@@ -211,3 +211,27 @@
     @apply mb-0;
   }
 }
+
+.nav-dropdown-list {
+  @apply invisible absolute left-0 mt-4 w-[300px] rounded-xl border bg-white p-2 opacity-0 shadow-lg transition-all duration-300 group-hover:visible group-hover:opacity-100;
+}
+
+.nav-dropdown-item {
+  @apply block;
+  
+  &:not(:last-child) {
+    @apply mb-1;
+  }
+}
+
+.nav-dropdown-link {
+  @apply transition-colors duration-200;
+  
+  &:hover {
+    @apply bg-slate-50;
+  }
+  
+  &.active {
+    @apply bg-slate-50;
+  }
+}
