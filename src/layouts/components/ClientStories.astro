@@ -102,13 +102,19 @@ const { title, subtitle, description, stories } = (
     slides: HTMLElement;
     dots: NodeListOf<HTMLElement>;
     currentIndex: number = 0;
+    autoplayInterval: ReturnType<typeof setInterval> | null = null;
+    totalSlides: number;
+    touchStartX: number = 0;
+    touchEndX: number = 0;
 
     constructor() {
       this.container = document.querySelector('.carousel-container')!;
       this.slides = document.querySelector('.carousel-slides')!;
       this.dots = document.querySelectorAll('.carousel-dot');
+      this.totalSlides = this.dots.length;
       
       this.init();
+      this.startAutoplay();
     }
 
     init() {
@@ -117,8 +123,48 @@ const { title, subtitle, description, stories } = (
       
       // Add click handlers to dots
       this.dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => this.updateSlide(index));
+        dot.addEventListener('click', () => {
+          this.updateSlide(index);
+          this.resetAutoplay();
+        });
       });
+
+      // Pause autoplay on hover
+      this.container.addEventListener('mouseenter', () => this.stopAutoplay());
+      this.container.addEventListener('mouseleave', () => this.startAutoplay());
+
+      // Add touch events for mobile
+      this.container.addEventListener('touchstart', (e) => {
+        this.touchStartX = e.touches[0].clientX;
+        this.stopAutoplay();
+      });
+
+      this.container.addEventListener('touchmove', (e) => {
+        e.preventDefault(); // Prevent scrolling while swiping
+      });
+
+      this.container.addEventListener('touchend', (e) => {
+        this.touchEndX = e.changedTouches[0].clientX;
+        this.handleSwipe();
+        this.startAutoplay();
+      });
+    }
+
+    handleSwipe() {
+      const swipeThreshold = 50; // Minimum distance for a swipe
+      const swipeDistance = this.touchEndX - this.touchStartX;
+
+      if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+          // Swiped right - go to previous slide
+          const prevIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+          this.updateSlide(prevIndex);
+        } else {
+          // Swiped left - go to next slide
+          const nextIndex = (this.currentIndex + 1) % this.totalSlides;
+          this.updateSlide(nextIndex);
+        }
+      }
     }
 
     updateSlide(index: number) {
@@ -133,6 +179,25 @@ const { title, subtitle, description, stories } = (
       this.dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === index);
       });
+    }
+
+    startAutoplay() {
+      this.autoplayInterval = setInterval(() => {
+        const nextIndex = (this.currentIndex + 1) % this.totalSlides;
+        this.updateSlide(nextIndex);
+      }, 2000);
+    }
+
+    stopAutoplay() {
+      if (this.autoplayInterval) {
+        clearInterval(this.autoplayInterval);
+        this.autoplayInterval = null;
+      }
+    }
+
+    resetAutoplay() {
+      this.stopAutoplay();
+      this.startAutoplay();
     }
   }
 

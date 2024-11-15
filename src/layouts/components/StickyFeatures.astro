@@ -31,7 +31,7 @@ const features = [
 ];
 ---
 
-<div class="sticky-container relative flex gap-16 max-w-[1320px] mx-auto px-4 lg:px-8">
+<div class="sticky-container relative flex gap-8 lg:gap-16  max-w-[1320px] mx-auto px-4 lg:px-8">
   <!-- Vertical Navigation -->
   <div class="hidden lg:block sticky h-fit top-0 w-[300px] pt-[150px]">
     <nav class="vertical-nav space-y-10 pl-8 border-l border-gray-200">
@@ -55,10 +55,10 @@ const features = [
       return (
         <div
           id={`feature-${mindex}`}
-          class="overflow-hidden rounded-3xl lg:sticky lg:top-[120px] h-[500px]"
+          class="overflow-hidden rounded-3xl lg:sticky lg:top-[120px] h-fit lg:h-[500px]"
           style="background-color: #1E293B;"
         >
-          <div class="flex flex-col lg:flex-row h-full">
+          <div class="flex flex-col lg:flex-row justify-between h-full">
             {/* Left Content Side */}
             <div class="lg:w-1/2" data-aos="fade-up-sm">
               <div class="p-6 md:p-14 lg:p-16 xl:p-10 flex flex-col justify-center">
@@ -90,12 +90,12 @@ const features = [
 
             {/* Right Image Side */}
             <div class="lg:w-1/2 h-full">
-              <div class="p-6 md:p-8 lg:p-10 xl:p-12 h-full flex items-center justify-center">
+              <div class="p-6 md:p-8 lg:p-10 xl:p-12 h-full flex items-end lg:items-center justify-center">
                 {image && (
                   <ImageMod
                     src={image}
                     alt={title}
-                    class="w-full h-auto max-w-[400px] lg:max-w-[520px] rounded-lg object-cover"
+                    class="w-full h-fit max-w-[400px] lg:max-w-[520px] rounded-lg object-cover"
                     data-aos="fade-up-sm"
                     data-aos-delay="200"
                   />
