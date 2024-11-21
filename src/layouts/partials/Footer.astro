@@ -4,7 +4,9 @@ import Social from "@/components/Social.astro";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import product from "@/config/product.json";
+import social from "@/config/social.json";
 import { markdownify } from "@/lib/utils/textConverter";
+import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 const { footer_menu, footer_quick_links } = menu;
 const { logo, logo_width, logo_height, title } = config.site;
@@ -14,7 +16,7 @@ const { logo, logo_width, logo_height, title } = config.site;
   <div class="max-w-[85rem] mx-auto px-3">
     <div class="row">
       <!-- Main Footer Content -->
-      <div class="flex flex-col lg:flex-row justify-between w-full gap-12">
+      <div class="flex flex-col lg:flex-row justify-between w-full gap-16 lg:gap-12">
         <!-- Left Section: Logo & Description -->
         <div class="lg:w-1/3">
           <div class="space-y-8">
@@ -54,6 +56,23 @@ const { logo, logo_width, logo_height, title } = config.site;
                 </form>
               </div>
             )}
+
+            <!-- Add Social Icons -->
+            <div class="flex gap-3 mt-4 items-center justify-start">
+              {social.main.map((item) => (
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-light/70 hover:text-primary transition-colors p-1.5"
+                >
+                  {item.icon === "FaFacebook" && <FaFacebook size={18} />}
+                  {item.icon === "FaTwitter" && <FaTwitter size={18} />}
+                  {item.icon === "FaLinkedin" && <FaLinkedin size={18} />}
+                  {item.icon === "FaEnvelope" && <FaEnvelope size={18} />}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 

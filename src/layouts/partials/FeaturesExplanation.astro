@@ -44,7 +44,7 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
           <div class="sticky-wrapper">
             <div class="stacked-container">
               {/* First Section */}
-              <div class="stacked-section first-section">
+              <div class="stacked-section first-section pb-10 mt-20 md:mt-0">
                 <div class="col-12">
                   <div class="relative flex justify-center gap-3 max-xl:flex-wrap xl:mb-12 xl:mt-16 xl:flex-col xl:items-center xl:gap-y-8">
                     {/* Features List */}
@@ -196,14 +196,14 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
   /* Desktop styles */
   @media (min-width: 1024px) {
     .sticky-wrapper {
-      height: 115vh;
+      height: 120vh;
       margin-bottom: 4rem;
     }
 
     .stacked-container {
       position: sticky;
       top: 0;
-      height: 110vh;
+      height: 120vh;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -215,8 +215,7 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
       position: absolute;
       background-color: white;
       height: 100%;
-      transform: scale(0.8);
-      margin-bottom: 0;
+      transform: none;
     }
 
     .second-section {
@@ -228,11 +227,11 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
     .second-section.fade-out {
       opacity: 0;
     }
+
   }
 
   /* Rest of your existing styles */
   .stacked-section .col-12 {
-    padding-top: 0;
     width: 100%;
   }
 
@@ -242,14 +241,57 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
   }
 
   /* Adjust image sizes for mobile */
-  .stacked-section .order-1 img {
-    max-width: 60%;
-    margin: 2rem auto;
+  .stacked-section .order-1 {
+    width: 70% !important;
+    max-width: 250px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
+  .stacked-section .order-1 img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+  }
+
+  /* Tablet styles */
   @media (min-width: 768px) {
+    .stacked-section .order-1 {
+      width: 50% !important;
+      max-width: 300px;
+    }
+    
     .stacked-section .order-1 img {
-      max-width: 80%;
+      max-height: 300px;
+    }
+  }
+
+  /* Desktop styles - preserve original layout */
+  @media (min-width: 1024px) {
+    .stacked-section .order-1 {
+      width: 40% !important;
+      max-width: none;
+    }
+    
+    .stacked-section .order-1 img {
+      width: 35%;
+      max-height: none;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  /* Ensure the desktop absolute positioning only applies at xl breakpoint */
+  @media (max-width: 1279px) {
+    .stacked-section .order-1 img {
+      position: static;
+      transform: none;
+      width: 100%;
     }
   }
 

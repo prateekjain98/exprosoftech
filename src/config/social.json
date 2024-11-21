@@ -1,24 +1,24 @@
 {
   "main": [
     {
-      "name": "Products",
+      "name": "Facebook",
       "icon": "FaFacebook",
       "link": "https://www.facebook.com/"
     },
     {
-      "name": "Consulting",
+      "name": "Twitter",
       "icon": "FaTwitter",
       "link": "https://twitter.com/"
     },
     {
-      "name": "Services",
-      "icon": "FaGithub",
-      "link": "https://www.github.com/"
+      "name": "LinkedIn",
+      "icon": "FaLinkedin",
+      "link": "https://www.linkedin.com/"
     },
     {
       "name": "Contact Us",
-      "icon": "FaLinkedin",
-      "link": "https://www.linkedin.com/"
+      "icon": "FaEnvelope",
+      "link": "mailto:info@greymetre.com"
     }
   ]
 }
