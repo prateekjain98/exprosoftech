@@ -242,8 +242,8 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
 
   /* Adjust image sizes for mobile */
   .stacked-section .order-1 {
-    width: 70% !important;
-    max-width: 250px;
+    width: 50% !important;
+    max-width: 200px;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -253,31 +253,31 @@ const { title, image,second_image, subtitle, description, list, second_list }: F
   .stacked-section .order-1 img {
     width: 100%;
     height: auto;
-    max-height: 250px;
+    max-height: 200px;
     object-fit: contain;
   }
 
   /* Tablet styles */
   @media (min-width: 768px) {
     .stacked-section .order-1 {
-      width: 50% !important;
-      max-width: 300px;
+      width: 40% !important;
+      max-width: 250px;
     }
     
     .stacked-section .order-1 img {
-      max-height: 300px;
+      max-height: 250px;
     }
   }
 
   /* Desktop styles - preserve original layout */
   @media (min-width: 1024px) {
     .stacked-section .order-1 {
-      width: 40% !important;
+      width: 30% !important;
       max-width: none;
     }
     
     .stacked-section .order-1 img {
-      width: 35%;
+      width: 25%;
       max-height: none;
       position: absolute;
       left: 50%;
