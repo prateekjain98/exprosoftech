@@ -1,135 +1,67 @@
 .btn {
-
-  @apply inline-flex cursor-pointer flex-nowrap items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border border-[#336AEA] px-6 py-1 text-base font-medium capitalize transition duration-300 md:text-base/[inherit] ;
-
-
+  @apply inline-flex cursor-pointer flex-nowrap items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border border-[#336AEA] px-6 py-1 text-base font-medium capitalize transition duration-300 md:text-base/[inherit];
 
   svg {
-
     @apply h-3.5 w-3.5;
-
     @apply opacity-90;
-
     path {
-
       stroke-width: 0.9;
-
     }
-
   }
-
-
 
   &-regular {
-
-    @apply bg-dark px-6 py-4 text-base font-normal text-light hover:bg-[#336AEA];
-
+    @apply bg-dark px-3 py-2 text-base font-normal text-light hover:bg-[#336AEA];
   }
-
-
 
   &-icon {
-
     @apply h-14 w-8 items-center justify-center p-0 #{!important};
-
   }
-
-
 
   &-text {
-
     @apply gap-x-2 bg-transparent p-0;
-
-
-
     &:hover {
-
       @apply text-[#336AEA] [&_svg]:text-[#336AEA];
-
     }
-
-    
-
     svg {
-
       @apply h-4 w-4;
-
     }
-
   }
-
-
 
   &-primary,
-
   &-outline-primary {
-
     @apply px-6 py-1.5;
-
   }
-
 }
-
-
 
 .btn-sm {
-
   @apply rounded-sm px-4 py-1.5 text-sm;
-
 }
-
-
 
 .btn-primary {
-
   @apply border-[#195dc1] bg-[#2e78e6] text-white border
-
          hover:border-[#4B83FB] hover:bg-[#4B83FB] hover:text-white hover:drop-shadow-[0_6px_4px_rgba(0,0,0,0.36)] hover:scale-[1.06]
-
          active:border-[#2251C5] active:bg-[#2251C5]  drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)];
-
   @apply [&_svg]:text-white;
-
   background: linear-gradient(to top, #387FE7, #5792EB);
-
 }
-
-
 
 .btn-light {
-
-  @apply shadow-none border-[#336AEA] bg-light text-dark hover:border-dark hover:bg-dark hover:text-light [&:hover_svg]:text-light [&_svg]:text-dark ;
-
+  @apply shadow-none border-[#336AEA] bg-light text-dark hover:border-dark hover:bg-dark hover:text-light [&:hover_svg]:text-light [&_svg]:text-dark;
 }
-
-
 
 .btn-dark {
-
   @apply border-[#336AEA] bg-dark text-white 
-
          hover:border-[#336AEA] hover:bg-[#336AEA] 
-
          active:border-[#2251C5] active:bg-[#2251C5] 
-
          [&_svg]:text-white;
-
 }
 
-
-
 .btn-outline-primary {
-
   @apply border-0 bg-transparent text-[#336AEA]
-
          hover:bg-[#F0F7FF] hover:text-[#336AEA]
-
          active:bg-[#E6F0FF];
-
          box-shadow: none;
-
   @apply [&_svg]:text-[#336AEA];
-
 }
 
 
