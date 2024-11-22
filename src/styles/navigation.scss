@@ -1,1762 +1,229 @@
 // navbar toggler
-
-
-
-
-
-
-
 input#nav-toggle:checked + label #show-button {
-
-
-
-
-
-
-
   @apply hidden;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 input#nav-toggle:checked + label #hide-button {
-
-
-
-
-
-
-
   @apply block;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 input#nav-toggle:checked ~ #nav-menu {
-
-
-
-
-
-
-
   @apply max-lg:block;
-
-
-
-
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .header {
-
-
-
-
-
-
-
   @apply pb-2 pt-2 fixed top-0 left-0 right-0 w-full z-[999] bg-white;
-
-
-
-
-
-
 
   transform: translateY(0);
 
-
-
-
-
-
-
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
   &.header-sticky {
-
-
-
-
-
-
-
     @apply shadow-md backdrop-blur-lg bg-white/90;
-
-
-
-
-
-
-
     padding-top: 0.5rem;
-
-
-
-
-
-
-
     padding-bottom: 0.5rem;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   &.header-hidden {
-
-
-
-
-
-
-
     transform: translateY(-100%);
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // navbar items
-
-
-
-
-
-
-
   .navbar {
-
-
-
-
-
-
-
     @apply relative flex flex-wrap items-center lg:justify-between;
 
-
-
-
-
-
-
     @media screen and (max-width: 1023px) {
-
-
-
-
-
-
-
       @apply px-6;
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Navbar Toggler
-
-
-
-
-
-
-
 .navbar-toggler {
-
-
-
-
-
-
-
   @apply cursor-pointer rounded border-2 border-border border-opacity-75 p-1 lg:hidden;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .navbar-brand {
-
-
-
-
-
-
-
   @apply text-xl text-dark;
 
-
-
-
-
-
-
   img {
-
-
-
-
-
-
-
     @apply max-h-full max-w-full;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .navbar {
-
-
-
-
-
-
-
   @apply justify-start sm:justify-end;
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
 
 .navbar-nav {
-
-
-
-
-
-
-
   @apply border-border text-center lg:text-left;
-
-
-
-
-
-
-
   @apply lg:w-[calc(100%_-_25px)] max-lg:w-full max-lg:absolute max-lg:top-full max-lg:z-[9999] max-lg:mt-5 max-lg:rounded-2xl max-lg:border-dark max-lg:bg-white max-lg:px-6 max-lg:py-6 max-lg:shadow sm:w-[300px];
-
-
-
-
-
-
-
   @apply bg-white;
 
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
   @media screen and (max-width: 1023px) {
-
-
-
-
-
-
-
     @apply fixed top-[4rem] left-0 right-0 min-h-[calc(100vh-4rem)];
 
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
     &:not(.hidden) {
-
-
-
-
-
-
-
       @apply block;
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   .nav-item {
-
-
-
-
-
-
-
     &:hover .nav-link:not(.dropdown-toggle) {
-
-
-
-
-
-
-
       @apply hover:after:w-4;
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     .nav-link {
-
-
-
-
-
-
-
       @apply relative block px-3 py-2 font-medium text-text transition after:w-0 hover:text-tertiary lg:px-2 lg:py-3;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       .arrow-icon {
-
-
-
-
-
-
-
         @apply relative inline-block align-[-2px] text-xs/snug transition-transform duration-300;
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .nav-dropdown {
-
-
-
-
-
-
-
   @apply mr-0 relative;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   .nav-link {
-
-
-
-
-
-
-
     @apply cursor-pointer select-none;
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   .nav-dropdown-list {
-
-
-
-
-
-
-
     @apply max-lg:hidden lg:invisible lg:fixed lg:left-0 lg:right-0 lg:w-full lg:bg-white lg:shadow-lg lg:border-t lg:border-border;
-
-
-
-
-
-
-
     position: fixed;
-
-
-
-
-
-
-
     width: 100%;
-
-
-
-
-
-
-
     left: 0;
-
-
-
-
-
-
-
     opacity: 0;
-
-
-
-
-
-
-
     transform: translateY(-10px);
-
-
-
-
-
-
-
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-
-
-
-
-
-
     margin-top: -0.2rem;
 
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
     // Container for dropdown content
-
-
-
-
-
-
-
     .container-box {
-
-
-
-
-
-
-
       @apply max-w-[70rem] mx-auto px-8;
-
-
-
-
-
-
-
       position: relative;
-
-
-
-
-
-
-
       margin-top: -0.5rem;
-
-
-
-
-
-
-
       padding-top: 2rem;
-
-
-
-
-
-
-
       padding-bottom: 2.5rem;
 
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
       @media screen and (max-width: 1023px) {
-
-
-
-
-
-
-
         @apply max-w-full w-full px-2 mx-0 py-6;
-
-
-
-
-
-
-
         grid-template-columns: 1fr;
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
 
       // Modern grid layout with centered items
-
-
-
-
-
-
-
       display: grid;
-
-
-
-
-
-
-
       grid-template-columns: repeat(auto-fill, minmax(240px, 300px));
-
-
-
-
-
-
-
       gap: 2rem;
-
-
-
-
-
-
-
       justify-content: center;
 
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
       // For 2 or fewer items
-
-
-
-
-
-
-
       &[data-items="1"],
-
-
-
-
-
-
-
       &[data-items="2"] {
-
-
-
-
-
-
-
         @apply max-w-2xl;
-
-
-
-
-
-
-
         justify-content: center;
 
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
         .nav-dropdown-item {
-
-
-
-
-
-
-
           @apply w-[280px];
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       // Add subtle background effect
-
-
-
-
-
-
-
       background: linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(255,255,255,1));
-
-
-
-
-
-
-
       backdrop-filter: blur(8px);
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     .nav-dropdown-item {
-
-
-
-
-
-
-
       @apply mb-0;
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     .nav-dropdown-link {
-
-
-
-
-
-
-
       @apply block py-3 px-5 text-dark/90 hover:text-primary rounded-xl transition-all duration-200;
-
-
-
-
-
-
-
       @apply hover:bg-[#F0F7FF] hover:shadow-sm hover:-translate-y-0.5;
-
-
-
-
-
-
-
       @apply flex items-center justify-between gap-3;
 
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
       // Enhanced default gradient
-
-
-
-
-
-
-
       background: linear-gradient(
-
-
-
-
-
-
-
         110deg,
-
-
-
-
-
-
-
         #F8FAFF 0%,
-
-
-
-
-
-
-
         #F0F7FF 40%,
-
-
-
-
-
-
-
         #E8F1FF 100%
-
-
-
-
-
-
-
       );
-
-
-
-
-
-
-
       border: 1px solid rgba(240, 247, 255, 0.8);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       // Enhanced hover gradient
-
-
-
-
-
-
-
       &:hover {
-
-
-
-
-
-
-
         background: linear-gradient(
-
-
-
-
-
-
-
           110deg,
-
-
-
-
-
-
-
           #F0F7FF 0%,
-
-
-
-
-
-
-
           #E8F1FF 50%,
-
-
-
-
-
-
-
           #F0F7FF 100%
-
-
-
-
-
-
-
         );
-
-
-
-
-
-
-
         border-color: rgba(51, 106, 234, 0.1);
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       // Content wrapper
-
-
-
-
-
-
-
       .link-content {
-
-
-
-
-
-
-
         @apply flex items-center gap-3;
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       // Right arrow icon
-
-
-
-
-
-
-
       &::after {
-
-
-
-
-
-
-
         content: '';
-
-
-
-
-
-
-
         @apply w-4 h-4 opacity-0 transition-all duration-200 transform translate-x-[-8px];
-
-
-
-
-
-
-
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23336AEA'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 5l7 7-7 7'%3E%3C/path%3E%3C/svg%3E");
-
-
-
-
-
-
-
         background-size: contain;
-
-
-
-
-
-
-
         background-repeat: no-repeat;
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       &:hover {
-
-
-
-
-
-
-
         &::after {
-
-
-
-
-
-
-
           @apply opacity-100 transform translate-x-0;
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // Hover states for large screens
-
-
-
-
-
-
-
   &:hover {
-
-
-
-
-
-
-
     .nav-link .arrow-icon {
-
-
-
-
-
-
-
       @apply lg:rotate-180;
-
-
-
-
-
-
-
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
     .nav-dropdown-list {
-
-
-
-
-
-
-
       @apply lg:visible;
-
-
-
-
-
-
-
       opacity: 1;
-
-
-
-
-
-
-
       transform: translateY(0);
-
-
-
-
-
-
-
       top: calc(100% - 0.5rem);
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // Mobile states
-
-
-
-
-
-
-
   &.active {
-
-
-
-
-
-
-
     .nav-link .arrow-icon {
-
-
-
-
-
-
-
       @apply max-lg:rotate-180;
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
     .nav-dropdown-list {
-
-
-
-
-
-
-
       @apply max-lg:block max-lg:relative max-lg:w-full max-lg:shadow-none max-lg:border-none;
 
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
       .container-box {
-
-
-
-
-
-
-
         @apply max-lg:p-4 max-lg:grid-cols-1 max-lg:gap-2 max-lg:w-full;
 
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
         .nav-dropdown-item {
-
-
-
-
-
-
-
           @apply max-lg:w-full; // Make items full width on mobile
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       .nav-dropdown-link {
-
-
-
-
-
-
-
         @apply max-lg:rounded-lg max-lg:py-2 max-lg:w-full; // Make links full width
-
-
-
-
-
-
-
       }
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Add these styles for the toggle button transition
 label[for="nav-toggle"] {

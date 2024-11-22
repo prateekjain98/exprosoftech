@@ -1,8 +1,17 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Faq from "@/layouts/partials/Faq.astro";
+import FeaturesSFA from "@/layouts/partials/FeaturesSFA.astro";
+import AdditionalFeaturesSFA from "@/layouts/components/AdditionalFeaturesSFA.astro";
+import SFAHeader from "@/layouts/components/SFAHeader.astro";
+import CallToAction from "@/partials/CallToAction.astro";
 ---
 
 <Base>
+  
+  <SFAHeader />
+  <FeaturesSFA />
+  <AdditionalFeaturesSFA />
   <Faq />
+  <CallToAction />  
 </Base> 

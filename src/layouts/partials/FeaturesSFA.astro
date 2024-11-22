@@ -27,9 +27,16 @@ interface Features {
   }[];
 }
 
-const { title, subtitle, description, list }: Features = (
-  await getEntry("sections", "features")
-).data;
+// Add debug logging
+console.log("Attempting to load featuresSFA content...");
+const entry = await getEntry("sections", "features-sfa");
+
+if (!entry) {
+  throw new Error("Features SFA content not found");
+}
+
+const { title, subtitle, description, list }: Features = entry.data;
+
 ---
 
 {
@@ -45,7 +52,7 @@ const { title, subtitle, description, list }: Features = (
               alignment="center"
             />
           </div>
-          <div class="col-12 pt-20">
+          <div class="col-12 pt-20 ">
             {list?.map((item, index) => (
               <div
                 class={`row gx-0 gy-5 mb-14 items-center last:mb-0 md:mb-28 ${index % 2 !== 0 ? "max-lg:flex-col-reverse" : ""}`}>
@@ -65,7 +72,7 @@ const { title, subtitle, description, list }: Features = (
                   </div>
                 </div>
                 <div
-                  class={`${index % 2 === 0 ? "lg:ps-20" : "lg:pe-20"} lg:col-6 lg:px-0 px-4`}
+                  class={`${index % 2 === 0 ? "lg:ps-20" : "lg:pe-20"} lg:col-6 px-4 lg:px-0`}
                   data-aos="fade-up-sm"
                   data-aos-delay={300}>
                   {item.title && (
@@ -132,9 +139,6 @@ const { title, subtitle, description, list }: Features = (
                         <span class="icon">
                           <DynamicIcon icon={"FaArrowRight"} />
                         </span>
-                        {/* <span class="icon" aria-hidden="true">
-                          <DynamicIcon icon={"FaArrowRight"} />
-                        </span> */}
                       </span>
                     </a>
                   )}
@@ -146,4 +150,4 @@ const { title, subtitle, description, list }: Features = (
       </div>
     </section>
   )
-}
+} 

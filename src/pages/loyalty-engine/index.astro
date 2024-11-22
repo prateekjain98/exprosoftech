@@ -1,9 +1,17 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Faq from "@/layouts/partials/Faq.astro";
-import { getEntry } from "astro:content";
+import AdditionalFeatures from "@/layouts/components/AdditionalFeaturesGrid.astro";
+import FeatureSection from "@/layouts/partials/FeatureSection.astro";
+import CallToAction from "@/layouts/partials/CallToAction.astro";
+import LEHeader from "@/layouts/components/LEHeader.astro";
 ---
 
 <Base>
+  <LEHeader />
+  <FeatureSection />
+  <AdditionalFeatures />
+
   <Faq />
+  <CallToAction />  
 </Base> 

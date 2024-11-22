@@ -1,8 +1,8 @@
 ---
 enable: true
-title: "Secure Your Data with Greymetre Protection Solution"
-image: "/images/cta-bg.svg"
-description: "Allows you to set thresholds for security parameters and receive real-time alerts when these thresholds are breached."
+title: "Ready to Transform Your Loyalty Strategy"
+image: "/images/field-konnect.png"
+description: "Allows you to  drive engagement, loyalty, and revenue growth, offering customizable loyalty schemes like QR-based, invoice-based, quantity-based, value-based, and packaging collection programs.."
 button:
   enable: true
   label: "Get Started"
