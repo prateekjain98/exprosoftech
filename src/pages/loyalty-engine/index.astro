@@ -5,13 +5,30 @@ import AdditionalFeatures from "@/layouts/components/AdditionalFeaturesGrid.astr
 import FeatureSection from "@/layouts/partials/FeatureSection.astro";
 import CallToAction from "@/layouts/partials/CallToAction.astro";
 import LEHeader from "@/layouts/components/LEHeader.astro";
+import FeatureShowcase from "@/components/FeatureShowcase.astro";
+import MobileFeatures from "@/components/MobileFeatures.astro";
+import TestimonialMarquee from '../../layouts/components/TestimonialMarquee.astro';
 ---
 
 <Base>
   <LEHeader />
   <FeatureSection />
+  <MobileFeatures/>
+  <FeatureShowcase   
+  image={{
+    src: "/images/mobile-hand-3.png",
+    alt: "mobile app"  
+  }},
+  heading="Unlock the Power of Customizable Loyalty Programs to Drive Customer Engagement and Business Growth",
+  description="Whether you need a solution for rewarding purchase volume, transaction value, or even packaging returns, Fieldkonnect adapts to your brand's unique needs, offering a flexible, data-driven approach to loyalty management.",
+  buttonText="Get Started",
+  buttonLink=""
+  />
+
   <AdditionalFeatures />
+  <TestimonialMarquee />
 
   <Faq />
   <CallToAction />  
+
 </Base> 
