@@ -25,17 +25,17 @@ type IconsMap = {
 
 // SVG icons map with type
 const icons: IconsMap = {
-  "Real-Time Data Tracking and Insights": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>`,
+  "Real-Time Data Tracking and Insights": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>`,
   
-  "KYC and Participant Verification": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>`,
+  "KYC and Participant Verification": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>`,
   
-  "Automated Notifications and Communication": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+  "Automated Notifications and Communication": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
   
-  "Digital Wallet and Mobile App Access": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H3"/><path d="M3 6h18"/><path d="M21 18H3"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>`,
+  "Digital Wallet and Mobile App Access": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H3"/><path d="M3 6h18"/><path d="M21 18H3"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>`,
   
-  "Segmentation and Targeted Campaigns": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+  "Segmentation and Targeted Campaigns": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
   
-  "Customizable Rewards and Incentive Options": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>`
+  "Customizable Rewards and Incentive Options": `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>`
 };
 
 // Helper function to get icon safely
@@ -64,7 +64,10 @@ const getIcon = (title: string): string => {
               data-aos-delay={150 + index * 50}
             >
               <div class="icon-container">
-                <div class="icon-wrapper" set:html={getIcon(feature.title)} />
+                <div class="icon-wrapper">
+                  <div class="icon-animation" set:html={getIcon(feature.title)} />
+                  <div class="icon-animation clone" set:html={getIcon(feature.title)} />
+                </div>
               </div>
               <h3 class="feature-title">{feature.title}</h3>
               <p class="feature-description">{feature.description}</p>
@@ -85,7 +88,8 @@ const getIcon = (title: string): string => {
       #F0F7FF 0%,
       #E8F1FF 50%,
       #F0F7FF 100%
-    );
+    ); 
+    border: 2px solid rgba(59 , 130 , 246 , 0.1)
   }
 
   .icon-container {
@@ -100,11 +104,25 @@ const getIcon = (title: string): string => {
   }
 
   .icon-wrapper {
-    @apply text-primary transition-transform duration-300;
+    @apply text-primary relative overflow-hidden;
+    width: 32px;  /* Match SVG width */
+    height: 32px; /* Match SVG height */
   }
 
-  .feature-card:hover .icon-wrapper {
-    @apply transform scale-110;
+  .icon-animation {
+    @apply transition-transform duration-300 absolute w-full h-full;
+  }
+
+  .icon-animation.clone {
+    @apply top-full left-0;
+  }
+
+  .feature-card:hover .icon-animation:not(.clone) {
+    @apply -translate-y-full;
+  }
+
+  .feature-card:hover .icon-animation.clone {
+    @apply -translate-y-full;
   }
 
   .feature-title {

@@ -1,0 +1,334 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+interface Feature {
+  title: string;
+  advantage: string;
+  benefit: string;
+}
+
+const leftFeatures1: Feature[] = [
+  {
+    title: "QR Code-Based Rewards Programs",
+    advantage: "Smart Reward Distribution",
+    benefit: "Increase customer satisfaction with personalized rewards based on individual preferences and behavior patterns"
+  },
+  {
+    title: "Invoice-Based Loyalty Programs",
+    advantage: "Data-Driven Insights",
+    benefit: "Make informed decisions with comprehensive analytics on program performance and engagement metrics"
+  }
+];
+
+const rightFeatures1: Feature[] = [
+  {
+    title: "Quantity-Based (QTY) Loyalty Programs",
+    advantage: "Seamless Setup",
+    benefit: "Quick implementation with existing systems, reducing technical overhead and deployment time"
+  },
+  {
+    title: "Value-Based Loyalty Programs",
+    advantage: "Targeted Marketing",
+    benefit: "Boost engagement with personalized campaigns that resonate with specific customer segments"
+  }
+];
+
+const leftFeatures2: Feature[] = [
+  {
+    title: "Packaging Collection-Based Loyalty Programs",
+    advantage: "Flexible Point System",
+    benefit: "Increase customer satisfaction with a flexible point system with multiple earning and redemption options"
+  },
+  {
+    title: "Social Features",
+    advantage: "Social Sharing",
+    benefit: "Engage customers through social sharing and referral programs"
+  }
+];
+
+const rightFeatures2: Feature[] = [
+  {
+    title: "Secure Transactions",
+    advantage: "Enhanced Security",
+    benefit: "Enhanced security for all reward-related transactions"
+  },
+  {
+    title: "Multi-tier Programs",
+    advantage: "Exclusive Benefits",
+    benefit: "Create hierarchical loyalty programs with exclusive benefits"
+  }
+];
+---
+
+<div class="mobile-features-container">
+
+    <SectionHeader
+        tagline="Flexible Loyalty Programs"
+        heading="Multiple Ways to Engage Your Customers"
+        subheading="Choose from a variety of loyalty program types that best suit your business needs and customer preferences"
+        alignment="center"
+    />
+    <!-- First Container -->
+    <div class="feature-container px-16 pt-32">
+    <div class="features-grid">
+      <!-- Left Features -->
+      <div class="features-column left">
+        {leftFeatures1.map((feature) => (
+          <div class="feature-card">
+            <h3>{feature.title}</h3>
+            <h4>{feature.advantage}</h4>
+            <p>{feature.benefit}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Center Image -->
+      <div class="center-image">
+        <img src="/images/mobile-blue-bg3.png" alt="Mobile App Features" />
+      </div>
+
+      <!-- Right Features -->
+      <div class="features-column right">
+        {rightFeatures1.map((feature) => (
+          <div class="feature-card">
+            <h3>{feature.title}</h3>
+            <h4>{feature.advantage}</h4>
+            <p>{feature.benefit}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Container -->
+  <div class="feature-container px-8">
+    <div class="features-grid">
+      <!-- Left Features -->
+      <div class="features-column left">
+        {leftFeatures2.map((feature) => (
+          <div class="feature-card">
+            <h3>{feature.title}</h3>
+            <h4>{feature.advantage}</h4>
+            <p>{feature.benefit}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Center Image -->
+      <div class="center-image">
+        <img src="/images/mobile-blue-bg4.png" alt="Mobile App Features" />
+      </div>
+
+      <!-- Right Features -->
+      <div class="features-column right">
+        {rightFeatures2.map((feature) => (
+          <div class="feature-card">
+            <h3>{feature.title}</h3>
+            <h4>{feature.advantage}</h4>
+            <p>{feature.benefit}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .mobile-features-container {
+    width: 100%;
+  }
+
+  .feature-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 4rem;
+    max-width: 1600px;
+    width: 100%;
+  }
+
+  .features-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: flex-end;
+    height: 80vh;
+    padding-bottom: 2rem;
+  }
+
+  .feature-container:first-child .features-column {
+    justify-content: flex-end;
+  }
+
+  .feature-container:last-child .features-column {
+    justify-content: flex-start;
+    padding-top: 2rem;
+    padding-bottom: 0;
+  }
+
+  .feature-container:last-child .center-image {
+    align-items: flex-start;
+    padding-top: 2rem;
+    padding-bottom: 0;
+  }
+
+  .features-column.left {
+    align-items: flex-end;
+  }
+
+  .features-column.right {
+    align-items: flex-start;
+  }
+
+  .feature-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 340px;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .feature-card h3 {
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .feature-card h4 {
+    color: #4a5568;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .feature-card p {
+    color: #718096;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .center-image {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 80vh;
+    padding-bottom: 2rem;
+  }
+
+  .center-image img {
+    max-width: 500px;
+    height: auto;
+  }
+
+  @media (max-width: 1024px) {
+    .feature-container {
+      height: auto;
+      padding: 2rem 1rem;
+      min-height: 0;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .features-column,
+    .feature-container:first-child .features-column,
+    .feature-container:last-child .features-column {
+      height: auto;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 0;
+      gap: 1.5rem;
+    }
+
+    .center-image,
+    .feature-container:last-child .center-image {
+      height: auto;
+      padding: 2rem 0;
+    }
+
+    .feature-card {
+      width: 100%;
+      max-width: 400px;
+      min-height: 160px;
+      margin: 0 auto;
+    }
+
+    .center-image img {
+      max-width: 80%;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .feature-container {
+      padding: 1.5rem 1rem;
+    }
+
+    .features-grid {
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      padding: 1.25rem;
+      min-height: 140px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+    }
+
+    .feature-card h4 {
+      font-size: 1rem;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+    }
+
+    .center-image {
+      padding: 1.5rem 0;
+    }
+
+    .center-image img {
+      max-width: 90%;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .feature-card {
+      padding: 1rem;
+      min-height: 130px;
+    }
+
+    .feature-card h3 {
+      font-size: 1rem;
+    }
+
+    .feature-card h4 {
+      font-size: 0.95rem;
+    }
+
+    .feature-card p {
+      font-size: 0.85rem;
+    }
+  }
+</style> 

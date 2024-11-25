@@ -1,0 +1,212 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+const testimonials = [
+  {
+    name: "John Smith",
+    role: "CTO",
+    company: "TechCorp Inc.",
+    content: "The loyalty engine has transformed how we engage with our customers. The ROI has been exceptional."
+  },
+  {
+    name: "Sarah Johnson",
+    role: "Head of Marketing",
+    company: "Retail Giants",
+    content: "Implementation was smooth, and our customer retention has improved by 40% since using this solution."
+  },
+  {
+    name: "Mike Chen",
+    role: "Product Manager",
+    company: "E-commerce Plus",
+    content: "The analytics and insights have been game-changing for our loyalty program strategy."
+  },
+  {
+    name: "Emma Wilson",
+    role: "Customer Success Manager",
+    company: "RetailTech Solutions",
+    content: "The customization options are incredible. We've been able to create unique reward programs that perfectly align with our brand."
+  },
+  {
+    name: "David Kumar",
+    role: "Operations Director",
+    company: "Global Retail Chain",
+    content: "The platform's analytics have helped us understand our customers better and make data-driven decisions."
+  },
+  {
+    name: "Lisa Zhang",
+    role: "Digital Marketing Head",
+    company: "Fashion Forward",
+    content: "Our customer engagement metrics have shown remarkable improvement since implementing this loyalty engine."
+  }
+];
+
+const duplicatedTestimonials = [...testimonials, ...testimonials];
+---
+
+<div class="testimonial-section">
+    <SectionHeader 
+        tagline="Our Clients"
+        heading="What our clients say" 
+        subheading="" 
+    />
+  <div class="marquee-container">
+    <div class="marquee">
+      {duplicatedTestimonials.map((testimonial) => (
+        <div class="testimonial-card group">
+          <div class="testimonial-content">
+            <p class="quote">"{testimonial.content}"</p>
+            <div class="author-info">
+              <p class="author-name">{testimonial.name}</p>
+              <p class="author-role">{testimonial.role} • {testimonial.company}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="marquee" aria-hidden="true">
+      {duplicatedTestimonials.map((testimonial) => (
+        <div class="testimonial-card group">
+          <div class="testimonial-content">
+            <p class="quote">"{testimonial.content}"</p>
+            <div class="author-info">
+              <p class="author-name">{testimonial.name}</p>
+              <p class="author-role">{testimonial.role} • {testimonial.company}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .testimonial-section {
+    width: 100%;
+    padding: 4rem 0;
+    background: white;
+    overflow: hidden;
+  }
+
+  .marquee-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    padding: 1rem 0;
+  }
+
+  /* Fade edges */
+  .marquee-container::before,
+  .marquee-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, white 0%, transparent 100%);
+  }
+
+  .marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, white 0%, transparent 100%);
+  }
+
+  .marquee {
+    display: flex;
+    gap: 2rem;
+    animation: scroll 50s linear infinite;
+    will-change: transform;
+  }
+
+  .testimonial-card {
+    flex: 0 0 auto;
+    width: 350px;
+    height: 250px;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    transition: all 300ms;
+    background: linear-gradient(
+      110deg,
+      #F0F7FF 0%,
+      #E8F1FF 50%,
+      #F0F7FF 100%
+    );
+    border: 2px solid rgba(59, 130, 246, 0.1);
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card:hover {
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .testimonial-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .quote {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4B5563;
+    font-style: italic;
+    height: 130px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-top: 1px solid rgba(59, 130, 246, 0.1);
+    padding-top: 1rem;
+    min-height: 60px;
+  }
+
+  .author-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+    color: #1F2937;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .author-role {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #6B7280;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .marquee-container:hover .marquee {
+    animation-play-state: paused;
+  }
+
+  .marquee .testimonial-card:last-child {
+    margin-right: 2rem;
+  }
+</style> 

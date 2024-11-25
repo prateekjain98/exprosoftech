@@ -5,13 +5,28 @@ import FeaturesSFA from "@/layouts/partials/FeaturesSFA.astro";
 import AdditionalFeaturesSFA from "@/layouts/components/AdditionalFeaturesSFA.astro";
 import SFAHeader from "@/layouts/components/SFAHeader.astro";
 import CallToAction from "@/partials/CallToAction.astro";
+import NewFeaturesSFA from "@/components/NewFeaturesSFA.astro";
+import TestimonialMarquee from "@/components/TestimonialMarquee.astro";
+import FeatureShowcase from "@/components/FeatureShowcase.astro";
 ---
 
 <Base>
   
   <SFAHeader />
   <FeaturesSFA />
+  <NewFeaturesSFA/>
+  <FeatureShowcase   
+  image={{
+    src: "/images/mobile-hand-3.png",
+    alt: "mobile app"  
+  }},
+  heading="Unlock the Power of Customizable Loyalty Programs to Drive Customer Engagement and Business Growth",
+  description="Whether you need a solution for rewarding purchase volume, transaction value, or even packaging returns, Fieldkonnect adapts to your brand's unique needs, offering a flexible, data-driven approach to loyalty management.",
+  buttonText="Get Started",
+  buttonLink=""
+  />
   <AdditionalFeaturesSFA />
+  <TestimonialMarquee/>
   <Faq />
   <CallToAction />  
 </Base> 

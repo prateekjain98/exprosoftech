@@ -51,7 +51,7 @@ const getIcon = (title: string): string => {
 };
 ---
 
-{
+
   <section class="section">
     <div class="container">
       <SectionHeader
@@ -71,27 +71,20 @@ const getIcon = (title: string): string => {
               data-aos-delay={150 + index * 50}
             >
               <div class="icon-container">
-                <div class="icon-wrapper" set:html={getIcon(feature.title)} />
+                <div class="icon-wrapper">
+                  <div class="icon-animation" set:html={getIcon(feature.title)} />
+                  <div class="icon-animation clone" set:html={getIcon(feature.title)} />
+                </div>
               </div>
               <h3 class="feature-title">{feature.title}</h3>
               <p class="feature-description">{feature.description}</p>
-              {/* <div class="feature-details">
-                <div class="detail-item">
-                  <span class="detail-label">Advantage:</span>
-                  <span class="detail-text">{feature.advantage}</span>
-                </div>
-                <div class="detail-item">
-                  <span class="detail-label">Benefit:</span>
-                  <span class="detail-text">{feature.benefit}</span>
-                </div>
-              </div> */}
             </div>
           ))
         }
       </div>
     </div>
   </section>
-}
+
 
 <style>
   .feature-card {
@@ -102,7 +95,8 @@ const getIcon = (title: string): string => {
       #F0F7FF 0%,
       #E8F1FF 50%,
       #F0F7FF 100%
-    );
+    ); 
+    border: 2px solid rgba(59 , 130 , 246 , 0.1)
   }
 
   .icon-container {
@@ -117,11 +111,25 @@ const getIcon = (title: string): string => {
   }
 
   .icon-wrapper {
-    @apply text-primary transition-transform duration-300;
+    @apply text-primary relative overflow-hidden;
+    width: 32px;  /* Match SVG width */
+    height: 32px; /* Match SVG height */
   }
 
-  .feature-card:hover .icon-wrapper {
-    @apply transform scale-110;
+  .icon-animation {
+    @apply transition-transform duration-300 absolute w-full h-full;
+  }
+
+  .icon-animation.clone {
+    @apply top-full left-0;
+  }
+
+  .feature-card:hover .icon-animation:not(.clone) {
+    @apply -translate-y-full;
+  }
+
+  .feature-card:hover .icon-animation.clone {
+    @apply -translate-y-full;
   }
 
   .feature-title {
@@ -147,4 +155,4 @@ const getIcon = (title: string): string => {
   .detail-text {
     @apply text-gray-600 text-sm block;
   }
-</style> 
+</style>

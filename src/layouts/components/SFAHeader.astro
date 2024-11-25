@@ -3,20 +3,20 @@ import DynamicIcon from "@/helpers/DynamicIcon";
 import type { Button } from "@/types";
 ---
 
-<section class="section relative z-[1] pt-8 pb-16 lg:pt-12 lg:pb-24">
-  <div class="max-w-[85rem] mx-auto px-3">
-    <div class="row items-center justify-between">
+<section class="section relative z-[1] pt-8 pb-16 lg:pt-[5rem] lg:pb-24 overflow-hidden">
+  <div class="container-fluid ps-4 lg:ps-32">
+    <div class="flex flex-col lg:flex-row items-center">
       {/* Left Column - Content */}
-      <div class="mb-8 lg:mb-0 text-center lg:text-left lg:col-6" data-aos="fade-up-sm">
+      <div class="w-full lg:w-[45%] mb-8 lg:mb-0 text-center lg:text-left" data-aos="fade-up-sm">
         <h1 
-          class="mb-4 text-h3 lg:text-h1 gradient-text"
+          class="mb-4 text-h3 lg:text-h1 gradient-text lg:leading-[95%]"
         >
-        Empower Your Sales Team, Boost Field Efficiency, and Drive Growth
+        Empower Your Sales Team, Boost Field Efficiency, and Drive Growth
         </h1>
         <p 
-          class="mb-8 text-lg/[inherit] text-text"
+          class="mb-8 text-lg/[inherit] text-text px-4 lg:px-0"
         >
-        Fieldkonnect equips your sales team with the tools to boost productivity, focus, and customer experience. Designed to streamline field activities and enable data-driven decisions, it helps companies unlock their full sales potential.
+        In today’s fast-paced market, success goes beyond hitting sales targets. It’s about empowering sales teams with real-time data, actionable insights, and seamless coordination. **Fieldkonnect** equips your sales force to boost productivity, stay focused, and enhance the customer experience.
         </p>
         <div class="flex flex-wrap lg:justify-start justify-center gap-4">
           <a
@@ -37,14 +37,14 @@ import type { Button } from "@/types";
       </div>
 
       {/* Right Column - Image */}
-      <div class="lg:col-6" data-aos="fade-up-sm" data-aos-delay="400">
-        <div class="relative">
+      <div class="w-full lg:w-[55%] lg:pl-8 mt-8 lg:mt-0" data-aos="fade-up-sm" data-aos-delay="400">
+        <div class="relative lg:scale-125 lg:origin-left">
           <img
-            src="/images/sfa.png"
+            src="/images/loyalty-engine.png"
             alt="Loyalty Engine Dashboard"
-            class="w-full h-auto rounded-lg object-cover p-4"
-            width={580}
-            height={480}
+            class="w-full h-auto rounded-lg"
+            width={1000}
+            height={750}
           />
         </div>
       </div>
@@ -53,7 +53,10 @@ import type { Button } from "@/types";
 </section>
 
 <style>
-  .gradient-text {
-    @apply bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium;
+  .container-fluid {
+    @apply mx-auto;
+    max-width: none;
   }
+
+
 </style>
