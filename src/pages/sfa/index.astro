@@ -8,13 +8,15 @@ import CallToAction from "@/partials/CallToAction.astro";
 import NewFeaturesSFA from "@/components/NewFeaturesSFA.astro";
 import TestimonialMarquee from "@/components/TestimonialMarquee.astro";
 import FeatureShowcase from "@/components/FeatureShowcase.astro";
+import MobileComponentSFA from "@/components/MobileComponentSFA.astro";
 ---
 
 <Base>
   
   <SFAHeader />
   <FeaturesSFA />
-  <NewFeaturesSFA/>
+  <!-- <NewFeaturesSFA/> -->
+  <MobileComponentSFA />
   <FeatureShowcase   
   image={{
     src: "/images/mobile-hand-3.png",
@@ -25,6 +27,7 @@ import FeatureShowcase from "@/components/FeatureShowcase.astro";
   buttonText="Get Started",
   buttonLink=""
   />
+
   <AdditionalFeaturesSFA />
   <TestimonialMarquee/>
   <Faq />
