@@ -77,7 +77,7 @@ input#nav-toggle:checked ~ #nav-menu {
       @apply relative block px-3 py-2 font-medium text-text transition after:w-0 hover:text-tertiary lg:px-2 lg:py-3;
 
       .arrow-icon {
-        @apply relative inline-block align-[-2px] text-xs/snug transition-transform duration-300;
+        @apply relative inline-block lg:block align-[-2px] text-xs/snug transition-transform duration-300;
       }
     }
   }
