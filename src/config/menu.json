@@ -30,7 +30,7 @@
       "children":[
         {
           "name": "TOC Consulting",
-          "url": "/toc-consultancy/",
+          "url": "/toc-consulting/",
  
           "description": "Find your ideal buyers and get more meetings booked"
         },
@@ -101,7 +101,7 @@
   "footer_menu": [
     {
       "name": "TOC Consulting",
-      "url": "/toc-consultancy/"
+      "url": "/toc-consulting/"
     },
     {
       "name": "Manufacturing Transformation",
@@ -132,6 +132,10 @@
     {
       "name": "B2B Sales",
       "url": "/b2b-sales/"
+    },
+    {
+      "name": "Consulting Services",
+      "url": "/consulting/"
     }
   ]
 }

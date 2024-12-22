@@ -1,217 +1,162 @@
 ---
 import ImageMod from "@/components/ImageMod.astro";
-import DynamicIcon from "@/helpers/DynamicIcon";
-import { markdownify } from "@/lib/utils/textConverter";
 
 const features = [
   {
     tagline: "Flexible Production for a Dynamic Market",
     title: "Agile Manufacturing Solutions",
-    description: "Streamline material, manpower, and machinery to efficiently meet shifting market demands. Our adaptable processes ensure production aligns with changing needs, maximizing resource use and supporting sales with agility..",
-    image: "/images/FeatureImgOne.png"
+    description:
+      "Streamline material, manpower, and machinery to efficiently meet shifting market demands. Our adaptable processes ensure production aligns with changing needs, maximizing resource use and supporting sales with agility..",
+    image: "/images/FeatureImgOne.png",
   },
   {
     tagline: "Empowering Sales to Meet Market Needs",
     title: "Market Aligned Sales Process",
-    description: "Align your sales strategies with actual market demand to ensure seamless channel sales transformation. By synchronizing your sales process with market needs, we help you drive efficiency, better customer engagement, and growth in target markets.",
-    image: "/images/FeatureImgTwo.png"
+    description:
+      "Align your sales strategies with actual market demand to ensure seamless channel sales transformation. By synchronizing your sales process with market needs, we help you drive efficiency, better customer engagement, and growth in target markets.",
+    image: "/images/FeatureImgTwo.png",
   },
   {
     tagline: "Empowering Businesses with Data-Driven Insights",
     title: "Real-Time IT Solutions",
-    description: "Our consultancy provides cutting-edge IT infrastructure combined with advanced data analytics to ensure seamless real-time monitoring and execution. We design and implement robust systems that allow you to stay ahead in today's fast-paced environment.",
-    image: "/images/FeatureImgThree.png"
+    description:
+      "Our consultancy provides cutting-edge IT infrastructure combined with advanced data analytics to ensure seamless real-time monitoring and execution. We design and implement robust systems that allow you to stay ahead in today's fast-paced environment.",
+    image: "/images/FeatureImgThree.png",
   },
   {
     tagline: "Skilled Teams, Smart Systems, Superior Results",
     title: "People & Systems",
-    description: "Our consultancy optimizes your workforce and technology to drive performance. By building skilled teams and implementing advanced systems, we streamline operations, boost productivity, and ensure sustainable growth, enabling your business to adapt and excel in dynamic markets.",
-    image: "/images/FeatureImgFour.png"
-  }
+    description:
+      "Our consultancy optimizes your workforce and technology to drive performance. By building skilled teams and implementing advanced systems, we streamline operations, boost productivity, and ensure sustainable growth, enabling your business to adapt and excel in dynamic markets.",
+    image: "/images/FeatureImgFour.png",
+  },
 ];
 ---
 
-<div class="sticky-container relative flex gap-8 lg:gap-16  max-w-[1320px] mx-auto px-4 lg:px-8">
-  <!-- Vertical Navigation -->
-  <div class="hidden lg:block sticky h-fit top-0 w-[300px] pt-[150px]">
-    <nav class="vertical-nav space-y-10 pl-8 border-l border-gray-200">
-      {features.map((item, index) => (
-        <button
-          class="nav-item text-left transition-all duration-300 hover:text-primary pl-6 -ml-[1px] relative group"
-          data-target={`feature-${index}`}
-        >
-          <span class="block text-sm text-gray-400 mb-3">{item.tagline}</span>
-          <span class="font-medium text-lg block leading-snug">{item.title}</span>
-          <span class="absolute left-0 top-0 h-full w-[2px] bg-primary opacity-0 transition-opacity duration-300 nav-indicator"></span>
-        </button>
-      ))}
-    </nav>
-  </div>
+<section>
+  <div class="container-xl mx-auto px-4">
+    <div class="flex flex-col gap-8 lg:gap-12">
+      {/* Navigation Tabs */}
+      <nav class="grid grid-cols-2 sm:flex sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
+        {
+          features.map((feature, index) => (
+            <button
+              class:list={[
+                "px-3 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl transition-all duration-300",
+                "shadow-md hover:shadow-lg",
+                "border border-white/10",
+                "bg-white/5 text-slate-500 hover:bg-white/10 hover:-translate-y-0.5",
+                "text-center",
+                index === 0 && "active",
+              ]}
+              data-tab={`tab-${index}`}
+            >
+              <span class="font-medium text-[13px] sm:text-[15px] tracking-wide line-clamp-1">
+                {feature.title}
+              </span>
+            </button>
+          ))
+        }
+      </nav>
 
-  <!-- Features Content -->
-  <div class="sticky-features mt-10 flex-1 space-y-32">
-    {features.map((item, mindex) => {
-      const { tagline, title, description, image } = item;
-      return (
-        <div
-          id={`feature-${mindex}`}
-          class="overflow-hidden rounded-3xl lg:sticky lg:top-[120px] h-fit lg:h-[500px]"
-          style="background-color: #1E293B;"
-        >
-          <div class="flex flex-col lg:flex-row justify-between h-full">
-            {/* Left Content Side */}
-            <div class="lg:w-1/2" data-aos="fade-up-sm">
-              <div class="p-6 md:p-14 lg:p-16 xl:p-10 flex flex-col justify-center">
-                {tagline && (
-                  <p 
-                    class="text-sm uppercase tracking-wider !text-white mb-8"
-                    data-aos="fade-up-sm"
-                  >
-                    {tagline}
-                  </p>
-                )}
-                {title && (
-                  <h2
-                    class="text-2xl lg:text-3xl xl:text-4xl mb-8 !text-white leading-tight font-semibold"
-                    data-aos="fade-up-sm"
-                    set:html={markdownify(title)}
-                  />
-                )}
-                {description && (
-                  <p
-                    class="text-xs lg:text-lg !text-gray-300 leading-relaxed"
-                    data-aos="fade-up-sm"
-                    data-aos-delay="100"
-                    set:html={markdownify(description)}
-                  />
-                )}
+      {/* Feature Cards */}
+      <div class="min-h-[550px] md:min-h-[700px] lg:min-h-[500px] relative">
+        {
+          features.map((feature, index) => (
+            <div
+              id={`tab-${index}`}
+              class:list={[
+                "feature-card absolute inset-0 w-full h-full transition-all duration-500",
+                index === 0
+                  ? "opacity-100 translate-y-0 z-10"
+                  : "opacity-0 translate-y-8 pointer-events-none z-0",
+              ]}
+            >
+              <div class="bg-slate-900 rounded-2xl sm:rounded-[3rem] overflow-hidden shadow-xl h-full border border-slate-800">
+                <div class="grid grid-cols-1 lg:grid-cols-2 h-full">
+                  {/* Content Side */}
+                  <div class="order-2 lg:order-1 p-5 md:p-8 lg:p-12 flex flex-col justify-center">
+                    <div class="space-y-3 md:space-y-4 lg:space-y-6">
+                      <span class="inline-block bg-gradient-to-r from-primary/20 to-primary/10 text-white/90 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-white/10 shadow-lg">
+                        {feature.tagline}
+                      </span>
+
+                      <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">
+                        {feature.title}
+                      </h2>
+
+                      <p class="text-sm sm:text-base text-slate-300 leading-relaxed line-clamp-3 md:line-clamp-4 lg:line-clamp-none">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Image Side */}
+                  <div class="order-1 lg:order-2 p-4 pb-0 md:p-6 lg:p-8 flex items-center justify-center">
+                    <div class="relative w-full aspect-[4/3] max-w-[400px] md:max-w-[450px]">
+                      <ImageMod
+                        src={feature.image}
+                        alt={feature.title}
+                        class="w-full h-full object-contain"
+                        width={600}
+                        height={450}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            {/* Right Image Side */}
-            <div class="lg:w-1/2 h-full">
-              <div class="p-6 md:p-8 lg:p-10 xl:p-12 h-full flex items-end lg:items-center justify-center">
-                {image && (
-                  <ImageMod
-                    src={image}
-                    alt={title}
-                    class="w-full h-fit max-w-[400px] lg:max-w-[520px] rounded-lg object-cover"
-                    data-aos="fade-up-sm"
-                    data-aos-delay="200"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    })}
+          ))
+        }
+      </div>
+    </div>
   </div>
-</div>
-
-<style>
-  .sticky-features {
-    min-height: 150vh;
-    @media (min-width: 1024px) {
-      min-height: 250vh;
-    }
-  }
-
-  .nav-item {
-    @apply opacity-60 transition-all duration-300;
-  }
-
-  /* Updated active state styles */
-  .nav-item.active {
-    @apply opacity-100 text-primary !important;
-  }
-
-  .nav-item.active .nav-indicator {
-    @apply opacity-100;
-  }
-
-  /* Updated hover styles to not override active state */
-  .nav-item:hover:not(.active) {
-    @apply opacity-100 text-primary;
-  }
-
-  /* Add subtle transition for nav items */
-  .vertical-nav button {
-    @apply transform transition-transform duration-300;
-  }
-
-  .vertical-nav button:hover {
-    @apply translate-x-1;
-  }
-
-  /* Remove the border-left from active state since we're using the indicator */
-  .nav-item.active {
-    @apply -ml-[1px];
-  }
-</style>
+</section>
 
 <script>
-  // Handle navigation click and scroll
-  const navItems = document.querySelectorAll('.nav-item');
-  const features = document.querySelectorAll('.sticky-features > div');
+  const init = (): void => {
+    const tabs: NodeListOf<HTMLElement> =
+      document.querySelectorAll("[data-tab]");
+    const cards: NodeListOf<HTMLElement> =
+      document.querySelectorAll(".feature-card");
 
-  // Update active state based on scroll position
-  const updateActiveState = () => {
-    const scrollPosition = window.scrollY + window.innerHeight / 2;
-    let activeFound = false;
-    
-    features.forEach((feature, index) => {
-      const featureTop = (feature as HTMLElement).offsetTop;
-      const featureBottom = featureTop + (feature as HTMLElement).offsetHeight;
-      
-      if (scrollPosition >= featureTop && scrollPosition < featureBottom) {
-        navItems.forEach(item => {
-          item.classList.remove('active');
-          (item as HTMLElement).style.removeProperty('color');
-        });
-        navItems[index].classList.add('active');
-        activeFound = true;
-      }
+    const switchTab = (tabId: string): void => {
+      tabs.forEach((tab: HTMLElement) => {
+        const isActive = tab.dataset.tab === tabId;
+
+        // Toggle active state classes
+        tab.classList.toggle("active", isActive);
+        tab.classList.toggle("bg-gradient-to-r", isActive);
+        tab.classList.toggle("from-blue-600", isActive);
+        tab.classList.toggle("to-indigo-600", isActive);
+        tab.classList.toggle("text-white", isActive);
+        tab.classList.toggle("bg-white/5", !isActive);
+        tab.classList.toggle("text-slate-500", !isActive);
+      });
+
+      // Toggle card visibility
+      cards.forEach((card: HTMLElement) => {
+        const isActive = card.id === tabId;
+        card.classList.toggle("opacity-0", !isActive);
+        card.classList.toggle("translate-y-8", !isActive);
+        card.classList.toggle("pointer-events-none", !isActive);
+        card.classList.toggle("z-0", !isActive);
+        card.classList.toggle("opacity-100", isActive);
+        card.classList.toggle("translate-y-0", isActive);
+        card.classList.toggle("z-10", isActive);
+      });
+    };
+
+    tabs.forEach((tab: HTMLElement) => {
+      tab.addEventListener("click", () => {
+        const tabId = tab.dataset.tab;
+        if (tabId) switchTab(tabId);
+      });
     });
 
-    if (!activeFound && window.scrollY < (features[0] as HTMLElement).offsetTop) {
-      navItems.forEach(item => {
-        item.classList.remove('active');
-        (item as HTMLElement).style.removeProperty('color');
-      });
-      navItems[0].classList.add('active');
-    }
+    // Initialize first tab
+    switchTab("tab-0");
   };
 
-  // Updated click handler
-  navItems.forEach((item: Element) => {
-    item.addEventListener('click', (e) => {
-      // Remove active class from all items
-      navItems.forEach(nav => {
-        nav.classList.remove('active');
-        (nav as HTMLElement).style.removeProperty('color');
-      });
-      
-      // Add active class to clicked item
-      item.classList.add('active');
-      
-      const targetId = (item as HTMLElement).dataset.target;
-      if (targetId) {
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'center'
-          });
-        }
-      }
-    });
-  });
-
-  // Update active state on scroll
-  window.addEventListener('scroll', updateActiveState);
-  
-  // Initial state update
-  window.addEventListener('load', updateActiveState);
-  updateActiveState();
+  document.addEventListener("DOMContentLoaded", init);
 </script>
