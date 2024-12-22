@@ -29,33 +29,33 @@
       "hasChildren": true,
       "children":[
         {
+          "name": "Demand-Driven Business Transformation",
+          "url": "/demand-driven-transformation/",
+          "description": "Transform your business with demand-driven strategies and solutions"
+        },
+        {
           "name": "TOC Consulting",
           "url": "/toc-consulting/",
- 
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Manufacturing Transformation",
           "url": "/manufacturing-transformation/",
- 
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Supply Chain Transformation",
           "url": "/supply-chain-transformation/",
- 
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Sales Transformation",
           "url": "/sales-transformation/",
- 
           "description": "Find your ideal buyers and get more meetings booked"
         },
         { 
           "name": "Digital Transformation",
           "url": "/digital-transformation/",
- 
           "description": "Find your ideal buyers and get more meetings booked"
         }
       ]
@@ -99,6 +99,10 @@
     }
   ],
   "footer_menu": [
+    {
+      "name": "Demand-Driven Business Transformation",
+      "url": "/demand-driven-transformation/"
+    },
     {
       "name": "TOC Consulting",
       "url": "/toc-consulting/"

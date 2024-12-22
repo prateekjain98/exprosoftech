@@ -1,0 +1,18 @@
+---
+import Base from "@/layouts/Base.astro";
+import Faq from "@/partials/Faq.astro";
+import { getEntry } from "astro:content";
+
+const consulting = await getEntry("consulting", "-index");
+const { title, description, meta_title, image } = consulting?.data || {};
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <Faq />
+</Base>
+

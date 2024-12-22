@@ -1,16 +1,9 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Clients from "@/partials/Clients.astro";
-import HowItWorks from "@/partials/HowItWorks.astro";
-import FeaturesGrid from "@/partials/FeaturesGrid.astro";
-import Features from "@/partials/FeatureSection.astro";
-import FeaturesExplanation from "@/partials/FeaturesExplanation.astro";
-import ScrollableFeatures from "@/components/ScrollableFeatures.astro";
 import Faq from "@/partials/Faq.astro";
-import ClientStories from "@/layouts/components/ClientStories.astro";
 import { getEntry } from "astro:content";
 
-const tocConsulting = await getEntry("toc-consultancy", "-index");
+const tocConsulting = await getEntry("toc-consulting", "-index");
 const { title, description, meta_title, image } = tocConsulting?.data || {};
 ---
 
