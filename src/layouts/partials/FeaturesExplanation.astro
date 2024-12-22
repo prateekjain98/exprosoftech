@@ -180,13 +180,9 @@ const {
 }
 
 <style>
-  .section.features-explanation {
-    padding-bottom: 0;
-  }
-
   .sticky-wrapper {
     height: auto;
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
 
   /* Mobile-first styles */
@@ -212,19 +208,14 @@ const {
 
   /* Desktop styles */
   @media (min-width: 1024px) {
-    .section.features-explanation {
-      padding-bottom: 100vh;
-    }
-
     .sticky-wrapper {
       height: 200vh;
-      margin-top: 4rem;
     }
 
     .stacked-container {
       position: sticky;
-      top: 2rem;
-      height: calc(100vh - 4rem);
+      top: 0;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
