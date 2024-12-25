@@ -1,0 +1,185 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+import { markdownify } from "@/lib/utils/textConverter";
+import type { Button } from "@/types";
+import { getEntry } from "astro:content";
+
+interface Banner {
+  title: string;
+  description: string;
+  images: {
+    src: string;
+    alt: string;
+  }[];
+  buttons: Button[];
+}
+
+const bannerData = await getEntry("sections", "demand-driven-banner");
+
+const { title, description, buttons, images }: Partial<Banner> =
+  bannerData?.data || {};
+
+const statsCards = [
+  {
+    number: "35%",
+    label: "Sales Growth",
+    icon: "FaChartLine",
+    color: "blue",
+  },
+  {
+    number: "98%",
+    label: "Delivery Performance",
+    icon: "FaTruck",
+    color: "green",
+  },
+  {
+    number: "40%",
+    label: "Lead Time Reduction",
+    icon: "FaClock",
+    color: "purple",
+  },
+];
+---
+
+<style>
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium;
+  }
+
+  .stats-card {
+    @apply bg-white/95 backdrop-blur-md rounded-xl p-6 shadow-xl border border-gray-100;
+    transition: all 0.3s ease;
+  }
+
+  .stats-card:hover {
+    transform: translateY(-5px);
+    @apply shadow-2xl border-primary/20;
+  }
+
+  .image-wrapper {
+    @apply relative rounded-2xl overflow-hidden;
+    &::after {
+      content: "";
+      @apply absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary/10;
+    }
+  }
+
+  .floating-cards {
+    @apply absolute -bottom-4 left-8 right-8 grid grid-cols-3 gap-6 z-10;
+  }
+
+  .icon-wrapper {
+    @apply w-12 h-12 rounded-full flex items-center justify-center mb-3;
+  }
+
+  .icon-wrapper.blue {
+    @apply bg-blue-50 text-blue-500;
+  }
+
+  .icon-wrapper.green {
+    @apply bg-green-50 text-green-500;
+  }
+
+  .icon-wrapper.purple {
+    @apply bg-purple-50 text-purple-500;
+  }
+
+  .stats-number {
+    @apply font-bold text-2xl mb-1 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent;
+  }
+
+  .stats-label {
+    @apply text-sm font-medium text-gray-600;
+  }
+</style>
+
+<section class="relative z-[1] pt-8 pb-24 lg:pt-12 lg:pb-32">
+  <div class="max-w-[85rem] mx-auto px-3">
+    <div class="row items-center justify-between">
+      <div class="mb-8 lg:mb-0 text-center lg:text-left lg:col-6">
+        {
+          title && (
+            <h1
+              set:html={markdownify(title)}
+              data-aos="fade-up-sm"
+              class="mb-4 text-h3 lg:text-h1 gradient-text"
+            />
+          )
+        }
+        {
+          description && (
+            <p
+              set:html={markdownify(description)}
+              data-aos="fade-up-sm"
+              class="mb-8 text-lg/[inherit]"
+            />
+          )
+        }
+        {
+          buttons && buttons.length > 0 && (
+            <ul class="flex flex-wrap lg:justify-start justify-center gap-4">
+              {buttons.map(({ label, link }, index) => (
+                <li data-aos="fade-up-sm" data-aos-delay={100 + index * 50}>
+                  <a
+                    class={`${
+                      index === 0 ? "btn-primary" : "btn-outline-primary"
+                    } btn`}
+                    href={link}
+                    target={link.startsWith("http") ? "_blank" : "_self"}
+                    rel="noopener"
+                  >
+                    {label}
+                    <span class="sr-only">Details</span>
+                    <DynamicIcon
+                      icon={
+                        label === "Download Deck"
+                          ? "FaDownload"
+                          : "FaArrowRight"
+                      }
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      {
+        images && images[0] && (
+          <div class="lg:col-6">
+            <div
+              class="image-wrapper"
+              data-aos="fade-up-sm"
+              data-aos-delay="400"
+            >
+              <ImageMod
+                src={images[0].src}
+                alt={images[0].alt}
+                width={580}
+                height={480}
+                class="w-full h-auto rounded-lg object-cover"
+              />
+              <div class="floating-cards">
+                {statsCards.map((card, index) => (
+                  <div
+                    class="stats-card"
+                    data-aos="fade-up"
+                    data-aos-delay={500 + index * 100}
+                  >
+                    <div class={`icon-wrapper ${card.color}`}>
+                      <DynamicIcon icon={card.icon} />
+                    </div>
+                    <div class="stats-number">{card.number}</div>
+                    <div class="stats-label">{card.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

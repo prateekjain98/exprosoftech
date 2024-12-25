@@ -1,6 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Faq from "@/partials/Faq.astro";
+import DemandDrivenBanner from "@/layouts/partials/DemandDrivenBanner.astro";
 import { getEntry } from "astro:content";
 
 const consulting = await getEntry("consulting", "-index");
@@ -13,6 +14,6 @@ const { title, description, meta_title, image } = consulting?.data || {};
   description={description}
   image={image}
 >
+  <DemandDrivenBanner />
   <Faq />
 </Base>
-

@@ -384,6 +384,13 @@ declare module 'astro:content' {
   collection: "sections";
   data: any
 } & { render(): Render[".md"] };
+"demand-driven-banner.md": {
+	id: "demand-driven-banner.md";
+  slug: "demand-driven-banner";
+  body: string;
+  collection: "sections";
+  data: any
+} & { render(): Render[".md"] };
 "faq.md": {
 	id: "faq.md";
   slug: "faq";
