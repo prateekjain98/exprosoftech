@@ -6,61 +6,62 @@ import { markdownify } from "@/lib/utils/textConverter";
 const features = [
   {
     number: "01",
-    title: "Customer Loyalty",
-    subheading: "Empowering Global Brands with Next-Gen Loyalty Solutions",
+    title: "Loyalty Management",
+    subheading: "Product-Focused Customer Loyalty Solutions",
     description:
-      "Seamlessly integrating personalized experiences, real-time  data analytics, and customer engagement strategies to drive sustainable growth and build lasting relationships worldwide.",
+      "Transform your customer relationships with our comprehensive loyalty management platform. We help businesses design, implement, and optimize reward programs that drive engagement, increase retention, and maximize customer lifetime value through data-driven personalization.",
     image: "/images/leftImgOne.png",
   },
   {
     number: "02",
-    title: "Inside Sales Solutions",
-    subheading: "Driving Business Growth with Targeted Engagement",
+    title: "Channel Reach Expansion",
+    subheading: "Strategic Market Presence Enhancement",
     description:
-      "Inside Sales is your gateway to unlocking global reach and driving sales efficiency. Our approach focuses on quality prospecting of decision-makers, ensuring that every interaction is impactful and results-driven.",
+      "Expand your market presence through strategic channel partnerships and distribution networks. Our approach focuses on identifying and developing optimal channel mix, enabling businesses to reach new markets and customer segments effectively.",
     image: "/images/leftImgTwo.jpg",
   },
   {
     number: "03",
-    title: "Go-To-Market Strategy",
-    subheading: "Empowering Global Brands with Next-Gen Loyalty Solutions",
+    title: "B2B Sales Excellence",
+    subheading: "End-to-End B2B Sales Pipeline Management",
     description:
-      "Achieve peak performance through our operational excellence programs. We streamline workflows, reduce inefficiencies, and implement best practices to maximize your organizational productivity.",
+      "Accelerate your B2B sales with our comprehensive approach covering prospecting, content creation, multi-channel outreach (LinkedIn & Email), appointment scheduling, and complete funnel management. We help you build and maintain a robust sales pipeline that delivers consistent results.",
     image: "/images/leftImgThree.jpg",
   },
 ];
 
 const sectionHeader = {
-  tagline: "Strategic Solutions for Sustainable Growth",
-  heading: "Expert Guidance for Business Transformation",
+  tagline: "Comprehensive Business Solutions",
+  heading: "Driving Growth Through Strategic Excellence",
   subheading:
-    "Our consultancy offers expert insights and tailored strategies to overcome challenges, optimize operations, and drive growth. We deliver actionable solutions that turn your vision into reality, ensuring long-term success and scalability.",
+    "We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership. Our integrated approach ensures measurable results and long-term success.",
 };
 ---
 
-<section class="py-16">
-  <div class="container max-w-7xl mx-auto">
+<section class="py-24 bg-gradient-to-b from-white to-gray-50">
+  <div class="container max-w-7xl mx-auto px-4">
     <SectionHeader
       tagline={sectionHeader.tagline}
       heading={sectionHeader.heading}
       subheading={sectionHeader.subheading}
     />
 
-    <div class="mt-16 lg:flex gap-16" id="features-container">
+    <div class="mt-24 lg:flex gap-20" id="features-container">
       <!-- Sticky Image Container -->
       <div class="hidden lg:block lg:w-1/2">
         <div class="sticky top-32 p-6">
-          <div class="relative aspect-square overflow-hidden rounded-xl">
+          <div class="relative aspect-square overflow-hidden rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
             {
               features.map((feature, index) => (
                 <div
                   class="feature-image absolute inset-0 w-full h-full"
                   data-index={index}
                 >
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10" />
                   <ImageMod
                     src={feature.image}
                     alt={`Feature ${index + 1}`}
-                    class="h-full w-full object-cover"
+                    class="h-full w-full object-cover transform scale-105 transition-transform duration-700"
                   />
                 </div>
               ))
@@ -72,12 +73,12 @@ const sectionHeader = {
       <!-- Scrollable Content Container -->
       <div class="lg:w-1/2 relative" id="scroll-content">
         <div
-          class="absolute left-0 top-0 h-full w-[3px] bg-neutral-100 rounded-full"
+          class="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-gray-100 to-gray-200 rounded-full"
           id="progress-track"
         >
-          <!-- Progress bar with gradient -->
+          <!-- Progress bar with enhanced gradient -->
           <div
-            class="absolute top-0 w-full bg-gradient-to-b from-[#336AEA40] via-[#336AEA80] to-[#336AEA] rounded-full"
+            class="absolute top-0 w-full bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 rounded-full shadow-lg"
             id="progress-bar"
           >
           </div>
@@ -86,26 +87,29 @@ const sectionHeader = {
         {
           features.map((feature, index) => (
             <div
-              class="feature-section mb-8 last:mb-0 p-6 pl-8 rounded-xl min-h-[60vh] flex flex-col justify-start pt-[5vh]"
+              class="feature-section mb-12 last:mb-0 p-8 pl-12 rounded-2xl min-h-[70vh] flex flex-col justify-start pt-[8vh] hover:bg-white/50 transition-colors duration-300"
               data-index={index}
             >
-              <div class="space-y-8">
-                <span class="text-[80px] font-light text-gray-200 leading-none block mb-6">
+              <div class="space-y-10">
+                <span class="text-[120px] font-light bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent leading-none block mb-8 opacity-20">
                   {feature.number}
                 </span>
 
                 {/* Mobile Image */}
-                <div class="lg:hidden rounded-xl overflow-hidden mb-6 aspect-[4/3]">
-                  <ImageMod
-                    src={feature.image}
-                    alt={`Feature ${index + 1}`}
-                    class="h-full w-full object-cover"
-                  />
+                <div class="lg:hidden rounded-2xl overflow-hidden mb-8 aspect-[4/3] shadow-xl">
+                  <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10" />
+                    <ImageMod
+                      src={feature.image}
+                      alt={`Feature ${index + 1}`}
+                      class="h-full w-full object-cover"
+                    />
+                  </div>
                 </div>
 
-                <div class="space-y-4">
+                <div class="space-y-6">
                   <h3
-                    class="text-4xl font-bold"
+                    class="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
                     set:html={markdownify(feature.title)}
                   />
                   <h4
@@ -113,7 +117,7 @@ const sectionHeader = {
                     set:html={markdownify(feature.subheading)}
                   />
                   <p
-                    class="text-gray-600 max-w-md leading-relaxed mt-4"
+                    class="text-gray-600 max-w-md leading-relaxed mt-4 text-lg"
                     set:html={markdownify(feature.description)}
                   />
                 </div>
@@ -191,19 +195,18 @@ const sectionHeader = {
 <style>
   .feature-section {
     background-color: transparent;
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .feature-image {
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .feature-image[data-index="0"] {
     opacity: 1;
   }
 
-  /* Add smooth transition for mobile images */
   @media (max-width: 1024px) {
     .feature-section {
       min-height: auto;
@@ -216,11 +219,19 @@ const sectionHeader = {
       to bottom,
       transparent 0%,
       black 5%,
-      black 100%
+      black 95%,
+      transparent 100%
     );
   }
 
   #progress-bar {
-    transition: height 0.3s ease;
+    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+
+  .feature-section:hover .text-[120px] {
+    opacity: 0.3;
+    transform: scale(1.05);
+    transition: all 0.5s ease;
   }
 </style>

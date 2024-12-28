@@ -8,6 +8,11 @@ interface Hero {
   title: string;
   subtitle: string;
   description: string;
+  contact_info: {
+    icon: string;
+    title: string;
+    description: string;
+  }[];
   list: {
     icon: string;
     title: string;
@@ -25,27 +30,65 @@ const { hero }: { hero: Hero } = (await getEntry("contact", "-index")).data;
       <div class="container">
         <div class="row">
           <div class="lg:col-7 lg:pe-20 lg:pt-16" data-aos="fade-left-sm">
-            {hero.subtitle && (
-              <p
-                class="mb-2 font-medium text-tertiary"
-                set:html={markdownify(hero.subtitle)}
-              />
+            {/* Header Section */}
+            <div class="mb-12">
+              {hero.subtitle && (
+                <p
+                  class="mb-3 font-medium text-tertiary"
+                  set:html={markdownify(hero.subtitle)}
+                />
+              )}
+              {hero.title && (
+                <h2 class="md:h1 mb-4" set:html={markdownify(hero.title)} />
+              )}
+              {hero.description && (
+                <p
+                  class="text-lg/[inherit]"
+                  set:html={markdownify(hero.description)}
+                />
+              )}
+            </div>
+
+            {/* Contact Info Cards */}
+            {hero.contact_info && (
+              <div class="mb-14 space-y-4">
+                {hero.contact_info.map((info) => (
+                  <div class="flex items-start space-x-5 rounded-xl border border-border/50 bg-theme-light/50 p-5 hover:bg-theme-light/80 transition-colors">
+                    {info.icon && (
+                      <div class="flex h-12 w-12 shrink-0 items-center justify-center">
+                        <ImageMod
+                          class="h-7 w-7 object-cover"
+                          src={info.icon}
+                          alt={`icon related to ${info.title}`}
+                        />
+                      </div>
+                    )}
+                    <div>
+                      {info.title && (
+                        <h3
+                          class="h6 mb-1 text-dark/80"
+                          set:html={markdownify(info.title)}
+                        />
+                      )}
+                      {info.description && (
+                        <p
+                          class="text-base font-medium text-dark"
+                          set:html={markdownify(info.description)}
+                        />
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
-            {hero.title && (
-              <h2 class="md:h1 mb-6" set:html={markdownify(hero.title)} />
-            )}
-            {hero.description && (
-              <p
-                class="text-lg/[inherit]"
-                set:html={markdownify(hero.description)}
-              />
-            )}
+
+            {/* Service Cards */}
             {hero.list && (
-              <div class="mt-10 flex flex-col gap-10 sm:flex-row xl:mt-20">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {hero.list.map((point) => (
-                  <div>
+                  <div class="service-card rounded-xl bg-theme-light p-6 hover:shadow-sm transition-shadow">
                     {point.icon && (
-                      <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
+                      <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
                         <ImageMod
                           class="h-6 w-6 object-cover"
                           src={point.icon}
@@ -54,11 +97,11 @@ const { hero }: { hero: Hero } = (await getEntry("contact", "-index")).data;
                       </div>
                     )}
                     {point.title && (
-                      <h3 class="h6 mb-2 mt-5" set:html={markdownify(point.title)} />
+                      <h3 class="h6 mb-3" set:html={markdownify(point.title)} />
                     )}
                     {point.description && (
                       <p
-                        class="text-lg/[inherit]"
+                        class="text-base/relaxed text-text"
                         set:html={markdownify(point.description)}
                       />
                     )}
@@ -67,99 +110,128 @@ const { hero }: { hero: Hero } = (await getEntry("contact", "-index")).data;
               </div>
             )}
           </div>
-          <div class="relative pt-24 lg:col-5 lg:pt-16" data-aos="fade-left-sm" data-aos-delay="200">
-            <ImageMod
-              class="absolute left-1/2 top-5 -z-10 w-20 -translate-x-1/2 lg:-top-7"
-              src={"/images/logo-icon.svg"}
-              alt="hero image"
-              loading="eager"
-            />
-            <div class="rounded-2xl bg-theme-light p-5 md:p-10">
-              <form class="row g-4 " action={contact_form_action} method="POST">
-                <div class="lg:col-6">
-                  <label for="name" class="form-label">
-                    First Name <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    class="form-input"
-                    placeholder="Your First Name"
-                    required
-                    type="text"
-                  />
+          <div
+            class="relative lg:col-5 lg:pt-16"
+            data-aos="fade-left-sm"
+            data-aos-delay="200"
+          >
+            <div class="relative">
+              {/* Logo container */}
+              <div class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 z-10">
+                <div class="relative">
+                  {/* Subtle ring effect */}
+                  <div class="absolute inset-0 -m-1 rounded-full bg-gradient-to-r from-white via-primary/5 to-white"></div>
+                  {/* Logo wrapper */}
+                  <div class="relative bg-white rounded-full p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] backdrop-blur-sm">
+                    <ImageMod
+                      class="w-20 h-20 object-contain transition-transform duration-300 hover:scale-105"
+                      src={"/images/logo.png"}
+                      alt="hero image"
+                      loading="eager"
+                    />
+                  </div>
                 </div>
-                <div class="lg:col-6">
-                  <label for="name" class="form-label">
-                    Last Name <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    class="form-input"
-                    placeholder="Your Last Name"
-                    required
-                    type="text"
-                  />
+              </div>
+
+              {/* Form container */}
+              <div class="relative rounded-2xl bg-theme-light p-5 pt-20 md:p-10 md:pt-24 shadow-lg border border-border/5">
+                <div class="absolute inset-0 bg-gradient-to-b from-theme-light to-white/50 opacity-50 rounded-2xl" />
+                <div class="relative">
+                  <h3 class="h3 mb-8 text-center text-dark">Get In Touch</h3>
+                  <form
+                    class="row g-4"
+                    action={contact_form_action}
+                    method="POST"
+                  >
+                    <div class="lg:col-6">
+                      <label for="first-name" class="form-label">
+                        First Name <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="first-name"
+                        name="first-name"
+                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
+                        placeholder="Your First Name"
+                        required
+                        type="text"
+                      />
+                    </div>
+                    <div class="lg:col-6">
+                      <label for="last-name" class="form-label">
+                        Last Name <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="last-name"
+                        name="last-name"
+                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
+                        placeholder="Your Last Name"
+                        required
+                        type="text"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="email" class="form-label">
+                        Email <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="email"
+                        name="email"
+                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
+                        placeholder="youremail@email.com"
+                        required
+                        type="email"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="company-name" class="form-label">
+                        Company Name <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="company-name"
+                        name="company-name"
+                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
+                        placeholder="Your Company Name"
+                        required
+                        type="text"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="subject" class="form-label">
+                        Subject <span class="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="subject"
+                        name="subject"
+                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
+                        placeholder="Message Subject"
+                        required
+                        type="text"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <label for="message" class="form-label">
+                        Write Message <span class="text-red-500">*</span>
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        class="form-input min-h-[120px] focus:ring-2 focus:ring-primary/20 transition-shadow"
+                        placeholder="Write Your Message Here"
+                        required
+                        rows="3"
+                      />
+                    </div>
+                    <div class="col-12">
+                      <button
+                        type="submit"
+                        class="btn btn-primary w-full transition-transform hover:scale-[1.02]"
+                      >
+                        Send Message
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <div class="col-12">
-                  <label for="email" class="form-label">
-                    Email <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    class="form-input"
-                    placeholder="youremail@email.com"
-                    required
-                    type="email"
-                  />
-                </div>
-                <div class="col-12">
-                  <label for="comapny-name" class="form-label">
-                    Company Name <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="comapny-name"
-                    name="comapny-name"
-                    class="form-input"
-                    placeholder="Your Company Name"
-                    required
-                    type="text"
-                  />
-                </div>
-                <div class="col-12">
-                  <label for="subject" class="form-label">
-                    Subject <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="subject"
-                    name="subject"
-                    class="form-input"
-                    placeholder="Your Company Name"
-                    required
-                    type="text"
-                  />
-                </div>
-                <div class="col-12">
-                  <label for="message" class="form-label">
-                    Write Message <span class="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    class="form-input"
-                    placeholder="Write Your Message Here"
-                    required
-                    rows="3"
-                  />
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-regular">
-                    Send Message
-                  </button>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

@@ -1,10 +1,10 @@
 ---
 enable: true
-title: "Ready to Transform Your Loyalty Strategy"
+title: "Ready to Drive Business Growth?"
 image: "/images/field-konnect.png"
-description: "Allows you to  drive engagement, loyalty, and revenue growth, offering customizable loyalty schemes like QR-based, invoice-based, quantity-based, value-based, and packaging collection programs.."
+description: "Transform your operations with our proven demand-driven approach. Let us help you optimize your supply chain, boost sales, and achieve sustainable growth for your business."
 button:
   enable: true
-  label: "Get Started"
+  label: "Schedule a Consultation"
   link: "/contact/"
 ---

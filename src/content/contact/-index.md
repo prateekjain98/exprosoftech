@@ -1,18 +1,25 @@
 ---
-title: "Contact"
-meta_title: ""
-description: "this is meta description"
+title: "Contact Us"
+meta_title: "Contact Greymetre Consultants - Business Transformation Experts"
+description: "Get in touch with Greymetre Consultants for demand-driven business transformation solutions. Schedule a consultation today."
 draft: false
 
 hero:
-  subtitle: Contact Us
-  title: Get in Touch. <br> Contact Information and Support.
-  description: Your Trusted Partner in Data Protection with Cutting-Edge <br> Solutions for Comprehensive Data Security.
+  subtitle: "Contact Us"
+  title: "Let's Transform Your Business Together"
+  description: "Ready to achieve operational excellence and sustainable growth? Our team of experts is here to help you implement demand-driven strategies for lasting success."
+  contact_info:
+    - icon: "/images/icons/svg/location.svg"
+      title: "Our Office"
+      description: "591 & 592, Scheme 114, Part 1, Dewas Naka, Indore (452010)"
+    - icon: "/images/icons/svg/phone.svg"
+      title: "Call Us"
+      description: "+91 91318 62363 / +91 91316 78419"
   list:
     - icon: "/images/icons/svg/24.svg"
-      title: 24/7 Customer Support
-      description: Our dedicated support team is available 24/7 to assist you with any issues or questions you may have.
+      title: "Expert Consultation"
+      description: "Schedule a consultation with our transformation experts to discuss your business challenges and solutions."
     - icon: "/images/icons/svg/like.svg"
-      title: Self-help resources
-      description: Access our extensive knowledge base for self-help resources, including step-by-step guides.
+      title: "Proven Track Record"
+      description: "Our methodology has consistently delivered improvements in operational efficiency, inventory management, and business growth for our clients across industries."
 ---
