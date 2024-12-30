@@ -1,6 +1,5 @@
 ---
 # Our Customers
-title: "Our Partners"
 list:
   - "/images/IMG1.png"
   - "/images/IMG2.png"

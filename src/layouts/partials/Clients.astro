@@ -7,7 +7,7 @@ interface Clients {
   list: string[];
 }
 
-const { title, list }: Clients = (await getEntry("sections", "clients")).data;
+const { list }: Clients = (await getEntry("sections", "clients")).data;
 ---
 
 <section class="section">
@@ -15,10 +15,6 @@ const { title, list }: Clients = (await getEntry("sections", "clients")).data;
     <div class="row">
       <div class="col-12" data-aos="fade-up-sm">
         <div class="text-center sm:flex sm:flex-col">
-          <p
-            class="w-full text-center font-bold tracking-wide sm:whitespace-nowrap sm:pb-0 lg:pb-8 text-[3rem] text-black"
-            set:html={markdownify(title)}
-          />
           <p class="text-black pt-4text-[1rem]">
             We have been working with some Fortune 500+ clients
           </p>

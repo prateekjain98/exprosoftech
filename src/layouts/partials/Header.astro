@@ -1,7 +1,6 @@
 ---
 import Logo from "@/components/Logo.astro";
 import config from "@/config/config.json";
-import menu from "@/config/menu.json";
 import DynamicIcon from "@/helpers/DynamicIcon";
 import HomeBanner from "./HomeBanner.astro";
 import ImageMod from "@/components/ImageMod.astro";
@@ -19,15 +18,51 @@ export interface NavigationLink {
   children?: ChildNavigationLink[];
 }
 
+export const mainMenu: NavigationLink[] = [
+  {
+    name: "Products",
+    url: "",
+    hasChildren: true,
+    children: [
+      {
+        name: "SFA",
+        url: "/sfa/",
+        description: "Find your ideal buyers and get more meetings booked"
+      },
+      {
+        name: "Loyalty Engine",
+        url: "/loyalty-engine/",
+        description: "Find your ideal buyers and get more meetings booked"
+      }
+    ]
+  },
+  {
+    name: "Consulting",
+    url: "",
+    hasChildren: true,
+    children: [
+      {
+        name: "Demand-Driven Business Transformation",
+        url: "/demand-driven-transformation/",
+        description: "Transform your business with demand-driven strategies and solutions"
+      }
+    ]
+  },
+  {
+    name: "Contact Us",
+    url: "/contact/"
+  }
+];
+
 const { banner, errorPage } = Astro.props;
 
-const { main }: { main: NavigationLink[] } = menu;
 const { navigation_button } = config;
 const { pathname } = Astro.url;
 ---
 
 <div
-  class={`header-wrapper ${Astro.url.pathname === "/" ? "relative" : !errorPage && "pb-6"}`}>
+  class={`header-wrapper ${Astro.url.pathname === "/" ? "relative" : !errorPage && "pb-6"}`}
+>
   <header class="header bg-white drop-shadow-sm z-[999]">
     <nav class="navbar relative z-[9999] px-4">
       <!-- logo -->
@@ -38,31 +73,36 @@ const { pathname } = Astro.url;
       <input id="nav-toggle" type="checkbox" class="hidden" />
       <label
         for="nav-toggle"
-        class="order-3 flex cursor-pointer items-center text-dark lg:order-1 lg:hidden">
+        class="order-3 flex cursor-pointer items-center text-dark lg:order-1 lg:hidden"
+      >
         <svg
           id="show-button"
           class="block h-6 fill-current"
-          viewBox="0 0 20 20">
+          viewBox="0 0 20 20"
+        >
           <title>Menu Open</title>
           <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
         </svg>
         <svg
           id="hide-button"
           class="hidden h-6 fill-current"
-          viewBox="0 0 20 20">
+          viewBox="0 0 20 20"
+        >
           <title>Menu Close</title>
           <polygon
             points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-            transform="rotate(45 10 10)">
+            transform="rotate(45 10 10)"
+          >
           </polygon>
         </svg>
       </label>
       <!-- /navbar toggler -->
       <ul
         id="nav-menu"
-        class="navbar-nav order-3 hidden h-[calc(100vh-4rem)] overflow-y-auto lg:h-auto lg:overflow-visible pb-6 lg:order-1 lg:flex lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8">
+        class="navbar-nav order-3 hidden h-[calc(100vh-4rem)] overflow-y-auto lg:h-auto lg:overflow-visible pb-6 lg:order-1 lg:flex lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"
+      >
         {
-          main.map((menu) => (
+          mainMenu.map((menu) => (
             <>
               {menu.hasChildren ? (
                 <li class="nav-item nav-dropdown group relative">
@@ -74,7 +114,8 @@ const { pathname } = Astro.url;
                         .includes(pathname)
                         ? "active"
                         : ""
-                    }`}>
+                    }`}
+                  >
                     {menu.name}
                     <span class="arrow-icon lg:block hidden">
                       <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
@@ -83,7 +124,10 @@ const { pathname } = Astro.url;
                     </span>
                   </span>
                   <ul class="nav-dropdown-list">
-                    <div class="container-box" data-items={menu.children?.length}>
+                    <div
+                      class="container-box"
+                      data-items={menu.children?.length}
+                    >
                       {menu.children?.map((child) => (
                         <li class="nav-dropdown-item">
                           <a
@@ -96,9 +140,13 @@ const { pathname } = Astro.url;
                             }`}
                           >
                             <div class="flex flex-col">
-                              <span class="text-base font-medium text-gray-900">{child.name}</span>
+                              <span class="text-base font-medium text-gray-900">
+                                {child.name}
+                              </span>
                               {child.description && (
-                                <span class="text-sm text-gray-500">{child.description}</span>
+                                <span class="text-sm text-gray-500">
+                                  {child.description}
+                                </span>
                               )}
                             </div>
                           </a>
@@ -114,7 +162,8 @@ const { pathname } = Astro.url;
                     class={`nav-link block ${
                       (pathname === `${menu.url}/` || pathname === menu.url) &&
                       "active"
-                    }`}>
+                    }`}
+                  >
                     {menu.name}
                   </a>
                 </li>
@@ -126,7 +175,8 @@ const { pathname } = Astro.url;
           navigation_button.enable && (
             <a
               class="btn btn-primary mt-2 lg:hidden"
-              href={navigation_button.link}>
+              href={navigation_button.link}
+            >
               {navigation_button.label}
               <span class="ml-2">
                 <DynamicIcon icon={"FaArrowRight"} />
@@ -140,7 +190,8 @@ const { pathname } = Astro.url;
           navigation_button.enable && (
             <a
               class="btn btn-primary hidden lg:flex"
-              href={navigation_button.link}>
+              href={navigation_button.link}
+            >
               {navigation_button.label}
               <span class="icon-wrapper">
                 <span class="icon">
@@ -174,31 +225,31 @@ const { pathname } = Astro.url;
 
 <script>
   // Handle sticky header behavior
-  const header = document.querySelector('.header') as HTMLElement;
+  const header = document.querySelector(".header") as HTMLElement;
   let lastScroll = 0;
-  
+
   const handleScroll = () => {
     const currentScroll = window.scrollY;
-    
+
     // Make header sticky after scrolling down 100px
     if (currentScroll > 100) {
-      header.classList.add('header-sticky');
+      header.classList.add("header-sticky");
     } else {
-      header.classList.remove('header-sticky');
+      header.classList.remove("header-sticky");
     }
-    
+
     // Hide header when scrolling down, show when scrolling up
     if (currentScroll > lastScroll && currentScroll > 200) {
-      header.classList.add('header-hidden');
+      header.classList.add("header-hidden");
     } else {
-      header.classList.remove('header-hidden');
+      header.classList.remove("header-hidden");
     }
-    
+
     lastScroll = currentScroll;
   };
 
-  window.addEventListener('scroll', handleScroll);
-  
+  window.addEventListener("scroll", handleScroll);
+
   // Initial check
   handleScroll();
 </script>

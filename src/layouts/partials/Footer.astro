@@ -1,22 +1,28 @@
 ---
 import ImageMod from "@/components/ImageMod.astro";
-import Social from "@/components/Social.astro";
 import config from "@/config/config.json";
-import menu from "@/config/menu.json";
 import product from "@/config/product.json";
 import social from "@/config/social.json";
-import { markdownify } from "@/lib/utils/textConverter";
-import { FaFacebook, FaTwitter, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { mainMenu } from "./Header.astro";
 
-const { footer_menu, footer_quick_links } = menu;
 const { logo, logo_width, logo_height, title } = config.site;
+
+// Create footer links from mainMenu
+const footerLinks = mainMenu.flatMap((item) => 
+  item.hasChildren 
+    ? item.children?.map((child) => ({ name: child.name, url: child.url })) || []
+    : [{ name: item.name, url: item.url }]
+);
 ---
 
 <footer class="bg-dark py-16">
   <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
     <div class="row">
       <!-- Main Footer Content -->
-      <div class="flex flex-col lg:flex-row justify-between w-full gap-8 lg:gap-16">
+      <div
+        class="flex flex-col lg:flex-row justify-between w-full gap-8 lg:gap-16"
+      >
         <!-- Left Section: Logo & Description -->
         <div class="lg:w-1/3">
           <div class="space-y-6">
@@ -31,47 +37,52 @@ const { logo, logo_width, logo_height, title } = config.site;
               />
             </a>
             <p class="text-light/70 max-w-md">
-              Streamline operations with cutting-edge solutions that future-proof your business.
+              Streamline operations with cutting-edge solutions that
+              future-proof your business.
             </p>
-            
-            {config.subscription?.enable && (
-              <div class="pt-0">
-                <form
-                  action={config.subscription.action}
-                  method="post"
-                  class="flex flex-row gap-2"
-                >
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    class="bg-dark/50 text-light placeholder:text-light/50 rounded-full px-4 py-2 flex-grow focus:outline-none focus:ring-2 focus:ring-primary border border-light/10"
-                    required
-                  />
-                  <button 
-                    type="submit"
-                    class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-primary/90 transition-colors whitespace-nowrap"
+
+            {
+              config.subscription?.enable && (
+                <div class="pt-0">
+                  <form
+                    action={config.subscription.action}
+                    method="post"
+                    class="flex flex-row gap-2"
                   >
-                    Subscribe
-                  </button>
-                </form>
-              </div>
-            )}
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      class="bg-dark/50 text-light placeholder:text-light/50 rounded-full px-4 py-2 flex-grow focus:outline-none focus:ring-2 focus:ring-primary border border-light/10"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-primary/90 transition-colors whitespace-nowrap"
+                    >
+                      Subscribe
+                    </button>
+                  </form>
+                </div>
+              )
+            }
 
             <!-- Add Social Icons -->
             <div class="flex gap-3 mt-4 items-center justify-start">
-              {social.main.map((item) => (
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-light/70 hover:text-primary transition-colors p-1.5"
-                >
-                  {item.icon === "FaFacebook" && <FaFacebook size={18} />}
-                  {item.icon === "FaTwitter" && <FaTwitter size={18} />}
-                  {item.icon === "FaLinkedin" && <FaLinkedin size={18} />}
-                  {item.icon === "FaEnvelope" && <FaEnvelope size={18} />}
-                </a>
-              ))}
+              {
+                social.main.map((item) => (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-light/70 hover:text-primary transition-colors p-1.5"
+                  >
+                    {item.icon === "FaFacebook" && <FaFacebook size={18} />}
+                    {item.icon === "FaTwitter" && <FaTwitter size={18} />}
+                    {item.icon === "FaLinkedin" && <FaLinkedin size={18} />}
+                    {item.icon === "FaEnvelope" && <FaEnvelope size={18} />}
+                  </a>
+                ))
+              }
             </div>
           </div>
         </div>
@@ -83,26 +94,18 @@ const { logo, logo_width, logo_height, title } = config.site;
             <div class="space-y-6">
               <h3 class="text-light text-lg font-medium">Services</h3>
               <ul class="space-y-3">
-                {footer_menu?.map((link) => (
-                  <li>
-                    <a 
-                      href={link.url} 
-                      class="text-light/70 hover:text-primary transition-colors duration-200"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-                {footer_quick_links?.map((link) => (
-                  <li>
-                    <a 
-                      href={link.url} 
-                      class="text-light/70 hover:text-primary transition-colors duration-200"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
+                {
+                  footerLinks.map((link) => (
+                    <li>
+                      <a
+                        href={link.url}
+                        class="text-light/70 hover:text-primary transition-colors duration-200"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))
+                }
               </ul>
             </div>
 
@@ -112,17 +115,26 @@ const { logo, logo_width, logo_height, title } = config.site;
                 <h3 class="text-light text-lg font-medium">Company</h3>
                 <ul class="space-y-3">
                   <li>
-                    <a href="/about/" class="text-light/70 hover:text-primary transition-colors duration-200">
+                    <a
+                      href="/about/"
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                    >
                       About Us
                     </a>
                   </li>
                   <li>
-                    <a href="/contact/" class="text-light/70 hover:text-primary transition-colors duration-200">
+                    <a
+                      href="/contact/"
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                    >
                       Contact
                     </a>
                   </li>
                   <li>
-                    <a href="/blog/" class="text-light/70 hover:text-primary transition-colors duration-200">
+                    <a
+                      href="/blog/"
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                    >
                       Blog
                     </a>
                   </li>
@@ -132,18 +144,20 @@ const { logo, logo_width, logo_height, title } = config.site;
               <div class="space-y-6">
                 <h3 class="text-light text-lg font-medium">Product</h3>
                 <ul class="space-y-3">
-                  {product.links.map((link) => (
-                    <li>
-                      <a 
-                        href={link.link} 
-                        class="text-light/70 hover:text-primary transition-colors duration-200"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
+                  {
+                    product.links.map((link) => (
+                      <li>
+                        <a
+                          href={link.link}
+                          class="text-light/70 hover:text-primary transition-colors duration-200"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.name}
+                        </a>
+                      </li>
+                    ))
+                  }
                 </ul>
               </div>
             </div>
@@ -154,8 +168,11 @@ const { logo, logo_width, logo_height, title } = config.site;
       <!-- Copyright -->
       <div class="mt-16 pt-8 border-t border-light/10 text-center">
         <p class="text-light/50">
-          Copyright 2024 By GreyMetre Consultants. Designed & Developed by 
-          <a href="#" class="text-light/70 hover:text-primary transition-colors">
+          Copyright 2024 By GreyMetre Consultants. Designed & Developed by
+          <a
+            href="#"
+            class="text-light/70 hover:text-primary transition-colors"
+          >
             Suprdash
           </a>
         </p>
@@ -163,5 +180,3 @@ const { logo, logo_width, logo_height, title } = config.site;
     </div>
   </div>
 </footer>
-
-

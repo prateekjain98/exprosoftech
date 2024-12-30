@@ -1,10 +1,14 @@
 ---
+import DemandDrivenBanner from "../../components/DemandDrivenBanner";
+import DemandDrivenImpact from "../../components/DemandDrivenImpact";
+import ChallengesWeAddress from "../../components/ChallengesWeAddress";
 import Base from "@/layouts/Base.astro";
+import Clients from "@/partials/Clients.astro";
 import Faq from "@/partials/Faq.astro";
-import DemandDrivenBanner from "@/layouts/partials/DemandDrivenBanner.astro";
 import { getEntry } from "astro:content";
 
 const consulting = await getEntry("consulting", "-index");
+const bannerData = await getEntry("sections", "demand-driven-banner");
 const { title, description, meta_title, image } = consulting?.data || {};
 ---
 
@@ -14,6 +18,9 @@ const { title, description, meta_title, image } = consulting?.data || {};
   description={description}
   image={image}
 >
-  <DemandDrivenBanner />
+  <DemandDrivenBanner client:load />
+  <Clients />
+  <DemandDrivenImpact client:load />
+  <ChallengesWeAddress client:load />
   <Faq />
 </Base>
