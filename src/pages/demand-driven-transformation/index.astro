@@ -7,9 +7,9 @@ import KeyServices from "../../components/KeyServices";
 import BusinessGuidance from "../../components/BusinessGuidance";
 import CaseStudies from "../../components/CaseStudies";
 import ConsultationCTA from "../../components/ConsultationCTA";
+import FAQ from "../../components/FAQ";
 import Base from "@/layouts/Base.astro";
 import Clients from "@/partials/Clients.astro";
-import Faq from "@/partials/Faq.astro";
 import { getEntry } from "astro:content";
 
 const consulting = await getEntry("consulting", "-index");
@@ -32,5 +32,5 @@ const { title, description, meta_title, image } = consulting?.data || {};
   <BusinessGuidance client:load />
   <CaseStudies client:load />
   <ConsultationCTA client:load />
-  <Faq />
+  <FAQ client:load />
 </Base>

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
+import SectionHeader from "./SectionHeader";
 
 interface CaseStudy {
   category: string;
@@ -154,9 +155,9 @@ const CaseStudies: React.FC = () => {
     dragFree: false,
   });
 
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false);
-  const [canScrollNext, setCanScrollNext] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
 
   const scrollPrev = React.useCallback(
     () => emblaApi && emblaApi.scrollPrev(),
@@ -184,24 +185,12 @@ const CaseStudies: React.FC = () => {
   return (
     <section className="py-12 lg:py-24">
       <div className="max-w-[85rem] mx-auto px-4 md:px-8">
-        <div
-          className="flex flex-col gap-3 text-center mb-12 sm:mb-16"
-          data-aos="fade-up-sm"
-        >
-          <div className="flex justify-center">
-            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 bg-[#d8ebff] border border-white rounded-full text-dark text-xs sm:text-sm font-medium shadow-sm">
-              Case Studies
-            </span>
-          </div>
-          <h2 className="mb-4 text-2xl sm:text-[32px] lg:text-[42px] font-medium px-2">
-            Success Stories That Drive{" "}
-            <span className="text-[#0066FF]">Real Results</span>
-          </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2">
-            Discover how we've helped organizations achieve remarkable
-            transformations and measurable outcomes.
-          </p>
-        </div>
+        <SectionHeader
+          tagline="Case Studies"
+          heading={`Success Stories That Drive <span class="text-[#0066FF]">Real Results</span>`}
+          subheading="Discover how we've helped organizations achieve remarkable transformations and measurable outcomes."
+          className="mb-12 sm:mb-16"
+        />
 
         <div className="relative">
           <div className="overflow-hidden mx-auto" ref={emblaRef}>

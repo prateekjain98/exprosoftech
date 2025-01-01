@@ -26,14 +26,14 @@ const {
 >
   {tagline && (
     <div class={`flex ${alignment === "center" ? "justify-center" : "justify-start"}`}>
-      <span class="inline-block px-4 py-1.5 bg-[#d8ebff] border border-white rounded-full text-dark text-sm font-medium shadow-sm ">
+      <span class="inline-block px-3 py-1.5 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-600 text-xs sm:text-sm font-medium mb-4">
         {tagline}
       </span>
     </div>
   )}
-  <h2 class="mb-4 max-w-2xl mx-auto" set:html={heading} />
+  <h2 class="text-2xl sm:text-[32px] lg:text-[42px] font-medium mb-4" set:html={heading} />
   {subheading && (
-    <p class="text-lg/[inherit] text-text max-w-[90rem] mx-auto">
+    <p class="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
       {subheading}
     </p>
   )}

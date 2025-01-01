@@ -1,0 +1,137 @@
+import React, { useState } from "react";
+import { CaretDown } from "@phosphor-icons/react";
+import SectionHeader from "./SectionHeader";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface FaqItem {
+  title: string;
+  description: string;
+  active?: boolean;
+}
+
+interface FaqData {
+  title: string;
+  subtitle: string;
+  description: string;
+  list: FaqItem[];
+}
+
+// Define the FAQ data
+const faqData: FaqData = {
+  title: "Frequently Asked Questions",
+  subtitle: "FAQ",
+  description:
+    "Find answers to common questions about our Demand-Driven Business Transformation services",
+  list: [
+    {
+      title: "What is Demand-Driven Business Transformation?",
+      description:
+        "Demand-Driven Business Transformation is a comprehensive approach that aligns your organization's operations with real-time market demands. It combines strategic planning, operational excellence, and cutting-edge tools like DDMRP to optimize your supply chain and business processes.",
+      active: true,
+    },
+    {
+      title: "How long does the transformation process take?",
+      description:
+        "The transformation timeline varies based on your organization's size and complexity. Typically, initial results are visible within 3-6 months, with complete transformation taking 12-18 months. We provide clear milestones and regular progress updates throughout the journey.",
+    },
+    {
+      title: "What kind of results can we expect?",
+      description:
+        "Our clients typically see significant improvements across key metrics: 25%+ increase in revenue growth, 40% boost in operational efficiency, and 3x faster time-to-market. We also focus on sustainable long-term improvements in customer satisfaction and market responsiveness.",
+    },
+    {
+      title: "How do you ensure successful implementation?",
+      description:
+        "We follow a proven methodology that includes detailed assessment, customized strategy development, hands-on implementation support, and continuous monitoring. Our team works closely with your staff to ensure knowledge transfer and sustainable adoption of new practices.",
+    },
+    {
+      title: "What makes your approach different?",
+      description:
+        "Our approach combines proven methodologies like DDMRP with cutting-edge tools and technologies. We focus on practical implementation, measurable results, and building internal capabilities. Our success-based model ensures we're fully aligned with your business objectives.",
+    },
+  ],
+};
+
+const FAQ: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
+  const toggleAccordion = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  return (
+    <section className="relative bg-gradient-to-b from-white via-gray-50/50 to-white py-16 lg:py-24">
+      {/* Background Gradients */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 md:px-8 relative">
+        <SectionHeader
+          tagline={faqData.subtitle}
+          heading={faqData.title}
+          subheading={faqData.description}
+        />
+
+        {/* Accordions */}
+        <div
+          className="max-w-3xl mx-auto mt-12 space-y-4"
+          data-aos="fade-up"
+          data-aos-delay="150"
+        >
+          {faqData.list.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="group"
+            >
+              <div className="bg-white shadow-sm rounded-xl border border-gray-200/50 overflow-hidden transition-all duration-300 hover:shadow-md">
+                <button
+                  className="flex w-full items-center justify-between p-6 text-left transition-colors"
+                  onClick={() => toggleAccordion(index)}
+                  aria-expanded={activeIndex === index}
+                  aria-controls={`faq-content-${index}`}
+                >
+                  <span className="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                    {item.title}
+                  </span>
+                  <CaretDown
+                    size={24}
+                    weight="bold"
+                    className={`text-blue-600 transition-transform duration-300 ${
+                      activeIndex === index ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <AnimatePresence>
+                  {activeIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      id={`faq-content-${index}`}
+                      role="region"
+                    >
+                      <div className="px-6 pb-6">
+                        <div className="h-px w-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 mb-4" />
+                        <p className="text-gray-600 leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FAQ;

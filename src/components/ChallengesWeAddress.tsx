@@ -1,4 +1,5 @@
 import React from "react";
+import SectionHeader from "./SectionHeader";
 
 interface ChallengeType {
   title: string;
@@ -68,22 +69,12 @@ const ChallengesWeAddress: React.FC = () => {
           }}
         >
           <div className="relative z-10 px-3 py-10 sm:px-6 md:px-12 lg:px-16 lg:py-24">
-            <div
-              className="flex flex-col gap-2 sm:gap-3 text-center mb-10 lg:mb-16"
-              data-aos="fade-up-sm"
-            >
-              <div className="flex justify-center">
-                <span className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 bg-[#d8ebff] border border-white rounded-full text-dark text-xs sm:text-sm font-medium shadow-sm">
-                  Key Issues
-                </span>
-              </div>
-              <h2 className="mb-3 sm:mb-4 text-[26px] sm:text-[32px] lg:text-[42px] font-medium px-2">
-                Challenges We <span className="text-[#0066FF]">Address</span>
-              </h2>
-              <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2">
-                {challengesData.subtitle}
-              </p>
-            </div>
+            <SectionHeader
+              tagline="Key Issues"
+              heading={`Challenges We <span class="text-[#0066FF]">Address</span>`}
+              subheading={challengesData.subtitle}
+              className="mb-10 lg:mb-16"
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {challengesData.challenges.map((challenge, index) => (
