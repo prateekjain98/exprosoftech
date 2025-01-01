@@ -61,10 +61,10 @@ const DemandDrivenImpact: React.FC = () => {
 
   return (
     <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-slate-50/30">
-      <div className="max-w-[85rem] mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="max-w-[85rem] mx-auto px-3 sm:px-4 md:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="relative order-2 lg:order-1" data-aos="fade-right">
-            <div className="relative rounded-2xl overflow-hidden shadow-lg h-[480px] group">
+            <div className="relative rounded-2xl overflow-hidden shadow-lg h-[320px] sm:h-[400px] lg:h-[480px] group">
               <img
                 src={image.src}
                 alt={image.alt}
@@ -75,12 +75,12 @@ const DemandDrivenImpact: React.FC = () => {
 
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent" />
 
-              <div className="absolute inset-x-6 bottom-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                  <h3 className="text-white text-2xl font-medium mb-3">
+              <div className="absolute inset-x-3 sm:inset-x-6 bottom-4 sm:bottom-6">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/10">
+                  <h3 className="text-white text-lg sm:text-2xl font-medium mb-2 sm:mb-3">
                     {imageOverlayTitle}
                   </h3>
-                  <p className="text-white/90 text-base">
+                  <p className="text-white/90 text-sm sm:text-base">
                     {imageOverlayDescription}
                   </p>
                 </div>
@@ -107,15 +107,15 @@ const DemandDrivenImpact: React.FC = () => {
                 >
                   <div className="flex flex-col gap-2">
                     <div className="flex items-baseline gap-3">
-                      <span className="text-[32px] font-medium text-[#0066FF]">
+                      <span className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium text-[#0066FF]">
                         {stat.value}
                       </span>
-                      <span className="text-gray-900 text-lg font-medium">
+                      <span className="text-gray-900 text-base sm:text-lg font-medium">
                         {stat.label}
                       </span>
                     </div>
 
-                    <p className="text-gray-600 text-base">
+                    <p className="text-gray-600 text-sm sm:text-base">
                       {stat.description}
                     </p>
                   </div>

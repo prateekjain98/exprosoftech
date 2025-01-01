@@ -4,6 +4,9 @@ import DemandDrivenImpact from "../../components/DemandDrivenImpact";
 import ChallengesWeAddress from "../../components/ChallengesWeAddress";
 import BusinessImpact from "../../components/BusinessImpact";
 import KeyServices from "../../components/KeyServices";
+import BusinessGuidance from "../../components/BusinessGuidance";
+import CaseStudies from "../../components/CaseStudies";
+import ConsultationCTA from "../../components/ConsultationCTA";
 import Base from "@/layouts/Base.astro";
 import Clients from "@/partials/Clients.astro";
 import Faq from "@/partials/Faq.astro";
@@ -26,5 +29,8 @@ const { title, description, meta_title, image } = consulting?.data || {};
   <ChallengesWeAddress client:load />
   <BusinessImpact client:load />
   <KeyServices client:load />
+  <BusinessGuidance client:load />
+  <CaseStudies client:load />
+  <ConsultationCTA client:load />
   <Faq />
 </Base>
