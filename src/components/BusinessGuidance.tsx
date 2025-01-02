@@ -93,30 +93,34 @@ const BusinessGuidance: React.FC = () => {
 
   return (
     <>
-      <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-b from-white to-slate-50/30">
-        <div className="max-w-[85rem] mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            <img
-              src={image.src}
-              alt={image.alt}
-              width={440}
-              height={480}
-              className="w-full max-w-[440px] mx-auto lg:mx-0 object-contain order-2 lg:order-1"
-              data-aos="fade-right"
-            />
+      <section className="py-8 sm:py-12 lg:py-24 bg-gradient-to-b from-white to-slate-50/30 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+            <div className="relative flex items-center justify-center order-2 lg:order-1">
+              <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] bg-[#0066FF]/5 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[-4deg] transform -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 translate-x-2 sm:translate-x-3 lg:translate-x-4" />
+              <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] border-2 border-[#0066FF]/20 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[4deg] transform translate-y-2 sm:translate-y-3 lg:translate-y-4 -translate-x-2 sm:-translate-x-3 lg:-translate-x-4" />
+              <img
+                src={image.src}
+                alt={image.alt}
+                width={440}
+                height={480}
+                className="relative w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] object-contain rounded-[20px] sm:rounded-[28px] lg:rounded-[32px] transform transition-transform duration-500 hover:scale-[1.02] z-10"
+                data-aos="fade-right"
+              />
+            </div>
 
-            <div className="flex flex-col justify-center order-1 lg:order-2">
-              <div className="mb-8 lg:mb-12">
+            <div className="flex flex-col justify-center order-1 lg:order-2 w-full">
+              <div className="mb-6 lg:mb-12">
                 <h2
                   data-aos="fade-up-sm"
-                  className="text-[30px] sm:text-[36px] lg:text-[42px] font-medium leading-[1.2] mb-4"
+                  className="text-[26px] sm:text-[32px] lg:text-[42px] font-medium leading-[1.2] mb-4"
                 >
                   {title}
                   <br />
                   <span className="text-[#0066FF] mt-1 block">{subtitle}</span>
                 </h2>
                 <p
-                  className="text-[16px] text-gray-600 leading-relaxed"
+                  className="text-[15px] sm:text-[16px] text-gray-600 leading-relaxed"
                   data-aos="fade-up-sm"
                   data-aos-delay={100}
                 >
@@ -124,33 +128,33 @@ const BusinessGuidance: React.FC = () => {
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-4 w-full">
                 {guidancePoints.map((point) => (
                   <div
                     key={point.id}
                     data-aos="fade-up-sm"
                     data-aos-delay={100 * point.id}
-                    className="group bg-white rounded-xl transition-all duration-300 hover:shadow-lg border border-gray-100/80"
+                    className="group bg-white rounded-xl transition-all duration-300 hover:shadow-lg border border-gray-100/80 w-full"
                   >
                     <button
                       onClick={() => toggleExpand(point.id)}
-                      className="w-full px-5 py-4 flex items-center justify-between"
+                      className="w-full px-3 sm:px-5 py-4 flex items-center justify-between"
                     >
-                      <div className="flex items-center gap-3">
-                        <span className="text-[#0066FF] font-medium text-[16px]">
+                      <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                        <span className="text-[#0066FF] font-medium text-[15px] sm:text-[16px] flex-shrink-0">
                           {point.id}.
                         </span>
-                        <h3 className="text-gray-900 text-[16px] font-medium text-left">
+                        <h3 className="text-gray-900 text-[15px] sm:text-[16px] font-medium text-left truncate">
                           {point.title}
                         </h3>
                       </div>
                       <div
-                        className={`text-[#0066FF] transform transition-transform duration-300 ${
+                        className={`text-[#0066FF] transform transition-transform duration-300 flex-shrink-0 ${
                           expandedId === point.id ? "rotate-90" : ""
                         }`}
                       >
                         <svg
-                          className="w-5 h-5"
+                          className="w-4 h-4 sm:w-5 sm:h-5"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -165,9 +169,9 @@ const BusinessGuidance: React.FC = () => {
                       </div>
                     </button>
                     {expandedId === point.id && (
-                      <div className="px-5 pb-4">
+                      <div className="px-3 sm:px-5 pb-4">
                         <div className="border-t border-gray-100 pt-4">
-                          <p className="text-gray-600 text-[16px] leading-relaxed">
+                          <p className="text-gray-600 text-[14px] sm:text-[16px] leading-relaxed">
                             {point.description}
                           </p>
                         </div>
@@ -181,41 +185,41 @@ const BusinessGuidance: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-b from-slate-50/30 to-white">
-        <div className="max-w-[85rem] mx-auto px-5 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="flex flex-col" data-aos="fade-right">
-              <h2 className="text-[30px] sm:text-[36px] lg:text-[42px] font-medium leading-[1.2] mb-4">
+      <section className="py-8 sm:py-12 lg:py-24 bg-gradient-to-b from-slate-50/30 to-white overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            <div className="flex flex-col w-full" data-aos="fade-right">
+              <h2 className="text-[26px] sm:text-[32px] lg:text-[42px] font-medium leading-[1.2] mb-4">
                 {empowermentData.title}
                 <br />
                 <span className="text-[#0066FF] mt-1 block">
                   {empowermentData.subtitle}
                 </span>
               </h2>
-              <p className="text-[16px] text-gray-600 leading-relaxed mb-10">
+              <p className="text-[15px] sm:text-[16px] text-gray-600 leading-relaxed mb-6 sm:mb-10">
                 {empowermentData.description}
               </p>
 
-              <div className="space-y-8">
+              <div className="space-y-6 sm:space-y-8">
                 {empowermentData.points.map((point, index) => (
                   <div
                     key={index}
-                    className="flex gap-4"
+                    className="flex gap-3 sm:gap-4 w-full"
                     data-aos="fade-up"
                     data-aos-delay={index * 100}
                   >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#0066FF]/10 flex items-center justify-center">
+                    <div className="flex-shrink-0 w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-[#0066FF]/10 flex items-center justify-center">
                       <point.icon
-                        size={20}
+                        size={18}
                         weight="duotone"
                         className="text-[#0066FF]"
                       />
                     </div>
-                    <div>
-                      <h3 className="text-[16px] font-medium text-gray-900 mb-2">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-[15px] sm:text-[16px] font-medium text-gray-900 mb-2">
                         {point.title}
                       </h3>
-                      <p className="text-[16px] text-gray-600 leading-relaxed">
+                      <p className="text-[14px] sm:text-[16px] text-gray-600 leading-relaxed">
                         {point.description}
                       </p>
                     </div>
@@ -224,12 +228,16 @@ const BusinessGuidance: React.FC = () => {
               </div>
             </div>
 
-            <img
-              src="/images/consulting/demand-driven-business-transformation/business-impact-2.png"
-              alt="Business Impact"
-              className="w-full max-w-[440px] mx-auto lg:mx-0"
-              data-aos="fade-left"
-            />
+            <div className="relative flex items-center justify-center">
+              <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] bg-[#0066FF]/5 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[-4deg] transform -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 translate-x-2 sm:translate-x-3 lg:translate-x-4" />
+              <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] border-2 border-[#0066FF]/20 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[4deg] transform translate-y-2 sm:translate-y-3 lg:translate-y-4 -translate-x-2 sm:-translate-x-3 lg:-translate-x-4" />
+              <img
+                src="/images/consulting/demand-driven-business-transformation/business-impact-2.png"
+                alt="Business Impact"
+                className="relative w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] object-contain rounded-[20px] sm:rounded-[28px] lg:rounded-[32px] transform transition-transform duration-500 hover:scale-[1.02] z-10"
+                data-aos="fade-left"
+              />
+            </div>
           </div>
         </div>
       </section>
