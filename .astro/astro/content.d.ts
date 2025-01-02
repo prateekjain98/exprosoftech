@@ -391,13 +391,6 @@ declare module 'astro:content' {
   collection: "sections";
   data: any
 } & { render(): Render[".md"] };
-"demand-driven-cta.md": {
-	id: "demand-driven-cta.md";
-  slug: "demand-driven-cta";
-  body: string;
-  collection: "sections";
-  data: any
-} & { render(): Render[".md"] };
 "faq.md": {
 	id: "faq.md";
   slug: "faq";

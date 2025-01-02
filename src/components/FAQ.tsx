@@ -62,12 +62,12 @@ const FAQ: React.FC = () => {
   return (
     <section className="relative bg-gradient-to-b from-white via-gray-50/50 to-white py-16 lg:py-24">
       {/* Background Gradients */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-8 relative">
+      <div className="container mx-auto px-4 relative">
         <SectionHeader
           tagline={faqData.subtitle}
           heading={faqData.title}
@@ -76,7 +76,7 @@ const FAQ: React.FC = () => {
 
         {/* Accordions */}
         <div
-          className="max-w-3xl mx-auto mt-12 space-y-4"
+          className="max-w-3xl mx-auto mt-12 space-y-4 px-4 sm:px-6 lg:px-8"
           data-aos="fade-up"
           data-aos-delay="150"
         >
@@ -90,18 +90,18 @@ const FAQ: React.FC = () => {
             >
               <div className="bg-white shadow-sm rounded-xl border border-gray-200/50 overflow-hidden transition-all duration-300 hover:shadow-md">
                 <button
-                  className="flex w-full items-center justify-between p-6 text-left transition-colors"
+                  className="flex w-full items-center justify-between p-4 sm:p-6 text-left transition-colors"
                   onClick={() => toggleAccordion(index)}
                   aria-expanded={activeIndex === index}
                   aria-controls={`faq-content-${index}`}
                 >
-                  <span className="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <span className="text-base sm:text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors pr-4">
                     {item.title}
                   </span>
                   <CaretDown
                     size={24}
                     weight="bold"
-                    className={`text-blue-600 transition-transform duration-300 ${
+                    className={`flex-shrink-0 text-blue-600 transition-transform duration-300 ${
                       activeIndex === index ? "rotate-180" : ""
                     }`}
                   />
@@ -115,10 +115,11 @@ const FAQ: React.FC = () => {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       id={`faq-content-${index}`}
                       role="region"
+                      className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6">
+                      <div className="px-4 pb-4 sm:px-6 sm:pb-6">
                         <div className="h-px w-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 mb-4" />
-                        <p className="text-gray-600 leading-relaxed">
+                        <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                           {item.description}
                         </p>
                       </div>
