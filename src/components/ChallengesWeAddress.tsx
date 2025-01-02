@@ -60,7 +60,7 @@ const challengesData: ChallengesData = {
 const ChallengesWeAddress: React.FC = () => {
   return (
     <section className="py-16 lg:py-24">
-      <div className="max-w-[85rem] mx-auto px-3 sm:px-4 md:px-8">
+      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 md:px-8">
         <div
           className="relative rounded-2xl sm:rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-slate-50/95 to-white/40"
           style={{
@@ -68,7 +68,7 @@ const ChallengesWeAddress: React.FC = () => {
             backgroundSize: "cover",
           }}
         >
-          <div className="relative z-10 px-3 py-10 sm:px-6 md:px-12 lg:px-16 lg:py-24">
+          <div className="relative z-10 px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <SectionHeader
               tagline="Key Issues"
               heading={`Challenges We <span class="text-[#0066FF]">Address</span>`}
@@ -76,16 +76,16 @@ const ChallengesWeAddress: React.FC = () => {
               className="mb-10 lg:mb-16"
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
               {challengesData.challenges.map((challenge, index) => (
                 <div
                   key={index}
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
-                  className="group bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:shadow-xl hover:bg-white border border-white/60 hover:border-white/80"
+                  className="group bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-8 transition-all duration-300 hover:shadow-xl hover:bg-white border border-white/60 hover:border-white/80"
                 >
-                  <div className="flex flex-col gap-4 sm:gap-6">
-                    <div className="flex items-start">
+                  <div className="flex flex-row sm:flex-col items-start sm:items-stretch gap-5 sm:gap-6">
+                    <div className="flex-shrink-0 pt-1 sm:pt-0">
                       <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-[#E6F0FF] rounded-xl sm:rounded-2xl group-hover:bg-[#CCE3FF] transition-colors duration-300">
                         <img
                           src={challenge.icon}
@@ -97,11 +97,11 @@ const ChallengesWeAddress: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="space-y-2 sm:space-y-3">
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-[#0066FF] transition-colors duration-300">
+                    <div className="flex-1 min-w-0 space-y-2.5 sm:space-y-3">
+                      <h3 className="text-[15px] sm:text-xl font-semibold text-gray-900 group-hover:text-[#0066FF] transition-colors duration-300 leading-tight">
                         {challenge.title}
                       </h3>
-                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed line-clamp-3 sm:line-clamp-none">
                         {challenge.description}
                       </p>
                     </div>
