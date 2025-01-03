@@ -183,7 +183,7 @@ const CaseStudies: React.FC = () => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="py-12 lg:py-24">
+    <section id="case-studies" className="py-12 lg:py-24">
       <div className="max-w-[85rem] mx-auto px-4 md:px-8">
         <SectionHeader
           tagline="Case Studies"

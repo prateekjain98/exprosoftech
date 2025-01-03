@@ -4,14 +4,28 @@ import config from "@/config/config.json";
 import product from "@/config/product.json";
 import social from "@/config/social.json";
 import { FaEnvelope, FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { mainMenu } from "./Header.astro";
+import {
+  mainMenu,
+  type NavigationLink,
+  type ChildNavigationLink,
+} from "@/components/Header";
 
 const { logo, logo_width, logo_height, title } = config.site;
 
+interface FooterLink {
+  name: string;
+  url: string;
+}
+
 // Create footer links from mainMenu
-const footerLinks = mainMenu.flatMap((item) => 
-  item.hasChildren 
-    ? item.children?.map((child) => ({ name: child.name, url: child.url })) || []
+const footerLinks = mainMenu.flatMap((item: NavigationLink): FooterLink[] =>
+  item.hasChildren
+    ? item.children?.map(
+        (child: ChildNavigationLink): FooterLink => ({
+          name: child.name,
+          url: child.url,
+        })
+      ) || []
     : [{ name: item.name, url: item.url }]
 );
 ---
@@ -95,7 +109,7 @@ const footerLinks = mainMenu.flatMap((item) =>
               <h3 class="text-light text-lg font-medium">Services</h3>
               <ul class="space-y-3">
                 {
-                  footerLinks.map((link) => (
+                  footerLinks.map((link: FooterLink) => (
                     <li>
                       <a
                         href={link.url}
