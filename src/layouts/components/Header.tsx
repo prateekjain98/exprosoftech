@@ -196,17 +196,17 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <div className={`header-wrapper ${!errorPage && "pb-6"}`}>
       <header
-        className={`header bg-white shadow-lg z-[999] transition-all duration-300 ${
-          isSticky ? "header-sticky shadow-blue-500/5" : ""
+        className={`header bg-white shadow-sm z-[999] transition-all duration-300 ${
+          isSticky ? "header-sticky shadow-blue-500/[0.02]" : ""
         } ${isHidden ? "header-hidden" : ""}`}
       >
-        <nav className="navbar relative z-[9999] px-4 py-3 max-w-[85rem] mx-auto">
+        <nav className="navbar relative z-[9999] px-3 py-1 max-w-[85rem] mx-auto">
           {/* logo */}
           <div className="order-0 transition-transform duration-300 hover:scale-105">
             <a href="/" className="navbar-brand block">
               <img
                 src={config.site.logo}
-                className="h-auto w-[140px] md:w-[160px]"
+                className="h-auto w-[100px] md:w-[120px]"
                 width={Number(config.site.logo_width.replace("px", "")) * 2}
                 height={Number(config.site.logo_height.replace("px", "")) * 2}
                 alt={config.site.title}
@@ -222,14 +222,14 @@ const Header: React.FC<HeaderProps> = ({
             aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
           >
             <svg
-              className={`h-6 fill-current ${isMobileMenuOpen ? "hidden" : "block"}`}
+              className={`h-5 fill-current ${isMobileMenuOpen ? "hidden" : "block"}`}
               viewBox="0 0 20 20"
             >
               <title>Menu Open</title>
               <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
             </svg>
             <svg
-              className={`h-6 fill-current ${isMobileMenuOpen ? "block" : "hidden"}`}
+              className={`h-5 fill-current ${isMobileMenuOpen ? "block" : "hidden"}`}
               viewBox="0 0 20 20"
             >
               <title>Menu Close</title>
@@ -245,9 +245,9 @@ const Header: React.FC<HeaderProps> = ({
             id="nav-menu"
             className={`navbar-nav order-3 ${
               isMobileMenuOpen
-                ? "fixed inset-0 top-[72px] bg-gradient-to-b from-white to-slate-50/95 backdrop-blur-sm z-50 px-4 py-6 overflow-y-auto"
+                ? "fixed inset-0 top-[48px] bg-gradient-to-b from-white to-slate-50/95 backdrop-blur-sm z-50 px-4 py-6 overflow-y-auto"
                 : "hidden"
-            } lg:static lg:flex lg:order-1 lg:w-auto lg:space-x-2 lg:p-0 xl:space-x-8`}
+            } lg:static lg:flex lg:order-1 lg:w-auto lg:space-x-1 lg:p-0 xl:space-x-6`}
           >
             {mainMenu.map((menu, index) => (
               <React.Fragment key={index}>
@@ -257,7 +257,7 @@ const Header: React.FC<HeaderProps> = ({
                       onClick={(e) => toggleDropdown(e, menu.name)}
                       onMouseEnter={() => handleDropdownVisibility(true)}
                       onMouseLeave={() => handleDropdownVisibility(false)}
-                      className={`nav-link inline-flex items-center justify-between w-full lg:w-auto cursor-pointer text-slate-600 hover:text-primary transition-colors duration-200 py-3 lg:py-2 ${
+                      className={`nav-link inline-flex items-center justify-between w-full lg:w-auto cursor-pointer text-slate-600 hover:text-primary transition-colors duration-200 py-1.5 lg:py-0.5 ${
                         menu.children?.some(
                           ({ url }) =>
                             url === pathname || `${url}/` === pathname
@@ -932,7 +932,7 @@ const Header: React.FC<HeaderProps> = ({
                   <li className="nav-item">
                     <a
                       href={menu.url}
-                      className={`nav-link block py-3 lg:py-2 text-slate-600 hover:text-primary transition-colors duration-200 ${
+                      className={`nav-link block py-1.5 lg:py-0.5 text-slate-600 hover:text-primary transition-colors duration-200 ${
                         pathname === `${menu.url}/` || pathname === menu.url
                           ? "text-primary font-medium"
                           : ""

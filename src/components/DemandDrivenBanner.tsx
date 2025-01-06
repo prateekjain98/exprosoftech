@@ -42,7 +42,7 @@ const DemandDrivenBanner: React.FC = () => {
   const { title, description, images, buttons } = bannerData;
 
   return (
-    <section className="relative z-[1] pt-8 pb-24 lg:pt-12 lg:pb-32">
+    <section className="relative z-[1] pt-16 pb-24 lg:pt-24 lg:pb-32">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="text-center lg:text-left order-2 lg:order-1">
@@ -50,14 +50,14 @@ const DemandDrivenBanner: React.FC = () => {
               <h1
                 dangerouslySetInnerHTML={{ __html: markdownify(title) }}
                 data-aos="fade-up-sm"
-                className="mb-4 text-h3 lg:text-h1 bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium"
+                className="mb-6 text-h3 lg:text-h1 bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium"
               />
             )}
             {description && (
               <p
                 dangerouslySetInnerHTML={{ __html: markdownify(description) }}
                 data-aos="fade-up-sm"
-                className="mb-8 text-lg/[inherit]"
+                className="mb-10 text-lg/[inherit] font-medium"
               />
             )}
             {buttons && buttons.length > 0 && (
