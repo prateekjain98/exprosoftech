@@ -1,0 +1,38 @@
+---
+import Base from "@/layouts/Base.astro";
+import Clients from "@/partials/Clients.astro";
+import ServiceBanner from "@/components/ServiceBanner";
+import ServiceImpact from "@/components/ServiceImpact";
+import ChallengesWeAddress from "@/components/ChallengesWeAddress";
+import BusinessImpact from "@/components/BusinessImpact";
+import KeyServices from "@/components/KeyServices";
+import BusinessGuidance from "@/components/BusinessGuidance";
+import CaseStudies from "@/components/CaseStudies";
+import ConsultationCTA from "@/components/ConsultationCTA";
+import FAQ from "@/components/FAQ";
+
+const title = "Channel Reach Expansion Services";
+const meta_title = "Channel Reach Expansion Services | Greymetre";
+const description =
+  "Strategic services to expand your market reach through effective channel partnerships. Accelerate your business growth with our proven methodologies.";
+const image = "/images/services/channel-reach/hero.png";
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <ServiceBanner client:load service="channel-reach" />
+  <Clients />
+  <ServiceImpact client:load service="channel-reach" />
+  <ChallengesWeAddress client:load service="channel-reach" />
+  <BusinessImpact client:load service="channel-reach" />
+  <KeyServices client:load service="channel-reach" />
+  <BusinessGuidance client:load service="channel-reach" />
+  <CaseStudies client:load service="channel-reach" />
+  <ConsultationCTA client:load />
+  <FAQ client:load variant="channel-reach" />
+</Base>
+

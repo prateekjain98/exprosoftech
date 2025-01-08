@@ -1,0 +1,36 @@
+---
+import Base from "@/layouts/Base.astro";
+import Clients from "@/partials/Clients.astro";
+import ServiceBanner from "@/components/ServiceBanner";
+import ServiceImpact from "@/components/ServiceImpact";
+import ChallengesWeAddress from "@/components/ChallengesWeAddress";
+import BusinessImpact from "@/components/BusinessImpact";
+import KeyServices from "@/components/KeyServices";
+import BusinessGuidance from "@/components/BusinessGuidance";
+import CaseStudies from "@/components/CaseStudies";
+import ConsultationCTA from "@/components/ConsultationCTA";
+import FAQ from "@/components/FAQ";
+
+const title = "B2B Sales Services";
+const meta_title = "B2B Sales Services | Greymetre";
+const description = "Comprehensive B2B sales solutions to accelerate your business growth. Transform your sales operations with our expertise and proven methodologies.";
+const image = "/images/services/b2b-sales/hero.png";
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <ServiceBanner client:load service="b2b-sales" />
+  <Clients />
+  <ServiceImpact client:load service="b2b-sales" />
+  <ChallengesWeAddress client:load service="b2b-sales" />
+  <BusinessImpact client:load service="b2b-sales" />
+  <KeyServices client:load service="b2b-sales" />
+  <BusinessGuidance client:load service="b2b-sales" />
+  <CaseStudies client:load service="b2b-sales" />
+  <ConsultationCTA client:load />
+  <FAQ client:load variant="b2b-sales" />
+</Base>

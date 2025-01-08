@@ -6,6 +6,7 @@ interface SectionHeaderProps {
   subheading?: string;
   alignment?: "left" | "center";
   className?: string;
+  theme?: "light" | "dark";
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
@@ -14,6 +15,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
   subheading,
   alignment = "center",
   className = "",
+  theme = "light",
 }) => {
   return (
     <div
@@ -28,19 +30,32 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             alignment === "center" ? "justify-center" : "justify-start"
           }`}
         >
-          <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-600 text-xs sm:text-sm font-medium">
+          <span
+            className={`
+            inline-block px-3 py-1.5 sm:px-4 sm:py-2 
+            bg-gradient-to-r from-blue-500/10 to-purple-500/10 
+            border border-blue-500/20 rounded-full 
+            text-xs sm:text-sm font-medium shadow-lg
+            ${theme === "dark" ? "text-blue-400" : "text-blue-600"}
+          `}
+          >
             {tagline}
           </span>
         </div>
       )}
       <h2
-        className="text-3xl sm:text-4xl lg:text-[42px] font-medium"
+        className={`text-3xl sm:text-4xl lg:text-[42px] font-medium ${
+          theme === "dark" ? "text-white" : "text-gray-900"
+        }`}
         dangerouslySetInnerHTML={{ __html: heading }}
       />
       {subheading && (
-        <p className="text-sm sm:text-base text-gray-600 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed">
-          {subheading}
-        </p>
+        <p
+          className={`text-sm sm:text-base max-w-2xl sm:max-w-3xl mx-auto leading-relaxed ${
+            theme === "dark" ? "text-gray-300/90" : "text-gray-600"
+          }`}
+          dangerouslySetInnerHTML={{ __html: subheading }}
+        />
       )}
     </div>
   );

@@ -16,8 +16,8 @@ interface FaqData {
   list: FaqItem[];
 }
 
-// Define the FAQ data
-const faqData: FaqData = {
+// Define the FAQ data for Demand Driven page
+const demandDrivenFaqData: FaqData = {
   title: "Frequently Asked Questions",
   subtitle: "FAQ",
   description:
@@ -52,8 +52,49 @@ const faqData: FaqData = {
   ],
 };
 
-const FAQ: React.FC = () => {
+// Define the FAQ data for Home page
+const homeFaqData: FaqData = {
+  title: "Frequently Asked Questions",
+  subtitle: "FAQ",
+  description:
+    "Find answers to common questions about our services and solutions",
+  list: [
+    {
+      title: "What industries can use your products?",
+      description:
+        "Our solutions are suitable for industries like retail, hospitality, telecom and more. We provide tailored solutions that adapt to your specific industry needs and requirements.",
+      active: true,
+    },
+    {
+      title: "How secure is the data?",
+      description:
+        "We use enterprise-grade encryption and comply with global data regulations to ensure top-notch data security. Our systems are regularly audited and updated to maintain the highest security standards.",
+    },
+    {
+      title: "What is your Loyalty Engine?",
+      description:
+        "Our Loyalty Engine is a comprehensive platform that helps create and manage custom loyalty programs. It includes features like points management, rewards catalog, customer segmentation, and analytics to drive customer retention and repeat business.",
+    },
+    {
+      title: "How does SFA improve sales operations?",
+      description:
+        "Our Sales Force Automation (SFA) solution streamlines sales processes by automating routine tasks, providing real-time analytics, managing leads effectively, and enabling better territory management, resulting in improved team productivity and sales performance.",
+    },
+    {
+      title: "Can your solutions be customized?",
+      description:
+        "Yes, all our solutions are fully customizable to meet your specific business needs. We work closely with you to understand your requirements and configure our platforms accordingly, ensuring they align perfectly with your business processes.",
+    },
+  ],
+};
+
+interface FAQProps {
+  variant?: "home" | "demand-driven";
+}
+
+const FAQ: React.FC<FAQProps> = ({ variant = "home" }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const faqData = variant === "home" ? homeFaqData : demandDrivenFaqData;
 
   const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);

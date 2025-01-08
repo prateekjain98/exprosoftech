@@ -1,31 +1,29 @@
 ---
+import ScrollableFeatures from "@/components/ScrollableFeatures.astro";
 import Base from "@/layouts/Base.astro";
 import Clients from "@/partials/Clients.astro";
-import HowItWorks from "@/partials/HowItWorks.astro";
-import FeaturesGrid from "@/partials/FeaturesGrid.astro";
-import Features from "@/partials/FeatureSection.astro";
 import FeaturesExplanation from "@/partials/FeaturesExplanation.astro";
-import PricingSection from "@/partials/PricingSection.astro";
-import Testimonial from "@/partials/Testimonial.astro";
-import CallToAction from "@/partials/CallToAction.astro";
-import ScrollableFeatures from "@/components/ScrollableFeatures.astro";
-import Faq from "@/partials/Faq.astro";
-import ClientStories from "@/layouts/components/ClientStories.astro";
 import HomeBanner from "@/partials/HomeBanner.astro";
+import HowItWorks from "@/partials/HowItWorks.astro";
+import CaseStudies from "../components/CaseStudies";
+import FAQ from "../components/FAQ";
+import { FeaturesGrid } from "../components/FeaturesGrid";
 ---
 
 <Base>
   <HomeBanner />
   <Clients />
   <HowItWorks />
-  <FeaturesGrid />
+  <FeaturesGrid client:load />
   <!-- <Features /> -->
   <ScrollableFeatures />
   <FeaturesExplanation />
 
   <!-- <PricingSection />
   <Testimonial visible_testimonial={3} /> -->
-  <ClientStories />
-  <Faq />
+  <!-- <ClientStories /> -->
+  <CaseStudies client:load />
+  <FAQ client:load variant="home" />
+  <!-- <Faq /> -->
   <!-- <CallToAction /> -->
 </Base>
