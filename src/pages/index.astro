@@ -1,13 +1,13 @@
 ---
-import ScrollableFeatures from "@/components/ScrollableFeatures.astro";
 import Base from "@/layouts/Base.astro";
 import Clients from "@/partials/Clients.astro";
-import FeaturesExplanation from "@/partials/FeaturesExplanation.astro";
 import HomeBanner from "@/partials/HomeBanner.astro";
 import HowItWorks from "@/partials/HowItWorks.astro";
 import CaseStudies from "../components/CaseStudies";
 import FAQ from "../components/FAQ";
 import { FeaturesGrid } from "../components/FeaturesGrid";
+import { ScrollableServices } from "../components/ScrollableServices";
+import { ProductSection } from "../components/ProductSection";
 ---
 
 <Base>
@@ -16,9 +16,8 @@ import { FeaturesGrid } from "../components/FeaturesGrid";
   <HowItWorks />
   <FeaturesGrid client:load />
   <!-- <Features /> -->
-  <ScrollableFeatures />
-  <FeaturesExplanation />
-
+  <ScrollableServices client:load />
+  <ProductSection client:load />
   <!-- <PricingSection />
   <Testimonial visible_testimonial={3} /> -->
   <!-- <ClientStories /> -->

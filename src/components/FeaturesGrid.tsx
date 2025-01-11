@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { ArrowRight } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  Gear,
+  ChartLineUp,
+  Database,
+  Users,
+} from "@phosphor-icons/react";
 import SectionHeader from "./SectionHeader";
 
 interface Feature {
@@ -7,6 +13,7 @@ interface Feature {
   title: string;
   description: string;
   image: string;
+  icon: React.ForwardRefExoticComponent<any>;
 }
 
 const features: Feature[] = [
@@ -16,6 +23,7 @@ const features: Feature[] = [
     description:
       "Streamline material, manpower, and machinery to efficiently meet shifting market demands. Our adaptable processes ensure production aligns with changing needs, maximizing resource use and supporting sales with agility.",
     image: "/images/FeatureImgOne.png",
+    icon: Gear,
   },
   {
     tagline: "Empowering Sales to Meet Market Needs",
@@ -23,6 +31,7 @@ const features: Feature[] = [
     description:
       "Align your sales strategies with actual market demand to ensure seamless channel sales transformation. By synchronizing your sales process with market needs, we help you drive efficiency, better customer engagement, and growth in target markets.",
     image: "/images/FeatureImgTwo.png",
+    icon: ChartLineUp,
   },
   {
     tagline: "Empowering Businesses with Data-Driven Insights",
@@ -30,6 +39,7 @@ const features: Feature[] = [
     description:
       "Our consultancy provides cutting-edge IT infrastructure combined with advanced data analytics to ensure seamless real-time monitoring and execution. We design and implement robust systems that allow you to stay ahead in today's fast-paced environment.",
     image: "/images/FeatureImgThree.png",
+    icon: Database,
   },
   {
     tagline: "Skilled Teams, Smart Systems, Superior Results",
@@ -37,6 +47,7 @@ const features: Feature[] = [
     description:
       "Our consultancy optimizes your workforce and technology to drive performance. By building skilled teams and implementing advanced systems, we streamline operations, boost productivity, and ensure sustainable growth, enabling your business to adapt and excel in dynamic markets.",
     image: "/images/FeatureImgFour.png",
+    icon: Users,
   },
 ];
 
@@ -85,6 +96,15 @@ export const FeaturesGrid: React.FC = () => {
                       }
                     `}
                   >
+                    <div
+                      className={`p-1.5 sm:p-2 rounded-lg ${
+                        activeTab === index
+                          ? "bg-white/20"
+                          : "bg-gray-700/50 group-hover:bg-gray-700"
+                      }`}
+                    >
+                      <feature.icon size={16} weight="duotone" />
+                    </div>
                     <span className="text-[11px] leading-tight sm:text-base font-medium text-center sm:text-left">
                       {feature.title}
                     </span>
