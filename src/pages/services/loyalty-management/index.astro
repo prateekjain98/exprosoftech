@@ -1,19 +1,19 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Clients from "@/partials/Clients.astro";
-import ServiceBanner from "@/components/ServiceBanner";
-import ServiceImpact from "@/components/ServiceImpact";
-import ChallengesWeAddress from "@/components/ChallengesWeAddress";
-import BusinessImpact from "@/components/BusinessImpact";
-import KeyServices from "@/components/KeyServices";
-import BusinessGuidance from "@/components/BusinessGuidance";
-import CaseStudies from "@/components/CaseStudies";
-import ConsultationCTA from "@/components/ConsultationCTA";
-import FAQ from "@/components/FAQ";
+import { LoyaltyBanner } from "@/layouts/components/loyalty/LoyaltyBanner";
+import { LoyaltyFeatures } from "@/layouts/components/loyalty/LoyaltyFeatures";
+import { LoyaltyServices } from "@/layouts/components/loyalty/LoyaltyServices";
+import { LoyaltyBenefits } from "@/layouts/components/loyalty/LoyaltyBenefits";
+import { LoyaltyProcess } from "@/layouts/components/loyalty/LoyaltyProcess";
+import { LoyaltyIndustries } from "@/layouts/components/loyalty/LoyaltyIndustries";
+import ConsultationCTA from "../../../components/ConsultationCTA";
+import FAQ from "../../../components/FAQ";
 
 const title = "Loyalty Management Services";
 const meta_title = "Loyalty Management Services | Greymetre";
-const description = "End-to-end loyalty program management services to drive customer retention and engagement. Transform your customer relationships with our expertise.";
+const description =
+  "End-to-end loyalty program management services to drive customer retention and engagement. Transform your customer relationships with our expertise.";
 const image = "/images/services/loyalty-management/hero.png";
 ---
 
@@ -23,14 +23,13 @@ const image = "/images/services/loyalty-management/hero.png";
   description={description}
   image={image}
 >
-  <ServiceBanner client:load service="loyalty-management" />
+  <LoyaltyBanner client:load />
   <Clients />
-  <ServiceImpact client:load service="loyalty-management" />
-  <ChallengesWeAddress client:load service="loyalty-management" />
-  <BusinessImpact client:load service="loyalty-management" />
-  <KeyServices client:load service="loyalty-management" />
-  <BusinessGuidance client:load service="loyalty-management" />
-  <CaseStudies client:load service="loyalty-management" />
+  <LoyaltyFeatures client:load />
+  <LoyaltyServices client:load />
+  <LoyaltyBenefits client:load />
+  <LoyaltyProcess client:load />
+  <LoyaltyIndustries client:load />
   <ConsultationCTA client:load />
-  <FAQ client:load variant="loyalty-management" />
+  <FAQ client:load variant="home" />
 </Base>
