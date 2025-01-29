@@ -56,18 +56,13 @@ const products: Product[] = [
         description:
           "Align resources to demand, improve due date performance, and reduce impact of variation with real-time work order status.",
       },
-      {
-        title: "Auto Pilot",
-        description:
-          "Achieve desired service levels and optimize inventory with AI-driven recommendations and visual proof of proposed settings.",
-      },
     ],
   },
   {
     title: "Sales Force Automation",
     description:
       "Empower your sales team with cutting-edge automation tools designed for maximum efficiency and productivity. Our comprehensive solution streamlines sales processes, enhances team collaboration, and drives better results.",
-    image: "/images/mobile.png",
+    image: "/images/products/sfa.png",
     label: "Sales Force Automation",
     features: [
       {
@@ -90,18 +85,13 @@ const products: Product[] = [
         description:
           "Access comprehensive product information with images and pricing details instantly for effective demonstrations.",
       },
-      {
-        title: "Performance Analytics",
-        description:
-          "Track and analyze sales performance metrics in real-time to make data-driven decisions and improvements.",
-      },
     ],
   },
   {
     title: "Loyalty Engine",
     description:
       "Build lasting relationships and drive customer engagement with our advanced loyalty management system. Create personalized rewards programs that inspire customer loyalty and boost retention.",
-    image: "/images/mobile2.png",
+    image: "/images/products/sfa.png",
     label: "Loyalty Engine",
     features: [
       {
@@ -123,11 +113,6 @@ const products: Product[] = [
         title: "Automated Communications",
         description:
           "Keep participants engaged with timely automated notifications for rewards, points, and promotions.",
-      },
-      {
-        title: "Fraud Prevention",
-        description:
-          "Robust security measures and verification processes to maintain program integrity and prevent misuse.",
       },
     ],
   },
@@ -186,110 +171,232 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
         </div>
       )}
 
-      <div className="sticky-container h-[300vh]">
-        <div className="sticky top-0 h-screen flex items-center">
-          <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
-              <AnimatePresence mode="wait">
+      {/* Mobile Layout */}
+      <div className="block lg:hidden">
+        <div className="container mx-auto px-4">
+          <div className="space-y-16">
+            {products.map((product, productIndex) => (
+              <div key={productIndex} className="w-full">
+                {/* Image */}
                 <motion.div
-                  key={activeProduct}
-                  variants={containerVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="mb-8"
                 >
-                  {/* Content Side */}
-                  <motion.div
-                    variants={contentVariants}
-                    className="relative z-10 lg:pr-8"
-                  >
-                    <div className="space-y-6 lg:space-y-8">
-                      <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-sm font-medium">
-                        {products[activeProduct].label}
-                      </span>
+                  <div className="relative w-full">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="w-full h-auto object-contain relative z-10"
+                    />
+                  </div>
+                </motion.div>
 
-                      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
+                {/* Title and Description */}
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                    {product.title}
+                  </h2>
+                  <p className="text-gray-600 text-base leading-relaxed mb-8">
+                    {product.description}
+                  </p>
+                </div>
+
+                {/* Features */}
+                <div className="space-y-6">
+                  {product.features.map((feature, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-start gap-4 group"
+                    >
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center mt-1">
+                        <div className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-semibold text-gray-900 mb-1">
+                          {feature.title}
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed text-sm">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* CTA Button */}
+                <div className="text-center mt-8">
+                  {productIndex === 0 ? (
+                    <a
+                      href="/book-simulation/"
+                      className="btn-primary btn inline-flex items-center gap-2 px-6 py-2.5 text-sm"
+                    >
+                      Book Simulation
+                      <FaArrowRight className="text-lg" />
+                    </a>
+                  ) : (
+                    <a
+                      href={productIndex === 1 ? "/sfa" : "/loyalty-engine"}
+                      className="btn-primary btn inline-flex items-center gap-2 px-6 py-2.5 text-sm"
+                    >
+                      Learn More
+                      <FaArrowRight className="text-lg" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Layout with Scroll Effect */}
+      <div className="hidden lg:block">
+        <div className="sticky-container h-[300vh]">
+          <div className="sticky top-0 h-screen flex items-center">
+            <div className="container mx-auto px-4">
+              <div className="mx-auto max-w-7xl">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeProduct}
+                    variants={containerVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    className="flex flex-col items-center gap-16"
+                  >
+                    {/* Desktop Grid Layout */}
+                    <div className="grid grid-cols-5 gap-12 items-center w-full min-h-[500px]">
+                      {/* Left Features */}
+                      <motion.div
+                        variants={contentVariants}
+                        className="relative z-10 self-center"
+                      >
+                        <div className="space-y-8">
+                          {products[activeProduct].features
+                            .slice(0, 2)
+                            .map((feature, index) => (
+                              <motion.div
+                                key={index}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                className="flex items-start gap-4 group"
+                              >
+                                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center mt-1.5">
+                                  <div className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+                                </div>
+                                <div>
+                                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                    {feature.title}
+                                  </h3>
+                                  <p className="text-gray-600 leading-relaxed text-sm">
+                                    {feature.description}
+                                  </p>
+                                </div>
+                              </motion.div>
+                            ))}
+                        </div>
+                      </motion.div>
+
+                      {/* Center Image */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="col-span-3 flex items-center justify-center px-8 self-center"
+                      >
+                        <div className="relative w-full max-w-[800px]">
+                          <img
+                            src={products[activeProduct].image}
+                            alt={products[activeProduct].title}
+                            className="w-full h-auto object-contain relative z-10"
+                          />
+                        </div>
+                      </motion.div>
+
+                      {/* Right Features */}
+                      <motion.div
+                        variants={contentVariants}
+                        className="relative z-10 self-center"
+                      >
+                        <div className="space-y-8">
+                          {products[activeProduct].features
+                            .slice(2, 4)
+                            .map((feature, index) => (
+                              <motion.div
+                                key={index + 2}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: (index + 2) * 0.1 }}
+                                className="flex items-start gap-4 group"
+                              >
+                                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center mt-1.5">
+                                  <div className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
+                                </div>
+                                <div>
+                                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                    {feature.title}
+                                  </h3>
+                                  <p className="text-gray-600 leading-relaxed text-sm">
+                                    {feature.description}
+                                  </p>
+                                </div>
+                              </motion.div>
+                            ))}
+                        </div>
+                      </motion.div>
+                    </div>
+
+                    {/* Desktop Title and Description */}
+                    <div className="text-center max-w-2xl mx-auto">
+                      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
                         {products[activeProduct].title}
                       </h2>
-
-                      <p className="text-gray-600 text-lg leading-relaxed">
+                      <p className="text-gray-600 text-lg leading-relaxed mb-8">
                         {products[activeProduct].description}
                       </p>
-
-                      <div className="space-y-6 pt-4">
-                        {products[activeProduct].features.map(
-                          (feature, index) => (
-                            <motion.div
-                              key={index}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: index * 0.1 }}
-                              className="flex items-start gap-4 group"
-                            >
-                              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-50 flex items-center justify-center mt-1">
-                                <div className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-125 transition-transform" />
-                              </div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                                  {feature.title}
-                                </h3>
-                                <p className="text-gray-600 leading-relaxed">
-                                  {feature.description}
-                                </p>
-                              </div>
-                            </motion.div>
-                          )
-                        )}
-                      </div>
-
-                      {activeProduct === 0 && (
-                        <div className="pt-6">
-                          <a
-                            href="/book-simulation/"
-                            className="btn-primary btn flex items-center gap-2 w-fit"
-                          >
-                            Book Simulation
-                            <FaArrowRight className="text-lg" />
-                          </a>
-                        </div>
+                      {activeProduct === 0 ? (
+                        <a
+                          href="/book-simulation/"
+                          className="btn-primary btn inline-flex items-center gap-2 px-8 py-3 text-base"
+                        >
+                          Book Simulation
+                          <FaArrowRight className="text-lg" />
+                        </a>
+                      ) : (
+                        <a
+                          href={
+                            activeProduct === 1 ? "/sfa" : "/loyalty-engine"
+                          }
+                          className="btn-primary btn inline-flex items-center gap-2 px-8 py-3 text-base"
+                        >
+                          Learn More
+                          <FaArrowRight className="text-lg" />
+                        </a>
                       )}
                     </div>
                   </motion.div>
+                </AnimatePresence>
 
-                  {/* Image Side */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="relative flex items-center justify-center lg:justify-end"
-                  >
-                    <div className="relative w-full max-w-[600px]">
-                      <img
-                        src={products[activeProduct].image}
-                        alt={products[activeProduct].title}
-                        className={`w-full h-auto object-contain relative z-10 ${
-                          activeProduct !== 0 ? "max-h-[400px]" : ""
-                        }`}
-                      />
-                    </div>
-                  </motion.div>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Progress Indicator */}
-              <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-3">
-                {[0, 1, 2].map((index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveProduct(index)}
-                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                      activeProduct === index
-                        ? "bg-blue-500 scale-125"
-                        : "bg-gray-300 hover:bg-gray-400"
-                    }`}
-                  />
-                ))}
+                {/* Progress Indicator */}
+                <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3">
+                  {[0, 1, 2].map((index) => (
+                    <button
+                      key={index}
+                      onClick={() => setActiveProduct(index)}
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                        activeProduct === index
+                          ? "bg-blue-500 scale-125"
+                          : "bg-gray-300 hover:bg-gray-400"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>

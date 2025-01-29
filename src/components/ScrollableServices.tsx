@@ -16,7 +16,7 @@ const services: Service[] = [
     subheading: "Product-Focused Customer Loyalty Solutions",
     description:
       "Transform your customer relationships with our comprehensive loyalty management platform. We help businesses design, implement, and optimize reward programs that drive engagement, increase retention, and maximize customer lifetime value through data-driven personalization.",
-    image: "/images/leftImgOne.png",
+    image: "/images/services/loyalty.png",
   },
   {
     number: "02",
@@ -24,7 +24,7 @@ const services: Service[] = [
     subheading: "Strategic Market Presence Enhancement",
     description:
       "Expand your market presence through strategic channel partnerships and distribution networks. Our approach focuses on identifying and developing optimal channel mix, enabling businesses to reach new markets and customer segments effectively.",
-    image: "/images/leftImgTwo.jpg",
+    image: "/images/services/channel-reach.png",
   },
   {
     number: "03",
@@ -32,7 +32,7 @@ const services: Service[] = [
     subheading: "End-to-End B2B Sales Pipeline Management",
     description:
       "Accelerate your B2B sales with our comprehensive approach covering prospecting, content creation, multi-channel outreach (LinkedIn & Email), appointment scheduling, and complete funnel management. We help you build and maintain a robust sales pipeline that delivers consistent results.",
-    image: "/images/leftImgThree.jpg",
+    image: "/images/services/b2b-sales.png",
   },
 ];
 
@@ -56,45 +56,56 @@ export const ScrollableServices: React.FC = () => {
     )
       return;
 
-    // Calculate scroll progress with offset
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const scrollRect = scrollContentRef.current.getBoundingClientRect();
-
-    // Adjust the starting point to be when the first section enters viewport
-    const startOffset = window.innerHeight * 0.2; // 20% of viewport height
-    const scrollableDistance =
-      scrollRect.height - window.innerHeight + startOffset;
-
-    const progress = Math.max(
-      0,
-      Math.min(1, (-containerRect.top + startOffset) / scrollableDistance)
+    const container = containerRef.current;
+    const scrollContent = scrollContentRef.current;
+    const sections = Array.from(
+      scrollContent.getElementsByClassName("feature-section")
+    );
+    const images = Array.from(
+      container.getElementsByClassName("feature-image")
     );
 
-    // Update progress bar height
-    progressBarRef.current.style.height = `${progress * 100}%`;
+    const containerRect = container.getBoundingClientRect();
+    const scrollContentHeight = scrollContent.offsetHeight;
+    const windowHeight = window.innerHeight;
+    const scrollProgress =
+      (windowHeight - containerRect.top) / scrollContentHeight;
 
-    // Handle feature sections visibility
-    const sections = document.querySelectorAll(".feature-section");
-    sections.forEach((section) => {
+    // Update progress bar
+    if (progressBarRef.current) {
+      progressBarRef.current.style.height = `${Math.min(100, Math.max(0, scrollProgress * 100))}%`;
+    }
+
+    // Find the current active section
+    let activeIndex = 0;
+    sections.forEach((section, index) => {
       const rect = section.getBoundingClientRect();
-      const index = parseInt(section.getAttribute("data-index") || "0");
-      const correspondingImage = document.querySelector(
-        `.feature-image[data-index="${index}"]`
-      ) as HTMLElement;
+      const sectionProgress =
+        (windowHeight - rect.top) / (rect.height + windowHeight);
 
-      // Calculate how much of the section is visible
-      const sectionHeight = (section as HTMLElement).offsetHeight;
-      const visibleHeight =
-        Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-      const visibilityRatio = Math.max(
-        0,
-        Math.min(1, visibleHeight / sectionHeight)
-      );
+      if (sectionProgress >= 0.35 && sectionProgress <= 1) {
+        activeIndex = index;
+      }
+    });
 
-      if (correspondingImage) {
-        // Show image when its section is more than 50% visible
-        correspondingImage.style.opacity = visibilityRatio > 0.5 ? "1" : "0";
-        correspondingImage.style.zIndex = index.toString();
+    // Update image visibility with smooth transitions
+    images.forEach((image, index) => {
+      const imageElement = image as HTMLElement;
+      if (index === activeIndex) {
+        imageElement.style.visibility = "visible";
+        imageElement.style.opacity = "1";
+        imageElement.style.transform = "translateY(0) scale(1)";
+      } else {
+        const direction = index > activeIndex ? 1 : -1;
+        imageElement.style.visibility = "visible";
+        imageElement.style.opacity = "0";
+        imageElement.style.transform = `translateY(${20 * direction}px) scale(0.95)`;
+        // Hide the element after transition completes
+        setTimeout(() => {
+          if (index !== activeIndex) {
+            imageElement.style.visibility = "hidden";
+          }
+        }, 800);
       }
     });
   };
@@ -126,7 +137,7 @@ export const ScrollableServices: React.FC = () => {
           {/* Sticky Image Container */}
           <div className="hidden lg:block lg:w-1/2">
             <div className="sticky top-32 p-6">
-              <div className="relative aspect-square overflow-hidden rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
+              <div className="relative min-h-[400px]">
                 {services.map((service, index) => (
                   <div
                     key={index}
@@ -134,14 +145,15 @@ export const ScrollableServices: React.FC = () => {
                     data-index={index}
                     style={{
                       opacity: index === 0 ? 1 : 0,
-                      transition: "opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                      transition: "all 0.8s ease-in-out",
+                      transform: `translateY(${index === 0 ? "0" : "20px"}) scale(${index === 0 ? "1" : "0.95"})`,
+                      visibility: index === 0 ? "visible" : "hidden",
                     }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10" />
                     <img
                       src={service.image}
                       alt={`Feature ${index + 1}`}
-                      className="h-full w-full object-cover transform scale-105 transition-transform duration-700"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                 ))}
@@ -186,15 +198,12 @@ export const ScrollableServices: React.FC = () => {
                   </span>
 
                   {/* Mobile Image */}
-                  <div className="lg:hidden rounded-2xl overflow-hidden mb-8 aspect-[4/3] shadow-xl">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10" />
-                      <img
-                        src={service.image}
-                        alt={`Feature ${index + 1}`}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
+                  <div className="lg:hidden w-full mb-8">
+                    <img
+                      src={service.image}
+                      alt={`Feature ${index + 1}`}
+                      className="w-full h-auto object-contain"
+                    />
                   </div>
 
                   <div className="space-y-6">

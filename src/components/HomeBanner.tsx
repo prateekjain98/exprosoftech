@@ -39,7 +39,7 @@ export const HomeBanner: React.FC = () => {
   const { title, description, buttons, image } = bannerContent;
 
   return (
-    <section className="relative z-[1] pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <section className="relative z-[1] pt-20">
       <div className="max-w-[85rem] mx-auto px-3">
         <div className="row items-center justify-between">
           {/* Left Column - Content */}
