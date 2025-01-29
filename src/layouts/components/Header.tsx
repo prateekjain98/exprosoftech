@@ -25,16 +25,22 @@ export const mainMenu: NavigationLink[] = [
     hasChildren: true,
     children: [
       {
-        name: "Loyalty Engine",
-        url: "/loyalty-engine/",
+        name: "Intuiflow",
+        url: "/intuiflow/",
         description:
-          "Drive customer retention with personalized rewards, gamification, and engagement analytics",
+          "Build an agile supply chain with AI/ML-powered planning software for improved operational stability",
       },
       {
         name: "Sales Force Automation",
         url: "/sfa/",
         description:
           "Empower your field force with real-time tracking, route optimization, and performance analytics",
+      },
+      {
+        name: "Loyalty Engine",
+        url: "/loyalty-engine/",
+        description:
+          "Drive customer retention with personalized rewards, gamification, and engagement analytics",
       },
     ],
   },
@@ -141,6 +147,8 @@ const Header: React.FC<HeaderProps> = ({
 
   const getProductImage = (productName: string): string => {
     switch (productName) {
+      case "Intuiflow":
+        return "/images/mobile3.png";
       case "Sales Force Automation":
         return "/images/loyalty-engine.png";
       case "Loyalty Engine":
@@ -312,81 +320,51 @@ const Header: React.FC<HeaderProps> = ({
                       className={`lg:hidden ${openMobileDropdown === menu.name ? "block" : "hidden"}`}
                     >
                       <div className="mt-2 space-y-3 px-2">
-                        {menu.children?.map((child, childIndex) => (
-                          <a
-                            key={childIndex}
-                            href={child.url}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                            className="group block relative overflow-hidden rounded-xl bg-white hover:bg-gradient-to-br hover:from-slate-50 hover:to-white transition-all duration-300"
-                          >
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] to-blue-500/[0.01]" />
-                            <div className="relative p-4">
-                              <div className="flex items-start gap-4">
-                                <div className="relative shrink-0">
-                                  <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                  <div className="relative h-12 w-12 rounded-xl bg-gradient-to-br from-slate-50 to-white shadow-sm ring-1 ring-slate-100/80 flex items-center justify-center overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.05] to-blue-500/[0.05]" />
-                                    <div className="relative w-6 h-6 text-primary transform group-hover:scale-110 transition-transform duration-300">
-                                      {menu.name === "Products" ? (
-                                        childIndex === 0 ? (
-                                          <svg
-                                            className="w-full h-full"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                          >
-                                            <path
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                              strokeWidth={1.5}
-                                              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                                            />
-                                          </svg>
-                                        ) : (
-                                          <svg
-                                            className="w-full h-full"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                          >
-                                            <path
-                                              strokeLinecap="round"
-                                              strokeLinejoin="round"
-                                              strokeWidth={1.5}
-                                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                            />
-                                          </svg>
-                                        )
-                                      ) : (
-                                        <svg
-                                          className="w-full h-full"
-                                          fill="none"
-                                          viewBox="0 0 24 24"
-                                          stroke="currentColor"
-                                        >
-                                          <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={1.5}
-                                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                                          />
-                                        </svg>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="flex-1 min-w-0 text-left">
-                                  <h4 className="text-[15px] font-medium text-slate-800 mb-1 group-hover:text-primary transition-colors duration-200">
-                                    {child.name}
-                                  </h4>
-                                  <p className="text-sm text-slate-500 line-clamp-2 group-hover:text-slate-600 transition-colors duration-200">
-                                    {child.description}
-                                  </p>
-                                </div>
-                              </div>
+                        {menu.name === "Products" ? (
+                          <>
+                            {/* Supply Chain Solutions Section */}
+                            <div className="px-2 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                              Supply Chain Solutions
                             </div>
-                          </a>
-                        ))}
+                            {menu.children
+                              ?.slice(0, 1)
+                              .map((child, childIndex) => (
+                                <ProductMenuItem
+                                  key={`supply-chain-${childIndex}`}
+                                  child={child}
+                                  childIndex={childIndex}
+                                  menuName={menu.name}
+                                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                                />
+                              ))}
+
+                            {/* Sales Solutions Section */}
+                            <div className="px-2 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                              Sales Solutions
+                            </div>
+                            {menu.children
+                              ?.slice(1)
+                              .map((child, childIndex) => (
+                                <ProductMenuItem
+                                  key={`sales-${childIndex}`}
+                                  child={child}
+                                  childIndex={childIndex}
+                                  menuName={menu.name}
+                                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                                />
+                              ))}
+                          </>
+                        ) : (
+                          menu.children?.map((child, childIndex) => (
+                            <ProductMenuItem
+                              key={childIndex}
+                              child={child}
+                              childIndex={childIndex}
+                              menuName={menu.name}
+                              setIsMobileMenuOpen={setIsMobileMenuOpen}
+                            />
+                          ))
+                        )}
                       </div>
                     </div>
                     {/* Desktop Menu Dropdown */}
@@ -484,5 +462,59 @@ const Header: React.FC<HeaderProps> = ({
     </div>
   );
 };
+
+const ProductMenuItem: React.FC<{
+  child: ChildNavigationLink;
+  childIndex: number;
+  menuName: string;
+  setIsMobileMenuOpen: (isOpen: boolean) => void;
+}> = ({ child, childIndex, menuName, setIsMobileMenuOpen }) => (
+  <a
+    href={child.url}
+    onClick={() => setIsMobileMenuOpen(false)}
+    className="group block relative overflow-hidden rounded-xl bg-white hover:bg-gradient-to-br hover:from-slate-50 hover:to-white transition-all duration-300"
+  >
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] to-blue-500/[0.01]" />
+    <div className="relative p-4">
+      <div className="flex items-start gap-4">
+        <div className="relative shrink-0">
+          <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="relative h-12 w-12 rounded-xl bg-gradient-to-br from-slate-50 to-white shadow-sm ring-1 ring-slate-100/80 flex items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.05] to-blue-500/[0.05]" />
+            <div className="relative w-6 h-6 text-primary transform group-hover:scale-110 transition-transform duration-300">
+              <svg
+                className="w-full h-full"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d={
+                    menuName === "Products"
+                      ? childIndex === 0
+                        ? "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                        : "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      : "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  }
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="flex-1 min-w-0 text-left">
+          <h4 className="text-[15px] font-medium text-slate-800 mb-1 group-hover:text-primary transition-colors duration-200">
+            {child.name}
+          </h4>
+          <p className="text-sm text-slate-500 line-clamp-2 group-hover:text-slate-600 transition-colors duration-200">
+            {child.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  </a>
+);
 
 export default Header;

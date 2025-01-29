@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "./SectionHeader";
+import { FaArrowRight } from "react-icons/fa";
 
 interface FeaturePoint {
   title: string;
@@ -27,6 +28,41 @@ const featuresData = {
 };
 
 const products: Product[] = [
+  {
+    title: "Intuiflow",
+    description:
+      "Build an agile and resilient supply chain with our AI/ML-powered planning software. Get actionable insights and improve operational stability from strategy to shop floor.",
+    image:
+      "https://demanddriventech.com/wp-content/uploads/2024/07/intuiflow-screen-1.png",
+    label: "Supply Chain Solution",
+    features: [
+      {
+        title: "Materials Planning",
+        description:
+          "Ensure steady material supply and minimize bullwhip effect with enhanced supply-demand visibility and adaptive buffer management.",
+      },
+      {
+        title: "Demand Planning",
+        description:
+          "Visualize backlog vs forecast, assess adaptability to change, and establish forecasted demand rates with intelligent analytics.",
+      },
+      {
+        title: "Sales & Operations Planning",
+        description:
+          "Generate forward-looking simulations, identify operational gaps, and respond quickly to market changes for optimal performance.",
+      },
+      {
+        title: "Scheduling & Execution",
+        description:
+          "Align resources to demand, improve due date performance, and reduce impact of variation with real-time work order status.",
+      },
+      {
+        title: "Auto Pilot",
+        description:
+          "Achieve desired service levels and optimize inventory with AI-driven recommendations and visual proof of proposed settings.",
+      },
+    ],
+  },
   {
     title: "Sales Force Automation",
     description:
@@ -120,12 +156,13 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
       const rect = container.getBoundingClientRect();
       const scrollProgress = -rect.top / (rect.height - window.innerHeight);
-      const threshold = 0.5;
 
-      if (scrollProgress < threshold) {
+      if (scrollProgress < 0.33) {
         setActiveProduct(0);
-      } else {
+      } else if (scrollProgress < 0.66) {
         setActiveProduct(1);
+      } else {
+        setActiveProduct(2);
       }
     };
 
@@ -149,7 +186,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
         </div>
       )}
 
-      <div className="sticky-container h-[200vh]">
+      <div className="sticky-container h-[300vh]">
         <div className="sticky top-0 h-screen flex items-center">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
@@ -205,6 +242,18 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                           )
                         )}
                       </div>
+
+                      {activeProduct === 0 && (
+                        <div className="pt-6">
+                          <a
+                            href="/book-simulation/"
+                            className="btn-primary btn flex items-center gap-2 w-fit"
+                          >
+                            Book Simulation
+                            <FaArrowRight className="text-lg" />
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </motion.div>
 
@@ -215,15 +264,14 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="relative flex items-center justify-center lg:justify-end"
                   >
-                    <div className="relative w-full max-w-[400px]">
-                      <div className="relative">
-                        <img
-                          src={products[activeProduct].image}
-                          alt={products[activeProduct].title}
-                          className="w-full h-auto object-contain relative z-10"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-tr from-blue-50 to-purple-50 rounded-[40px] transform -rotate-6 scale-95 -z-10" />
-                      </div>
+                    <div className="relative w-full max-w-[600px]">
+                      <img
+                        src={products[activeProduct].image}
+                        alt={products[activeProduct].title}
+                        className={`w-full h-auto object-contain relative z-10 ${
+                          activeProduct !== 0 ? "max-h-[400px]" : ""
+                        }`}
+                      />
                     </div>
                   </motion.div>
                 </motion.div>
@@ -231,7 +279,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
               {/* Progress Indicator */}
               <div className="absolute right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-3">
-                {[0, 1].map((index) => (
+                {[0, 1, 2].map((index) => (
                   <button
                     key={index}
                     onClick={() => setActiveProduct(index)}
