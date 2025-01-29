@@ -216,7 +216,7 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
                 </div>
                 <div className="mt-6">
                   <a
-                    href="/book-simulation/"
+                    href="/intuiflow/"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-sm font-medium rounded-full transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-600/30"
                   >
