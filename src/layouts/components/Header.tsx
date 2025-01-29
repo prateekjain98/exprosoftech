@@ -477,11 +477,7 @@ const Header: React.FC<HeaderProps> = ({
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <img
           className="h-full w-full object-cover object-top"
-          src={
-            pathname === "/"
-              ? "/images/banner-bg.png"
-              : "/images/page-header.png"
-          }
+          src={"/images/page-header.png"}
           alt="header image"
         />
       </div>

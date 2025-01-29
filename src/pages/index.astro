@@ -1,28 +1,26 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Clients from "@/partials/Clients.astro";
-import HomeBanner from "@/partials/HomeBanner.astro";
+import { Clients } from "../components/Clients";
 import HowItWorks from "@/partials/HowItWorks.astro";
 import CaseStudies from "../components/CaseStudies";
 import FAQ from "../components/FAQ";
 import { FeaturesGrid } from "../components/FeaturesGrid";
 import { ScrollableServices } from "../components/ScrollableServices";
 import { ProductSection } from "../components/ProductSection";
+import { HomeBanner } from "../components/HomeBanner";
+import { getEntry } from "astro:content";
+
+const homeBannerData = (await getEntry("sections", "home-banner")).data;
+const clientsData = (await getEntry("sections", "clients")).data;
 ---
 
 <Base>
-  <HomeBanner />
-  <Clients />
+  <HomeBanner client:load />
+  <Clients client:load list={clientsData.list} />
   <HowItWorks />
   <FeaturesGrid client:load />
-  <!-- <Features /> -->
   <ScrollableServices client:load />
   <ProductSection client:load />
-  <!-- <PricingSection />
-  <Testimonial visible_testimonial={3} /> -->
-  <!-- <ClientStories /> -->
   <CaseStudies client:load />
   <FAQ client:load variant="home" />
-  <!-- <Faq /> -->
-  <!-- <CallToAction /> -->
 </Base>

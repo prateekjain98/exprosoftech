@@ -3,21 +3,18 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import AutoImport from "astro-auto-import";
-import { defineConfig, squooshImageService } from "astro/config";
+import { defineConfig } from "astro/config";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
 import config from "./src/config/config.json";
 import { remarkModifiedTime } from "./remark-modified-time.mjs";
-import { rehypeHeadingIds } from '@astrojs/markdown-remark';
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 
 // https://astro.build/config
 export default defineConfig({
   site: config.site.base_url ? config.site.base_url : "http://examplesite.com",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
-  image: {
-    service: squooshImageService(),
-  },
   integrations: [
     react(),
     sitemap(),
@@ -43,7 +40,7 @@ export default defineConfig({
     remarkPlugins: [
       remarkModifiedTime,
       rehypeHeadingIds,
-      [remarkToc, { heading: "contents"} ],
+      [remarkToc, { heading: "contents" }],
       [
         remarkCollapse,
         {
