@@ -1,0 +1,22 @@
+---
+import Base from "@/layouts/Base.astro";
+---
+
+<Base>
+  <div class="min-h-screen bg-white">
+    <iframe
+      width="100%"
+      height="0"
+      src="https://demanddriventech.com/partner_embed/055b037a733e06b8f2c22059e4908cc416ace4fc?lang=en"
+    />
+  </div>
+</Base>
+
+<script is:inline>
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "https://demanddriventech.com/wp-content/plugins/ddtech-partner-modules/js/ddtech-partners-client.js";
+  document.body.appendChild(script);
+</script>
+
+
