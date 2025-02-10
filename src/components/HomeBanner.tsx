@@ -18,7 +18,7 @@ interface BannerContent {
 const bannerContent: BannerContent = {
   title: "Empowering Strategic Business Transformation",
   description:
-    "Our solution integrates a B2B loyalty platform, multi-channel automation, and AI-driven sales tools to help teams meet targets and improve customer engagement.",
+    "Our offering includes DDMRP transformation consulting, Sales Transformation Consulting, a B2B loyalty services and Retail Automation Platforms to help organizations achieving sustainable growth.",
   image: {
     src: "/images/hero.png",
     alt: "Hero image showing business transformation platform",
@@ -28,10 +28,10 @@ const bannerContent: BannerContent = {
       label: "Book a call",
       link: "/contact/",
     },
-    {
-      label: "Download Deck",
-      link: "/about/",
-    },
+    // {
+    //   label: "Download Deck",
+    //   link: "/about/",
+    // },
   ],
 };
 
