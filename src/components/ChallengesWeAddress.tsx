@@ -33,13 +33,13 @@ const challengesData: ChallengesData = {
     {
       title: "Poor Cash Flow",
       description:
-        "Our strategic tax planning services help you create a strong, goal-aligned plan that minimizes liabilities.",
+        "Optimized procurement and faster deliveries enhance revenue cycles while streamlining vendor payments and minimizing capital tie-ups.",
       icon: "/images/consulting/demand-driven-business-transformation/challenges/poor-cash-flow.png",
     },
     {
       title: "Demand Variability",
       description:
-        "Create a precise roadmap for business success with strategic planning and detailed blueprinting.",
+        "DDMRP stabilizes demand by buffering fluctuations, ensuring steady supply, reducing stockouts, and improving responsiveness for smoother operations.",
       icon: "/images/consulting/demand-driven-business-transformation/challenges/demand-variability.png",
     },
     {

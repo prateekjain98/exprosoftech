@@ -91,7 +91,7 @@ const products: Product[] = [
     title: "Loyalty Engine",
     description:
       "Build lasting relationships and drive customer engagement with our advanced loyalty management system. Create personalized rewards programs that inspire customer loyalty and boost retention.",
-    image: "/images/products/sfa.png",
+    image: "/images/products/loyalty.png",
     label: "Loyalty Engine",
     features: [
       {

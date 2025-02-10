@@ -19,7 +19,7 @@ interface Feature {
 const features: Feature[] = [
   {
     tagline: "Flexible Production for a Dynamic Market",
-    title: "Agile Manufacturing Solutions",
+    title: "Demand Driven Manufacturing",
     description:
       "Streamline material, manpower, and machinery to efficiently meet shifting market demands. Our adaptable processes ensure production aligns with changing needs, maximizing resource use and supporting sales with agility.",
     image: "/images/FeatureImgOne.png",
