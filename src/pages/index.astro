@@ -10,7 +10,6 @@ import { ProductSection } from "../components/ProductSection";
 import { HomeBanner } from "../components/HomeBanner";
 import { getEntry } from "astro:content";
 
-const homeBannerData = (await getEntry("sections", "home-banner")).data;
 const clientsData = (await getEntry("sections", "clients")).data;
 ---
 
