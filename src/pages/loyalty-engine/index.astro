@@ -1,35 +1,231 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Faq from "@/layouts/partials/Faq.astro";
-import AdditionalFeatures from "@/layouts/components/AdditionalFeaturesGrid.astro";
-import FeatureSection from "@/layouts/partials/FeatureSection.astro";
-import CallToAction from "@/layouts/partials/CallToAction.astro";
-import LEHeader from "@/layouts/components/LEHeader.astro";
-import FeatureShowcase from "@/components/FeatureShowcase.astro";
-import MobileFeatures from "@/components/MobileFeatures.astro";
-import TestimonialMarquee from '../../layouts/components/TestimonialMarquee.astro';
-import MobileFeaturesComponent from "@/components/MobileFeaturesComponent.astro";
+import Clients from "@/partials/Clients.astro";
+import { AdditionalFeatures } from "../../components/common/AdditionalFeatures";
+import { FAQSection } from "../../components/common/FAQSection";
+import { FeaturesGrid } from "../../components/common/FeaturesGrid";
+import { FeatureShowcase } from "../../components/common/FeatureShowcase";
+import { MobileFeatures } from "../../components/common/MobileFeatures";
+import { ProductHeader } from "../../components/common/ProductHeader";
+import LECTA from "../../components/loyalty/LECTA";
+
+const headerContent = {
+  badge: "Enterprise Loyalty Solution",
+  title: "Fieldkonnect Loyalty Engine",
+  subtitle:
+    "Build Lasting Relationships, Drive Engagement, and Accelerate Growth",
+  description:
+    "The Fieldkonnect Loyalty Engine is designed to bring advanced, customized loyalty solutions to brands aiming to build meaningful connections with channel partners, influencers, and customers. Our platform goes beyond traditional loyalty, providing a diverse array of schemes—from QR-based to invoice-based, quantity-based, value-based, and even packaging collection-based programs.",
+  image: {
+    src: "/images/products/loyalty.png",
+    alt: "Fieldkonnect Loyalty Engine Platform Preview",
+  },
+  buttons: [
+    {
+      label: "Transform Your Loyalty Strategy",
+      link: "/contact",
+      variant: "primary" as const,
+    },
+  ],
+};
+
+const featuresContent = {
+  badge: "Key Features",
+  title: "Powerful Features for Loyalty Program Success",
+  description:
+    "Fieldkonnect Loyalty Engine empowers brands with a wide range of customizable schemes, each designed to maximize engagement and impact",
+  features: [
+    {
+      title: "QR Code-Based Rewards",
+      description:
+        "Enable participants to earn points and rewards simply by scanning QR codes placed on product packaging, in-store displays, or promotional materials. QR codes streamline participation and reward collection.",
+      icon: "QrCode",
+      stats: {
+        value: "40%",
+        label: "Higher Engagement",
+      },
+    },
+    {
+      title: "Invoice-Based Programs",
+      description:
+        "Reward participants based on invoice submissions. Each transaction can generate points, offering loyalty benefits that correlate directly with spending. Ideal for B2B relationships.",
+      icon: "Receipt",
+      stats: {
+        value: "50%",
+        label: "Increased Sales",
+      },
+    },
+    {
+      title: "Quantity-Based Rewards",
+      description:
+        "Recognize and reward participants based on the quantity of products purchased. Higher quantities yield greater rewards, motivating partners to buy more in a single transaction.",
+      icon: "Package",
+      stats: {
+        value: "35%",
+        label: "Higher Volume",
+      },
+    },
+    {
+      title: "Value-Based Programs",
+      description:
+        "Drive loyalty based on the total value of purchases, rewarding customers for higher spending. Participants earn points proportional to their transaction value.",
+      icon: "CurrencyDollar",
+      stats: {
+        value: "45%",
+        label: "Revenue Growth",
+      },
+    },
+    {
+      title: "Packaging Collection",
+      description:
+        "Reward customers for returning empty product packaging, enabling environmentally-conscious loyalty initiatives. Encourage recycling and promote sustainability.",
+      icon: "Recycle",
+      stats: {
+        value: "60%",
+        label: "Return Rate",
+      },
+    },
+    {
+      title: "Real-Time Analytics",
+      description:
+        "Track and analyze key program metrics in real time, including engagement rates, reward redemptions, and participant activity through our comprehensive dashboard.",
+      icon: "ChartBar",
+      stats: {
+        value: "90%",
+        label: "Data Accuracy",
+      },
+    },
+    {
+      title: "KYC Verification",
+      description:
+        "Ensure accurate participant data with KYC verification, enhancing security and preventing fraud. Build trust and create a reliable user base.",
+      icon: "Shield",
+      stats: {
+        value: "99%",
+        label: "Verified Users",
+      },
+    },
+    {
+      title: "Digital Wallet",
+      description:
+        "Participants can manage points, view rewards, and redeem benefits through a digital wallet within the Fieldkonnect mobile app.",
+      icon: "Wallet",
+      stats: {
+        value: "75%",
+        label: "Digital Adoption",
+      },
+    },
+  ],
+};
+
+const mobileContent = {
+  title: "Transform Your Loyalty Strategy",
+  description:
+    "Fieldkonnect Loyalty Engine provides a versatile, IT-driven platform that adapts to the unique needs of each brand, offering powerful features to drive engagement and growth.",
+  features: [
+    {
+      title: "Diverse Program Schemes",
+      description:
+        "Support for multiple loyalty schemes targeting specific behaviors—from purchase value to environmental responsibility—each designed to maximize engagement.",
+      icon: "Stack",
+    },
+    {
+      title: "Advanced Analytics",
+      description:
+        "Powerful insights and tracking provide real-time view of program performance and participant activity for continuous optimization.",
+      icon: "ChartLine",
+    },
+    {
+      title: "User-Centric Design",
+      description:
+        "Intuitive, user-friendly platform makes it easy for participants to join, track, and engage with loyalty programs.",
+      icon: "UserFocus",
+    },
+    {
+      title: "Enterprise Security",
+      description:
+        "Prioritize security with KYC verification and scalable infrastructure supporting growing businesses.",
+      icon: "Shield",
+    },
+  ],
+  image: {
+    src: "/images/handOnly.png",
+    alt: "Fieldkonnect Loyalty Mobile App Interface",
+  },
+};
+
+const showcaseContent = {
+  title: "Transform Your Loyalty Programs",
+  description:
+    "Experience the power of customizable loyalty solutions with features designed to boost engagement and drive results",
+  features: [
+    {
+      title: "Customizable Rewards",
+      description:
+        "Choose from various rewards including discounts, gifts, cashback, and points-based incentives.",
+    },
+    {
+      title: "Automated Communication",
+      description:
+        "Keep participants informed with automated notifications about rewards, points, and campaigns.",
+    },
+    {
+      title: "Targeted Campaigns",
+      description:
+        "Segment participants and launch tailored reward campaigns for maximum impact.",
+    },
+  ],
+  image: {
+    src: "/images/products/loyalty-dash.png",
+    alt: "Fieldkonnect Loyalty Dashboard",
+  },
+};
+
+const faqContent = {
+  title: "Frequently Asked Questions",
+  description: "Find answers to common questions about our Loyalty Engine",
+  faqs: [
+    {
+      question: "How long does it take to implement a loyalty program?",
+      answer:
+        "Implementation typically takes 2-4 weeks, depending on your organization's size and program complexity. Our team provides comprehensive support throughout the process.",
+    },
+    {
+      question: "Can Fieldkonnect integrate with our existing systems?",
+      answer:
+        "Yes, Fieldkonnect offers seamless integration with major CRM platforms, POS systems, and can be customized to work with your existing infrastructure.",
+    },
+    {
+      question: "What types of rewards can we offer?",
+      answer:
+        "You can offer various rewards including points, cashback, discounts, physical gifts, digital rewards, and more. Our platform is flexible to accommodate your specific reward strategy.",
+    },
+    {
+      question: "How secure is participant data?",
+      answer:
+        "We implement bank-grade security measures including end-to-end encryption, secure data centers, and regular security audits to protect all participant data.",
+    },
+  ],
+};
+
+const ctaContent = {
+  title: "Ready to Transform Your Loyalty Strategy?",
+  description:
+    "Get started with Fieldkonnect Loyalty Engine today and build stronger relationships with your customers",
+  button: {
+    label: "Contact Sales",
+    link: "/contact",
+  },
+};
 ---
 
 <Base>
-  <LEHeader />
-  <FeatureSection />
-  <MobileFeaturesComponent/>
-  <FeatureShowcase   
-  image={{
-    src: "/images/mobile-hand-3.png",
-    alt: "mobile app"  
-  }},
-  heading="Unlock the Power of Customizable Loyalty Programs to Drive Customer Engagement and Business Growth",
-  description="Whether you need a solution for rewarding purchase volume, transaction value, or even packaging returns, Fieldkonnect adapts to your brand's unique needs, offering a flexible, data-driven approach to loyalty management.",
-  buttonText="Get Started",
-  buttonLink=""
-  />
-
-  <AdditionalFeatures />
-  <TestimonialMarquee />
-
-  <Faq />
-  <CallToAction />  
-
-</Base> 
+  <ProductHeader {...headerContent} client:load />
+  <Clients />
+  <FeaturesGrid {...featuresContent} client:load />
+  <MobileFeatures {...mobileContent} client:load />
+  <FeatureShowcase {...showcaseContent} variant="loyalty" client:load />
+  <AdditionalFeatures client:load />
+  <FAQSection {...faqContent} client:load />
+  <LECTA client:load />
+</Base>
