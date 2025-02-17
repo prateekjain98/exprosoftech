@@ -4,6 +4,7 @@ import config from "@/config/config.json";
 import ProductsDropdown from "../../components/navigation/ProductsDropdown";
 import ServicesDropdown from "../../components/navigation/ServicesDropdown";
 import ConsultingDropdown from "../../components/navigation/ConsultingDropdown";
+import Button from "../../components/common/Button";
 
 export interface ChildNavigationLink {
   name: string;
@@ -418,16 +419,14 @@ const Header: React.FC<HeaderProps> = ({
             ))}
             {navigation_button.enable && (
               <li className="lg:hidden">
-                <a
-                  className="btn btn-primary mt-2"
+                <Button
+                  className="mt-2"
                   href={navigation_button.link}
                   onClick={() => setIsMobileMenuOpen(false)}
+                  height="compact"
                 >
                   {navigation_button.label}
-                  <span className="ml-2">
-                    <DynamicIcon icon="FaArrowRight" />
-                  </span>
-                </a>
+                </Button>
               </li>
             )}
           </ul>
@@ -435,17 +434,13 @@ const Header: React.FC<HeaderProps> = ({
           {/* right button */}
           <div className="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
             {navigation_button.enable && (
-              <a
-                className="btn btn-primary hidden lg:flex items-center gap-2 group"
+              <Button
+                className="hidden lg:flex items-center gap-2 group"
                 href={navigation_button.link}
+                height="compact"
               >
                 {navigation_button.label}
-                <span className="icon-wrapper transition-transform duration-200 group-hover:translate-x-1">
-                  <span className="icon">
-                    <DynamicIcon icon="FaArrowRight" />
-                  </span>
-                </span>
-              </a>
+              </Button>
             )}
           </div>
         </nav>

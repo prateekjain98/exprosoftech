@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "./SectionHeader";
+import Button from "./common/Button";
 import { FaArrowRight } from "react-icons/fa";
 
 interface FeaturePoint {
@@ -14,6 +15,9 @@ interface Product {
   image: string;
   features: FeaturePoint[];
   label: string;
+  buttonHref: string;
+  buttonLabel: string;
+  mainCTA?: boolean;
 }
 
 interface ProductSectionProps {
@@ -28,42 +32,45 @@ const featuresData = {
 };
 
 const products: Product[] = [
-  {
-    title: "Intuiflow",
-    description:
-      "Build an agile and resilient supply chain with our AI/ML-powered planning software. Get actionable insights and improve operational stability from strategy to shop floor.",
-    image:
-      "https://demanddriventech.com/wp-content/uploads/2024/07/intuiflow-screen-1.png",
-    label: "Supply Chain Solution",
-    features: [
-      {
-        title: "Materials Planning",
-        description:
-          "Ensure steady material supply and minimize bullwhip effect with enhanced supply-demand visibility and adaptive buffer management.",
-      },
-      {
-        title: "Demand Planning",
-        description:
-          "Visualize backlog vs forecast, assess adaptability to change, and establish forecasted demand rates with intelligent analytics.",
-      },
-      {
-        title: "Sales & Operations Planning",
-        description:
-          "Generate forward-looking simulations, identify operational gaps, and respond quickly to market changes for optimal performance.",
-      },
-      {
-        title: "Scheduling & Execution",
-        description:
-          "Align resources to demand, improve due date performance, and reduce impact of variation with real-time work order status.",
-      },
-    ],
-  },
+  // {
+  //   title: "Intuiflow",
+  //   description:
+  //     "Build an agile and resilient supply chain with our AI/ML-powered planning software. Get actionable insights and improve operational stability from strategy to shop floor.",
+  //   image:
+  //     "https://demanddriventech.com/wp-content/uploads/2024/07/intuiflow-screen-1.png",
+  //   label: "Supply Chain Solution",
+  //   features: [
+  //     {
+  //       title: "Materials Planning",
+  //       description:
+  //         "Ensure steady material supply and minimize bullwhip effect with enhanced supply-demand visibility and adaptive buffer management.",
+  //     },
+  //     {
+  //       title: "Demand Planning",
+  //       description:
+  //         "Visualize backlog vs forecast, assess adaptability to change, and establish forecasted demand rates with intelligent analytics.",
+  //     },
+  //     {
+  //       title: "Sales & Operations Planning",
+  //       description:
+  //         "Generate forward-looking simulations, identify operational gaps, and respond quickly to market changes for optimal performance.",
+  //     },
+  //     {
+  //       title: "Scheduling & Execution",
+  //       description:
+  //         "Align resources to demand, improve due date performance, and reduce impact of variation with real-time work order status.",
+  //     },
+  //   ],
+  // },
   {
     title: "Sales Force Automation",
     description:
       "Empower your sales team with cutting-edge automation tools designed for maximum efficiency and productivity. Our comprehensive solution streamlines sales processes, enhances team collaboration, and drives better results.",
     image: "/images/products/sfa.png",
     label: "Sales Force Automation",
+    buttonHref: "/sfa/",
+    buttonLabel: "Learn More",
+    mainCTA: false,
     features: [
       {
         title: "Real-Time Order Management",
@@ -93,6 +100,9 @@ const products: Product[] = [
       "Build lasting relationships and drive customer engagement with our advanced loyalty management system. Create personalized rewards programs that inspire customer loyalty and boost retention.",
     image: "/images/products/loyalty.png",
     label: "Loyalty Engine",
+    buttonHref: "/loyalty-engine/",
+    buttonLabel: "Learn More",
+    mainCTA: false,
     features: [
       {
         title: "Customizable Rewards",
@@ -140,14 +150,21 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
       if (!container) return;
 
       const rect = container.getBoundingClientRect();
-      const scrollProgress = -rect.top / (rect.height - window.innerHeight);
+      // Ensure scroll progress stays between 0 and 1
+      const scrollProgress = Math.max(
+        0,
+        Math.min(1, -rect.top / (rect.height - window.innerHeight))
+      );
+      const sectionSize = 1 / products.length;
 
-      if (scrollProgress < 0.33) {
-        setActiveProduct(0);
-      } else if (scrollProgress < 0.66) {
-        setActiveProduct(1);
-      } else {
-        setActiveProduct(2);
+      const newActiveProduct = Math.min(
+        products.length - 1,
+        Math.floor(scrollProgress / sectionSize)
+      );
+
+      // Only update if the new active product is valid
+      if (newActiveProduct >= 0 && newActiveProduct < products.length) {
+        setActiveProduct(newActiveProduct);
       }
     };
 
@@ -230,23 +247,13 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
                 {/* CTA Button */}
                 <div className="text-center mt-8">
-                  {productIndex === 0 ? (
-                    <a
-                      href="/book-simulation/"
-                      className="btn-primary btn inline-flex items-center gap-2 px-6 py-2.5 text-sm"
-                    >
-                      Book Simulation
-                      <FaArrowRight className="text-lg" />
-                    </a>
-                  ) : (
-                    <a
-                      href={productIndex === 1 ? "/sfa" : "/loyalty-engine"}
-                      className="btn-primary btn inline-flex items-center gap-2 px-6 py-2.5 text-sm"
-                    >
-                      Learn More
-                      <FaArrowRight className="text-lg" />
-                    </a>
-                  )}
+                  <Button
+                    href={product.buttonHref}
+                    size="sm"
+                    isCalendlyButton={product.mainCTA}
+                  >
+                    {product.buttonLabel}
+                  </Button>
                 </div>
               </div>
             ))}
@@ -256,7 +263,10 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
       {/* Desktop Layout with Scroll Effect */}
       <div className="hidden lg:block">
-        <div className="sticky-container h-[300vh]">
+        <div
+          className="sticky-container"
+          style={{ height: `${products.length * 100}vh` }}
+        >
           <div className="sticky top-0 h-screen flex items-center">
             <div className="container mx-auto px-4">
               <div className="mx-auto max-w-7xl">
@@ -360,32 +370,20 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                       <p className="text-gray-600 text-lg leading-relaxed mb-8">
                         {products[activeProduct].description}
                       </p>
-                      {activeProduct === 0 ? (
-                        <a
-                          href="/book-simulation/"
-                          className="btn-primary btn inline-flex items-center gap-2 px-8 py-3 text-base"
-                        >
-                          Book Simulation
-                          <FaArrowRight className="text-lg" />
-                        </a>
-                      ) : (
-                        <a
-                          href={
-                            activeProduct === 1 ? "/sfa" : "/loyalty-engine"
-                          }
-                          className="btn-primary btn inline-flex items-center gap-2 px-8 py-3 text-base"
-                        >
-                          Learn More
-                          <FaArrowRight className="text-lg" />
-                        </a>
-                      )}
+                      <Button
+                        href={products[activeProduct].buttonHref}
+                        size="md"
+                        isCalendlyButton={products[activeProduct].mainCTA}
+                      >
+                        {products[activeProduct].buttonLabel}
+                      </Button>
                     </div>
                   </motion.div>
                 </AnimatePresence>
 
                 {/* Progress Indicator */}
                 <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3">
-                  {[0, 1, 2].map((index) => (
+                  {products.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setActiveProduct(index)}

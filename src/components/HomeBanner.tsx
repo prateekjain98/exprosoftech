@@ -1,6 +1,6 @@
 import React from "react";
 import { AnimatedMetrics } from "./AnimatedMetrics";
-import { FaDownload, FaArrowRight } from "react-icons/fa";
+import Button from "./common/Button";
 
 interface BannerContent {
   title: string;
@@ -12,6 +12,7 @@ interface BannerContent {
   buttons: {
     label: string;
     link: string;
+    isCalendly: boolean;
   }[];
 }
 
@@ -26,7 +27,8 @@ const bannerContent: BannerContent = {
   buttons: [
     {
       label: "Book a call",
-      link: "/contact/",
+      link: "#",
+      isCalendly: true,
     },
     // {
     //   label: "Download Deck",
@@ -60,28 +62,20 @@ export const HomeBanner: React.FC = () => {
             )}
             {buttons && (
               <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
-                {buttons.map(({ label, link }, index) => (
+                {buttons.map(({ label, link, isCalendly }, index) => (
                   <li
                     key={index}
                     data-aos="fade-up-sm"
                     data-aos-delay={100 + index * 50}
                   >
-                    <a
-                      className={`${
-                        index === 0 ? "btn-primary" : "btn-outline-primary"
-                      } btn flex items-center gap-2`}
+                    <Button
                       href={link}
+                      variant={index === 0 ? "primary" : "outline-primary"}
                       target={link.startsWith("http") ? "_blank" : "_self"}
-                      rel="noopener"
+                      isCalendlyButton={isCalendly}
                     >
-                      {label === "Download Deck" && (
-                        <FaDownload className="text-lg" />
-                      )}
                       {label}
-                      {label !== "Download Deck" && (
-                        <FaArrowRight className="text-lg" />
-                      )}
-                    </a>
+                    </Button>
                   </li>
                 ))}
               </ul>

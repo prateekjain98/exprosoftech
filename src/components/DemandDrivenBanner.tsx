@@ -1,10 +1,12 @@
 import DynamicIcon from "@/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
 import React from "react";
+import Button from "./common/Button";
 
 interface ButtonType {
   label: string;
   link: string;
+  isCalendly?: boolean;
 }
 
 interface ImageType {
@@ -23,7 +25,7 @@ interface BannerData {
 const bannerData: BannerData = {
   title: "Demand Driven Business Transformation",
   description:
-    "Transforming organizations into high-performing entities by leveraging Demand-Driven Material Requirements Planning (DDMRP) and cutting-edge tools like Intuiflow",
+    "Transforming organizations into high-performing entities by leveraging Demand-Driven Material Requirements Planning (DDMRP) and cutting-edge tools like Intuiflow",
   images: [
     {
       src: "/images/consulting/demand-driven-business-transformation/hero.png",
@@ -33,7 +35,8 @@ const bannerData: BannerData = {
   buttons: [
     {
       label: "Schedule a Consultation",
-      link: "/contact",
+      link: "#",
+      isCalendly: true,
     },
   ],
 };
@@ -62,24 +65,20 @@ const DemandDrivenBanner: React.FC = () => {
             )}
             {buttons && buttons.length > 0 && (
               <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
-                {buttons.map(({ label, link }, index: number) => (
+                {buttons.map(({ label, link, isCalendly }, index: number) => (
                   <li
                     key={index}
                     data-aos="fade-up-sm"
                     data-aos-delay={100 + index * 50}
                   >
-                    <a
-                      className={`${
-                        index === 0 ? "btn-primary" : "btn-outline-primary"
-                      } btn`}
+                    <Button
                       href={link}
+                      variant={index === 0 ? "primary" : "outline-primary"}
                       target={link.startsWith("http") ? "_blank" : "_self"}
-                      rel="noopener"
+                      isCalendlyButton={isCalendly}
                     >
                       {label}
-                      <span className="sr-only">Details</span>
-                      <DynamicIcon icon="FaArrowRight" />
-                    </a>
+                    </Button>
                   </li>
                 ))}
               </ul>

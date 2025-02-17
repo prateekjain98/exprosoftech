@@ -24,7 +24,7 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
       {/* Left Section - Main Products */}
       <div className="col-span-7 p-8 bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30">
         {/* Supply Chain Solutions */}
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <div className="flex items-center gap-2 mb-6">
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
               <svg
@@ -60,7 +60,7 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
               />
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Sales Solutions */}
         <div>

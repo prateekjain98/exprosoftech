@@ -1,6 +1,8 @@
+import React from "react";
 import DynamicIcon from "@/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
 import { motion } from "framer-motion";
+import Button from "@/components/common/Button";
 
 interface Props {
   className?: string;
@@ -32,11 +34,9 @@ export const LoyaltyBanner: React.FC<Props> = ({ className }) => {
             </p>
             <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
               <li data-aos="fade-up-sm" data-aos-delay={100}>
-                <a className="btn btn-primary" href="/contact" rel="noopener">
+                <Button href="#" variant="primary" isCalendlyButton={true}>
                   Get Started
-                  <span className="sr-only">Get Started</span>
-                  <DynamicIcon icon="FaArrowRight" />
-                </a>
+                </Button>
               </li>
             </ul>
           </div>
