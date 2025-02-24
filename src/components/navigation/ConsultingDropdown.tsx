@@ -32,7 +32,7 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
               />
             </svg>
           </div>
-          <h3 className="text-base font-semibold text-primary">Services</h3>
+          <h3 className="text-base font-semibold text-primary">Consulting</h3>
         </div>
         <div className="space-y-6">
           {children.map((child, childIndex) => (
@@ -105,7 +105,7 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
                           </svg>
                         </div>
                         <span className="text-sm text-slate-600">
-                          Stagnant Growth
+                          High demand variability
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -125,7 +125,7 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
                           </svg>
                         </div>
                         <span className="text-sm text-slate-600">
-                          Market Share
+                          High Lead times
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -145,7 +145,7 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
                           </svg>
                         </div>
                         <span className="text-sm text-slate-600">
-                          Cash Flow
+                          Excess and shortage of material
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -165,7 +165,7 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
                           </svg>
                         </div>
                         <span className="text-sm text-slate-600">
-                          Variability
+                          Service levels / OTIF
                         </span>
                       </div>
                     </div>
@@ -223,7 +223,7 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
             </div>
 
             {/* CTA Section */}
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <a
                 href="/demand-driven-transformation/#case-studies"
                 onClick={scrollToCaseStudies}
@@ -242,7 +242,7 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
                   />
                 </svg>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

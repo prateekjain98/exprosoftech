@@ -18,34 +18,34 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    tagline: "Flexible Production for a Dynamic Market",
-    title: "Demand Driven Manufacturing",
+    tagline: "A demand-driven approach",
+    title: "Supply chain Effectiveness",
     description:
-      "Streamline material, manpower, and machinery to efficiently meet shifting market demands. Our adaptable processes ensure production aligns with changing needs, maximizing resource use and supporting sales with agility.",
+      "A demand-driven approach ensures the right product is available at the right place, at the right time. By aligning supply chain execution with real demand, businesses can improve availability at OEMs and channel outlets, manage demand variability, optimize inventory, and enhance service levels. This also leads to shorter supply lead times, reduced working capital, and a more resilient, responsive supply chain.",
     image: "/images/FeatureImgOne.png",
     icon: Gear,
   },
   {
-    tagline: "Empowering Sales to Meet Market Needs",
-    title: "Market Aligned Sales Process",
+    tagline: "Optimized operations",
+    title: "Operational Excellence",
     description:
-      "Align your sales strategies with actual market demand to ensure seamless channel sales transformation. By synchronizing your sales process with market needs, we help you drive efficiency, better customer engagement, and growth in target markets.",
+      "Optimized operations eliminate bottlenecks, enhance On-Time-In-Full (OTIF) delivery, and reduce manufacturing lead times. By improving workflow efficiency, uncovering hidden capacity, and minimizing excess inventory, businesses achieve smoother production, faster fulfillment, and higher overall productivity—without additional investment.",
     image: "/images/FeatureImgTwo.png",
     icon: ChartLineUp,
   },
   {
-    tagline: "Empowering Businesses with Data-Driven Insights",
-    title: "Real-Time IT Solutions",
+    tagline: "Expanding channel reach",
+    title: "Sales transformation",
     description:
-      "Our consultancy provides cutting-edge IT infrastructure combined with advanced data analytics to ensure seamless real-time monitoring and execution. We design and implement robust systems that allow you to stay ahead in today's fast-paced environment.",
+      "Expanding channel reach and B2B engagement fuels market penetration, while loyalty programs strengthen retention and sustainable growth powered by Optimized sales execution, powered by CRM, outreach and productivity tools, and structured team alignment. Coupled with better product availability,plugging sales losses creates sustained revenue growth.",
     image: "/images/FeatureImgThree.png",
     icon: Database,
   },
   {
-    tagline: "Skilled Teams, Smart Systems, Superior Results",
-    title: "People & Systems",
+    tagline: "Seamless integration of technology",
+    title: "Digital Transformation",
     description:
-      "Our consultancy optimizes your workforce and technology to drive performance. By building skilled teams and implementing advanced systems, we streamline operations, boost productivity, and ensure sustainable growth, enabling your business to adapt and excel in dynamic markets.",
+      "Seamless integration of technology enhances supply chain planning, sales productivity, and functional alignment. By developing dedicated systems, patching existing tools, and enabling real-time, data-driven decision-making, we drive efficiency, agility, and sustained business performance.",
     image: "/images/FeatureImgFour.png",
     icon: Users,
   },
@@ -67,9 +67,9 @@ export const FeaturesGrid: React.FC = () => {
           <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <div className="mx-auto lg:col-11 mb-10 lg:mb-16">
               <SectionHeader
-                tagline="Strategic Solutions for Sustainable Growth"
-                heading="Expert Guidance for <span class='bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent'>Business Transformation</span>"
-                subheading="Our consultancy offers expert insights and tailored strategies to overcome challenges, optimize operations, and drive growth. We deliver actionable solutions that turn your vision into reality, ensuring long-term success and scalability."
+                tagline="Functional alignment is key to achieve the vision"
+                heading="Demand driven <span class='bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent'>Business Excellence</span>"
+                subheading="Relying on forecasts leads to stock imbalances, excess inventory, and missed sales. Aligning sales, supply chain, and operations with real demand ensures agility, optimized inventory, and seamless execution—minimizing waste while maximizing availability and profitability."
                 theme="dark"
               />
             </div>

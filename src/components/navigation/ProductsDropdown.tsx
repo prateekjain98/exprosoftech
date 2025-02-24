@@ -16,89 +16,42 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
   handleProductClick,
   setIsMobileMenuOpen,
 }) => {
-  const supplyChainProducts = children.slice(0, 1);
-  const salesProducts = children.slice(1);
-
   return (
     <div className="grid grid-cols-12">
       {/* Left Section - Main Products */}
       <div className="col-span-7 p-8 bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30">
-        {/* Supply Chain Solutions */}
-        {/* <div className="mb-8">
-          <div className="flex items-center gap-2 mb-6">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
-              <svg
-                className="w-4 h-4 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                />
-              </svg>
-            </div>
-            <h3 className="text-base font-semibold text-primary">
-              Supply Chain Solutions
-            </h3>
-          </div>
-          <div className="space-y-4">
-            {supplyChainProducts.map((child, childIndex) => (
-              <ProductCard
-                key={childIndex}
-                child={child}
-                childIndex={childIndex}
-                isSelected={selectedProduct === child.name}
-                onClick={() => handleProductClick(child.name)}
-                onMouseEnter={() =>
-                  !selectedProduct && handleProductClick(child.name)
-                }
-                setIsMobileMenuOpen={setIsMobileMenuOpen}
+        <div className="flex items-center gap-2 mb-6">
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
+            <svg
+              className="w-4 h-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
-            ))}
+            </svg>
           </div>
-        </div> */}
-
-        {/* Sales Solutions */}
-        <div>
-          <div className="flex items-center gap-2 mb-6">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
-              <svg
-                className="w-4 h-4 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-            </div>
-            <h3 className="text-base font-semibold text-primary">
-              Sales Solutions
-            </h3>
-          </div>
-          <div className="space-y-4">
-            {salesProducts.map((child, childIndex) => (
-              <ProductCard
-                key={childIndex}
-                child={child}
-                childIndex={childIndex + 1} // Add 1 to maintain correct indexing for icons
-                isSelected={selectedProduct === child.name}
-                onClick={() => handleProductClick(child.name)}
-                onMouseEnter={() =>
-                  !selectedProduct && handleProductClick(child.name)
-                }
-                setIsMobileMenuOpen={setIsMobileMenuOpen}
-              />
-            ))}
-          </div>
+          <h3 className="text-base font-semibold text-primary">Products</h3>
+        </div>
+        <div className="space-y-4">
+          {children.map((child, childIndex) => (
+            <ProductCard
+              key={childIndex}
+              child={child}
+              childIndex={childIndex}
+              isSelected={selectedProduct === child.name}
+              onClick={() => handleProductClick(child.name)}
+              onMouseEnter={() =>
+                !selectedProduct && handleProductClick(child.name)
+              }
+              setIsMobileMenuOpen={setIsMobileMenuOpen}
+            />
+          ))}
         </div>
       </div>
 
@@ -439,7 +392,7 @@ const ProductCard: React.FC<{
                 </svg>
               </div>
               <span className="text-sm text-slate-600">
-                Enhanced Productivity
+                Attendance and Geo tag
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -458,7 +411,45 @@ const ProductCard: React.FC<{
                   />
                 </svg>
               </div>
-              <span className="text-sm text-slate-600">Real-time Insights</span>
+              <span className="text-sm text-slate-600">Route planning</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                <svg
+                  className="w-3 h-3 text-primary"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                >
+                  <path
+                    d="M10 3L4.5 8.5L2 6"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <span className="text-sm text-slate-600">
+                KPI performance tracking
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                <svg
+                  className="w-3 h-3 text-primary"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                >
+                  <path
+                    d="M10 3L4.5 8.5L2 6"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <span className="text-sm text-slate-600">Gap analysis</span>
             </div>
           </>
         ) : (
@@ -479,8 +470,26 @@ const ProductCard: React.FC<{
                   />
                 </svg>
               </div>
+              <span className="text-sm text-slate-600">Channel app</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                <svg
+                  className="w-3 h-3 text-primary"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                >
+                  <path
+                    d="M10 3L4.5 8.5L2 6"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
               <span className="text-sm text-slate-600">
-                Personalized Rewards
+                Web panel for scheme creation
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -500,7 +509,27 @@ const ProductCard: React.FC<{
                 </svg>
               </div>
               <span className="text-sm text-slate-600">
-                Engagement Analytics
+                Live KPI Dashboarding
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                <svg
+                  className="w-3 h-3 text-primary"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                >
+                  <path
+                    d="M10 3L4.5 8.5L2 6"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <span className="text-sm text-slate-600">
+                Gift Redemption & Cashback
               </span>
             </div>
           </>

@@ -57,33 +57,78 @@ const homeFaqData: FaqData = {
   title: "Frequently Asked Questions",
   subtitle: "FAQ",
   description:
-    "Find answers to common questions about our services and solutions",
+    "Find answers to common questions about Greymetre's services and solutions",
   list: [
     {
-      title: "What industries can use your products?",
+      title: "What does Greymetre specialize in?",
       description:
-        "Our solutions are suitable for industries like retail, hospitality, telecom and more. We provide tailored solutions that adapt to your specific industry needs and requirements.",
+        "Greymetre provides strategic consulting, turnkey execution, and technology-driven solutions for sales transformation, supply chain excellence, and operational efficiency across B2B and retail businesses.",
       active: true,
     },
     {
-      title: "How secure is the data?",
+      title: "What industries do you serve?",
       description:
-        "We use enterprise-grade encryption and comply with global data regulations to ensure top-notch data security. Our systems are regularly audited and updated to maintain the highest security standards.",
+        "Our expertise spans manufacturing, retail, FMCG, automotive, industrial products, and consumer goods, among others.",
     },
     {
-      title: "What is your Loyalty Engine?",
+      title: "How does Greymetre's consulting approach differ from others?",
       description:
-        "Our Loyalty Engine is a comprehensive platform that helps create and manage custom loyalty programs. It includes features like points management, rewards catalog, customer segmentation, and analytics to drive customer retention and repeat business.",
+        "We focus on execution-driven consulting, ensuring alignment across sales, supply chain, and operations while integrating DDMRP, TOC, and process automation to deliver measurable impact.",
     },
     {
-      title: "How does SFA improve sales operations?",
+      title: "What is included in your turnkey services?",
       description:
-        "Our Sales Force Automation (SFA) solution streamlines sales processes by automating routine tasks, providing real-time analytics, managing leads effectively, and enabling better territory management, resulting in improved team productivity and sales performance.",
+        "We provide end-to-end execution of channel expansion, sales acceleration, supply chain transformation, and loyalty programs—including strategy design, implementation, training, and performance monitoring.",
     },
     {
-      title: "Can your solutions be customized?",
+      title: "How does Greymetre help with Channel Reach Expansion?",
       description:
-        "Yes, all our solutions are fully customizable to meet your specific business needs. We work closely with you to understand your requirements and configure our platforms accordingly, ensuring they align perfectly with your business processes.",
+        "We identify and onboard distributors, retailers, and B2B partners, ensuring sustained activation through structured sales programs, training, and loyalty incentives to boost sales.",
+    },
+    {
+      title: "Can you manage loyalty programs for our channel partners?",
+      description:
+        "Yes, we design and execute channel and influencer loyalty programs, integrating QR-based tracking, analytics, and engagement tools to increase participation and sales.",
+    },
+    {
+      title: "What is DDMRP, and how does it improve supply chain efficiency?",
+      description:
+        "Demand-Driven MRP (DDMRP) replaces traditional forecast-based planning with a real-time demand-driven approach, optimizing inventory, reducing supply lead times, and improving product availability.",
+    },
+    {
+      title: "How does Greymetre improve supply chain performance?",
+      description:
+        "Our solutions focus on reducing lead times through strategic buffer positioning, optimizing inventory to balance availability and cost, improving service levels by ensuring the right stock at the right place, and enhancing supply chain agility to manage demand variability effectively.",
+    },
+    {
+      title: "What results can we expect from supply chain transformation?",
+      description:
+        "Clients typically achieve 30-60% lead time reduction, higher OTIF (On-Time In-Full) delivery, lower working capital tied in inventory, and increased responsiveness to market demand.",
+    },
+    {
+      title: "What technology solutions does Greymetre offer?",
+      description:
+        "We develop custom sales and supply chain solutions, including CRM & outreach tools for sales teams, Demand-driven inventory management (DDMRP solutions), and live dashboards & analytics for real-time decision-making.",
+    },
+    {
+      title: "Can your tech solutions integrate with our existing systems?",
+      description:
+        "Yes, we patch and integrate with your ERP, CRM, or other systems through APIs, ensuring seamless digital transformation without disrupting operations.",
+    },
+    {
+      title: "How does real-time dashboarding help decision-making?",
+      description:
+        "Our data-driven dashboards provide instant visibility into key performance metrics, allowing leadership teams to optimize sales, inventory, and operations in real time.",
+    },
+    {
+      title: "How do we start working with Greymetre?",
+      description:
+        "We begin with a business evaluation to identify bottlenecks, followed by a customized strategy and execution plan tailored to your business needs.",
+    },
+    {
+      title: "What's the ROI of your solutions?",
+      description:
+        "Our clients typically see higher sales and market reach, reduced lead times and increased OTIF performance, optimized inventory and lower carrying costs, improved service levels and customer satisfaction, and sustained revenue growth and profitability.",
     },
   ],
 };
@@ -94,11 +139,14 @@ interface FAQProps {
 
 const FAQ: React.FC<FAQProps> = ({ variant = "home" }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const [showAllFaqs, setShowAllFaqs] = useState<boolean>(false);
   const faqData = variant === "home" ? homeFaqData : demandDrivenFaqData;
 
   const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
+
+  const visibleFaqs = showAllFaqs ? faqData.list : faqData.list.slice(0, 5);
 
   return (
     <section className="relative bg-gradient-to-b from-white via-gray-50/50 to-white py-16 lg:py-24">
@@ -117,11 +165,11 @@ const FAQ: React.FC<FAQProps> = ({ variant = "home" }) => {
 
         {/* Accordions */}
         <div
-          className="max-w-3xl mx-auto mt-12 space-y-4 px-4 sm:px-6 lg:px-8"
+          className="max-w-5xl mx-auto mt-12 space-y-4 px-4 sm:px-6 lg:px-8"
           data-aos="fade-up"
           data-aos-delay="150"
         >
-          {faqData.list.map((item, index) => (
+          {visibleFaqs.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -170,6 +218,36 @@ const FAQ: React.FC<FAQProps> = ({ variant = "home" }) => {
               </div>
             </motion.div>
           ))}
+
+          {faqData.list.length > 5 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="flex justify-center mt-8"
+            >
+              <button
+                onClick={() => setShowAllFaqs(!showAllFaqs)}
+                className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300 font-medium text-sm"
+              >
+                {showAllFaqs ? (
+                  <>
+                    Show Less
+                    <CaretDown
+                      weight="bold"
+                      className="ml-2 rotate-180"
+                      size={16}
+                    />
+                  </>
+                ) : (
+                  <>
+                    Load More FAQs
+                    <CaretDown weight="bold" className="ml-2" size={16} />
+                  </>
+                )}
+              </button>
+            </motion.div>
+          )}
         </div>
       </div>
     </section>

@@ -116,7 +116,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                       Key Features
                     </h5>
                     <div className="grid grid-cols-2 gap-3">
-                      {childIndex === 0 ? (
+                      {child.name === "Channel Loyalty Management" ? (
                         <>
                           <div className="flex items-center gap-2">
                             <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
@@ -135,7 +135,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                               </svg>
                             </div>
                             <span className="text-sm text-slate-600">
-                              Program Design
+                              Increase Active Reach
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
@@ -155,11 +155,51 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                               </svg>
                             </div>
                             <span className="text-sm text-slate-600">
-                              Analytics
+                              Increase Range sold
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                              <svg
+                                className="w-3 h-3 text-primary"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M10 3L4.5 8.5L2 6"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <span className="text-sm text-slate-600">
+                              Integrate Channels
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                              <svg
+                                className="w-3 h-3 text-primary"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M10 3L4.5 8.5L2 6"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <span className="text-sm text-slate-600">
+                              Increase Touch points
                             </span>
                           </div>
                         </>
-                      ) : childIndex === 1 ? (
+                      ) : child.name === "Channel Reach Expansion" ? (
                         <>
                           <div className="flex items-center gap-2">
                             <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
@@ -178,7 +218,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                               </svg>
                             </div>
                             <span className="text-sm text-slate-600">
-                              Partner Selection
+                              Channel Mapping
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
@@ -198,7 +238,47 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                               </svg>
                             </div>
                             <span className="text-sm text-slate-600">
-                              Network Design
+                              Onboard Partners
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                              <svg
+                                className="w-3 h-3 text-primary"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M10 3L4.5 8.5L2 6"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <span className="text-sm text-slate-600">
+                              Order Taking
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                              <svg
+                                className="w-3 h-3 text-primary"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M10 3L4.5 8.5L2 6"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <span className="text-sm text-slate-600">
+                              FOS Training
                             </span>
                           </div>
                         </>
@@ -221,7 +301,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                               </svg>
                             </div>
                             <span className="text-sm text-slate-600">
-                              Sales Strategy
+                              Build Prospect Lists
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
@@ -241,7 +321,47 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                               </svg>
                             </div>
                             <span className="text-sm text-slate-600">
-                              Team Training
+                              Multi-Channel Outreach
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                              <svg
+                                className="w-3 h-3 text-primary"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M10 3L4.5 8.5L2 6"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <span className="text-sm text-slate-600">
+                              Improve Lead Flow
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                              <svg
+                                className="w-3 h-3 text-primary"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                              >
+                                <path
+                                  d="M10 3L4.5 8.5L2 6"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </div>
+                            <span className="text-sm text-slate-600">
+                              Increase Conversion
                             </span>
                           </div>
                         </>
@@ -284,7 +404,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                 </div>
               </div>
             </div>
-            <div className="mt-6">
+            {/* <div className="mt-6">
               <a
                 href="/case-studies"
                 className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-200"
@@ -302,7 +422,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                   />
                 </svg>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

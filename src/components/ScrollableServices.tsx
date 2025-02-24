@@ -37,8 +37,8 @@ const services: Service[] = [
 ];
 
 const sectionHeader = {
-  tagline: "Comprehensive Business Solutions",
-  heading: "Driving Growth Through Strategic Excellence",
+  tagline: "Turnkey implementation",
+  heading: "Driving Growth as an extension of your team",
   subheading:
     "We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership. Our integrated approach ensures measurable results and long-term success.",
 };

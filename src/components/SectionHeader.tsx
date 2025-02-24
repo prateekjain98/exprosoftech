@@ -51,7 +51,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       />
       {subheading && (
         <p
-          className={`text-sm sm:text-base max-w-2xl sm:max-w-3xl mx-auto leading-relaxed ${
+          className={`text-sm sm:text-base max-w-3xl sm:max-w-4xl lg:max-w-5xl mx-auto leading-relaxed ${
             theme === "dark" ? "text-gray-300/90" : "text-gray-600"
           }`}
           dangerouslySetInnerHTML={{ __html: subheading }}

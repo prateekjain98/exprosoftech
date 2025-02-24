@@ -1,7 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import { Clients } from "../components/Clients";
-import HowItWorks from "@/partials/HowItWorks.astro";
+import { Offerings } from "../components/Offerings";
 import CaseStudies from "../components/CaseStudies";
 import FAQ from "../components/FAQ";
 import { FeaturesGrid } from "../components/FeaturesGrid";
@@ -16,7 +16,7 @@ const clientsData = (await getEntry("sections", "clients")).data;
 <Base>
   <HomeBanner client:load />
   <Clients client:load list={clientsData.list} />
-  <HowItWorks />
+  <Offerings client:load />
   <FeaturesGrid client:load />
   <ScrollableServices client:load />
   <ProductSection client:load />

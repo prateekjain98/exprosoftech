@@ -19,7 +19,7 @@ interface BannerContent {
 const bannerContent: BannerContent = {
   title: "Empowering Strategic Business Transformation",
   description:
-    "Our offering includes DDMRP transformation consulting, Sales Transformation Consulting, a B2B loyalty services and Retail Automation Platforms to help organizations achieving sustainable growth.",
+    "Achieve sustainable growth through Demand Driven Business Excellence, Supply Chain Effectiveness, Sales Transformation and Channel Loyalty—leveraging real-time data, intelligent workflows, and digital tools for sustainable growth.",
   image: {
     src: "/images/hero.png",
     alt: "Hero image showing business transformation platform",
