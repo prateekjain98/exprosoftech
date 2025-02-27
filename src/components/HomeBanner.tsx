@@ -21,7 +21,7 @@ const bannerContent: BannerContent = {
   description:
     "Achieve sustainable growth through Demand Driven Business Excellence, Supply Chain Effectiveness, Sales Transformation and Channel Loyalty—leveraging real-time data, intelligent workflows, and digital tools for sustainable growth.",
   image: {
-    src: "/images/hero.png",
+    src: "/images/hero.jpeg",
     alt: "Hero image showing business transformation platform",
   },
   buttons: [
