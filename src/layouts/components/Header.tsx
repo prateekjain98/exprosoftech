@@ -385,7 +385,7 @@ const Header: React.FC<HeaderProps> = ({
               <li className="lg:hidden">
                 <Button
                   className="mt-2"
-                  href={navigation_button.link}
+                  isCalendlyButton={true}
                   onClick={() => setIsMobileMenuOpen(false)}
                   height="compact"
                 >
@@ -400,7 +400,7 @@ const Header: React.FC<HeaderProps> = ({
             {navigation_button.enable && (
               <Button
                 className="hidden lg:flex items-center gap-2 group"
-                href={navigation_button.link}
+                isCalendlyButton={true}
                 height="compact"
               >
                 {navigation_button.label}
