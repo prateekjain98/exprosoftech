@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowRight, ChartLine, Gauge, Clock } from "@phosphor-icons/react";
+import Button from "./common/Button";
 
 interface MetricType {
   value: string;
@@ -79,13 +80,14 @@ const ConsultationCTA: React.FC = () => {
                   ))}
                 </div>
 
-                <a
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 text-sm font-medium text-white transition-all duration-300 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl hover:from-blue-600 hover:to-blue-700 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                <Button
+                  variant="primary"
+                  size="lg"
+                  isCalendlyButton={true}
+                  className="inline-flex items-center justify-center gap-2.5 text-sm font-medium text-white transition-all duration-300 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl hover:from-blue-600 hover:to-blue-700 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
                 >
                   Schedule Your Consultation
-                  <ArrowRight size={20} weight="bold" />
-                </a>
+                </Button>
               </div>
 
               {/* Image Side */}
