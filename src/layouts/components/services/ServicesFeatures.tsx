@@ -42,7 +42,7 @@ const iconMap: Record<string, IconType> = {
   FaHeadset,
 };
 
-export const LoyaltyFeatures: React.FC<Props> = ({ className, content }) => {
+export const ServicesFeatures: React.FC<Props> = ({ className, content }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   // Function to safely render icons

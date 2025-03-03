@@ -1,20 +1,299 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Clients from "@/partials/Clients.astro";
-import ServiceBanner from "@/components/ServiceBanner";
-import ServiceImpact from "@/components/ServiceImpact";
-import ChallengesWeAddress from "@/components/ChallengesWeAddress";
-import BusinessImpact from "@/components/BusinessImpact";
-import KeyServices from "@/components/KeyServices";
-import BusinessGuidance from "@/components/BusinessGuidance";
-import CaseStudies from "@/components/CaseStudies";
-import ConsultationCTA from "@/components/ConsultationCTA";
-import FAQ from "@/components/FAQ";
+import { ServicesBanner } from "@/layouts/components/services/ServicesBanner";
+import { ServicesFeatures } from "@/layouts/components/services/ServicesFeatures";
+import { ServicesServices } from "@/layouts/components/services/ServicesServices";
+import { ServicesBenefits } from "@/layouts/components/services/ServicesBenefits";
+import { ServicesProcess } from "@/layouts/components/services/ServicesProcess";
+import { ServicesIndustries } from "@/layouts/components/services/ServicesIndustries";
+import ConsultationCTA from "../../../components/ConsultationCTA";
+import FAQ from "../../../components/FAQ";
+import {
+  FaUsers,
+  FaChartLine,
+  FaComments,
+  FaRocket,
+  FaChartBar,
+  FaLightbulb,
+  FaGlobe,
+  FaSeedling,
+  FaFilter,
+  FaDatabase,
+  FaBullseye,
+  FaBullhorn,
+  FaUserTie,
+  FaHandshake,
+  FaMoneyBillWave,
+  FaCalendarAlt,
+  FaBuilding,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaHospital,
+  FaGraduationCap,
+  FaServer,
+  FaLaptopCode,
+} from "react-icons/fa";
 
 const title = "B2B Sales Services";
 const meta_title = "B2B Sales Services | Greymetre";
-const description = "Comprehensive B2B sales solutions to accelerate your business growth. Transform your sales operations with our expertise and proven methodologies.";
+const description =
+  "Comprehensive B2B sales solutions to accelerate your business growth. Transform your sales operations with our expertise and proven methodologies.";
 const image = "/images/services/b2b-sales/hero.png";
+
+// Banner content
+const bannerContent = {
+  title: "Targeted, Data-Driven & Scalable Sales Growth",
+  description:
+    "At Greymetre, we help businesses achieve sustainable B2B sales growth through a structured, data-driven, and technology-enabled approach. Our expertise lies in strategic prospecting, high-quality communication, and account-based sales methodologies, ensuring faster conversions, stronger relationships, and maximized ROI.",
+  buttonText: "Get Started",
+  image: {
+    src: "https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=2574&h=1800&fit=crop",
+    alt: "B2B Sales Services",
+  },
+  floatingElements: [
+    {
+      icon: "FaChartLine",
+      title: "Conversion Rate",
+      value: "+75%",
+      color: "blue",
+      position: "topLeft" as const,
+    },
+    {
+      icon: "FaCalendarAlt",
+      title: "Sales Cycle",
+      value: "-40%",
+      color: "purple",
+      position: "bottomRight" as const,
+    },
+  ],
+};
+
+// Features content
+const featuresContent = {
+  tagline: "Our Capabilities",
+  heading: "Comprehensive B2B Sales Solutions",
+  subheading:
+    "Our end-to-end B2B sales services are designed to help you identify, engage, and convert high-value prospects through strategic, data-driven approaches.",
+  features: [
+    {
+      title: "Strategic Prospecting",
+      tagline: "Quality Decision Maker Targeting",
+      description:
+        "Identifying and connecting with key decision-makers who influence purchasing through multi-channel outreach to maximize engagement and sales opportunities.",
+      icon: FaUserTie,
+      image:
+        "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&h=800&fit=crop",
+    },
+    {
+      title: "Account-Based Selling",
+      tagline: "Personalized Enterprise Approach",
+      description:
+        "Highly targeted, personalized sales approach for key accounts with strategic engagement of multiple decision-makers within an organization for higher conversion rates.",
+      icon: FaBullseye,
+      image:
+        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&h=800&fit=crop",
+    },
+    {
+      title: "Data-Driven Analytics",
+      tagline: "Intelligent Sales Insights",
+      description:
+        "Real-time data insights to track campaign performance with AI-driven analytics for better targeting, segmentation, and optimization of your sales strategy.",
+      icon: FaChartBar,
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&h=800&fit=crop",
+    },
+    {
+      title: "Global Lead Generation",
+      tagline: "Expanding Your Sales Pipeline",
+      description:
+        "Data-backed, high-intent lead generation for predictable sales growth beyond domestic markets, leveraging technology for seamless global outreach.",
+      icon: FaGlobe,
+      image:
+        "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1200&h=800&fit=crop",
+    },
+  ],
+};
+
+// Services content
+const servicesContent = {
+  tagline: "Our Services",
+  heading: "Core B2B Sales Services",
+  subheading:
+    "Comprehensive B2B sales services designed to help businesses identify, engage, and convert high-value prospects through strategic, data-driven approaches.",
+  services: [
+    {
+      title: "Strategic Prospecting & Outreach",
+      description:
+        "Identify and engage with decision-makers who can drive purchasing decisions",
+      features: [
+        "Quality decision-maker identification",
+        "Multi-channel outreach strategies",
+        "Personalized messaging development",
+        "Multi-touchpoint follow-up systems",
+      ],
+    },
+    {
+      title: "Data & Analytics Excellence",
+      description: "Leverage data for more effective targeting and conversion",
+      features: [
+        "Real-time performance tracking",
+        "AI-driven prospect segmentation",
+        "Database building and enrichment",
+        "Advanced filtering and dashboards",
+      ],
+    },
+    {
+      title: "Account-Based Sales Strategies",
+      description: "Targeted approach for high-value enterprise accounts",
+      features: [
+        "Top-to-bottom stakeholder engagement",
+        "Structured lead nurturing programs",
+        "Industry-specific knowledge application",
+        "Brand positioning and thought leadership",
+      ],
+    },
+  ],
+};
+
+// Benefits content
+const benefitsContent = {
+  tagline: "Benefits",
+  heading: "Transform Your B2B Sales Results",
+  subheading:
+    "Discover how our B2B sales services can transform your sales performance and drive sustainable business growth.",
+  benefits: [
+    {
+      title: "Shorter Sales Cycles",
+      description: "Accelerate the buying process through strategic engagement",
+      icon: FaCalendarAlt,
+    },
+    {
+      title: "Higher Conversion Rates",
+      description:
+        "Turn more prospects into customers with targeted approaches",
+      icon: FaChartLine,
+    },
+    {
+      title: "Improved Lead Quality",
+      description: "Focus on prospects that match your ideal customer profile",
+      icon: FaFilter,
+    },
+    {
+      title: "Stronger Client Relationships",
+      description: "Build lasting partnerships through value-based selling",
+      icon: FaHandshake,
+    },
+    {
+      title: "Enhanced Market Intelligence",
+      description:
+        "Gain valuable insights into customer needs and market trends",
+      icon: FaLightbulb,
+    },
+    {
+      title: "Increased Revenue",
+      description: "Drive sustainable growth in both new and existing accounts",
+      icon: FaMoneyBillWave,
+    },
+  ],
+};
+
+// Process content
+const processContent = {
+  tagline: "Our Process",
+  heading: "How We Drive B2B Sales Growth",
+  subheading:
+    "A systematic approach to B2B sales that drives consistent results and sustainable revenue growth.",
+  steps: [
+    {
+      title: "Discovery & Strategy",
+      description:
+        "We analyze your business, target market, and sales objectives to develop a tailored strategy",
+      image:
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2340&h=1600&fit=crop",
+    },
+    {
+      title: "Data Building & Enrichment",
+      description:
+        "Create and enhance your prospect database with high-quality, relevant information",
+      image:
+        "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?q=80&w=2340&h=1600&fit=crop",
+    },
+    {
+      title: "Strategic Outreach",
+      description:
+        "Execute multi-channel, personalized outreach to engage key decision-makers",
+      image:
+        "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2340&h=1600&fit=crop",
+    },
+    {
+      title: "Lead Nurturing",
+      description:
+        "Develop relationships through consistent, value-added communication",
+      image:
+        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2340&h=1600&fit=crop",
+    },
+    {
+      title: "Conversion & Optimization",
+      description:
+        "Close deals and continuously refine strategies based on performance data",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2340&h=1600&fit=crop",
+    },
+  ],
+};
+
+// Industries content
+const industriesContent = {
+  tagline: "Industries",
+  heading: "Tailored Solutions for Every Industry",
+  subheading:
+    "Our B2B sales services are tailored to meet the unique needs of various industries and business models.",
+  industries: [
+    {
+      title: "Technology & SaaS",
+      description:
+        "Accelerate growth with targeted outreach to technology buyers",
+      icon: FaLaptopCode,
+    },
+    {
+      title: "Manufacturing",
+      description: "Connect with industrial buyers and procurement teams",
+      icon: FaIndustry,
+    },
+    {
+      title: "Professional Services",
+      description: "Generate high-value leads for consulting and services",
+      icon: FaUserTie,
+    },
+    {
+      title: "Financial Services",
+      description: "Engage decision-makers in banking and finance",
+      icon: FaMoneyBillWave,
+    },
+    {
+      title: "Healthcare",
+      description: "Navigate complex buying processes in healthcare",
+      icon: FaHospital,
+    },
+    {
+      title: "Retail & E-commerce",
+      description: "Connect with retailers and distribution channels",
+      icon: FaShoppingCart,
+    },
+    {
+      title: "Education",
+      description: "Reach administrators and procurement in education",
+      icon: FaGraduationCap,
+    },
+    {
+      title: "IT & Infrastructure",
+      description: "Target IT decision-makers and infrastructure buyers",
+      icon: FaServer,
+    },
+  ],
+};
 ---
 
 <Base
@@ -23,14 +302,13 @@ const image = "/images/services/b2b-sales/hero.png";
   description={description}
   image={image}
 >
-  <ServiceBanner client:load service="b2b-sales" />
+  <ServicesBanner client:load content={bannerContent} />
   <Clients />
-  <ServiceImpact client:load service="b2b-sales" />
-  <ChallengesWeAddress client:load service="b2b-sales" />
-  <BusinessImpact client:load service="b2b-sales" />
-  <KeyServices client:load service="b2b-sales" />
-  <BusinessGuidance client:load service="b2b-sales" />
-  <CaseStudies client:load service="b2b-sales" />
+  <ServicesFeatures client:load content={featuresContent} />
+  <ServicesServices client:load content={servicesContent} />
+  <ServicesBenefits client:load content={benefitsContent} />
+  <ServicesProcess client:load content={processContent} />
+  <ServicesIndustries client:load content={industriesContent} />
   <ConsultationCTA client:load />
-  <FAQ client:load variant="b2b-sales" />
+  <FAQ client:load variant="home" />
 </Base>

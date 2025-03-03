@@ -1,6 +1,20 @@
+import React from "react";
 import { motion } from "framer-motion";
 import SectionHeader from "../../../components/SectionHeader";
 import { useState, useEffect } from "react";
+
+interface ProcessStep {
+  title: string;
+  description: string;
+  image: string;
+}
+
+interface ProcessContent {
+  tagline: string;
+  heading: string;
+  subheading: string;
+  steps: ProcessStep[];
+}
 
 interface ProcessStepProps {
   number: number;
@@ -97,67 +111,30 @@ const ProcessStep: React.FC<ProcessStepProps> = ({
   );
 };
 
-const processSteps = [
-  {
-    title: "Analysis & Planning",
-    description:
-      "We analyze your business needs and develop a strategic loyalty program plan",
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2340&h=1600&fit=crop",
-  },
-  {
-    title: "Program Design",
-    description:
-      "Create a customized loyalty program structure with rewards and benefits",
-    image:
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=2340&h=1600&fit=crop",
-  },
-  {
-    title: "Implementation",
-    description:
-      "Set up the technical infrastructure and integrate with your systems",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2340&h=1600&fit=crop",
-  },
-  {
-    title: "Launch & Training",
-    description:
-      "Roll out the program and train your team on management procedures",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2340&h=1600&fit=crop",
-  },
-  {
-    title: "Monitoring & Optimization",
-    description:
-      "Continuously track performance and optimize for better results",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2340&h=1600&fit=crop",
-  },
-];
-
 interface Props {
   className?: string;
+  content: ProcessContent;
 }
 
-export const LoyaltyProcess: React.FC<Props> = ({ className }) => {
+export const ServicesProcess: React.FC<Props> = ({ className, content }) => {
   const [activeStep, setActiveStep] = useState<number>(0);
 
   // Autoplay functionality
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveStep((current) => (current + 1) % processSteps.length);
+      setActiveStep((current) => (current + 1) % content.steps.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [content.steps.length]);
 
   return (
     <section className={`py-20 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline="Our Process"
-          heading="How We Implement Your Loyalty Program"
-          subheading="A systematic approach to creating and implementing successful loyalty programs that drive customer engagement and business growth."
+          tagline={content.tagline}
+          heading={content.heading}
+          subheading={content.subheading}
         />
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -168,7 +145,7 @@ export const LoyaltyProcess: React.FC<Props> = ({ className }) => {
               {/* Connector lines background */}
               <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-100 to-purple-100 -translate-y-1/2" />
 
-              {processSteps.map((step, index) => (
+              {content.steps.map((step, index) => (
                 <button
                   key={`mobile-${step.title}`}
                   onClick={() => setActiveStep(index)}
@@ -185,15 +162,15 @@ export const LoyaltyProcess: React.FC<Props> = ({ className }) => {
 
             {/* Desktop Vertical Steps */}
             <div className="hidden lg:block space-y-8">
-              {processSteps.map((step, index) => (
+              {content.steps.map((step, index) => (
                 <div
                   key={`desktop-${step.title}`}
                   className={`relative ${
-                    index < processSteps.length - 1 ? "lg:relative" : ""
+                    index < content.steps.length - 1 ? "lg:relative" : ""
                   }`}
                 >
                   {/* Vertical line connector */}
-                  {index < processSteps.length - 1 && (
+                  {index < content.steps.length - 1 && (
                     <div className="absolute left-7 top-full h-6 w-[2px] -translate-x-1/2 bg-gradient-to-b from-blue-200 to-purple-200" />
                   )}
 
@@ -247,8 +224,8 @@ export const LoyaltyProcess: React.FC<Props> = ({ className }) => {
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                src={processSteps[activeStep].image}
-                alt={processSteps[activeStep].title}
+                src={content.steps[activeStep].image}
+                alt={content.steps[activeStep].title}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 via-transparent to-purple-500/20" />
@@ -257,10 +234,10 @@ export const LoyaltyProcess: React.FC<Props> = ({ className }) => {
               <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8">
                 <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-lg">
                   <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-2">
-                    Step {activeStep + 1}: {processSteps[activeStep].title}
+                    Step {activeStep + 1}: {content.steps[activeStep].title}
                   </h4>
                   <p className="text-sm sm:text-base text-gray-600">
-                    {processSteps[activeStep].description}
+                    {content.steps[activeStep].description}
                   </p>
                 </div>
               </div>
@@ -273,7 +250,7 @@ export const LoyaltyProcess: React.FC<Props> = ({ className }) => {
                   className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
                   initial={{ width: "0%" }}
                   animate={{
-                    width: `${((activeStep + 1) / processSteps.length) * 100}%`,
+                    width: `${((activeStep + 1) / content.steps.length) * 100}%`,
                   }}
                   transition={{ duration: 0.5 }}
                 />

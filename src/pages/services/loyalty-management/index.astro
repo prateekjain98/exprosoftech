@@ -1,20 +1,296 @@
 ---
 import Base from "@/layouts/Base.astro";
 import Clients from "@/partials/Clients.astro";
-import { LoyaltyBanner } from "@/layouts/components/loyalty/LoyaltyBanner";
-import { LoyaltyFeatures } from "@/layouts/components/loyalty/LoyaltyFeatures";
-import { LoyaltyServices } from "@/layouts/components/loyalty/LoyaltyServices";
-import { LoyaltyBenefits } from "@/layouts/components/loyalty/LoyaltyBenefits";
-import { LoyaltyProcess } from "@/layouts/components/loyalty/LoyaltyProcess";
-import { LoyaltyIndustries } from "@/layouts/components/loyalty/LoyaltyIndustries";
+import { ServicesBanner } from "@/layouts/components/services/ServicesBanner";
+import { ServicesFeatures } from "@/layouts/components/services/ServicesFeatures";
+import { ServicesServices } from "@/layouts/components/services/ServicesServices";
+import { ServicesBenefits } from "@/layouts/components/services/ServicesBenefits";
+import { ServicesProcess } from "@/layouts/components/services/ServicesProcess";
+import { ServicesIndustries } from "@/layouts/components/services/ServicesIndustries";
 import ConsultationCTA from "../../../components/ConsultationCTA";
 import FAQ from "../../../components/FAQ";
+import {
+  FaUserFriends,
+  FaChartLine,
+  FaCogs,
+  FaRocket,
+  FaShieldAlt,
+  FaHeadset,
+  FaHeart,
+  FaHandshake,
+  FaLightbulb,
+  FaUsers,
+  FaStore,
+  FaHotel,
+  FaPlane,
+  FaUtensils,
+  FaShoppingBag,
+  FaCarAlt,
+  FaGamepad,
+  FaGraduationCap,
+} from "react-icons/fa";
 
 const title = "Loyalty Management Services";
 const meta_title = "Loyalty Management Services | Greymetre";
 const description =
   "End-to-end loyalty program management services to drive customer retention and engagement. Transform your customer relationships with our expertise.";
 const image = "/images/services/loyalty-management/hero.png";
+
+// Banner content
+const bannerContent = {
+  title: "Transform Customer Loyalty into Lasting Growth",
+  description:
+    "Elevate your customer relationships with our comprehensive loyalty program management services. We help you design, implement, and optimize loyalty programs that drive retention and maximize customer lifetime value.",
+  buttonText: "Get Started",
+  image: {
+    src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&h=1800&fit=crop",
+    alt: "Loyalty Management Solutions",
+  },
+  floatingElements: [
+    {
+      icon: "FaUsers",
+      title: "Customer Growth",
+      value: "+45%",
+      color: "blue",
+      position: "topLeft" as const,
+    },
+    {
+      icon: "FaChartLine",
+      title: "Retention Rate",
+      value: "92%",
+      color: "purple",
+      position: "bottomRight" as const,
+    },
+  ],
+};
+
+// Features content
+const featuresContent = {
+  tagline: "Features",
+  heading: "Comprehensive Loyalty Management Solutions",
+  subheading:
+    "Our end-to-end loyalty program management services are designed to help you create, manage, and optimize customer loyalty programs that drive engagement and growth.",
+  features: [
+    {
+      title: "Program Design & Strategy",
+      tagline: "Custom Loyalty Solutions",
+      description:
+        "Custom loyalty programs aligned with your business goals and customer preferences. We help you design programs that resonate with your target audience and drive meaningful engagement.",
+      icon: FaUserFriends,
+      image:
+        "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&h=800&fit=crop",
+    },
+    {
+      title: "Performance Analytics",
+      tagline: "Data-Driven Insights",
+      description:
+        "Data-driven insights to measure and optimize program effectiveness. Our analytics tools help you understand customer behavior, track ROI, and make informed decisions.",
+      icon: FaChartLine,
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&h=800&fit=crop",
+    },
+    {
+      title: "Technical Integration",
+      tagline: "Seamless Systems Integration",
+      description:
+        "Seamless integration with your existing systems and platforms. Our technical expertise ensures your loyalty program works smoothly with your current infrastructure.",
+      icon: FaCogs,
+      image:
+        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&h=800&fit=crop",
+    },
+    {
+      title: "Program Optimization",
+      tagline: "Continuous Improvement",
+      description:
+        "Continuous improvement based on customer behavior and market trends. We help you evolve your program to stay competitive and meet changing customer needs.",
+      icon: FaRocket,
+      image:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&h=800&fit=crop",
+    },
+  ],
+};
+
+// Services content
+const servicesContent = {
+  tagline: "Our Services",
+  heading: "Core Loyalty Management Services",
+  subheading:
+    "Comprehensive loyalty program management services designed to help businesses create and maintain successful customer retention programs.",
+  services: [
+    {
+      title: "Program Development",
+      description:
+        "Create engaging loyalty programs that resonate with your target audience",
+      features: [
+        "Customer segmentation and targeting",
+        "Reward structure design",
+        "Program rules and mechanics",
+        "Member communication strategy",
+      ],
+    },
+    {
+      title: "Program Management",
+      description: "Efficiently operate and maintain your loyalty program",
+      features: [
+        "Day-to-day program administration",
+        "Member enrollment and support",
+        "Reward fulfillment management",
+        "Program compliance monitoring",
+      ],
+    },
+    {
+      title: "Analytics & Optimization",
+      description: "Data-driven insights to enhance program performance",
+      features: [
+        "Performance tracking and reporting",
+        "Member behavior analysis",
+        "ROI measurement",
+        "Continuous program improvement",
+      ],
+    },
+  ],
+};
+
+// Benefits content
+const benefitsContent = {
+  tagline: "Benefits",
+  heading: "Transform Your Customer Relationships",
+  subheading:
+    "Discover how our loyalty program management services can transform your customer relationships and drive sustainable business growth.",
+  benefits: [
+    {
+      title: "Increased Customer Retention",
+      description:
+        "Build lasting relationships that keep customers coming back for more",
+      icon: FaHeart,
+    },
+    {
+      title: "Higher Customer Lifetime Value",
+      description:
+        "Drive increased spending and engagement from loyal customers",
+      icon: FaChartLine,
+    },
+    {
+      title: "Better Customer Insights",
+      description:
+        "Gain valuable data about customer preferences and behaviors",
+      icon: FaLightbulb,
+    },
+    {
+      title: "Competitive Advantage",
+      description: "Stand out in your market with a superior loyalty program",
+      icon: FaHandshake,
+    },
+    {
+      title: "Brand Advocacy",
+      description: "Turn satisfied customers into passionate brand ambassadors",
+      icon: FaUsers,
+    },
+    {
+      title: "Reduced Marketing Costs",
+      description:
+        "Lower acquisition costs through improved customer retention",
+      icon: FaShieldAlt,
+    },
+  ],
+};
+
+// Process content
+const processContent = {
+  tagline: "Our Process",
+  heading: "How We Implement Your Loyalty Program",
+  subheading:
+    "A systematic approach to creating and implementing successful loyalty programs that drive customer engagement and business growth.",
+  steps: [
+    {
+      title: "Analysis & Planning",
+      description:
+        "We analyze your business needs and develop a strategic loyalty program plan",
+      image:
+        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2340&h=1600&fit=crop",
+    },
+    {
+      title: "Program Design",
+      description:
+        "Create a customized loyalty program structure with rewards and benefits",
+      image:
+        "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=2340&h=1600&fit=crop",
+    },
+    {
+      title: "Implementation",
+      description:
+        "Set up the technical infrastructure and integrate with your systems",
+      image:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2340&h=1600&fit=crop",
+    },
+    {
+      title: "Launch & Training",
+      description:
+        "Roll out the program and train your team on management procedures",
+      image:
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2340&h=1600&fit=crop",
+    },
+    {
+      title: "Monitoring & Optimization",
+      description:
+        "Continuously track performance and optimize for better results",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2340&h=1600&fit=crop",
+    },
+  ],
+};
+
+// Industries content
+const industriesContent = {
+  tagline: "Industries",
+  heading: "Tailored Solutions for Every Industry",
+  subheading:
+    "Our loyalty program management services are tailored to meet the unique needs of various industries and business models.",
+  industries: [
+    {
+      title: "Retail",
+      description:
+        "Drive repeat purchases and increase customer lifetime value in retail stores",
+      icon: FaStore,
+    },
+    {
+      title: "Hospitality",
+      description: "Create memorable experiences and encourage repeat stays",
+      icon: FaHotel,
+    },
+    {
+      title: "Travel",
+      description:
+        "Build loyalty through personalized travel rewards and experiences",
+      icon: FaPlane,
+    },
+    {
+      title: "Restaurants",
+      description: "Increase customer visits and average order value",
+      icon: FaUtensils,
+    },
+    {
+      title: "E-commerce",
+      description: "Boost online sales and customer engagement",
+      icon: FaShoppingBag,
+    },
+    {
+      title: "Automotive",
+      description: "Enhance service retention and parts sales",
+      icon: FaCarAlt,
+    },
+    {
+      title: "Entertainment",
+      description: "Create engaging rewards for entertainment venues",
+      icon: FaGamepad,
+    },
+    {
+      title: "Education",
+      description: "Build student and alumni engagement programs",
+      icon: FaGraduationCap,
+    },
+  ],
+};
 ---
 
 <Base
@@ -23,13 +299,13 @@ const image = "/images/services/loyalty-management/hero.png";
   description={description}
   image={image}
 >
-  <LoyaltyBanner client:load />
+  <ServicesBanner client:load content={bannerContent} />
   <Clients />
-  <LoyaltyFeatures client:load />
-  <LoyaltyServices client:load />
-  <LoyaltyBenefits client:load />
-  <LoyaltyProcess client:load />
-  <LoyaltyIndustries client:load />
+  <ServicesFeatures client:load content={featuresContent} />
+  <ServicesServices client:load content={servicesContent} />
+  <ServicesBenefits client:load content={benefitsContent} />
+  <ServicesProcess client:load content={processContent} />
+  <ServicesIndustries client:load content={industriesContent} />
   <!-- <ConsultationCTA client:load /> -->
   <FAQ client:load variant="home" />
 </Base>

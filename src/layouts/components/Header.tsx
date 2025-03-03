@@ -40,7 +40,7 @@ export const mainMenu: NavigationLink[] = [
     children: [
       {
         name: "Channel Loyalty Management",
-        url: "/services/channel-loyalty-management/",
+        url: "/services/loyalty-management/",
         description:
           "End to end Channel Loyalty Management to Maximize Channel Reach X Range to Increase Market Share",
       },

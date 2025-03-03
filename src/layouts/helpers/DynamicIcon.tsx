@@ -1,6 +1,7 @@
 import React, { type FC } from "react";
 import type { IconType } from "react-icons";
-import * as FaIcons from "react-icons/fa6";
+import * as Fa6Icons from "react-icons/fa6";
+import * as FaIcons from "react-icons/fa";
 // import * as AiIcons from "react-icons/ai";
 // import * as BsIcons from "react-icons/bs";
 // import * as FiIcons from "react-icons/fi";
@@ -18,23 +19,39 @@ interface IDynamicIcon extends React.SVGProps<SVGSVGElement> {
 
 const iconLibraries: { [key: string]: IconMap } = {
   fa: FaIcons,
+  fa6: Fa6Icons,
 };
 
 const DynamicIcon: FC<IDynamicIcon> = ({ icon, ...props }) => {
+  // First try to find the icon in the specified library
   const IconLibrary = getIconLibrary(icon);
   const Icon = IconLibrary ? IconLibrary[icon] : undefined;
 
-  if (!Icon) {
-    return <span className="text-sm">Icon not found</span>;
+  if (Icon) {
+    return <Icon {...props} />;
   }
 
-  return <Icon {...props} />;
+  // If not found, try to find it in any library
+  for (const libraryKey in iconLibraries) {
+    if (iconLibraries[libraryKey][icon]) {
+      return iconLibraries[libraryKey][icon]({ ...props });
+    }
+  }
+
+  // If still not found, return the not found message
+  return <span className="text-sm">Icon not found</span>;
 };
 
 const getIconLibrary = (icon: string): IconMap | undefined => {
-  const libraryKey = icon.substring(0, 2).toLowerCase();
+  // Check if the icon name starts with a library prefix (e.g., "Fa" or "Fa6")
+  if (icon.startsWith("Fa6")) {
+    return iconLibraries.fa6;
+  } else if (icon.startsWith("Fa")) {
+    return iconLibraries.fa;
+  }
 
-  return iconLibraries[libraryKey];
+  // Default to fa library for backward compatibility
+  return iconLibraries.fa;
 };
 
 export default DynamicIcon;

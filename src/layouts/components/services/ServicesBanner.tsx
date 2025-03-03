@@ -28,7 +28,7 @@ interface Props {
   content: BannerContent;
 }
 
-export const LoyaltyBanner: React.FC<Props> = ({ className, content }) => {
+export const ServicesBanner: React.FC<Props> = ({ className, content }) => {
   return (
     <section className="relative z-[1] pt-16 pb-24 lg:pt-24 lg:pb-32">
       <div className="container mx-auto px-4 md:px-8">
