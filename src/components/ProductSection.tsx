@@ -24,13 +24,6 @@ interface ProductSectionProps {
   hideHeadingBar?: boolean;
 }
 
-const featuresData = {
-  subtitle: "Empowering Growth with Cutting-Edge Solutions",
-  title: "Innovative Tailored Products for Your Business Needs",
-  description:
-    "Discover a diverse range of products designed to drive innovation and efficiency across your operations. Our offerings are crafted with precision and tailored to solve the unique challenges of your industry.",
-};
-
 const products: Product[] = [
   // {
   //   title: "Intuiflow",
@@ -65,7 +58,7 @@ const products: Product[] = [
   {
     title: "Sales Force Automation",
     description:
-      "Empower your sales team with cutting-edge automation tools designed for maximum efficiency and productivity. Our comprehensive solution streamlines sales processes, enhances team collaboration, and drives better results.",
+      "Transform your sales operations with our cutting-edge automation platform designed specifically for field sales teams. Streamline customer interactions, optimize territory management, and drive revenue growth with real-time insights and powerful analytics that give your team the competitive edge in today's dynamic marketplace.",
     image: "/images/products/sfa.png",
     label: "Sales Force Automation",
     buttonHref: "/sfa/",
@@ -97,7 +90,7 @@ const products: Product[] = [
   {
     title: "Loyalty Engine",
     description:
-      "Build lasting relationships and drive customer engagement with our advanced loyalty management system. Create personalized rewards programs that inspire customer loyalty and boost retention.",
+      "Elevate customer retention and maximize lifetime value with our comprehensive loyalty management ecosystem. Our platform enables businesses to create personalized, data-driven reward programs that foster emotional connections with your brand, increase purchase frequency, and transform satisfied customers into passionate brand advocates through meaningful engagement strategies.",
     image: "/images/products/loyalty.png",
     label: "Loyalty Engine",
     buttonHref: "/loyalty-engine/",
@@ -176,24 +169,21 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
   return (
     <section className="relative py-16 lg:py-24">
-      {!hideHeadingBar && (
-        <div className="container mx-auto px-4 mb-16">
-          <div className="mx-auto text-center max-w-3xl">
-            <SectionHeader
-              tagline={featuresData.subtitle}
-              heading={featuresData.title}
-              subheading={featuresData.description}
-            />
-          </div>
-        </div>
-      )}
-
       {/* Mobile Layout */}
       <div className="block lg:hidden">
-        <div className="container mx-auto px-4">
+        <div className="container px-4">
           <div className="space-y-16">
             {products.map((product, productIndex) => (
               <div key={productIndex} className="w-full">
+                {/* Section Header for each product */}
+                <div className="mb-8">
+                  <SectionHeader
+                    tagline="Products"
+                    heading={product.title}
+                    subheading={product.description}
+                  />
+                </div>
+
                 {/* Image */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -209,16 +199,6 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                     />
                   </div>
                 </motion.div>
-
-                {/* Title and Description */}
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                    {product.title}
-                  </h2>
-                  <p className="text-gray-600 text-base leading-relaxed mb-8">
-                    {product.description}
-                  </p>
-                </div>
 
                 {/* Features */}
                 <div className="space-y-6">
@@ -268,8 +248,8 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
           style={{ height: `${products.length * 100}vh` }}
         >
           <div className="sticky top-0 h-screen flex items-center">
-            <div className="container mx-auto px-4">
-              <div className="mx-auto max-w-7xl">
+            <div className="flex w-full items-center px-4">
+              <div className="mx-14">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeProduct}
@@ -277,10 +257,19 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                     initial="initial"
                     animate="animate"
                     exit="exit"
-                    className="flex flex-col items-center gap-16"
+                    className="flex flex-col items-center gap-4"
                   >
+                    {/* Section Header for active product */}
+                    <div className="mb-4">
+                      <SectionHeader
+                        tagline="Products"
+                        heading={products[activeProduct].title}
+                        subheading={products[activeProduct].description}
+                      />
+                    </div>
+
                     {/* Desktop Grid Layout */}
-                    <div className="grid grid-cols-5 gap-12 items-center w-full min-h-[500px]">
+                    <div className="grid grid-cols-7 gap-4 items-center w-full min-h-[500px]">
                       {/* Left Features */}
                       <motion.div
                         variants={contentVariants}
@@ -318,7 +307,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="col-span-3 flex items-center justify-center px-8 self-center"
+                        className="col-span-5 flex items-center justify-center px-8 self-center"
                       >
                         <div className="relative w-full max-w-[800px]">
                           <img
@@ -362,14 +351,8 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                       </motion.div>
                     </div>
 
-                    {/* Desktop Title and Description */}
-                    <div className="text-center max-w-2xl mx-auto">
-                      <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-                        {products[activeProduct].title}
-                      </h2>
-                      <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                        {products[activeProduct].description}
-                      </p>
+                    {/* CTA Button */}
+                    <div className="text-center">
                       <Button
                         href={products[activeProduct].buttonHref}
                         size="md"

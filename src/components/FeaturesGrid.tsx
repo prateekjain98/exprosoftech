@@ -67,7 +67,7 @@ export const FeaturesGrid: React.FC = () => {
           <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <div className="mx-auto lg:col-11 mb-10 lg:mb-16">
               <SectionHeader
-                tagline="Functional alignment is key to achieve the vision"
+                tagline="Consulting"
                 heading="Demand driven <span class='bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent'>Business Excellence</span>"
                 subheading="Relying on forecasts leads to stock imbalances, excess inventory, and missed sales. Aligning sales, supply chain, and operations with real demand ensures agility, optimized inventory, and seamless execution—minimizing waste while maximizing availability and profitability."
                 theme="dark"
