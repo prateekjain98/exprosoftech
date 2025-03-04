@@ -48,8 +48,10 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
   className,
 }) => {
   return (
-    <section className="w-full h-fit lg:h-[100vh] px-4 lg:px-32 py-16 bg-white flex items-center justify-center">
-      <div className="w-full h-fit bg-[#E9F2FF] rounded-[2rem] px-6 py-12 relative md:px-24 md:py-16">
+    <section
+      className={`w-full h-auto py-16 px-4 lg:px-32 bg-white ${className || ""}`}
+    >
+      <div className="w-full h-fit bg-[#E9F2FF] rounded-[2rem] px-6 py-12 relative md:px-24 md:py-16 overflow-hidden">
         {/* SVG Background */}
         <svg
           className="absolute top-0 left-0 w-full h-full z-0"
@@ -58,6 +60,7 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
           viewBox="0 0 1302 344"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
         >
           <g filter="url(#filter0_f_49_131)">
             <path
@@ -156,11 +159,11 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
             <div className="order-1 lg:order-2">
               <div className="relative" data-aos="fade-left">
                 {/* Image Container */}
-                <div className="flex items-end justify-center h-[400px]">
+                <div className="flex items-end justify-center h-auto max-h-[400px]">
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className="object-contain w-auto h-full max-w-[65%]"
+                    className="object-contain w-auto h-auto max-h-full max-w-[65%]"
                   />
                 </div>
 

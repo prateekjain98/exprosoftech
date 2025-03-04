@@ -5,6 +5,7 @@ interface ButtonProps {
   label: string;
   link: string;
   variant: "primary" | "outline-primary";
+  isCalendly?: boolean;
 }
 
 interface ProductHeaderProps {
@@ -63,12 +64,13 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
                 className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8 lg:mb-0"
                 data-aos="fade-up-sm"
               >
-                {buttons.map(({ label, link, variant }, index) => (
+                {buttons.map(({ label, link, variant, isCalendly }, index) => (
                   <Button
                     key={index}
                     href={link}
                     variant={variant}
                     target={link.startsWith("http") ? "_blank" : "_self"}
+                    isCalendlyButton={isCalendly}
                   >
                     {label}
                   </Button>

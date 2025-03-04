@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import type { ChildNavigationLink } from "../../layouts/components/Header";
+import Button from "../../components/common/Button";
 
 interface ProductsDropdownProps {
   children: ChildNavigationLink[];
@@ -16,6 +17,11 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
   handleProductClick,
   setIsMobileMenuOpen,
 }) => {
+  const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
+
+  // Use hoveredProductId if available, otherwise fall back to hoveredProduct or selectedProduct
+  const activeProduct = hoveredProductId || hoveredProduct || selectedProduct;
+
   return (
     <div className="grid grid-cols-12">
       {/* Left Section - Main Products */}
@@ -40,17 +46,23 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
         </div>
         <div className="space-y-4">
           {children.map((child, childIndex) => (
-            <ProductCard
+            <a
               key={childIndex}
-              child={child}
-              childIndex={childIndex}
-              isSelected={selectedProduct === child.name}
-              onClick={() => handleProductClick(child.name)}
-              onMouseEnter={() =>
-                !selectedProduct && handleProductClick(child.name)
-              }
-              setIsMobileMenuOpen={setIsMobileMenuOpen}
-            />
+              href={child.url}
+              className="block"
+              onClick={() => {
+                handleProductClick(child.name);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              <ProductCard
+                child={child}
+                childIndex={childIndex}
+                isSelected={activeProduct === child.name}
+                onMouseEnter={() => setHoveredProductId(child.name)}
+                onMouseLeave={() => setHoveredProductId(null)}
+              />
+            </a>
           ))}
         </div>
       </div>
@@ -58,7 +70,7 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
       {/* Right Section - Product Previews */}
       <div className="col-span-5">
         <div className="h-full">
-          {hoveredProduct === "Intuiflow" || selectedProduct === "Intuiflow" ? (
+          {activeProduct === "Intuiflow" ? (
             <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
               <div className="relative p-8 flex flex-col h-full">
                 <div className="mb-auto">
@@ -168,31 +180,29 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
                   </div>
                 </div>
                 <div className="mt-6">
-                  <a
-                    href="/intuiflow/"
+                  <Button
+                    className="w-full flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 text-white"
+                    isCalendlyButton={true}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-sm font-medium rounded-full transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-600/30"
+                    height="compact"
                   >
-                    Book Simulation
-                    <span className="relative w-4 h-4 transition-transform duration-200 group-hover:translate-x-1">
-                      <svg
-                        className="w-4 h-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </a>
+                    Book a Call
+                    <svg
+                      className="w-4 h-4"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Button>
                 </div>
               </div>
             </div>
-          ) : hoveredProduct === "Loyalty Engine" ||
-            selectedProduct === "Loyalty Engine" ? (
+          ) : activeProduct === "Loyalty Engine" ? (
             <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
               <div className="absolute inset-0 bg-[url('/images/loyalty-engine.png')] bg-cover bg-center opacity-50 mix-blend-overlay" />
               <div className="relative p-8 flex flex-col h-full">
@@ -221,31 +231,29 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
                   </div>
                 </div>
                 <div className="mt-6">
-                  <a
-                    href="/loyalty-engine/"
+                  <Button
+                    className="w-full flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 text-white"
+                    isCalendlyButton={true}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-sm font-medium rounded-full transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-600/30"
+                    height="compact"
                   >
-                    Learn More About Loyalty Engine
-                    <span className="relative w-4 h-4 transition-transform duration-200 group-hover:translate-x-1">
-                      <svg
-                        className="w-4 h-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </a>
+                    Book a Call
+                    <svg
+                      className="w-4 h-4"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Button>
                 </div>
               </div>
             </div>
-          ) : hoveredProduct === "Sales Force Automation" ||
-            selectedProduct === "Sales Force Automation" ? (
+          ) : activeProduct === "Sales Force Automation" ? (
             <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
               <div className="absolute inset-0 bg-[url('/images/field-konnect.png')] bg-cover bg-center opacity-50 mix-blend-overlay" />
               <div className="relative p-8 flex flex-col h-full">
@@ -274,26 +282,25 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
                   </div>
                 </div>
                 <div className="mt-6">
-                  <a
-                    href="/sfa/"
+                  <Button
+                    className="w-full flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 text-white"
+                    isCalendlyButton={true}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-sm font-medium rounded-full transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-600/30"
+                    height="compact"
                   >
-                    Learn More About SFA
-                    <span className="relative w-4 h-4 transition-transform duration-200 group-hover:translate-x-1">
-                      <svg
-                        className="w-4 h-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </a>
+                    Book a Call
+                    <svg
+                      className="w-4 h-4"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -309,25 +316,17 @@ const ProductCard: React.FC<{
   child: ChildNavigationLink;
   childIndex: number;
   isSelected: boolean;
-  onClick: () => void;
   onMouseEnter: () => void;
-  setIsMobileMenuOpen: (isOpen: boolean) => void;
-}> = ({
-  child,
-  childIndex,
-  isSelected,
-  onClick,
-  onMouseEnter,
-  setIsMobileMenuOpen,
-}) => (
+  onMouseLeave: () => void;
+}> = ({ child, childIndex, isSelected, onMouseEnter, onMouseLeave }) => (
   <div
     className={`group cursor-pointer rounded-xl border border-slate-200 hover:border-primary/30 transition-all duration-200 ${
       isSelected
         ? "bg-white shadow-lg shadow-blue-500/5 border-primary/30"
         : "hover:bg-white hover:shadow-lg hover:shadow-blue-500/5"
     }`}
-    onClick={onClick}
     onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
   >
     <div className="p-5">
       <div className="flex items-start gap-4">

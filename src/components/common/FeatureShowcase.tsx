@@ -136,7 +136,12 @@ export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
               ))}
             </div>
 
-            <Button href="/demo" variant="primary" size="lg">
+            <Button
+              href="/demo"
+              variant="primary"
+              size="lg"
+              isCalendlyButton={true}
+            >
               Schedule A Demo
             </Button>
           </div>
