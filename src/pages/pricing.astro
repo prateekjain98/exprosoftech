@@ -1,7 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
 import CallToAction from "@/partials/CallToAction.astro";
-import Clients from "@/partials/Clients.astro";
+import { Clients } from "../components/Clients";
 import Faq from "@/partials/Faq.astro";
 import PricingSection from "@/partials/PricingSection.astro";
 import Testimonial from "@/partials/Testimonial.astro";
@@ -16,9 +16,10 @@ const { title, description, meta_title, image, testimonial, hero } =
   title={title}
   meta_title={meta_title}
   description={description}
-  image={image}>
+  image={image}
+>
   <PricingSection largeHeading={true} content={hero} />
-  <Clients />
+  <Clients client:load />
   <Testimonial content={testimonial} visible_testimonial={3} />
   <Faq />
   <CallToAction />

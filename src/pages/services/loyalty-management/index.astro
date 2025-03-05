@@ -1,6 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Clients from "@/partials/Clients.astro";
+import { Clients } from "../../../components/Clients";
 import { ServicesBanner } from "@/layouts/components/services/ServicesBanner";
 import { ServicesFeatures } from "@/layouts/components/services/ServicesFeatures";
 import { ServicesServices } from "@/layouts/components/services/ServicesServices";
@@ -300,7 +300,7 @@ const industriesContent = {
   image={image}
 >
   <ServicesBanner client:load content={bannerContent} />
-  <Clients />
+  <Clients client:load />
   <ServicesFeatures client:load content={featuresContent} />
   <ServicesServices client:load content={servicesContent} />
   <ServicesBenefits client:load content={benefitsContent} />

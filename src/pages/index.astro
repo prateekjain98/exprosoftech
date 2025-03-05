@@ -10,12 +10,11 @@ import { ProductSection } from "../components/ProductSection";
 import { HomeBanner } from "../components/HomeBanner";
 import { getEntry } from "astro:content";
 
-const clientsData = (await getEntry("sections", "clients")).data;
 ---
 
 <Base>
   <HomeBanner client:load />
-  <Clients client:load list={clientsData.list} />
+  <Clients client:load />
   <Offerings client:load />
   <FeaturesGrid client:load />
   <ScrollableServices client:load />

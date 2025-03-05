@@ -9,9 +9,8 @@ import CaseStudies from "../../components/CaseStudies";
 import ConsultationCTA from "../../components/ConsultationCTA";
 import FAQ from "../../components/FAQ";
 import Base from "@/layouts/Base.astro";
-import Clients from "@/partials/Clients.astro";
 import { getEntry } from "astro:content";
-
+import { Clients } from "../../components/Clients";
 const consulting = await getEntry("consulting", "-index");
 const bannerData = await getEntry("sections", "demand-driven-banner");
 const { title, description, meta_title, image } = consulting?.data || {};
@@ -24,13 +23,13 @@ const { title, description, meta_title, image } = consulting?.data || {};
   image={image}
 >
   <DemandDrivenBanner client:load />
-  <Clients />
+  <Clients client:load/>
   <DemandDrivenImpact client:load />
   <ChallengesWeAddress client:load />
   <BusinessImpact client:load />
   <KeyServices client:load />
   <BusinessGuidance client:load />
-    <!-- <CaseStudies client:load /> -->
+  <!-- <CaseStudies client:load /> -->
   <ConsultationCTA client:load />
   <FAQ client:load variant="demand-driven" />
 </Base>

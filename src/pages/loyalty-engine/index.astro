@@ -1,6 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
-import Clients from "@/partials/Clients.astro";
+import { Clients } from "../../components/Clients";
 import { AdditionalFeatures } from "../../components/common/AdditionalFeatures";
 import { FAQSection } from "../../components/common/FAQSection";
 import { FeaturesGrid } from "../../components/common/FeaturesGrid";
@@ -223,7 +223,7 @@ const ctaContent = {
 
 <Base>
   <ProductHeader {...headerContent} client:load />
-  <Clients />
+  <Clients client:load />
   <FeaturesGrid {...featuresContent} client:load />
   <MobileFeatures {...mobileContent} client:load />
   <FeatureShowcase {...showcaseContent} variant="loyalty" client:load />

@@ -1,12 +1,16 @@
 ---
 import Base from "@/layouts/Base.astro";
-import OurTeam from "@/partials/OurTeam.astro";
-import OurValues from "@/partials/OurValues.astro";
 import AboutBanner from "@/partials/AboutBanner.astro";
 import CallToAction from "@/partials/CallToAction.astro";
-import Clients from "@/partials/Clients.astro";
+import { Clients } from "../components/Clients";
 import Faq from "@/partials/Faq.astro";
 import { getEntry } from "astro:content";
+import OurTeam from "@/partials/OurTeam.astro";
+import OurValues from "@/partials/OurValues.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import Shape from "@/components/Shape.astro";
+import VideoPopup from "@/components/VideoPopup.astro";
+import CounterComponent from "@/components/Counter.astro";
 
 const about = await getEntry("about", "-index");
 const { title, description, meta_title, image } = about.data;
@@ -16,9 +20,11 @@ const { title, description, meta_title, image } = about.data;
   title={title}
   meta_title={meta_title}
   description={description}
-  image={image}>
+  image={image}
+>
+  <PageHeader title={title} />
+  <Clients client:load />
   <AboutBanner />
-  <Clients />
   <OurValues />
   <OurTeam />
   <Faq />

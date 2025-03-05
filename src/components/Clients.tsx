@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
 
-interface ClientsProps {
-  list: string[];
-}
+interface ClientsProps {}
 
-export const Clients: React.FC<ClientsProps> = ({ list }) => {
+export const Clients: React.FC<ClientsProps> = ({}) => {
+  // Define the list of client logos
+  const clientLogos: string[] = [
+    "/images/clients/IMG1.png",
+    "/images/clients/IMG2.png",
+    "/images/clients/IMG3.png",
+    "/images/clients/IMG4.png",
+    "/images/clients/IMG5.png",
+    "/images/clients/IMG6.png",
+    "/images/clients/IMG7.png",
+    "/images/clients/IMG8.png",
+    "/images/clients/IMG9.png",
+    "/images/clients/IMG10.png",
+    "/images/clients/IMG11.png",
+  ];
+
   return (
     <section className="section">
       <div className="max-w-[85rem] mx-auto px-3 overflow-hidden">
@@ -24,15 +37,19 @@ export const Clients: React.FC<ClientsProps> = ({ list }) => {
           >
             <div className="marquee">
               <div className="marquee-track">
-                {[...Array(2)].map((_, index) => (
+                {[...Array(2)].map((_, index: number) => (
                   <div key={index} className="marquee-content">
-                    {list?.map((logo, idx) => (
-                      <div key={idx} className="flex items-center mx-6">
+                    {clientLogos.map((logo: string, idx: number) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-center mx-8"
+                      >
                         <img
                           src={logo}
                           alt="brand logo"
-                          className="w-36"
-                          height="120"
+                          className="w-32 h-16 object-contain"
+                          width="128"
+                          height="64"
                         />
                       </div>
                     ))}
@@ -91,9 +108,17 @@ export const Clients: React.FC<ClientsProps> = ({ list }) => {
           }
 
           .marquee-content img {
-            max-width: 144px;
-            width: auto;
-            height: auto;
+            max-width: none;
+            width: 128px;
+            height: 64px;
+            object-fit: contain;
+          }
+
+          .marquee-content > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 160px; /* Fixed width container */
           }
 
           @keyframes scroll {
