@@ -96,11 +96,11 @@ function generateComposedData(
     });
   }
 
-  // For Cash Flow - going down
+  // For Cash Flow - trending up
   if (type === "cashFlow") {
     return Array.from({ length: points }, (_, i) => {
       const progress = i / (points - 1);
-      const value = baseValue * (1 - progress * 0.5); // Decreasing trend
+      const value = baseValue + progress * 35; // Increasing trend
       const noise = Math.sin(i * 0.5) * 2; // Small noise
 
       return {
@@ -279,11 +279,11 @@ const metrics: MetricCard[] = [
   {
     title: "Cash Flow",
     subtitle: "Days of working capital",
-    type: "area",
-    trend: "decreasing",
+    type: "composed",
+    trend: "increasing",
     color: "#06B6D4",
     secondaryColor: "#67E8F9",
-    value: "-20%",
+    value: "+20%",
     position: { top: "25%", left: "0" },
     mobilePosition: { top: "calc(100% - 130px)", right: "0" },
     category: "business",
