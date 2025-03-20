@@ -1,26 +1,23 @@
 ---
 import Base from "@/layouts/Base.astro";
-import AboutBanner from "@/partials/AboutBanner.astro";
-import Faq from "@/partials/Faq.astro";
-import OurTeam from "@/partials/OurTeam.astro";
-import OurValues from "@/partials/OurValues.astro";
-import { getEntry } from "astro:content";
+import AboutBanner from "../components/AboutBanner";
+import LeadershipTeam from "../components/LeadershipTeam";
+import WhyGreymetre from "../components/WhyGreymetre";
 import FAQ from "../components/FAQ";
-
+import { getEntry } from "astro:content";
 
 const about = await getEntry("about", "-index");
 const { title, description, meta_title, image } = about.data;
 ---
 
 <Base
-  title={title}
-  meta_title={meta_title}
-  description={description}
+  title="About Greymetre | Business Transformation Partner"
+  meta_title="About Greymetre - Sales, Supply Chain & Operations Excellence"
+  description="Greymetre is a business transformation partner specializing in sales acceleration, supply chain excellence, operational optimization, and digital transformation."
   image={image}
 >
-  <AboutBanner />
-  <OurValues />
-  <OurTeam />
-  <FAQ client:load/>
-  <!-- <CallToAction /> -->
+  <AboutBanner client:load />
+  <LeadershipTeam client:load />
+  <WhyGreymetre client:load />
+  <FAQ client:load />
 </Base>
