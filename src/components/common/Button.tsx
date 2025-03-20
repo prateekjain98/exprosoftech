@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaArrowDown } from "react-icons/fa";
 
 type ButtonVariant =
   | "primary"
@@ -18,6 +18,7 @@ interface ButtonProps {
   href?: string;
   className?: string;
   showArrow?: boolean;
+  arrowDown?: boolean;
   target?: "_blank" | "_self";
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
@@ -61,6 +62,7 @@ export const Button: React.FC<ButtonProps> = ({
   href,
   className = "",
   showArrow = true,
+  arrowDown = false,
   target = "_self",
   onClick,
   type = "button",
@@ -80,6 +82,8 @@ export const Button: React.FC<ButtonProps> = ({
     }
   };
 
+  const ArrowIcon = arrowDown ? FaArrowDown : FaArrowRight;
+
   if (isCalendlyButton) {
     return (
       <button
@@ -90,7 +94,7 @@ export const Button: React.FC<ButtonProps> = ({
       >
         {children}
         {showArrow && (
-          <FaArrowRight className="text-lg transition-transform group-hover:translate-x-1" />
+          <ArrowIcon className="text-lg transition-transform group-hover:translate-y-1" />
         )}
       </button>
     );
@@ -106,7 +110,9 @@ export const Button: React.FC<ButtonProps> = ({
       >
         {children}
         {showArrow && (
-          <FaArrowRight className="text-lg transition-transform group-hover:translate-x-1" />
+          <ArrowIcon
+            className={`text-lg transition-transform ${arrowDown ? "group-hover:translate-y-1" : "group-hover:translate-x-1"}`}
+          />
         )}
       </a>
     );
@@ -121,7 +127,9 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {children}
       {showArrow && (
-        <FaArrowRight className="text-lg transition-transform group-hover:translate-x-1" />
+        <ArrowIcon
+          className={`text-lg transition-transform ${arrowDown ? "group-hover:translate-y-1" : "group-hover:translate-x-1"}`}
+        />
       )}
     </button>
   );

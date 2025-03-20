@@ -29,40 +29,40 @@ const leadershipData = {
       title: "Co-founder",
       description:
         "An expert in sales transformation and digital adoption, Anadi brings a strategic yet hands-on approach to business growth. With an MBA from IIM Lucknow, he has successfully implemented inside sales, sales acceleration, and demand-driven sales strategies across industries. His expertise in TOC and synchronized manufacturing systems helps businesses optimize sales processes, increase productivity, and expand market reach without increasing costs.",
-      linkedin: "https://www.linkedin.com/",
-      image: "/images/team/2.png",
+      linkedin: "https://www.linkedin.com/in/anadi-shrivastava-1163a6a8/",
+      image: "/images/about-us/anadi.png",
     },
     {
       name: "Asit Shrivastava",
       title: "Co-founder",
       description:
         "A Tech Leader, he heads Sales-tech and Supply Chain Product Development owing to a unique blend of experience in Software development, amalgamated with Sales and Supply Chain. He leads the strategy related to Digital transformation. He has guided the adoption of Intelligent Systems and Tech in Supply chain, Channel Sales, and B2B Sales to enable quick and data-backed decision-making.",
-      linkedin: "https://www.linkedin.com/",
-      image: "/images/team/3.png",
+      linkedin: "https://www.linkedin.com/in/asit-shrivastava-78916715a/",
+      image: "/images/about-us/asit.png",
     },
     {
       name: "Imran H. Shaikh",
       title: "Partner, Operations Transformation & Thought Leadership",
       description:
         "A seasoned leader with over 25 years of Industry experience. High Performance awards from various OEMs in India & Globally. He Champions the Scientific Business Management methodology - Theory of Constraints & other Business Excellence Practices. As COO, he transformed organizations like Fleetguard-Filtrum, Cummins Co.",
-      linkedin: "https://www.linkedin.com/",
-      image: "/images/team/4.png",
+      linkedin: "https://www.linkedin.com/in/imranhshaikh-thoughtleader/",
+      image: "/images/about-us/imran.png",
     },
     {
       name: "Venkat Yechuri",
       title: "Partner, Advisory Board Member",
       description:
         "With global C-suite experience spanning two decades, Venkat is a business strategist and transformation expert. His ability to drive enterprise-wide efficiency, cost optimization, and strategic execution helps organizations scale sustainably.",
-      linkedin: "https://www.linkedin.com/",
-      image: "/images/team/1.png",
+      linkedin: "https://www.linkedin.com/in/venkatyechuri/",
+      image: "/images/about-us/venkat.png",
     },
     {
       name: "Rajendra Joshi",
       title: "Partner, Operations & Supply Chain",
       description:
         "A Lean and TQM expert, Rajendra has a proven track record of improving plant performance, material planning, and procurement strategies. His expertise ensures businesses achieve cost-effective procurement, optimized inventory, and manufacturing agility.",
-      linkedin: "https://www.linkedin.com/",
-      image: "/images/team/2.png",
+      linkedin: "https://www.linkedin.com/in/rajendra-joshi-43756510/",
+      image: "/images/about-us/rajendra.png",
     },
   ],
 };
@@ -85,14 +85,14 @@ const LeadershipTeam: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           {/* Team Member Navigation */}
           <div
-            className="flex flex-wrap justify-center gap-4 mb-12"
+            className="grid grid-cols-3 sm:flex sm:flex-wrap sm:justify-center gap-4 max-w-sm sm:max-w-2xl mx-auto mb-12"
             data-aos="fade-up"
             data-aos-delay="100"
           >
             {leaders.map((leader, index) => (
               <button
                 key={index}
-                className={`relative rounded-full overflow-hidden w-16 h-16 transition-all duration-300 ${
+                className={`relative rounded-full overflow-hidden w-16 h-16 mx-auto transition-all duration-300 ${
                   activeMember === index
                     ? "ring-4 ring-blue-500 scale-110"
                     : "grayscale hover:grayscale-0 hover:scale-105"

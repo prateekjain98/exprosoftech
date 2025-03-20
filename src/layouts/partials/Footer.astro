@@ -18,15 +18,16 @@ interface FooterLink {
 }
 
 // Create footer links from mainMenu
-const footerLinks = mainMenu.flatMap((item: NavigationLink): FooterLink[] =>
-  item.hasChildren
-    ? item.children?.map(
-        (child: ChildNavigationLink): FooterLink => ({
-          name: child.name,
-          url: child.url,
-        })
-      ) || []
-    : [{ name: item.name, url: item.url }]
+const footerLinks = mainMenu.flatMap(
+  (item: NavigationLink): FooterLink[] =>
+    item.hasChildren
+      ? item.children?.map(
+          (child: ChildNavigationLink): FooterLink => ({
+            name: child.name,
+            url: child.url,
+          })
+        ) || []
+      : [] // Don't include non-dropdown items like About Us and Contact Us
 );
 ---
 
@@ -130,20 +131,20 @@ const footerLinks = mainMenu.flatMap((item: NavigationLink): FooterLink[] =>
                 <ul class="space-y-3">
                   <li>
                     <a
+                      href="/about/"
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                    >
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a
                       href="/contact/"
                       class="text-light/70 hover:text-primary transition-colors duration-200"
                     >
                       Contact
                     </a>
                   </li>
-                  <!-- <li>
-                    <a
-                      href="/blog/"
-                      class="text-light/70 hover:text-primary transition-colors duration-200"
-                    >
-                      Blog
-                    </a>
-                  </li> -->
                 </ul>
               </div>
 

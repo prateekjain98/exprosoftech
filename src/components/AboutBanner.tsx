@@ -1,5 +1,6 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
+import Button from "./common/Button";
 
 // Data embedded directly in the component
 const aboutBannerData = {
@@ -9,10 +10,8 @@ const aboutBannerData = {
     "Empowering Business Transformation Through Strategy, Execution, and Technology",
   content: [
     "Greymetre is a business transformation partner specializing in sales acceleration, supply chain excellence, operational optimization, and digital transformation. We integrate strategic consulting, turnkey execution, and technology-driven solutions to help organizations enhance efficiency, improve market reach, and drive sustainable growth.",
-    "With expertise in DDMRP, TOC, and data-driven decision-making, we enable businesses to move from forecast-driven inefficiencies to real-time demand-driven execution, ensuring optimized inventory, seamless sales processes, and maximized profitability.",
-    "At Greymetre, we don't just consult—we design, execute, and sustain transformational change that drives real business impact.",
   ],
-  featuredImage: "/images/about-1.jpg",
+  featuredImage: "/images/about-us/banner.png",
 };
 
 const AboutBanner: React.FC = () => {
@@ -20,19 +19,17 @@ const AboutBanner: React.FC = () => {
     aboutBannerData;
 
   return (
-    <section className="relative py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-white to-gray-50">
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute right-0 top-0 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl" />
-        <div className="absolute left-0 bottom-0 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl" />
-      </div>
-
-      <div className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto">
+    <section className="relative py-20 lg:py-28 overflow-hidden">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Content Side */}
-            <div className="order-2 lg:order-1">
-              <div className="mb-8" data-aos="fade-up" data-aos-delay="100">
+            <div className="order-2 lg:order-1 px-4 lg:px-0">
+              <div
+                className="mb-8 text-center lg:text-left"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
                 <SectionHeader
                   tagline={subtitle}
                   heading={title}
@@ -42,7 +39,7 @@ const AboutBanner: React.FC = () => {
               </div>
 
               <div
-                className="space-y-6"
+                className="space-y-6 text-center lg:text-left"
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
@@ -53,55 +50,33 @@ const AboutBanner: React.FC = () => {
                 ))}
               </div>
 
-              <div
-                className="mt-10 flex flex-wrap gap-4"
-                data-aos="fade-up"
-                data-aos-delay="300"
-              >
-                <a
-                  href="#leadership"
-                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg"
-                >
-                  Meet Our Team
-                  <svg
-                    className="ml-2 w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </a>
-                <a
-                  href="#why-greymetre"
-                  className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition-colors duration-300"
-                >
-                  Why Choose Us
-                </a>
+              <div className="mt-10" data-aos="fade-up" data-aos-delay="300">
+                <ul className="flex flex-wrap justify-center lg:justify-start gap-4">
+                  <li>
+                    <Button href="#leadership" size="lg" arrowDown>
+                      Meet Our Team
+                    </Button>
+                  </li>
+                </ul>
               </div>
             </div>
 
             {/* Image Side */}
             <div
-              className="order-1 lg:order-2"
+              className="order-1 lg:order-2 px-4 lg:px-0"
               data-aos="fade-left"
               data-aos-delay="200"
             >
-              <div className="relative">
-                <div className="absolute inset-0 -translate-x-8 -translate-y-8 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-3xl transform"></div>
+              <div className="relative aspect-[4/3] lg:aspect-[16/10]">
+                <div className="absolute inset-0 -translate-x-4 -translate-y-4 lg:-translate-x-8 lg:-translate-y-8 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-2xl lg:rounded-3xl transform"></div>
                 <img
                   src={featuredImage}
-                  alt="Greymetre Business Transformation"
-                  className="relative w-full h-auto rounded-3xl shadow-2xl object-cover"
+                  alt="Greymetre Business Transformation Team"
+                  className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                 />
-                <div className="absolute -bottom-6 -right-6 bg-blue-600 text-white p-6 rounded-xl shadow-xl">
-                  <p className="text-2xl font-bold">35+</p>
-                  <p className="text-sm opacity-90">
+                <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 bg-blue-600 text-white p-4 lg:p-6 rounded-lg lg:rounded-xl shadow-lg lg:shadow-xl">
+                  <p className="text-xl lg:text-2xl font-bold">35+</p>
+                  <p className="text-xs lg:text-sm opacity-90">
                     Years of Combined Experience
                   </p>
                 </div>

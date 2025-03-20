@@ -194,7 +194,7 @@ const WhyGreymetre: React.FC = () => {
   return (
     <section
       id="why-greymetre"
-      className="py-20 lg:py-28 bg-gray-50 relative overflow-hidden"
+      className="py-20 lg:py-28 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -211,21 +211,17 @@ const WhyGreymetre: React.FC = () => {
           />
         </div>
 
-        <div
-          className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-12"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-12">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md border border-gray-100 hover:border-blue-100 transition-all duration-300"
               data-aos="fade-up"
               data-aos-delay={100 + index * 50}
             >
               <div className="flex items-start">
                 <div className="flex-shrink-0 mr-5">
-                  <div className="w-12 h-12 flex items-center justify-center bg-blue-600/10 text-blue-600 rounded-lg">
+                  <div className="w-14 h-14 flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl shadow-sm">
                     {feature.icon}
                   </div>
                 </div>
@@ -240,52 +236,6 @@ const WhyGreymetre: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        <div
-          className="max-w-3xl mx-auto mt-16 p-8 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-xl"
-          data-aos="zoom-in"
-          data-aos-delay="400"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-6 md:mb-0 text-white text-center md:text-left">
-              <h3 className="text-2xl font-bold mb-2">
-                Ready to transform your business?
-              </h3>
-              <p className="text-blue-100">
-                Let our experts help you achieve operational excellence.
-              </p>
-            </div>
-            <a
-              href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-full shadow-lg hover:bg-blue-50 transition duration-300"
-            >
-              Contact Us
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="ml-2"
-              >
-                <path
-                  d="M4.16699 10H15.8337"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M10.834 5L15.834 10L10.834 15"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
         </div>
       </div>
     </section>

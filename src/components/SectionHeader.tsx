@@ -19,15 +19,15 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col ${
-        alignment === "center" ? "text-center" : "text-left"
+      className={`flex flex-col text-center lg:text-left ${
+        alignment === "center" ? "lg:text-center" : ""
       } ${className} space-y-3 sm:space-y-4 lg:space-y-5`}
       data-aos="fade-up"
     >
       {tagline && (
         <div
-          className={`flex ${
-            alignment === "center" ? "justify-center" : "justify-start"
+          className={`flex justify-center lg:justify-start ${
+            alignment === "center" ? "lg:justify-center" : ""
           }`}
         >
           <span
