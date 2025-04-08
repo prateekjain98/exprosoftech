@@ -49,6 +49,14 @@ const leadershipData = {
       image: "/images/about-us/imran.png",
     },
     {
+      name: "Anil Jain",
+      title: "Partner, TOC Expert",
+      description:
+        "TOC Expert with 35+ years' experience, Anil Jain transforms business potential into 3x to 4x profit growth and near 100% on-time delivery. Known for simplifying complexity, he boosts throughput, eliminates delays, and delivers rapid results. A practical game-changer who partners with organizations for real, lasting performance breakthroughs.",
+      linkedin: "https://www.linkedin.com/",
+      image: "/images/about-us/anil.png",
+    },
+    {
       name: "Venkat Yechuri",
       title: "Partner, Advisory Board Member",
       description:
