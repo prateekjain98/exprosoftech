@@ -386,7 +386,7 @@ const Header: React.FC<HeaderProps> = ({
               </React.Fragment>
             ))}
             {navigation_button.enable && (
-              <li className="lg:hidden flex justify-center ">
+              <li className="lg:hidden flex justify-center items-center"> 
                 <Button
                   className="mt-2"
                   isCalendlyButton={true}
