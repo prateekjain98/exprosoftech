@@ -1,5 +1,6 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
+import { sanityClient } from "sanity:client";
 
 interface OfferingsItem {
   icon: string;
@@ -12,6 +13,13 @@ interface OfferingsData {
   subtitle: string;
   description: string;
   list: OfferingsItem[];
+}
+
+interface Card {
+  _id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
 }
 
 const offeringsData: OfferingsData = {
@@ -38,8 +46,18 @@ const offeringsData: OfferingsData = {
   ],
 };
 
-export const Offerings: React.FC = () => {
-  const { title, subtitle, description, list } = offeringsData;
+const CARDS_QUERY = `*[_type == "card"]{
+  _id,
+  title,
+  description,
+  "imageUrl": image.asset->url
+}`;
+
+export const Offerings = async () => {
+  const { title, subtitle, description } = offeringsData;
+
+  // Fetch cards with revalidation
+  const cards = await sanityClient.fetch<Card[]>(CARDS_QUERY);
 
   return (
     <section className="section">
@@ -55,44 +73,42 @@ export const Offerings: React.FC = () => {
           </div>
           <div className="col-12 pt-20">
             <div className="row g-4 justify-center">
-              {list.map((item, index) => (
+                {cards.map((card: Card, index: number) => (
                 <div
-                  key={index}
+                  key={card._id}
                   className="md:col-6 lg:col-4"
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
                   <div className="min-h-full rounded-3xl bg-white p-4 transition-all shadow-xl">
-                    {/* Image Container */}
-                    <div className="mb-3">
-                      <div className="aspect-square w-full rounded-2xl">
-                        {item.icon && (
-                          <img
-                            src={item.icon}
-                            alt={`icon related to ${item.title}`}
-                            className="h-full w-full object-contain"
-                          />
-                        )}
-                      </div>
-                    </div>
-                    {/* Content Container */}
-                    <div className="text-left mb-4">
-                      {item.title && (
-                        <h3
-                          className="h5 mb-2 md:text-3xl font-medium text-dark tracking-wide"
-                          dangerouslySetInnerHTML={{ __html: item.title }}
-                        />
-                      )}
-                      {item.description && (
-                        <p
-                          className="text-text"
-                          dangerouslySetInnerHTML={{ __html: item.description }}
-                        />
-                      )}
+                  <div className="mb-3">
+                    <div className="aspect-square w-full rounded-2xl">
+                    {card.imageUrl && (
+                      <img
+                      src={card.imageUrl}
+                      alt={`icon related to ${card.title}`}
+                      className="h-full w-full object-contain"
+                      />
+                    )}
                     </div>
                   </div>
+                  <div className="text-left mb-4">
+                    {card.title && (
+                    <h3
+                      className="h5 mb-2 md:text-3xl font-medium text-dark tracking-wide"
+                      dangerouslySetInnerHTML={{ __html: card.title }}
+                    />
+                    )}
+                    {card.description && (
+                    <p
+                      className="text-text"
+                      dangerouslySetInnerHTML={{ __html: card.description }}
+                    />
+                    )}
+                  </div>
+                  </div>
                 </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
