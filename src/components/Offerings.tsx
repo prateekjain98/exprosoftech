@@ -15,6 +15,13 @@ interface OfferingsData {
   list: OfferingsItem[];
 }
 
+interface Heading {
+  _id: string;
+  subtitle?: string;  // Optional since it's not required in schema
+  title: string;
+  description: string;
+}
+
 interface Card {
   _id: string;
   title: string;
@@ -53,21 +60,31 @@ const CARDS_QUERY = `*[_type == "card"]{
   "imageUrl": image.asset->url
 }`;
 
+const HEADINGS_QUERY = `*[_type == "heading"]{
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
 export const Offerings = async () => {
   const { title, subtitle, description } = offeringsData;
 
   // Fetch cards with revalidation
   const cards = await sanityClient.fetch<Card[]>(CARDS_QUERY);
 
+  const headings = await sanityClient.fetch<Heading[]>(HEADINGS_QUERY, {});
+
+  const heading = headings[0];
   return (
     <section className="section">
       <div className="max-w-[85rem] mx-auto px-3">
         <div className="row">
           <div className="mx-auto lg:col-11">
             <SectionHeader
-              tagline={subtitle}
-              heading={title}
-              subheading={description}
+              tagline={heading?.subtitle || ''}
+              heading={heading?.title || ''}
+              subheading={heading?.description || ''}
               alignment="center"
             />
           </div>
