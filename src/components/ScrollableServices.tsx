@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import SectionHeader from "./SectionHeader";
+import { sanityClient } from "sanity:client";
 
 interface Service {
   number: string;
@@ -7,6 +8,13 @@ interface Service {
   subheading: string;
   description: string;
   image: string;
+}
+
+interface Heading {
+  _id: string;
+  subtitle?: string;  // Optional since it's not required in schema
+  title: string;
+  description: string;
 }
 
 const services: Service[] = [
@@ -36,6 +44,13 @@ const services: Service[] = [
   },
 ];
 
+const HEADINGS_QUERY = `*[_type == "heading"]{
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
 const sectionHeader = {
   tagline: "Services",
   heading: "Driving Growth as an extension of your team",
@@ -43,7 +58,7 @@ const sectionHeader = {
     "We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership. Our integrated approach ensures measurable results and long-term success.",
 };
 
-export const ScrollableServices: React.FC = () => {
+export const ScrollableServices = async () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -119,13 +134,16 @@ export const ScrollableServices: React.FC = () => {
     };
   }, []);
 
+  const headings = await sanityClient.fetch<Heading[]>(HEADINGS_QUERY, {});
+  const heading =   headings[1]
+
   return (
     <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container max-w-[1440px] mx-auto px-4">
         <SectionHeader
-          tagline={sectionHeader.tagline}
-          heading={sectionHeader.heading}
-          subheading={sectionHeader.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
           theme="light"
         />
 

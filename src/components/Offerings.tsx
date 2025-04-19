@@ -75,7 +75,7 @@ export const Offerings = async () => {
 
   const headings = await sanityClient.fetch<Heading[]>(HEADINGS_QUERY, {});
 
-  const heading = headings[0];
+  const heading = headings[2];
   return (
     <section className="section">
       <div className="max-w-[85rem] mx-auto px-3">

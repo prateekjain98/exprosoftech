@@ -10,13 +10,31 @@ import { ProductSection } from "../components/ProductSection";
 import { HomeBanner } from "../components/HomeBanner";
 import { getEntry } from "astro:content";
 
+import { sanityClient } from "sanity:client"
+
+const HEADING_QUERY = `*[_type == "heading"]{
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
+const headings = await sanityClient.fetch(HEADING_QUERY);
+
+const features = await sanityClient.fetch(`*[_type == "features"]{
+  tagline,
+  title,
+  description,
+  "imageUrl": image.asset->url,
+  icon
+}`)
 ---
 
 <Base>
   <HomeBanner client:load />
   <Clients client:load />
   <Offerings client:load />
-  <FeaturesGrid client:load />
+  <FeaturesGrid heading={headings[0]} features={features} client:load />
   <ScrollableServices client:load />
   <ProductSection client:load />
   <!-- <CaseStudies client:load /> -->
