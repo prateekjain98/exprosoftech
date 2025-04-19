@@ -19,8 +19,6 @@ const HEADING_QUERY = `*[_type == "heading"]{
   description
 }`;
 
-const headings = await sanityClient.fetch(HEADING_QUERY);
-
 const features = await sanityClient.fetch(`*[_type == "features"]{
   tagline,
   title,
@@ -28,6 +26,21 @@ const features = await sanityClient.fetch(`*[_type == "features"]{
   "imageUrl": image.asset->url,
   icon
 }`)
+
+const SERVICES_QUERY = `*[_type == "service"] | order(number asc) {
+  _id,
+  number,
+  title,
+  subheading,
+  description,
+  "imageUrl": image.asset->url
+}`;
+
+
+const headings = await sanityClient.fetch(HEADING_QUERY);
+const services = await sanityClient.fetch(SERVICES_QUERY);
+console.log(services)
+
 ---
 
 <Base>
@@ -35,7 +48,7 @@ const features = await sanityClient.fetch(`*[_type == "features"]{
   <Clients client:load />
   <Offerings client:load />
   <FeaturesGrid heading={headings[0]} features={features} client:load />
-  <ScrollableServices client:load />
+  <ScrollableServices services={services} client:load />
   <ProductSection client:load />
   <!-- <CaseStudies client:load /> -->
   <FAQ client:load variant="home" />

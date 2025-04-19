@@ -1,64 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import SectionHeader from "./SectionHeader";
-import { sanityClient } from "sanity:client";
 
+// Define interfaces for the props
 interface Service {
-  number: string;
-  title: string;
-  subheading: string;
-  description: string;
-  image: string;
-}
-
-interface Heading {
   _id: string;
-  subtitle?: string;  // Optional since it's not required in schema
   title: string;
   description: string;
+  imageUrl: string;
+  features: string[];
 }
 
-const services: Service[] = [
-  {
-    number: "01",
-    title: "Loyalty Management",
-    subheading: "Product-Focused Customer Loyalty Solutions",
-    description:
-      "Transform your customer relationships with our comprehensive loyalty management platform. We help businesses design, implement, and optimize reward programs that drive engagement, increase retention, and maximize customer lifetime value through data-driven personalization.",
-    image: "/images/services/loyalty.png",
-  },
-  {
-    number: "02",
-    title: "Channel Reach Expansion",
-    subheading: "Strategic Market Presence Enhancement",
-    description:
-      "Expand your market presence through strategic channel partnerships and distribution networks. Our approach focuses on identifying and developing optimal channel mix, enabling businesses to reach new markets and customer segments effectively.",
-    image: "/images/services/channel-reach.png",
-  },
-  {
-    number: "03",
-    title: "B2B Sales Excellence",
-    subheading: "End-to-End B2B Sales Pipeline Management",
-    description:
-      "Accelerate your B2B sales with our comprehensive approach covering prospecting, content creation, multi-channel outreach (LinkedIn & Email), appointment scheduling, and complete funnel management. We help you build and maintain a robust sales pipeline that delivers consistent results.",
-    image: "/images/services/b2b-sales.png",
-  },
-];
+interface ScrollableServicesProps {
+  services: Service[];
+}
 
-const HEADINGS_QUERY = `*[_type == "heading"]{
-  _id,
-  subtitle,
-  title,
-  description
-}`;
-
-const sectionHeader = {
-  tagline: "Services",
-  heading: "Driving Growth as an extension of your team",
-  subheading:
-    "We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership. Our integrated approach ensures measurable results and long-term success.",
-};
-
-export const ScrollableServices = async () => {
+export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -134,16 +90,13 @@ export const ScrollableServices = async () => {
     };
   }, []);
 
-  const headings = await sanityClient.fetch<Heading[]>(HEADINGS_QUERY, {});
-  const heading =   headings[1]
-
   return (
     <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container max-w-[1440px] mx-auto px-4">
         <SectionHeader
-          tagline={heading.subtitle}
-          heading={heading.title}
-          subheading={heading.description}
+          tagline="Services"
+          heading="Driving Growth as an extension of your team"
+          subheading="We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership."
           theme="light"
         />
 
@@ -212,8 +165,8 @@ export const ScrollableServices = async () => {
                     <div className="relative w-full h-full p-8">
                       <div className="relative z-10 w-full h-full p-4">
                         <img
-                          src={service.image}
-                          alt={`Feature ${index + 1}`}
+                          src={service.imageUrl}
+                          alt={service.title}
                           className="w-full h-full object-contain transform transition-all duration-1000"
                           style={{
                             filter:
@@ -262,15 +215,15 @@ export const ScrollableServices = async () => {
                 <div className="space-y-12">
                   <div className="flex items-center gap-6">
                     <span className="text-[100px] font-light text-gray-200 leading-none select-none">
-                      {service.number}
+                      {index + 1}
                     </span>
                   </div>
 
                   {/* Mobile Image */}
                   <div className="lg:hidden w-full mb-8">
                     <img
-                      src={service.image}
-                      alt={`Feature ${index + 1}`}
+                      src={service.imageUrl}
+                      alt={service.title}
                       className="w-full h-auto object-contain"
                     />
                   </div>
@@ -279,10 +232,6 @@ export const ScrollableServices = async () => {
                     <h3 className="text-4xl font-bold text-gray-900">
                       {service.title}
                     </h3>
-
-                    <h4 className="text-xl text-blue-600 font-medium max-w-md">
-                      {service.subheading}
-                    </h4>
 
                     <p className="text-gray-600 max-w-md leading-relaxed text-lg">
                       {service.description}

@@ -1,8 +1,8 @@
 import { defineField, defineType } from "sanity";
 
-export const service = defineType({
+const serviceType = defineType({
     name: 'service',
-    title: 'Service',
+    title: 'Service Scroller',
     type: 'document',
     fields: [
       defineField({
@@ -44,6 +44,13 @@ export const service = defineType({
         validation: Rule => Rule.required(),
       }),
     ],
-  });
-  
-  export default service;
+    preview: {
+      select: {
+        title: 'title',
+        subtitle: 'subheading',
+        media: 'image'
+      }
+    }
+});
+
+export default serviceType;
