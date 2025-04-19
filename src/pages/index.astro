@@ -19,6 +19,7 @@ const HEADING_QUERY = `*[_type == "heading"]{
   description
 }`;
 
+//featuregrid
 const features = await sanityClient.fetch(`*[_type == "features"]{
   tagline,
   title,
@@ -27,6 +28,7 @@ const features = await sanityClient.fetch(`*[_type == "features"]{
   icon
 }`)
 
+//scrollableServices
 const SERVICES_QUERY = `*[_type == "service"] | order(number asc) {
   _id,
   number,
@@ -36,10 +38,35 @@ const SERVICES_QUERY = `*[_type == "service"] | order(number asc) {
   "imageUrl": image.asset->url
 }`;
 
+//Product Section
+const productsQuery = `*[_type == "product"] {
+  title,
+  description,
+  "image": image.asset->url,
+  label,
+
+  buttonHref,
+  buttonLabel,
+  mainCTA,
+  features[] {
+    title,
+    description
+  }
+}`
+
+//FAQ section
+const FAQ_QUERY = `*[_type == "faq"] | order(_createdAt desc) {
+  title,
+  description
+}`
 
 const headings = await sanityClient.fetch(HEADING_QUERY);
 const services = await sanityClient.fetch(SERVICES_QUERY);
-console.log(services)
+const products = await sanityClient.fetch(productsQuery)
+const faqData = await sanityClient.fetch(FAQ_QUERY)
+
+console.log(products)
+
 
 ---
 
@@ -47,9 +74,9 @@ console.log(services)
   <HomeBanner client:load />
   <Clients client:load />
   <Offerings client:load />
-  <FeaturesGrid heading={headings[0]} features={features} client:load />
-  <ScrollableServices services={services} client:load />
-  <ProductSection client:load />
+  <FeaturesGrid heading={headings[1]} features={features} client:load />
+  <ScrollableServices heading={headings[2]} services={services} client:load />
+  <ProductSection products={products} client:load />
   <!-- <CaseStudies client:load /> -->
-  <FAQ client:load variant="home" />
+  <FAQ heading={headings[0]} faqData={faqData} client:load variant="home" />
 </Base>
