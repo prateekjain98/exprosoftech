@@ -1,5 +1,6 @@
 import { markdownify } from "@/lib/utils/textConverter";
 import React from "react";
+import { sanityClient } from "sanity:client";
 
 interface StatType {
   value: string;
@@ -7,50 +8,50 @@ interface StatType {
   label: string;
 }
 
-interface ImpactData {
-  title: string;
-  imageOverlayTitle: string;
-  imageOverlayDescription: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  stats: StatType[];
-}
+// interface ImpactData {
+//   title: string;
+//   imageOverlayTitle: string;
+//   imageOverlayDescription: string;
+//   image: {
+//     src: string;
+//     alt: string;
+//   };
+//   stats: StatType[];
+// }
 
-const impactData: ImpactData = {
-  title: "Delivering Transformative Results for Every Client's Success",
-  imageOverlayTitle: "2x profitability in 18 months",
-  imageOverlayDescription:
-    "Our seasoned and certified consultants are driven by their passion for transformation, prioritizing your success above all else.",
-  image: {
-    src: "/images/consulting/demand-driven-business-transformation/demand-driven-impact.png",
-    alt: "Business Impact Meeting",
-  },
-  stats: [
-    {
-      value: "35%",
-      label: "Growth",
-      description:
-        "Increased Sales and Enhanced Throughput for Business Success",
-    },
-    {
-      value: "30%",
-      label: "Reduction",
-      description:
-        "Achieving Significant Reductions in Inventory for Operational Efficiency",
-    },
-    {
-      value: "40%",
-      label: "Improvements",
-      description: "Remarkable Improvements in Lead Time for Faster Operations",
-    },
-  ],
-};
+// const impactData: ImpactData = {
+//   title: "Delivering Transformative Results for Every Client's Success",
+//   imageOverlayTitle: "2x profitability in 18 months",
+//   imageOverlayDescription:
+//     "Our seasoned and certified consultants are driven by their passion for transformation, prioritizing your success above all else.",
+//   image: {
+//     src: "/images/consulting/demand-driven-business-transformation/demand-driven-impact.png",
+//     alt: "Business Impact Meeting",
+//   },
+//   stats: [
+//     {
+//       value: "35%",
+//       label: "Growth",
+//       description:
+//         "Increased Sales and Enhanced Throughput for Business Success",
+//     },
+//     {
+//       value: "30%",
+//       label: "Reduction",
+//       description:
+//         "Achieving Significant Reductions in Inventory for Operational Efficiency",
+//     },
+//     {
+//       value: "40%",
+//       label: "Improvements",
+//       description: "Remarkable Improvements in Lead Time for Faster Operations",
+//     },
+//   ],
+// };
 
-const DemandDrivenImpact: React.FC = () => {
-  const { title, imageOverlayTitle, imageOverlayDescription, image, stats } =
-    impactData;
+const DemandDrivenImpact = async () => {
+  // const { title, imageOverlayTitle, imageOverlayDescription, image, stats } =
+  //   impactData;
 
   const highlightText = (text: string) => {
     return text.replace(
@@ -59,6 +60,24 @@ const DemandDrivenImpact: React.FC = () => {
     );
   };
 
+  const demandDrivenImpactQuery = `*[_type == "demandDrivenImpact"][0]{
+    title,
+    imageOverlayTitle,
+    imageOverlayDescription,
+    image{
+      "src": src.asset->url,
+      alt
+    },
+    stats[]{
+      value,
+      label,
+      description
+    }
+  }`
+
+  const demandDrivenImpact = await sanityClient.fetch(demandDrivenImpactQuery);
+  
+   
   return (
     <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-slate-50/30">
       <div className="max-w-[85rem] mx-auto px-3 sm:px-4 md:px-8">
@@ -66,8 +85,8 @@ const DemandDrivenImpact: React.FC = () => {
           <div className="relative order-2 lg:order-1" data-aos="fade-right">
             <div className="relative rounded-2xl overflow-hidden shadow-lg h-[320px] sm:h-[400px] lg:h-[480px] group">
               <img
-                src={image.src}
-                alt={image.alt}
+                src={demandDrivenImpact.image.src}
+                alt={demandDrivenImpact.image.alt}
                 width={580}
                 height={480}
                 className="w-full h-full object-cover"
@@ -78,10 +97,10 @@ const DemandDrivenImpact: React.FC = () => {
               <div className="absolute inset-x-3 sm:inset-x-6 bottom-4 sm:bottom-6">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/10">
                   <h3 className="text-white text-lg sm:text-2xl font-medium mb-2 sm:mb-3">
-                    {imageOverlayTitle}
+                    {demandDrivenImpact.imageOverlayTitle}
                   </h3>
                   <p className="text-white/90 text-sm sm:text-base">
-                    {imageOverlayDescription}
+                    {demandDrivenImpact.imageOverlayDescription}
                   </p>
                 </div>
               </div>
@@ -93,12 +112,12 @@ const DemandDrivenImpact: React.FC = () => {
               <h2
                 data-aos="fade-up-sm"
                 className="text-[28px] lg:text-[36px] font-medium leading-tight"
-                dangerouslySetInnerHTML={{ __html: highlightText(title) }}
+                dangerouslySetInnerHTML={{ __html: highlightText(demandDrivenImpact.title) }}
               />
             </div>
 
             <div className="space-y-6">
-              {stats.map((stat, index) => (
+              {demandDrivenImpact.stats.map((stat: StatType, index:number) => (
                 <div
                   key={index}
                   data-aos="fade-up-sm"

@@ -11,38 +11,94 @@ import FAQ from "../../components/FAQ";
 import Base from "@/layouts/Base.astro";
 import { getEntry } from "astro:content";
 import { Clients } from "../../components/Clients";
-// const consulting = await getEntry("consulting", "-index");
-// const bannerData = await getEntry("sections", "demand-driven-banner");
-// const { title, description, meta_title, image } = consulting?.data || {};
+const consulting = await getEntry("consulting", "-index");
+const bannerData = await getEntry("sections", "demand-driven-banner");
+const { title, description, meta_title, image } = consulting?.data || {};
 
 import { sanityClient } from "sanity:client"
 
-const HEADING_QUERY = `*[_type == "heading"]{
-  _id,
-  subtitle,
+const keyServicesQuery = `*[_type == "keyServices"] | order(title asc) {
+  id,
   title,
-  description
+  "icon": icon,
+  points[] {
+    text
+  },
+  metrics {
+    mainMetric {
+      value,
+      label,
+      trend
+    },
+    highlights[] {
+      icon,
+      value,
+      label
+    }
+  }
 }`;
 
+const keyServicesData = await sanityClient.fetch(keyServicesQuery);
 
+//businessGuidance
+const businessGuidanceQuery = `*[_type == "businessGuidance"][0]{
+  title,
+  subtitle,
+  description,
+  image {
+    asset->{
+      url,
+      metadata {
+        dimensions {
+          width,
+          height
+        }
+      }
+    },
+    alt
+  },
+  guidancePoints[] {
+    id,
+    title,
+    description
+  }
+}`
 
-const headings = await sanityClient.fetch(HEADING_QUERY);
+const businessGuidanceData = await sanityClient.fetch(businessGuidanceQuery);
+
+//empowerment
+const empowermentQuery = `*[_type == "empowerment"][0]{
+  title,
+  subtitle,
+  description,
+  points[] {
+    icon {
+      asset->{
+        url
+      }
+    },
+    title,
+    description
+  }
+}`
+
+const empowermentData =  await sanityClient.fetch(empowermentQuery);
+
 ---
 
-<!-- <Base
+<Base
   title={title}
   meta_title={meta_title}
   description={description}
   image={image}
-> -->
-<Base>
+>
   <DemandDrivenBanner client:load />
   <Clients client:load/>
   <DemandDrivenImpact client:load />
   <ChallengesWeAddress client:load />
   <!-- <BusinessImpact client:load /> -->
-  <KeyServices client:load />
-  <BusinessGuidance client:load />
+  <KeyServices keyServicesData={keyServicesData} client:load />
+  <BusinessGuidance businessGuidanceData={businessGuidanceData} empowermentData={empowermentData} client:load />
   <!-- <CaseStudies client:load /> -->
   <ConsultationCTA client:load />
   <FAQ client:load variant="demand-driven" />

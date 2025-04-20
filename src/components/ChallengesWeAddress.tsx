@@ -1,5 +1,6 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
+import { sanityClient } from "sanity:client";
 
 interface ChallengeType {
   title: string;
@@ -57,7 +58,17 @@ const challengesData: ChallengesData = {
   ],
 };
 
-const ChallengesWeAddress: React.FC = () => {
+
+
+const ChallengesWeAddress = async () => {
+  const challengesQuery = `*[_type == "challengesWeAddress"] | order(title desc) {
+    title,
+    description,
+    "iconUrl": icon.asset->url
+  }`;
+
+  const challengesData = await sanityClient.fetch(challengesQuery);
+
   return (
     <section className="py-16 lg:py-24">
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 md:px-8">
@@ -72,12 +83,12 @@ const ChallengesWeAddress: React.FC = () => {
             <SectionHeader
               tagline="Key Issues"
               heading={`Challenges We <span class="text-[#0066FF]">Address</span>`}
-              subheading={challengesData.subtitle}
+              subheading="We address the critical challenges organizations face across industries, enabling them to achieve operational excellence and financial success"
               className="mb-10 lg:mb-16"
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
-              {challengesData.challenges.map((challenge, index) => (
+              {challengesData.map((challenge :any, index:number) => (
                 <div
                   key={index}
                   data-aos="fade-up"
@@ -88,7 +99,7 @@ const ChallengesWeAddress: React.FC = () => {
                     <div className="flex-shrink-0 pt-1 sm:pt-0">
                       <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-[#E6F0FF] rounded-xl sm:rounded-2xl group-hover:bg-[#CCE3FF] transition-colors duration-300">
                         <img
-                          src={challenge.icon}
+                          src={challenge.iconUrl}
                           alt={challenge.title}
                           width={48}
                           height={48}

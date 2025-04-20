@@ -166,6 +166,7 @@ const FAQ = async ({ variant = "home" }) => {
     description
   }`;
   const heading = await sanityClient.fetch(HEADING_QUERY);  
+  const FAQheading = heading[0]
 
   const FAQ_QUERY = `*[_type == "faq"] | order(_createdAt desc) {
     title,
@@ -173,7 +174,7 @@ const FAQ = async ({ variant = "home" }) => {
   }`
   const faqData = await sanityClient.fetch(FAQ_QUERY)
 
-  const DEMAND_DRIVEN_QUERY = `*[_type == "demandDrivenFaq"] | order(_createdAt desc) {
+  const DEMAND_DRIVEN_QUERY = `*[_type == "demandDrivenFaq"] | order(_createdAt asc) {
     title,
     description
   }`
