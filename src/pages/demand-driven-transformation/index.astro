@@ -14,6 +14,29 @@ import { Clients } from "../../components/Clients";
 const consulting = await getEntry("consulting", "-index");
 const bannerData = await getEntry("sections", "demand-driven-banner");
 const { title, description, meta_title, image } = consulting?.data || {};
+
+import { sanityClient } from "sanity:client"
+
+const HEADING_QUERY = `*[_type == "heading"]{
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
+const FAQ_QUERY = `*[_type == "faq"] | order(_createdAt desc) {
+  title,
+  description
+}`
+
+const DEMAND_DRIVEN_FAQ_QUERY = `*[_type == "demandDrivenFaq"]{
+  title,
+  description
+}`;
+
+const headings = await sanityClient.fetch(HEADING_QUERY);
+const faqData = await sanityClient.fetch(FAQ_QUERY)
+const demandDrivenFaqs = await sanityClient.fetch(DEMAND_DRIVEN_FAQ_QUERY);
 ---
 
 <Base
@@ -31,5 +54,5 @@ const { title, description, meta_title, image } = consulting?.data || {};
   <BusinessGuidance client:load />
   <!-- <CaseStudies client:load /> -->
   <ConsultationCTA client:load />
-  <FAQ client:load variant="demand-driven" />
+  <FAQ heading={headings[0]} faqData={faqData} demandDrivenFaqData={demandDrivenFaqs} client:load variant="demand-driven" />
 </Base>

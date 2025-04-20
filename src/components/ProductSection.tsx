@@ -4,6 +4,13 @@ import SectionHeader from "./SectionHeader";
 import Button from "./common/Button";
 import { FaArrowRight } from "react-icons/fa";
 
+interface Heading{
+  _id: string,
+  title: string , 
+  subtitle?: string , 
+  description: string
+}
+
 interface FeaturePoint {
   title: string;
   description: string;
@@ -22,9 +29,12 @@ interface Product {
 
 interface ProductSectionProps {
   hideHeadingBar?: boolean;
+  heading?: Heading;
+  products: Product[];
 }
 
-const products: Product[] = [
+// const products: Product[] = [
+
   // {
   //   title: "Intuiflow",
   //   description:
@@ -55,71 +65,73 @@ const products: Product[] = [
   //     },
   //   ],
   // },
-  {
-    title: "Sales Force Automation",
-    description:
-      "Transform your sales operations with our cutting-edge automation platform designed specifically for field sales teams. Streamline customer interactions, optimize territory management, and drive revenue growth with real-time insights and powerful analytics that give your team the competitive edge in today's dynamic marketplace.",
-    image: "/images/products/sfa.png",
-    label: "Sales Force Automation",
-    buttonHref: "/sfa/",
-    buttonLabel: "Learn More",
-    mainCTA: false,
-    features: [
-      {
-        title: "Real-Time Order Management",
-        description:
-          "Enable instant order placement during customer visits with mobile devices, reducing processing time and errors.",
-      },
-      {
-        title: "Geo-Tracking & Attendance",
-        description:
-          "Monitor field activities with GPS-enabled tracking, allowing real-time attendance management and territory coverage optimization.",
-      },
-      {
-        title: "Route Optimization",
-        description:
-          "Plan efficient daily routes based on customer locations and traffic patterns, maximizing valuable client visits.",
-      },
-      {
-        title: "Digital Product Catalog",
-        description:
-          "Access comprehensive product information with images and pricing details instantly for effective demonstrations.",
-      },
-    ],
-  },
-  {
-    title: "Loyalty Engine",
-    description:
-      "Elevate customer retention and maximize lifetime value with our comprehensive loyalty management ecosystem. Our platform enables businesses to create personalized, data-driven reward programs that foster emotional connections with your brand, increase purchase frequency, and transform satisfied customers into passionate brand advocates through meaningful engagement strategies.",
-    image: "/images/products/loyalty.png",
-    label: "Loyalty Engine",
-    buttonHref: "/loyalty-engine/",
-    buttonLabel: "Learn More",
-    mainCTA: false,
-    features: [
-      {
-        title: "Customizable Rewards",
-        description:
-          "Design flexible reward programs with various incentive options including discounts, gifts, and cashback.",
-      },
-      {
-        title: "Multi-Channel Integration",
-        description:
-          "Seamlessly integrate loyalty programs across all customer touchpoints for a unified experience.",
-      },
-      {
-        title: "Advanced Analytics",
-        description:
-          "Gain deep insights into customer behavior and program performance through comprehensive analytics.",
-      },
-      {
-        title: "Automated Communications",
-        description:
-          "Keep participants engaged with timely automated notifications for rewards, points, and promotions.",
-      },
-    ],
-  },
-];
+
+
+//   {
+//     title: "Sales Force Automation",
+//     description:
+//       "Transform your sales operations with our cutting-edge automation platform designed specifically for field sales teams. Streamline customer interactions, optimize territory management, and drive revenue growth with real-time insights and powerful analytics that give your team the competitive edge in today's dynamic marketplace.",
+//     image: "/images/products/sfa.png",
+//     label: "Sales Force Automation",
+//     buttonHref: "/sfa/",
+//     buttonLabel: "Learn More",
+//     mainCTA: false,
+//     features: [
+//       {
+//         title: "Real-Time Order Management",
+//         description:
+//           "Enable instant order placement during customer visits with mobile devices, reducing processing time and errors.",
+//       },
+//       {
+//         title: "Geo-Tracking & Attendance",
+//         description:
+//           "Monitor field activities with GPS-enabled tracking, allowing real-time attendance management and territory coverage optimization.",
+//       },
+//       {
+//         title: "Route Optimization",
+//         description:
+//           "Plan efficient daily routes based on customer locations and traffic patterns, maximizing valuable client visits.",
+//       },
+//       {
+//         title: "Digital Product Catalog",
+//         description:
+//           "Access comprehensive product information with images and pricing details instantly for effective demonstrations.",
+//       },
+//     ],
+//   },
+//   {
+//     title: "Loyalty Engine",
+//     description:
+//       "Elevate customer retention and maximize lifetime value with our comprehensive loyalty management ecosystem. Our platform enables businesses to create personalized, data-driven reward programs that foster emotional connections with your brand, increase purchase frequency, and transform satisfied customers into passionate brand advocates through meaningful engagement strategies.",
+//     image: "/images/products/loyalty.png",
+//     label: "Loyalty Engine",
+//     buttonHref: "/loyalty-engine/",
+//     buttonLabel: "Learn More",
+//     mainCTA: false,
+//     features: [
+//       {
+//         title: "Customizable Rewards",
+//         description:
+//           "Design flexible reward programs with various incentive options including discounts, gifts, and cashback.",
+//       },
+//       {
+//         title: "Multi-Channel Integration",
+//         description:
+//           "Seamlessly integrate loyalty programs across all customer touchpoints for a unified experience.",
+//       },
+//       {
+//         title: "Advanced Analytics",
+//         description:
+//           "Gain deep insights into customer behavior and program performance through comprehensive analytics.",
+//       },
+//       {
+//         title: "Automated Communications",
+//         description:
+//           "Keep participants engaged with timely automated notifications for rewards, points, and promotions.",
+//       },
+//     ],
+//   },
+// ];
 
 const containerVariants = {
   initial: { opacity: 0 },
@@ -134,6 +146,7 @@ const contentVariants = {
 
 export const ProductSection: React.FC<ProductSectionProps> = ({
   hideHeadingBar = false,
+  products
 }) => {
   const [activeProduct, setActiveProduct] = useState<number>(0);
 

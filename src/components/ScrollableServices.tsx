@@ -10,11 +10,19 @@ interface Service {
   features: string[];
 }
 
-interface ScrollableServicesProps {
-  services: Service[];
+interface Heading {
+  _id: string;
+  subtitle?: string;
+  title: string;
+  description: string;
 }
 
-export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services }) => {
+interface ScrollableServicesProps {
+  services: Service[];
+  heading: Heading;
+}
+
+export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services, heading }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -94,9 +102,9 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services
     <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container max-w-[1440px] mx-auto px-4">
         <SectionHeader
-          tagline="Services"
-          heading="Driving Growth as an extension of your team"
-          subheading="We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership."
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
           theme="light"
         />
 
