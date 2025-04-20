@@ -250,6 +250,15 @@ declare module 'astro:content' {
   data: any
 } & { render(): Render[".md"] };
 };
+"consulting": {
+"-index.md": {
+	id: "-index.md";
+  slug: "-index";
+  body: string;
+  collection: "consulting";
+  data: any
+} & { render(): Render[".md"] };
+};
 "contact": {
 "-index.md": {
 	id: "-index.md";
@@ -480,11 +489,6 @@ declare module 'astro:content' {
 	};
 
 	type DataEntryMap = {
-		"consulting": Record<string, {
-			id: string;
-			collection: "consulting";
-			data: any;
-		  }>;
 		
 	};
 

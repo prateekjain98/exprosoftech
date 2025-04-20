@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
 import SectionHeader from "./SectionHeader";
 import { motion, AnimatePresence } from "framer-motion";
+import { sanityClient } from "sanity:client"
 
 interface FaqItem {
   title: string;
@@ -154,15 +155,35 @@ interface FAQProps {
   demandDrivenFaqData?: faqData[]; 
 }
 
-const FAQ: React.FC<FAQProps> = ({ variant = "home" , heading , faqData , demandDrivenFaqData = []}) => {
+const FAQ = async ({ variant = "home" }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [showAllFaqs, setShowAllFaqs] = useState<boolean>(false);
+
+  const HEADING_QUERY = `*[_type == "heading"]{
+    _id,
+    subtitle,
+    title,
+    description
+  }`;
+  const heading = await sanityClient.fetch(HEADING_QUERY);  
+
+  const FAQ_QUERY = `*[_type == "faq"] | order(_createdAt desc) {
+    title,
+    description
+  }`
+  const faqData = await sanityClient.fetch(FAQ_QUERY)
+
+  const DEMAND_DRIVEN_QUERY = `*[_type == "demandDrivenFaq"] | order(_createdAt desc) {
+    title,
+    description
+  }`
+  const demandDrivenFaqData = await sanityClient.fetch(DEMAND_DRIVEN_QUERY)
 
   const homeFaqData: FaqData = {
     title: heading.title,
     subtitle: heading.subtitle,
     description: heading.description,
-    list: faqData.map(item => ({
+    list: faqData.map((item: faqData)=> ({
       title: item.title,
       description: item.description,
       active: false
@@ -173,7 +194,7 @@ const FAQ: React.FC<FAQProps> = ({ variant = "home" , heading , faqData , demand
     title: heading.title,
     subtitle: heading.subtitle,
     description: heading.description,
-    list: demandDrivenFaqData.map(item => ({
+    list: demandDrivenFaqData.map((item: faqData) => ({
       title: item.title,
       description: item.description,
       active: false
