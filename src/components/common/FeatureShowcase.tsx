@@ -7,25 +7,26 @@ interface Feature {
 }
 
 interface FeatureShowcaseProps {
-  title: string;
-  description: string;
-  features: Feature[];
-  image: {
-    src: string;
-    alt: string;
+  showcaseContent: {
+    title: string;
+    description: string;
+    features: Feature[];
+    image: {
+      src: string;
+      alt: string;
+    };
   };
   className?: string;
   variant?: "sfa" | "loyalty";
 }
 
 export const FeatureShowcase: React.FC<FeatureShowcaseProps> = ({
-  title,
-  description,
-  features,
-  image,
+  showcaseContent,
   className,
   variant = "sfa",
 }) => {
+
+  const { title, description, features, image } = showcaseContent;
   const stats = {
     sfa: {
       first: { value: "40%", label: "Field Force Efficiency" },

@@ -7,6 +7,7 @@ import {
   Shield,
   Gear,
 } from "@phosphor-icons/react";
+import { sanityClient } from "sanity:client";
 
 interface Feature {
   title: string;
@@ -14,52 +15,67 @@ interface Feature {
   icon: React.ForwardRefExoticComponent<any>;
 }
 
-const features: Feature[] = [
-  {
-    title: "Quick Implementation",
-    description:
-      "Get up and running quickly with our streamlined implementation process and expert support team.",
-    icon: Rocket,
-  },
-  {
-    title: "Performance Tracking",
-    description:
-      "Monitor and analyze key performance metrics to optimize your operations and drive better results.",
-    icon: ChartLine,
-  },
-  {
-    title: "Team Collaboration",
-    description:
-      "Enable seamless communication and collaboration between field teams and office staff.",
-    icon: Users,
-  },
-  {
-    title: "Global Accessibility",
-    description:
-      "Access your data and tools from anywhere in the world with our cloud-based solution.",
-    icon: Globe,
-  },
-  {
-    title: "Enterprise Security",
-    description:
-      "Rest easy knowing your data is protected by industry-leading security measures and encryption.",
-    icon: Shield,
-  },
-  {
-    title: "Custom Configuration",
-    description:
-      "Tailor the platform to your specific needs with customizable workflows and settings.",
-    icon: Gear,
-  },
-];
+// const features: Feature[] = [
+//   {
+//     title: "Quick Implementation",
+//     description:
+//       "Get up and running quickly with our streamlined implementation process and expert support team.",
+//     icon: Rocket,
+//   },
+//   {
+//     title: "Performance Tracking",
+//     description:
+//       "Monitor and analyze key performance metrics to optimize your operations and drive better results.",
+//     icon: ChartLine,
+//   },
+//   {
+//     title: "Team Collaboration",
+//     description:
+//       "Enable seamless communication and collaboration between field teams and office staff.",
+//     icon: Users,
+//   },
+//   {
+//     title: "Global Accessibility",
+//     description:
+//       "Access your data and tools from anywhere in the world with our cloud-based solution.",
+//     icon: Globe,
+//   },
+//   {
+//     title: "Enterprise Security",
+//     description:
+//       "Rest easy knowing your data is protected by industry-leading security measures and encryption.",
+//     icon: Shield,
+//   },
+//   {
+//     title: "Custom Configuration",
+//     description:
+//       "Tailor the platform to your specific needs with customizable workflows and settings.",
+//     icon: Gear,
+//   },
+// ];
 
 interface AdditionalFeaturesProps {
   className?: string;
 }
 
-export const AdditionalFeatures: React.FC<AdditionalFeaturesProps> = ({
-  className,
-}) => {
+interface Feature {
+  title: string;
+  description: string;
+  icon: React.ForwardRefExoticComponent<any>;
+}
+
+const productAdditionalFeaturesQuery = `
+  *[_type == "ProductAdditionalFeatures"] {
+    features[] {
+      title,
+      description,
+      icon
+    }
+  }`
+
+export const AdditionalFeatures = async ({ className }: AdditionalFeaturesProps) => {
+  const featuresArray = await sanityClient.fetch(productAdditionalFeaturesQuery)
+  const features = featuresArray[0].features
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50/30 to-white relative overflow-hidden">
       {/* Background Elements */}
@@ -92,7 +108,7 @@ export const AdditionalFeatures: React.FC<AdditionalFeaturesProps> = ({
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, index) => (
+          {features.map((feature : Feature, index : number) => (
             <div
               key={index}
               data-aos="fade-up-sm"

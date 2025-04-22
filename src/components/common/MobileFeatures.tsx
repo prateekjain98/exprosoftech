@@ -30,26 +30,35 @@ interface Feature {
 }
 
 interface MobileFeaturesProps {
-  title: string;
-  description: string;
-  features: Feature[];
-  image: {
-    src: string;
-    alt: string;
+  mobileFeatures: {
+    title: string;
+    description: string;
+    features: {
+      title: string;
+      description: string;
+      icon: string;
+    }[];
+    image: {
+      src: string;
+      alt: string;
+    };
   };
   className?: string;
 }
 
 export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
-  title,
-  description,
-  features,
-  image,
-  className,
+  mobileFeatures,
+  className = "",
 }) => {
+  if (!mobileFeatures) {
+    return null; // or return a loading state/error message
+  }
+
+  const { title, description, features, image } = mobileFeatures;
+  
   return (
     <section
-      className={`w-full h-auto py-16 px-4 lg:px-32 bg-white ${className || ""}`}
+      className={`w-full h-auto py-16 px-4 lg:px-32 bg-white ${className}`}
     >
       <div className="w-full h-fit bg-[#E9F2FF] rounded-[2rem] px-6 py-12 relative md:px-24 md:py-16 overflow-hidden">
         {/* SVG Background */}

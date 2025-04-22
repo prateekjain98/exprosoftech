@@ -15,8 +15,13 @@ import {loyaltyManagementServiceCards} from './LoyaltyManagementServiceCards'
 import { LoayltyManagementkeyIssuesType } from './LoyaltyManagementKeyIssues'
 import { loyaltyManagementProcessSteps } from './LoyaltyManagementProcess'
 import { loyaltyIndustries } from './LoyaltyManagementIndustries'
+import { productFeaturesType } from './ProductFeatures'
+import { mobileFeaturesTypes } from './MobileProductContent'
+import { showcaseContentTypes } from './ShowacaseContent'
+import { productAdditionalFeatures } from './ProductAddiotionalFeatures'
+
 
 export const schemaTypes = [headingType , cardType , featuresType , serviceType , productType ,faqType , demandDrivenFAQType , demandDrivenImpact ,
     challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType , loyaltyManagementServiceCards , LoayltyManagementkeyIssuesType , 
-    loyaltyManagementProcessSteps , loyaltyIndustries
+    loyaltyManagementProcessSteps , loyaltyIndustries , productFeaturesType , mobileFeaturesTypes , showcaseContentTypes , productAdditionalFeatures
 ]

@@ -9,15 +9,51 @@ import {
   FaShoppingBag,
   FaCarAlt,
   FaGamepad,
+  FaNetworkWired,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaLaptopCode,
+  FaIndustry,
+  FaUserTie,
+  FaMoneyBillWave,
+  FaHospital,
+  FaShoppingCart,
   FaGraduationCap,
+  FaServer,
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 
-// Interface for industry data from Sanity
+// Improve icon mapping with better typing
+const iconMap: { [key: string]: IconType } = {
+  FaStore,
+  FaHotel,
+  FaPlane,
+  FaUtensils,
+  FaShoppingBag,
+  FaCarAlt,
+  FaGamepad,
+  FaGraduationCap,
+  FaShoppingCart,
+  FaIndustry,
+  FaNetworkWired,
+  FaMoneyBillWave,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaUserTie,
+  FaLaptopCode,
+  FaHospital,
+  FaServer,
+};
+
+// Update the Industry interface to be more specific about icon type
 interface Industry {
   title: string;
   description: string;
-  icon: string;
+  icon: keyof typeof iconMap; // This ensures icon must be a key from iconMap
 }
 
 // Content structure for the section
@@ -34,46 +70,21 @@ interface Props {
   industries: Industry[]; // Separate industries array from content
 }
 
-// Icon mapping
-const iconMap: Record<string, IconType> = {
-  FaStore,
-  FaHotel,
-  FaPlane,
-  FaUtensils,
-  FaShoppingBag,
-  FaCarAlt,
-  FaGamepad,
-  FaGraduationCap,
-};
-
 export const ServicesIndustries: React.FC<Props> = ({
   className,
   content,
-  industries, // Add industries prop
+  industries,
 }): JSX.Element => {
-  // Function to safely render icons
-  const renderIcon = (icon: any) => {
-    if (!icon) {
-      return <FaStore size={28} />;
+  // Updated renderIcon function with better type safety
+  const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
+    const IconComponent = iconMap[iconName];
+
+    if (!IconComponent) {
+      console.warn(`Icon "${iconName}" not found in iconMap`);
+      return React.createElement(iconMap.FaStore, { size: 28 });
     }
 
-    // If icon is a function (React component)
-    if (typeof icon === "function") {
-      const IconComponent = icon;
-      return <IconComponent size={28} />;
-    }
-
-    // If icon is a string (icon name)
-    if (typeof icon === "string") {
-      // Check if the icon exists in our map
-      if (iconMap[icon]) {
-        const IconComponent = iconMap[icon];
-        return <IconComponent size={28} />;
-      }
-    }
-
-    // Default fallback
-    return <FaStore size={28} />;
+    return React.createElement(IconComponent, { size: 28 });
   };
 
   return (

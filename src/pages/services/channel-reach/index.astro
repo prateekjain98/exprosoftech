@@ -324,10 +324,10 @@ const INDUSTRIES_QUERY = await sanityClient.fetch(`*[_type == "loyaltyIndustries
 }`)
 
 const features = FEATURES_QUERY.slice(0, 4).reverse()
-const services = LOYALTY_SERVICES_QUERY.slice(3, 7)
-const benefits = KEY_ISSUES_QUERY.slice(6, 13)
-const process = PROCESS_STEPS_QUERY.slice(5, 11)
-const industries = INDUSTRIES_QUERY.slice(8, 17)
+const services = LOYALTY_SERVICES_QUERY.slice(3, 6)
+const benefits = KEY_ISSUES_QUERY.slice(6, 12)
+const process = PROCESS_STEPS_QUERY.slice(5, 10)
+const industries = INDUSTRIES_QUERY.slice(8, 16)
 ---
 
 <Base

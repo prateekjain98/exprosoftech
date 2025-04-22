@@ -8,6 +8,7 @@ import { FeatureShowcase } from "../../components/common/FeatureShowcase";
 import { MobileFeatures } from "../../components/common/MobileFeatures";
 import { ProductHeader } from "../../components/common/ProductHeader";
 import LECTA from "../../components/loyalty/LECTA";
+import { sanityClient } from "sanity:client";
 
 const headerContent = {
   badge: "Enterprise Loyalty Solution",
@@ -35,88 +36,88 @@ const featuresContent = {
   title: "Powerful Features for Loyalty Program Success",
   description:
     "Fieldkonnect Loyalty Engine empowers brands with a wide range of customizable schemes, each designed to maximize engagement and impact",
-  features: [
-    {
-      title: "QR Code-Based Rewards",
-      description:
-        "Enable participants to earn points and rewards simply by scanning QR codes placed on product packaging, in-store displays, or promotional materials. QR codes streamline participation and reward collection.",
-      icon: "QrCode",
-      stats: {
-        value: "40%",
-        label: "Higher Engagement",
-      },
-    },
-    {
-      title: "Invoice-Based Programs",
-      description:
-        "Reward participants based on invoice submissions. Each transaction can generate points, offering loyalty benefits that correlate directly with spending. Ideal for B2B relationships.",
-      icon: "Receipt",
-      stats: {
-        value: "50%",
-        label: "Increased Sales",
-      },
-    },
-    {
-      title: "Quantity-Based Rewards",
-      description:
-        "Recognize and reward participants based on the quantity of products purchased. Higher quantities yield greater rewards, motivating partners to buy more in a single transaction.",
-      icon: "Package",
-      stats: {
-        value: "35%",
-        label: "Higher Volume",
-      },
-    },
-    {
-      title: "Value-Based Programs",
-      description:
-        "Drive loyalty based on the total value of purchases, rewarding customers for higher spending. Participants earn points proportional to their transaction value.",
-      icon: "CurrencyDollar",
-      stats: {
-        value: "45%",
-        label: "Revenue Growth",
-      },
-    },
-    {
-      title: "Packaging Collection",
-      description:
-        "Reward customers for returning empty product packaging, enabling environmentally-conscious loyalty initiatives. Encourage recycling and promote sustainability.",
-      icon: "Recycle",
-      stats: {
-        value: "60%",
-        label: "Return Rate",
-      },
-    },
-    {
-      title: "Real-Time Analytics",
-      description:
-        "Track and analyze key program metrics in real time, including engagement rates, reward redemptions, and participant activity through our comprehensive dashboard.",
-      icon: "ChartBar",
-      stats: {
-        value: "90%",
-        label: "Data Accuracy",
-      },
-    },
-    {
-      title: "KYC Verification",
-      description:
-        "Ensure accurate participant data with KYC verification, enhancing security and preventing fraud. Build trust and create a reliable user base.",
-      icon: "Shield",
-      stats: {
-        value: "99%",
-        label: "Verified Users",
-      },
-    },
-    {
-      title: "Digital Wallet",
-      description:
-        "Participants can manage points, view rewards, and redeem benefits through a digital wallet within the Fieldkonnect mobile app.",
-      icon: "Wallet",
-      stats: {
-        value: "75%",
-        label: "Digital Adoption",
-      },
-    },
-  ],
+  // features: [
+  //   {
+  //     title: "QR Code-Based Rewards",
+  //     description:
+  //       "Enable participants to earn points and rewards simply by scanning QR codes placed on product packaging, in-store displays, or promotional materials. QR codes streamline participation and reward collection.",
+  //     icon: "QrCode",
+  //     stats: {
+  //       value: "40%",
+  //       label: "Higher Engagement",
+  //     },
+  //   },
+  //   {
+  //     title: "Invoice-Based Programs",
+  //     description:
+  //       "Reward participants based on invoice submissions. Each transaction can generate points, offering loyalty benefits that correlate directly with spending. Ideal for B2B relationships.",
+  //     icon: "Receipt",
+  //     stats: {
+  //       value: "50%",
+  //       label: "Increased Sales",
+  //     },
+  //   },
+  //   {
+  //     title: "Quantity-Based Rewards",
+  //     description:
+  //       "Recognize and reward participants based on the quantity of products purchased. Higher quantities yield greater rewards, motivating partners to buy more in a single transaction.",
+  //     icon: "Package",
+  //     stats: {
+  //       value: "35%",
+  //       label: "Higher Volume",
+  //     },
+  //   },
+  //   {
+  //     title: "Value-Based Programs",
+  //     description:
+  //       "Drive loyalty based on the total value of purchases, rewarding customers for higher spending. Participants earn points proportional to their transaction value.",
+  //     icon: "CurrencyDollar",
+  //     stats: {
+  //       value: "45%",
+  //       label: "Revenue Growth",
+  //     },
+  //   },
+  //   {
+  //     title: "Packaging Collection",
+  //     description:
+  //       "Reward customers for returning empty product packaging, enabling environmentally-conscious loyalty initiatives. Encourage recycling and promote sustainability.",
+  //     icon: "Recycle",
+  //     stats: {
+  //       value: "60%",
+  //       label: "Return Rate",
+  //     },
+  //   },
+  //   {
+  //     title: "Real-Time Analytics",
+  //     description:
+  //       "Track and analyze key program metrics in real time, including engagement rates, reward redemptions, and participant activity through our comprehensive dashboard.",
+  //     icon: "ChartBar",
+  //     stats: {
+  //       value: "90%",
+  //       label: "Data Accuracy",
+  //     },
+  //   },
+  //   {
+  //     title: "KYC Verification",
+  //     description:
+  //       "Ensure accurate participant data with KYC verification, enhancing security and preventing fraud. Build trust and create a reliable user base.",
+  //     icon: "Shield",
+  //     stats: {
+  //       value: "99%",
+  //       label: "Verified Users",
+  //     },
+  //   },
+  //   {
+  //     title: "Digital Wallet",
+  //     description:
+  //       "Participants can manage points, view rewards, and redeem benefits through a digital wallet within the Fieldkonnect mobile app.",
+  //     icon: "Wallet",
+  //     stats: {
+  //       value: "75%",
+  //       label: "Digital Adoption",
+  //     },
+  //   },
+  // ],
 };
 
 const mobileContent = {
@@ -155,7 +156,7 @@ const mobileContent = {
   },
 };
 
-const showcaseContent = {
+const showcaseContents = {
   title: "Transform Your Loyalty Programs",
   description:
     "Experience the power of customizable loyalty solutions with features designed to boost engagement and drive results",
@@ -219,14 +220,62 @@ const ctaContent = {
     isCalendly: true,
   },
 };
+
+
+const SFA_FEATURES_QUERY = await sanityClient.fetch(`
+  *[_type == "productFeatures"] | order(_updatedAt asc) {
+    title,
+    description,
+    icon,
+    stats {
+      value,
+      label
+    }
+  }
+`)
+
+const MOBILE_FEATURES_QUERY = await sanityClient.fetch(`
+  *[_type == "mobileFeatures"] {
+    title,
+    description,
+    features[] {
+      title,
+      description,
+      icon
+    },
+    image {
+      src,
+      alt
+    }
+  }
+`)
+
+const SHOWCASE_QUERY = await sanityClient.fetch(`
+  *[_type == "showcaseContent"][0] {
+    title,
+    description,
+    features[] {
+      title,
+      description
+    },
+    image {
+      src,
+      alt
+    }
+  }
+`)
+
+const features = SFA_FEATURES_QUERY.slice(8 , 16)
+const mobileFeatures = MOBILE_FEATURES_QUERY[0]
+const showcaseContent = SHOWCASE_QUERY
 ---
 
 <Base>
   <ProductHeader {...headerContent} client:load />
   <Clients client:load />
-  <FeaturesGrid {...featuresContent} client:load />
-  <MobileFeatures {...mobileContent} client:load />
-  <FeatureShowcase {...showcaseContent} variant="loyalty" client:load />
+  <FeaturesGrid {...featuresContent} client:load  features={features}/>
+  <MobileFeatures client:load mobileFeatures={mobileFeatures} />
+  <FeatureShowcase  variant="loyalty"  showcaseContent={showcaseContent} client:load />
   <AdditionalFeatures client:load />
   <FAQSection {...faqContent} client:load />
   <LECTA client:load />
