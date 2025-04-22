@@ -9,6 +9,7 @@ import { MobileFeatures } from "../../components/common/MobileFeatures";
 import { ProductHeader } from "../../components/common/ProductHeader";
 import SFACTA from "../../components/sfa/SFACTA";
 import { sanityClient } from "sanity:client";
+import FAQ from "../../components/FAQ";
 
 const headerContent = {
   badge: "Enterprise SFA Solution",
@@ -278,6 +279,6 @@ const showcaseContent = SHOWCASE_QUERY
   <MobileFeatures client:load mobileFeatures={mobileFeatures} />
   <FeatureShowcase variant="sfa" showcaseContent={showcaseContent} client:load />
   <AdditionalFeatures client:load />
-  <FAQSection {...faqContent} client:load />
+  <FAQ client:load variant="home" />
   <SFACTA client:load />
 </Base>

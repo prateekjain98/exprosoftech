@@ -6,13 +6,14 @@ import {
   Globe,
   Shield,
   Gear,
+  DeviceMobile,
 } from "@phosphor-icons/react";
 import { sanityClient } from "sanity:client";
 
 interface Feature {
   title: string;
   description: string;
-  icon: React.ForwardRefExoticComponent<any>;
+  icon: string;
 }
 
 // const features: Feature[] = [
@@ -58,14 +59,21 @@ interface AdditionalFeaturesProps {
   className?: string;
 }
 
-interface Feature {
-  title: string;
-  description: string;
-  icon: React.ForwardRefExoticComponent<any>;
+interface IconMap {
+  [key: string]: React.ForwardRefExoticComponent<any>;
 }
 
+const iconMap: IconMap = {
+  'Rocket': Rocket,
+  'ChartLine': ChartLine,
+  'Users': Users,
+  'Globe': Globe,
+  'Shield': Shield,
+  'Gear': Gear
+};
+
 const productAdditionalFeaturesQuery = `
-  *[_type == "ProductAdditionalFeatures"] {
+  *[_type == "productAdditionalFeatures"] {
     features[] {
       title,
       description,
@@ -75,7 +83,10 @@ const productAdditionalFeaturesQuery = `
 
 export const AdditionalFeatures = async ({ className }: AdditionalFeaturesProps) => {
   const featuresArray = await sanityClient.fetch(productAdditionalFeaturesQuery)
-  const features = featuresArray[0].features
+  if (!featuresArray?.[0]?.features) return null;
+  
+  const features = featuresArray[0].features;
+
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50/30 to-white relative overflow-hidden">
       {/* Background Elements */}
@@ -108,26 +119,29 @@ export const AdditionalFeatures = async ({ className }: AdditionalFeaturesProps)
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature : Feature, index : number) => (
-            <div
-              key={index}
-              data-aos="fade-up-sm"
-              data-aos-delay={index * 100}
-              className="group bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl border border-gray-100/50 hover:border-primary/20"
-            >
-              <div className="mb-6">
-                <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                  <feature.icon size={32} weight="duotone" />
+          {features.map((feature: Feature, index: number) => {
+            const Icon = feature.icon ? iconMap[feature.icon] : DeviceMobile;
+            return (
+              <div
+                key={index}
+                data-aos="fade-up-sm"
+                data-aos-delay={index * 100}
+                className="group bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl border border-gray-100/50 hover:border-primary/20"
+              >
+                <div className="mb-6">
+                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                    <Icon size={32} weight="duotone" />
+                  </div>
                 </div>
+                <h3 className="mb-4 text-xl font-semibold text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="mb-4 text-xl font-semibold text-gray-900">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
