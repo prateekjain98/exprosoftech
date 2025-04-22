@@ -1,22 +1,35 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
 import Button from "./common/Button";
+import { sanityClient } from "sanity:client";
 
 // Data embedded directly in the component
-const aboutBannerData = {
-  subtitle: "About Us",
-  title: "Who We Are",
-  description:
-    "Empowering Business Transformation Through Strategy, Execution, and Technology",
-  content: [
-    "Greymetre is a business transformation partner specializing in sales acceleration, supply chain excellence, operational optimization, and digital transformation. We integrate strategic consulting, turnkey execution, and technology-driven solutions to help organizations enhance efficiency, improve market reach, and drive sustainable growth.",
-  ],
-  featuredImage: "/images/about-us/banner.png",
-};
+// const aboutBannerData = {
+//   subtitle: "About Us",
+//   title: "Who We Are",
+//   description:
+//     "Empowering Business Transformation Through Strategy, Execution, and Technology",
+//   content: [
+//     "Greymetre is a business transformation partner specializing in sales acceleration, supply chain excellence, operational optimization, and digital transformation. We integrate strategic consulting, turnkey execution, and technology-driven solutions to help organizations enhance efficiency, improve market reach, and drive sustainable growth.",
+//   ],
+//   featuredImage: "/images/about-us/banner.png",
+// };
 
-const AboutBanner: React.FC = () => {
-  const { title, subtitle, description, content, featuredImage } =
-    aboutBannerData;
+const aboutBannerQuery = `
+  *[_type == "aboutDualData"][1] {
+    subtitle,
+    title,
+    description,
+    content,
+    featuredImage
+  }
+`
+
+const AboutBanner = async () => {
+  const aboutBannerData = await sanityClient.fetch(aboutBannerQuery)
+
+  const { title, subtitle, description, content, featuredImage } = aboutBannerData;
+
 
   return (
     <section className="relative py-20 lg:py-28 overflow-hidden">
@@ -43,7 +56,7 @@ const AboutBanner: React.FC = () => {
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
-                {content.map((paragraph, index) => (
+                {content.map((paragraph: string, index: number) => (
                   <p key={index} className="text-gray-600 leading-relaxed">
                     {paragraph}
                   </p>
