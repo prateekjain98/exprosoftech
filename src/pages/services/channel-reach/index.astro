@@ -28,6 +28,7 @@ import {
   FaMoneyBillWave,
   FaNetworkWired,
 } from "react-icons/fa";
+import { sanityClient } from "sanity:client";
 
 const title = "Channel Reach Expansion Services";
 const meta_title = "Channel Reach Expansion Services | Greymetre";
@@ -288,6 +289,45 @@ const industriesContent = {
     },
   ],
 };
+
+const FEATURES_QUERY = await sanityClient.fetch(`*[_type == "features"] | order(_createdAt desc) {
+  tagline,
+  title,
+  description,
+  "imageUrl": image.asset->url,
+  icon
+}`)
+
+const LOYALTY_SERVICES_QUERY = await sanityClient.fetch(`*[_type == "loyaltyManagementServiceCards"] | order(_updatedAt asc) {
+  title,
+  description,
+  features
+}`)
+
+const KEY_ISSUES_QUERY = await sanityClient.fetch(`*[_type == "LoayltyManagementkeyIssues"] | order(_createdAt asc) {
+  title,
+  description,
+  icon
+}`)
+
+const PROCESS_STEPS_QUERY = await sanityClient.fetch(`*[_type == "loyaltyProcessSteps"] | order(_createdAt asc) {
+  title,
+  description,
+  image,
+  order
+}`)
+
+const INDUSTRIES_QUERY = await sanityClient.fetch(`*[_type == "loyaltyIndustries"] | order(_createdAt asc) {
+  title,
+  description,
+  icon
+}`)
+
+const features = FEATURES_QUERY.slice(0, 4).reverse()
+const services = LOYALTY_SERVICES_QUERY.slice(3, 7)
+const benefits = KEY_ISSUES_QUERY.slice(6, 13)
+const process = PROCESS_STEPS_QUERY.slice(5, 11)
+const industries = INDUSTRIES_QUERY.slice(8, 17)
 ---
 
 <Base
@@ -298,11 +338,11 @@ const industriesContent = {
 >
   <ServicesBanner client:load content={bannerContent} />
   <Clients client:load />
-  <ServicesFeatures client:load content={featuresContent} />
-  <ServicesServices client:load content={servicesContent} />
-  <ServicesBenefits client:load content={benefitsContent} />
-  <ServicesProcess client:load content={processContent} />
-  <ServicesIndustries client:load content={industriesContent} />
+  <ServicesFeatures client:load  features={features} content={featuresContent} />
+  <ServicesServices client:load services={services} content={servicesContent} />
+  <ServicesBenefits client:load content={benefitsContent} benefits={benefits} />
+  <ServicesProcess client:load content={processContent} process={process}/>
+  <ServicesIndustries client:load content={industriesContent} industries={industries}/>
   <ConsultationCTA client:load />
   <FAQ client:load variant="home" />
 </Base>

@@ -20,7 +20,7 @@ const HEADING_QUERY = `*[_type == "heading"]{
 }`;
 
 //featuregrid
-const features = await sanityClient.fetch(`*[_type == "features"]{
+const FEATURES_QUERY = await sanityClient.fetch(`*[_type == "features"] | order(_createdAt desc){
   tagline,
   title,
   description,
@@ -59,6 +59,8 @@ const productsQuery = `*[_type == "product"] {
 const headings = await sanityClient.fetch(HEADING_QUERY);
 const services = await sanityClient.fetch(SERVICES_QUERY);
 const products = await sanityClient.fetch(productsQuery)
+
+const features = FEATURES_QUERY.slice(4, 8).reverse()
 
 
 

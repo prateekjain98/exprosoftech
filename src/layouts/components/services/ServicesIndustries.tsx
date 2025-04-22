@@ -13,22 +13,25 @@ import {
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 
+// Interface for industry data from Sanity
 interface Industry {
   title: string;
   description: string;
-  icon: any;
+  icon: string;
 }
 
+// Content structure for the section
 interface IndustriesContent {
   tagline: string;
   heading: string;
   subheading: string;
-  industries: Industry[];
 }
 
+// Component props
 interface Props {
   className?: string;
   content: IndustriesContent;
+  industries: Industry[]; // Separate industries array from content
 }
 
 // Icon mapping
@@ -43,7 +46,11 @@ const iconMap: Record<string, IconType> = {
   FaGraduationCap,
 };
 
-export const ServicesIndustries: React.FC<Props> = ({ className, content }) => {
+export const ServicesIndustries: React.FC<Props> = ({
+  className,
+  content,
+  industries, // Add industries prop
+}): JSX.Element => {
   // Function to safely render icons
   const renderIcon = (icon: any) => {
     if (!icon) {
@@ -78,7 +85,7 @@ export const ServicesIndustries: React.FC<Props> = ({ className, content }) => {
           subheading={content.subheading}
         />
         <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
-          {content.industries.map((industry, index) => (
+          {industries.map((industry, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}

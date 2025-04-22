@@ -11,7 +11,12 @@ import {headingType} from './Headings'
 import { productType } from './ProductSection'
 import  serviceType  from './ServiceScroller'
 import {cardType} from './cards'
+import {loyaltyManagementServiceCards} from './LoyaltyManagementServiceCards'
+import { LoayltyManagementkeyIssuesType } from './LoyaltyManagementKeyIssues'
+import { loyaltyManagementProcessSteps } from './LoyaltyManagementProcess'
+import { loyaltyIndustries } from './LoyaltyManagementIndustries'
 
 export const schemaTypes = [headingType , cardType , featuresType , serviceType , productType ,faqType , demandDrivenFAQType , demandDrivenImpact ,
-    challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType
+    challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType , loyaltyManagementServiceCards , LoayltyManagementkeyIssuesType , 
+    loyaltyManagementProcessSteps , loyaltyIndustries
 ]
