@@ -9,7 +9,7 @@ import { MobileFeatures } from "../../components/common/MobileFeatures";
 import { ProductHeader } from "../../components/common/ProductHeader";
 import SFACTA from "../../components/sfa/SFACTA";
 import { sanityClient } from "sanity:client";
-import FAQ from "../../components/FAQ";
+import NewFAQ from "../../components/NewFAQ";
 
 const sfaBannerQuery = `
   *[_type == "heroBannerSections"] | order(_createdAt asc) [5] {
@@ -294,12 +294,26 @@ const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
   description
 }`;
 
+const SFA_Faq_QUery =`*[_type == "faqSection"] | order(_updatedAt asc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active
+  }
+}`
 
 
 const features = SFA_FEATURES_QUERY.slice(0 , 8)
 const mobileFeatures = MOBILE_FEATURES_QUERY[1]
 const showcaseContent = SHOWCASE_QUERY
 const heading = await sanityClient.fetch(HEADING_QUERY);
+
+const sfaFaq = await sanityClient.fetch(SFA_Faq_QUery)
 ---
 
 <Base>
@@ -309,6 +323,6 @@ const heading = await sanityClient.fetch(HEADING_QUERY);
   <MobileFeatures client:load mobileFeatures={mobileFeatures} />
   <FeatureShowcase variant="sfa" showcaseContent={showcaseContent} client:load />
   <AdditionalFeatures client:load heading={heading[22]}/>
-  <FAQ client:load variant="home" />
+  <NewFAQ client:load Faq={[sfaFaq[2]]}/>
   <SFACTA client:load />
 </Base>

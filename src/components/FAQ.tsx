@@ -181,9 +181,9 @@ const FAQ = async ({ variant = "home" }) => {
   const demandDrivenFaqData = await sanityClient.fetch(DEMAND_DRIVEN_QUERY)
 
   const homeFaqData: FaqData = {
-    title: heading.title,
-    subtitle: heading.subtitle,
-    description: heading.description,
+    title: FAQheading.title,
+    subtitle: FAQheading.subtitle,
+    description: FAQheading.description,
     list: faqData.map((item: faqData)=> ({
       title: item.title,
       description: item.description,
@@ -192,9 +192,9 @@ const FAQ = async ({ variant = "home" }) => {
   };
 
   const demandDrivenFormattedData: FaqData = {
-    title: heading.title,
-    subtitle: heading.subtitle,
-    description: heading.description,
+    title: FAQheading.title,
+    subtitle: FAQheading.subtitle,
+    description: FAQheading.description,
     list: demandDrivenFaqData.map((item: faqData) => ({
       title: item.title,
       description: item.description,
@@ -221,9 +221,9 @@ const FAQ = async ({ variant = "home" }) => {
 
       <div className="container mx-auto px-4 relative">
         <SectionHeader
-          tagline={heading.subtitle}
-          heading={heading.title}
-          subheading={heading.description}
+          tagline={FAQheading.subtitle}
+          heading={FAQheading.title}
+          subheading={FAQheading.description}
         />
 
         {/* Accordions */}

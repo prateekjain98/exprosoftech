@@ -8,7 +8,7 @@ import { ServicesBenefits } from "@/layouts/components/services/ServicesBenefits
 import { ServicesProcess } from "@/layouts/components/services/ServicesProcess";
 import { ServicesIndustries } from "@/layouts/components/services/ServicesIndustries";
 import ConsultationCTA from "../../../components/ConsultationCTA";
-import FAQ from "../../../components/FAQ";
+import NewFAQ from "../../../components/NewFAQ";
 import {
   FaUserFriends,
   FaChartLine,
@@ -357,6 +357,20 @@ const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
   description
 }`;
 
+const Home_Faq_QUery =`*[_type == "faqSection"] | order(_createdAt desc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active
+  }
+}`
+
+
 const features = FEATURES_QUERY.slice(0, 4).reverse()
 const services = LOYALTY_SERVICES_QUERY.slice(0, 3)
 const benefits = KEY_ISSUES_QUERY.slice(0, 6)
@@ -365,6 +379,8 @@ const industries = INDUSTRIES_QUERY.slice(0, 8)
 
 
 const heading = await sanityClient.fetch(HEADING_QUERY);
+
+const homeFaq = await sanityClient.fetch(Home_Faq_QUery)
 ---
 
 <Base
@@ -381,5 +397,5 @@ const heading = await sanityClient.fetch(HEADING_QUERY);
   <ServicesProcess client:load heading={heading[9]} process={process}/>
   <ServicesIndustries client:load heading={heading[10]} industries={industries}/>
   <ConsultationCTA client:load />
-  <FAQ client:load variant="home" />
+  <NewFAQ client:load Faq={[homeFaq[1]]}/>
 </Base>

@@ -3,7 +3,7 @@ import Base from "@/layouts/Base.astro";
 import { Clients } from "../components/Clients";
 import { Offerings } from "../components/Offerings";
 import CaseStudies from "../components/CaseStudies";
-import FAQ from "../components/FAQ";
+import NewFAQ from "../components/NewFAQ";
 import { FeaturesGrid } from "../components/FeaturesGrid";
 import { ScrollableServices } from "../components/ScrollableServices";
 import { ProductSection } from "../components/ProductSection";
@@ -70,6 +70,19 @@ const homeBannerQuery = `
   }
   `
 
+  const Home_Faq_QUery =`*[_type == "faqSection"] | order(_createdAt desc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active
+  }
+}`
+
 
 
 const headings = await sanityClient.fetch(HEADING_QUERY);
@@ -78,6 +91,8 @@ const products = await sanityClient.fetch(productsQuery)
 
 const features = FEATURES_QUERY.slice(4, 8).reverse()
 const homeBanner = await sanityClient.fetch(homeBannerQuery)
+
+const homeFaq = await sanityClient.fetch(Home_Faq_QUery)
 
 
 
@@ -91,5 +106,5 @@ const homeBanner = await sanityClient.fetch(homeBannerQuery)
   <ScrollableServices heading={headings[2]} services={services} client:load />
   <ProductSection products={products} client:load />
   <!-- <CaseStudies client:load /> -->
-  <FAQ client:load variant="home" />
+  <NewFAQ client:load Faq={[homeFaq[1]]}/>
 </Base>

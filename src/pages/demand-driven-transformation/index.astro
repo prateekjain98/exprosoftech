@@ -7,7 +7,7 @@ import KeyServices from "../../components/KeyServices";
 import BusinessGuidance from "../../components/BusinessGuidance";
 import CaseStudies from "../../components/CaseStudies";
 import ConsultationCTA from "../../components/ConsultationCTA";
-import FAQ from "../../components/FAQ";
+import NewFAQ from "../../components/NewFAQ";
 import Base from "@/layouts/Base.astro";
 import { getEntry } from "astro:content";
 import { Clients } from "../../components/Clients";
@@ -93,6 +93,21 @@ const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
 
 const heading = await sanityClient.fetch(HEADING_QUERY);
 
+const Consultancy_Faq_Query =`*[_type == "faqSection"] | order(_createdAt desc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active
+  }
+}`
+
+const consultancyFaq = await sanityClient.fetch(Consultancy_Faq_Query)
+
 ---
 
 <Base
@@ -110,5 +125,5 @@ const heading = await sanityClient.fetch(HEADING_QUERY);
   <BusinessGuidance businessGuidanceData={businessGuidanceData} empowermentData={empowermentData} client:load />
   <!-- <CaseStudies client:load /> -->
   <ConsultationCTA client:load />
-  <FAQ client:load variant="demand-driven" />
+  <NewFAQ client:load Faq={[consultancyFaq[0]]}/>
 </Base>

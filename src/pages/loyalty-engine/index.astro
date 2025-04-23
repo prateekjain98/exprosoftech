@@ -2,7 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import { Clients } from "../../components/Clients";
 import { AdditionalFeatures } from "../../components/common/AdditionalFeatures";
-import { FAQSection } from "../../components/common/FAQSection";
+import NewFAQ from "../../components/NewFAQ";
 import { FeaturesGrid } from "../../components/common/FeaturesGrid";
 import { FeatureShowcase } from "../../components/common/FeatureShowcase";
 import { MobileFeatures } from "../../components/common/MobileFeatures";
@@ -293,11 +293,26 @@ const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
   description
 }`;
 
+const Loyalty_Faq_QUery =`*[_type == "faqSection"] | order(_updatedAt asc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active
+  }
+}`
+
 
 const features = SFA_FEATURES_QUERY.slice(8 , 16)
 const mobileFeatures = MOBILE_FEATURES_QUERY[0]
 const showcaseContent = SHOWCASE_QUERY
 const heading = await sanityClient.fetch(HEADING_QUERY);
+
+const loyaltyFaq = await sanityClient.fetch(Loyalty_Faq_QUery)
 ---
 
 <Base>
@@ -307,6 +322,6 @@ const heading = await sanityClient.fetch(HEADING_QUERY);
   <MobileFeatures client:load mobileFeatures={mobileFeatures} />
   <FeatureShowcase  variant="loyalty"  showcaseContent={showcaseContent} client:load />
   <AdditionalFeatures client:load heading={heading[24]}/>
-  <FAQSection {...faqContent} client:load />
+  <NewFAQ client:load Faq={[loyaltyFaq[3]]}/>
   <LECTA client:load />
 </Base>
