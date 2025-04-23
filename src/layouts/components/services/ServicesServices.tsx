@@ -52,24 +52,30 @@ const ServiceCard: React.FC<QueriedService> = ({
   );
 };
 
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
 interface Props {
   className?: string;
-  content: ServicesContent;
-  services: QueriedService[]; // Add this line for the queried services
+  heading: HeadingProps;
+  services: QueriedService[];
 }
 
 export const ServicesServices: React.FC<Props> = ({ 
-  className, 
-  content,
-  services  // Add this prop
+  className = "", 
+  heading,
+  services = []
 }) => {
   return (
     <section className={`py-20 bg-gray-50 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
         />
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (

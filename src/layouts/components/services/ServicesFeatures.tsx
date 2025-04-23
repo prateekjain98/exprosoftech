@@ -39,7 +39,7 @@ interface Features {
 
 interface Props {
   className?: string;
-  content: FeaturesContent;
+  heading: HeadingProps;
   features: Features[]; // Changed to array of Features directly
 }
 
@@ -53,9 +53,21 @@ const iconMap: Record<string, IconType> = {
   FaHeadset,
 };
 
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  className?: string;
+  heading: HeadingProps;
+  features: Features[];
+}
+
 export const ServicesFeatures: React.FC<Props> = ({ 
   className = "", 
-  content,
+  heading,
   features = [] // Add default empty array
 }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -66,9 +78,9 @@ export const ServicesFeatures: React.FC<Props> = ({
       <section className={`py-20 ${className}`}>
         <div className="container">
           <SectionHeader
-            tagline={content.tagline}
-            heading={content.heading}
-            subheading={content.subheading}
+            tagline={heading.subtitle}
+            heading={heading.title}
+            subheading={heading.description}
           />
           <div className="mt-12 text-center text-gray-500">
             No features available
@@ -117,9 +129,9 @@ export const ServicesFeatures: React.FC<Props> = ({
     <section className={`py-20 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
         />
 
         <div className="mt-12">

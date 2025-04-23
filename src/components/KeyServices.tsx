@@ -321,7 +321,18 @@ const MetricsCard = ({ keyServicesData } : { keyServicesData: SanityServiceTab }
   );
 };
 
-const KeyServices = ({ keyServicesData = [] }: { keyServicesData: SanityServiceTab[] }) => {
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
+interface KeyServicesProps {
+  heading: HeadingProps;
+  keyServicesData: SanityServiceTab[];
+}
+
+const KeyServices = ({ heading, keyServicesData = [] }: KeyServicesProps) => {
   // Add null check and default value for activeTab
   const [activeTab, setActiveTab] = useState(() => 
     keyServicesData && keyServicesData.length > 0 ? keyServicesData[0].id : ""
@@ -360,17 +371,13 @@ const KeyServices = ({ keyServicesData = [] }: { keyServicesData: SanityServiceT
           <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <div className="text-center mb-10 lg:mb-16" data-aos="fade-up">
               <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs sm:text-sm font-medium shadow-lg mb-4 sm:mb-5">
-                Key Services
+                {heading.subtitle}
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-[42px] font-medium mb-4 sm:mb-5 text-white">
-                How Our Services Assist You{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                  Accomplish Better
-                </span>
+                {heading.title}
               </h2>
               <p className="text-sm sm:text-base text-gray-300/90 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed">
-                Witness the transformation of your financial goals into
-                realities with the benefits we deliver.
+                {heading.description}
               </p>
             </div>
 

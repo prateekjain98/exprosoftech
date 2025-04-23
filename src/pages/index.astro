@@ -12,7 +12,7 @@ import { getEntry } from "astro:content";
 
 import { sanityClient } from "sanity:client"
 
-const HEADING_QUERY = `*[_type == "heading"]{
+const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
   _id,
   subtitle,
   title,

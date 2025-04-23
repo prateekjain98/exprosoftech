@@ -63,38 +63,42 @@ interface IndustriesContent {
   subheading: string;
 }
 
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
 // Component props
 interface Props {
   className?: string;
-  content: IndustriesContent;
-  industries: Industry[]; // Separate industries array from content
+  heading?: HeadingProps;  // Make heading optional
+  industries: Industry[];
 }
 
 export const ServicesIndustries: React.FC<Props> = ({
-  className,
-  content,
-  industries,
+  className = "",
+  heading,
+  industries = []
 }): JSX.Element => {
-  // Updated renderIcon function with better type safety
   const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
     const IconComponent = iconMap[iconName];
-
     if (!IconComponent) {
       console.warn(`Icon "${iconName}" not found in iconMap`);
       return React.createElement(iconMap.FaStore, { size: 28 });
     }
-
     return React.createElement(IconComponent, { size: 28 });
   };
 
   return (
     <section className={`py-20 ${className}`}>
       <div className="container">
-        <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
-        />
+       
+          <SectionHeader
+            tagline="Industries"
+            heading="Tailored Solutions for Every Industry"
+            subheading="Our loyalty program management services are tailored to meet the unique needs of various industries and business models."
+          />
         <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
           {industries.map((industry, index) => (
             <motion.div

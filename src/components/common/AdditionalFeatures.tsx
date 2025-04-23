@@ -16,47 +16,15 @@ interface Feature {
   icon: string;
 }
 
-// const features: Feature[] = [
-//   {
-//     title: "Quick Implementation",
-//     description:
-//       "Get up and running quickly with our streamlined implementation process and expert support team.",
-//     icon: Rocket,
-//   },
-//   {
-//     title: "Performance Tracking",
-//     description:
-//       "Monitor and analyze key performance metrics to optimize your operations and drive better results.",
-//     icon: ChartLine,
-//   },
-//   {
-//     title: "Team Collaboration",
-//     description:
-//       "Enable seamless communication and collaboration between field teams and office staff.",
-//     icon: Users,
-//   },
-//   {
-//     title: "Global Accessibility",
-//     description:
-//       "Access your data and tools from anywhere in the world with our cloud-based solution.",
-//     icon: Globe,
-//   },
-//   {
-//     title: "Enterprise Security",
-//     description:
-//       "Rest easy knowing your data is protected by industry-leading security measures and encryption.",
-//     icon: Shield,
-//   },
-//   {
-//     title: "Custom Configuration",
-//     description:
-//       "Tailor the platform to your specific needs with customizable workflows and settings.",
-//     icon: Gear,
-//   },
-// ];
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
 
 interface AdditionalFeaturesProps {
   className?: string;
+  heading?: HeadingProps;
 }
 
 interface IconMap {
@@ -81,11 +49,17 @@ const productAdditionalFeaturesQuery = `
     }
   }`
 
-export const AdditionalFeatures = async ({ className }: AdditionalFeaturesProps) => {
+export const AdditionalFeatures = async ({ className, heading }: AdditionalFeaturesProps) => {
   const featuresArray = await sanityClient.fetch(productAdditionalFeaturesQuery)
   if (!featuresArray?.[0]?.features) return null;
   
   const features = featuresArray[0].features;
+  
+  // Use heading prop values if available, otherwise use defaults
+  const displaySubtitle = heading?.subtitle || "Additional Benefits";
+  const displayTitle = heading?.title || "Everything You Need to Succeed";
+  const displayDescription = heading?.description || 
+    "Beyond core features, our platform offers additional capabilities to enhance your operations";
 
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50/30 to-white relative overflow-hidden">
@@ -101,20 +75,19 @@ export const AdditionalFeatures = async ({ className }: AdditionalFeaturesProps)
             className="inline-block px-4 py-2 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full"
             data-aos="fade-up-sm"
           >
-            Additional Benefits
+            {displaySubtitle}
           </span>
           <h2
             className="mb-6 text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent"
             data-aos="fade-up-sm"
           >
-            Everything You Need to Succeed
+            {displayTitle}
           </h2>
           <p
             className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed"
             data-aos="fade-up-sm"
           >
-            Beyond core features, our platform offers additional capabilities to
-            enhance your operations
+            {displayDescription}
           </p>
         </div>
 

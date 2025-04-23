@@ -24,10 +24,16 @@ interface ProcessContent {
   steps: ProcessStep[];
 }
 
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
 interface Props {
   className?: string;
-  content: ProcessContent;
-  process: ProcessStepData[]; // Add this for Sanity data
+  heading: HeadingProps;
+  process: ProcessStepData[];
 }
 
 // ProcessStep component props
@@ -126,7 +132,11 @@ const ProcessStep: React.FC<ProcessStepProps> = ({
   );
 };
 
-export const ServicesProcess: React.FC<Props> = ({ className, content, process }) => {
+export const ServicesProcess: React.FC<Props> = ({ 
+  className = "", 
+  heading,
+  process = []
+}) => {
   const [activeStep, setActiveStep] = useState<number>(0);
 
   // Autoplay functionality
@@ -142,9 +152,9 @@ export const ServicesProcess: React.FC<Props> = ({ className, content, process }
     <section className={`py-20 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
         />
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">

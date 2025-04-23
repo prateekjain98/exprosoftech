@@ -348,11 +348,22 @@ const INDUSTRIES_QUERY = await sanityClient.fetch(`*[_type == "loyaltyIndustries
   icon
 }`)
 
+const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
+
+
 const features = FEATURES_QUERY.slice(0, 4).reverse()
 const services = LOYALTY_SERVICES_QUERY.slice(3, 6)
 const benefits = KEY_ISSUES_QUERY.slice(6, 12)
 const process = PROCESS_STEPS_QUERY.slice(5, 10)
 const industries = INDUSTRIES_QUERY.slice(8, 16)
+
+const heading = await sanityClient.fetch(HEADING_QUERY);
 ---
 
 <Base
@@ -363,11 +374,11 @@ const industries = INDUSTRIES_QUERY.slice(8, 16)
 >
   <ServicesBanner client:load content={bannerContent} />
   <Clients client:load />
-  <ServicesFeatures client:load  features={features} content={featuresContent} />
-  <ServicesServices client:load services={services} content={servicesContent} />
-  <ServicesBenefits client:load content={benefitsContent} benefits={benefits} />
-  <ServicesProcess client:load content={processContent} process={process}/>
-  <ServicesIndustries client:load content={industriesContent} industries={industries}/>
+  <ServicesFeatures client:load  features={features} heading={heading[11]} />
+  <ServicesServices client:load services={services} heading={heading[12]} />
+  <ServicesBenefits client:load  benefits={benefits} heading={heading[13]} />
+  <ServicesProcess client:load  process={process} heading={heading[14]}/>
+  <ServicesIndustries client:load  industries={industries} heading={heading[15]}/>
   <ConsultationCTA client:load />
   <FAQ client:load variant="home" />
 </Base>

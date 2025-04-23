@@ -287,19 +287,28 @@ const SHOWCASE_QUERY = await sanityClient.fetch(`
   }
 `)
 
+const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
+
 
 const features = SFA_FEATURES_QUERY.slice(0 , 8)
 const mobileFeatures = MOBILE_FEATURES_QUERY[1]
 const showcaseContent = SHOWCASE_QUERY
+const heading = await sanityClient.fetch(HEADING_QUERY);
 ---
 
 <Base>
   <ProductHeader {...headerContent} client:load />
   <Clients client:load />
-  <FeaturesGrid {...featuresContent} client:load features={features} />
+  <FeaturesGrid client:load features={features} heading={heading[21]}/>
   <MobileFeatures client:load mobileFeatures={mobileFeatures} />
   <FeatureShowcase variant="sfa" showcaseContent={showcaseContent} client:load />
-  <AdditionalFeatures client:load />
+  <AdditionalFeatures client:load heading={heading[22]}/>
   <FAQ client:load variant="home" />
   <SFACTA client:load />
 </Base>

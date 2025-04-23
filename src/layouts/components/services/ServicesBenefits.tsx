@@ -17,11 +17,10 @@ interface Benefit {
   icon: any; // Changed from IconType to any
 }
 
-interface BenefitsContent {
-  tagline: string;
-  heading: string;
-  subheading: string;
-  benefits: Benefit[];
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
 }
 
 interface Benefits {
@@ -32,8 +31,8 @@ interface Benefits {
 
 interface Props {
   className?: string;
-  content: BenefitsContent;
-  benefits: Benefits[]; // Changed to array of KeyIssues directly
+  heading: HeadingProps;
+  benefits: Benefits[];
 }
 
 // Icon mapping
@@ -46,7 +45,11 @@ const iconMap: Record<string, IconType> = {
   FaUsers,
 };
 
-export const ServicesBenefits: React.FC<Props> = ({ className, content , benefits}) => {
+export const ServicesBenefits: React.FC<Props> = ({ 
+  className = "", 
+  heading,
+  benefits = []
+}) => {
   // Function to safely render icons
   const renderIcon = (icon: any) => {
     if (!icon) {
@@ -78,9 +81,9 @@ export const ServicesBenefits: React.FC<Props> = ({ className, content , benefit
     >
       <div className="container">
         <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
         />
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {benefits.map((benefit, index) => (

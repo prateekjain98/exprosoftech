@@ -60,7 +60,7 @@ const CARDS_QUERY = `*[_type == "card"]{
   "imageUrl": image.asset->url
 }`;
 
-const HEADINGS_QUERY = `*[_type == "heading"]{
+const HEADINGS_QUERY = `*[_type == "heading"] | order(_createdAt asc) {
   _id,
   subtitle,
   title,
@@ -68,14 +68,13 @@ const HEADINGS_QUERY = `*[_type == "heading"]{
 }`;
 
 export const Offerings = async () => {
-  const { title, subtitle, description } = offeringsData;
 
   // Fetch cards with revalidation
   const cards = await sanityClient.fetch<Card[]>(CARDS_QUERY);
 
   const headings = await sanityClient.fetch<Heading[]>(HEADINGS_QUERY, {});
 
-  const heading = headings[2];
+  const heading = headings[0];
   return (
     <section className="section">
       <div className="max-w-[85rem] mx-auto px-3">

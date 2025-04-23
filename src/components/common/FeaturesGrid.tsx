@@ -56,12 +56,19 @@ interface Feature {
   };
 }
 
-interface FeaturesGridProps {
-  badge: string;
+interface HeadingProps {
+  subtitle: string;
   title: string;
   description: string;
+}
+
+interface FeaturesGridProps {
+  badge?: string;
+  title?: string;
+  description?: string;
   features: Feature[];
   className?: string;
+  heading?: HeadingProps;
 }
 
 export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
@@ -70,7 +77,13 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
   description,
   features,
   className,
+  heading,
 }) => {
+  // Use heading prop values if available, otherwise fall back to direct props
+  const displayBadge = heading?.subtitle || badge || "";
+  const displayTitle = heading?.title || title || "";
+  const displayDescription = heading?.description || description || "";
+
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-b from-white to-slate-50/30 relative overflow-hidden">
       {/* Background Elements */}
@@ -85,19 +98,19 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
             className="inline-block px-4 py-2 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full"
             data-aos="fade-up-sm"
           >
-            {badge}
+            {displayBadge}
           </span>
           <h2
             className="mb-6 text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent"
             data-aos="fade-up-sm"
           >
-            {title}
+            {displayTitle}
           </h2>
           <p
             className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed"
             data-aos="fade-up-sm"
           >
-            {description}
+            {displayDescription}
           </p>
         </div>
 

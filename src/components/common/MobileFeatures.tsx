@@ -29,6 +29,12 @@ interface Feature {
   icon?: string;
 }
 
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
 interface MobileFeaturesProps {
   mobileFeatures: {
     title: string;
@@ -44,17 +50,24 @@ interface MobileFeaturesProps {
     };
   };
   className?: string;
+  heading?: HeadingProps;
 }
 
 export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
   mobileFeatures,
   className = "",
+  heading,
 }) => {
   if (!mobileFeatures) {
     return null; // or return a loading state/error message
   }
 
-  const { title, description, features, image } = mobileFeatures;
+  const { features, image } = mobileFeatures;
+  
+  // Use heading prop values if available, otherwise fall back to mobileFeatures
+  const displayTitle = heading?.title || mobileFeatures.title || "";
+  const displayDescription = heading?.description || mobileFeatures.description || "";
+  const displaySubtitle = heading?.subtitle || "Why Choose Fieldkonnect";
   
   return (
     <section
@@ -123,16 +136,16 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
                 className="inline-block px-4 py-2 mb-6 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full"
                 data-aos="fade-up-sm"
               >
-                Why Choose Fieldkonnect
+                {displaySubtitle}
               </span>
               <h2
                 className="mb-8 text-3xl font-bold md:text-4xl lg:text-5xl bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent"
                 data-aos="fade-up-sm"
               >
-                {title}
+                {displayTitle}
               </h2>
               <p className="mb-8 text-lg text-gray-600 leading-relaxed">
-                {description}
+                {displayDescription}
               </p>
               <div className="space-y-8">
                 {features.map((feature, index) => {
