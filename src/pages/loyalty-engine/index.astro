@@ -10,23 +10,44 @@ import { ProductHeader } from "../../components/common/ProductHeader";
 import LECTA from "../../components/loyalty/LECTA";
 import { sanityClient } from "sanity:client";
 
+const loyaltyBannerQuery = `
+  *[_type == "heroBannerSections"] | order(_createdAt asc) [6] {
+    title,
+    description,
+    image[] {
+      src,
+      alt
+    },
+    buttons[] {
+      label,
+      link,
+      isCalendly
+    }
+  }
+`
+
+const loyaltyBanner = await sanityClient.fetch(loyaltyBannerQuery)
+
 const headerContent = {
   badge: "Enterprise Loyalty Solution",
-  title: "Fieldkonnect Loyalty Engine",
+  // title: "Fieldkonnect Loyalty Engine",
   subtitle:
     "Build Lasting Relationships, Drive Engagement, and Accelerate Growth",
-  description:
-    "The Fieldkonnect Loyalty Engine is designed to bring advanced, customized loyalty solutions to brands aiming to build meaningful connections with channel partners, influencers, and customers. Our platform goes beyond traditional loyalty, providing a diverse array of schemes—from QR-based to invoice-based, quantity-based, value-based, and even packaging collection-based programs.",
-  image: {
-    src: "/images/products/loyalty.png",
-    alt: "Fieldkonnect Loyalty Engine Platform Preview",
-  },
+  // description:
+  //   "The Fieldkonnect Loyalty Engine is designed to bring advanced, customized loyalty solutions to brands aiming to build meaningful connections with channel partners, influencers, and customers. Our platform goes beyond traditional loyalty, providing a diverse array of schemes—from QR-based to invoice-based, quantity-based, value-based, and even packaging collection-based programs.",
+  // image: {
+  //   src: "/images/products/loyalty.png",
+  //   alt: "Fieldkonnect Loyalty Engine Platform Preview",
+  // },
+  title: loyaltyBanner.title,
+  description: loyaltyBanner.description,
+  image: loyaltyBanner.image[0],
   buttons: [
     {
-      label: "Transform Your Loyalty Strategy",
-      link: "/contact",
+      label: loyaltyBanner.buttons[0].label,
+      link: loyaltyBanner.buttons[0].link,
       variant: "primary" as const,
-      isCalendly: true,
+      isCalendly: loyaltyBanner.buttons[0].isCalendly,
     },
   ],
 };

@@ -11,23 +11,44 @@ import SFACTA from "../../components/sfa/SFACTA";
 import { sanityClient } from "sanity:client";
 import FAQ from "../../components/FAQ";
 
+const sfaBannerQuery = `
+  *[_type == "heroBannerSections"] | order(_createdAt asc) [5] {
+    title,
+    description,
+    image[] {
+      src,
+      alt
+    },
+    buttons[] {
+      label,
+      link,
+      isCalendly
+    }
+  }
+`
+
+const sfaBanner = await sanityClient.fetch(sfaBannerQuery)
+
 const headerContent = {
   badge: "Enterprise SFA Solution",
-  title: "Fieldkonnect - Sales Force Automation Solution",
+  // title: "Fieldkonnect - Sales Force Automation Solution",
   subtitle:
     "Empower Your Sales Team, Maximize Field Efficiency, and Drive Business Growth",
-  description:
-    "Equip your sales teams with real-time data and actionable insights to stay ahead in today's fast-paced market. Fieldkonnect streamlines operations, enhances productivity, and delivers an exceptional customer experience.",
-  image: {
-    src: "/images/products/sfa.png",
-    alt: "Fieldkonnect SFA Platform Preview",
-  },
+  // description:
+  //   "Equip your sales teams with real-time data and actionable insights to stay ahead in today's fast-paced market. Fieldkonnect streamlines operations, enhances productivity, and delivers an exceptional customer experience.",
+  // image: {
+  //   src: "/images/products/sfa.png",
+  //   alt: "Fieldkonnect SFA Platform Preview",
+  // },
+  title: sfaBanner.title,
+  description: sfaBanner.description,
+  image: sfaBanner.image[0],
   buttons: [
     {
-      label: "Transform Your Sales",
-      link: "/contact",
+      label: sfaBanner.buttons[0].label,
+      link: sfaBanner.buttons[0].link,
       variant: "primary" as const,
-      isCalendly: true,
+      isCalendly: sfaBanner.buttons[0].isCalendly,
     },
   ],
 };

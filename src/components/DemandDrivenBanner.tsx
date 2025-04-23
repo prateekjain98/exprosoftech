@@ -2,6 +2,7 @@ import DynamicIcon from "@/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
 import React from "react";
 import Button from "./common/Button";
+import { sanityClient } from "sanity:client";
 
 interface ButtonType {
   label: string;
@@ -41,8 +42,25 @@ const bannerData: BannerData = {
   ],
 };
 
-const DemandDrivenBanner: React.FC = () => {
-  const { title, description, images, buttons } = bannerData;
+const homeBannerQuery = `
+  *[_type == "heroBannerSections"] | order(_createdAt asc) [1] {
+    title,
+    description,
+    image[] {
+      src,
+      alt
+    },
+    buttons[] {
+      label,
+      link,
+      isCalendly
+    }
+  }
+`
+
+const DemandDrivenBanner = async () => {
+  const bannerData = await sanityClient.fetch(homeBannerQuery)
+  const { title, description, image, buttons } = bannerData;
 
   return (
     <section className="relative z-[1] pt-16 pb-24 lg:pt-24 lg:pb-32">
@@ -51,21 +69,23 @@ const DemandDrivenBanner: React.FC = () => {
           <div className="text-center lg:text-left order-2 lg:order-1">
             {title && (
               <h1
-                dangerouslySetInnerHTML={{ __html: markdownify(title) }}
                 data-aos="fade-up-sm"
                 className="mb-6 text-h3 lg:text-h1 bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium"
-              />
+                >
+                {title}
+              </h1>
             )}
             {description && (
               <p
-                dangerouslySetInnerHTML={{ __html: markdownify(description) }}
                 data-aos="fade-up-sm"
                 className="mb-10 text-lg/[inherit] font-medium"
-              />
+              >
+                {description}
+              </p>
             )}
             {buttons && buttons.length > 0 && (
               <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
-                {buttons.map(({ label, link, isCalendly }, index: number) => (
+                {buttons.map(({ label, link, isCalendly }: { label: string, link: string, isCalendly: boolean }, index: number) => (
                   <li
                     key={index}
                     data-aos="fade-up-sm"
@@ -85,7 +105,7 @@ const DemandDrivenBanner: React.FC = () => {
             )}
           </div>
 
-          {images && images[0] && (
+          {image && image[0] && (
             <div className="relative px-4 md:px-0 order-1 lg:order-2">
               <div
                 className="relative max-w-[580px] mx-auto"
@@ -101,8 +121,8 @@ const DemandDrivenBanner: React.FC = () => {
 
                   <div className="relative rounded-xl overflow-hidden shadow-2xl">
                     <img
-                      src={images[0].src}
-                      alt={images[0].alt}
+                      src={image[0].src}
+                      alt={image[0].alt}
                       width={580}
                       height={480}
                       className="w-full h-auto object-cover"

@@ -37,16 +37,39 @@ const description =
   "End-to-end loyalty program management services to drive customer retention and engagement. Transform your customer relationships with our expertise.";
 const image = "/images/services/loyalty-management/hero.png";
 
+const homeBannerQuery = `
+  *[_type == "heroBannerSections"] | order(_createdAt asc) [2] {
+    title,
+    description,
+    image[] {
+      src,
+      alt
+    },
+    buttons[] {
+      label,
+      link,
+      isCalendly
+    }
+  }
+`
+const loyaltyBanner = await sanityClient.fetch(homeBannerQuery)
+
 // Banner content
 const bannerContent = {
-  title: "Transform Customer Loyalty into Lasting Growth",
-  description:
-    "Elevate your customer relationships with our comprehensive loyalty program management services. We help you design, implement, and optimize loyalty programs that drive retention and maximize customer lifetime value.",
-  buttonText: "Get Started",
-  image: {
-    src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&h=1800&fit=crop",
-    alt: "Loyalty Management Solutions",
-  },
+  // title: "Transform Customer Loyalty into Lasting Growth",
+  // description:
+  //   "Elevate your customer relationships with our comprehensive loyalty program management services. We help you design, implement, and optimize loyalty programs that drive retention and maximize customer lifetime value.",
+  // buttonText: "Get Started",
+  // image: {
+  //   src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&h=1800&fit=crop",
+  //   alt: "Loyalty Management Solutions",
+  // },
+  title: loyaltyBanner.title,
+  description: loyaltyBanner.description,
+  label: loyaltyBanner.buttons[0].label,
+  link: loyaltyBanner.buttons[0].link,
+  isCalendly: loyaltyBanner.buttons[0].isCalendly,
+  image: loyaltyBanner.image[0],
   floatingElements: [
     {
       icon: "FaUsers",

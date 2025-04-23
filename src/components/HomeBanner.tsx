@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimatedMetrics } from "./AnimatedMetrics";
 import Button from "./common/Button";
+import { sanityClient } from "sanity:client";
 
 interface BannerContent {
   title: string;
@@ -14,6 +15,10 @@ interface BannerContent {
     link: string;
     isCalendly: boolean;
   }[];
+}
+
+interface HomeBannerProps {
+  banner: BannerContent;
 }
 
 const bannerContent: BannerContent = {
@@ -37,8 +42,13 @@ const bannerContent: BannerContent = {
   ],
 };
 
-export const HomeBanner: React.FC = () => {
-  const { title, description, buttons, image } = bannerContent;
+
+
+
+
+export const HomeBanner:React.FC<HomeBannerProps> = ({ banner }: HomeBannerProps ) => {
+
+
 
   return (
     <section className="relative z-[1] pt-6 pb-10 lg:pt-10">
@@ -46,23 +56,23 @@ export const HomeBanner: React.FC = () => {
         <div className="row items-center justify-between">
           {/* Left Column - Content */}
           <div className="mb-8 lg:mb-0 text-center lg:text-left lg:col-6">
-            {title && (
+            {banner.title && (
               <h1
-                dangerouslySetInnerHTML={{ __html: title }}
+                dangerouslySetInnerHTML={{ __html: banner.title }}
                 data-aos="fade-up-sm"
                 className="mb-4 text-h3 lg:text-h1 bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium"
               />
             )}
-            {description && (
+            {banner.description && (
               <p
-                dangerouslySetInnerHTML={{ __html: description }}
+                dangerouslySetInnerHTML={{ __html: banner.description }}
                 data-aos="fade-up-sm"
                 className="mb-8 text-lg/[inherit]"
               />
             )}
-            {buttons && (
+            {banner.buttons && (
               <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
-                {buttons.map(({ label, link, isCalendly }, index) => (
+                {banner.buttons.map(({ label, link, isCalendly }: { label: string, link: string, isCalendly: boolean }, index: number) => (
                   <li
                     key={index}
                     data-aos="fade-up-sm"

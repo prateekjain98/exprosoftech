@@ -21,9 +21,10 @@ import { showcaseContentTypes } from './ShowacaseContent'
 import { productAdditionalFeatures } from './ProductAddiotionalFeatures'
 import { aboutDualData } from './AboutPageDualSection'
 import  leadershipTeam  from './AboutTeamSection'
-
+import { clientsType } from './Clients'
+import { heroBannerSections } from './HeroBannersSections'
 
 export const schemaTypes = [headingType , cardType , featuresType , serviceType , productType ,faqType , demandDrivenFAQType , demandDrivenImpact ,
     challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType , loyaltyManagementServiceCards , LoayltyManagementkeyIssuesType , 
-    loyaltyManagementProcessSteps , loyaltyIndustries , productFeaturesType , mobileFeaturesTypes , showcaseContentTypes , productAdditionalFeatures , aboutDualData , leadershipTeam
+    loyaltyManagementProcessSteps , loyaltyIndustries , productFeaturesType , mobileFeaturesTypes , showcaseContentTypes , productAdditionalFeatures , aboutDualData , leadershipTeam , clientsType , heroBannerSections
 ]

@@ -745,7 +745,7 @@ export const AnimatedMetrics: React.FC = () => {
       </div>
 
       {/* Pagination dots */}
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center z-30 gap-1.5">
+      <div className="absolute bottom-2 left-0 right-0 flex justify-center z-30 gap-1.5">
         {paginationDots.map((dotIndex) => (
           <div
             key={`dot-${dotIndex}`}

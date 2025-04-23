@@ -54,6 +54,22 @@ const productsQuery = `*[_type == "product"] {
   }
 }`
 
+const homeBannerQuery = `
+  *[_type == "heroBannerSections"] | order(_createdAt desc) [0] {
+    title,
+    description,
+    image[] {
+      src,
+      alt
+    },
+    buttons[] {
+      label,
+      link,
+      isCalendly
+    }
+  }
+  `
+
 
 
 const headings = await sanityClient.fetch(HEADING_QUERY);
@@ -61,13 +77,14 @@ const services = await sanityClient.fetch(SERVICES_QUERY);
 const products = await sanityClient.fetch(productsQuery)
 
 const features = FEATURES_QUERY.slice(4, 8).reverse()
+const homeBanner = await sanityClient.fetch(homeBannerQuery)
 
 
 
 ---
 
 <Base>
-  <HomeBanner client:load />
+  <HomeBanner client:load banner={homeBanner} />
   <Clients client:load />
   <Offerings client:load />
   <FeaturesGrid heading={headings[1]} features={features} client:load />
