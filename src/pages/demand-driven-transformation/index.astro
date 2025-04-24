@@ -84,7 +84,7 @@ const empowermentQuery = `*[_type == "empowerment"][0]{
 
 const empowermentData =  await sanityClient.fetch(empowermentQuery);
 
-const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
+const HEADING_QUERY = `*[_type == "heading"] | order(_createdAt asc) {
   _id,
   subtitle,
   title,
