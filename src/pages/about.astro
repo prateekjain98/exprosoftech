@@ -49,5 +49,5 @@ const aboutFaq = await sanityClient.fetch(About_Faq_QUery)
   <AboutCompany client:load />
   <LeadershipTeam client:load leadershipTeamData={leadershipTeamData} />
   <WhyGreymetre client:load />
-  <NewFAQ client:load Faq={[aboutFaq[1]]}/>
+  <NewFAQ client:load Faq={[aboutFaq[0]]}/>
 </Base>

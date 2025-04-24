@@ -89,7 +89,7 @@ const headings = await sanityClient.fetch(HEADING_QUERY);
 const services = await sanityClient.fetch(SERVICES_QUERY);
 const products = await sanityClient.fetch(productsQuery)
 
-const features = FEATURES_QUERY.slice(4, 8).reverse()
+const features = FEATURES_QUERY.slice(12, 16).reverse()
 const homeBanner = await sanityClient.fetch(homeBannerQuery)
 
 const homeFaq = await sanityClient.fetch(Home_Faq_QUery)
@@ -104,7 +104,7 @@ const homeFaq = await sanityClient.fetch(Home_Faq_QUery)
   <Offerings client:load />
   <FeaturesGrid heading={headings[1]} features={features} client:load />
   <ScrollableServices heading={headings[2]} services={services} client:load />
-  <ProductSection products={products} client:load />
+  <ProductSection products={products.reverse()} client:load />
   <!-- <CaseStudies client:load /> -->
-  <NewFAQ client:load Faq={[homeFaq[1]]}/>
+  <NewFAQ client:load Faq={[homeFaq[3]]}/>
 </Base>

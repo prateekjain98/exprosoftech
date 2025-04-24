@@ -378,10 +378,10 @@ const Home_Faq_QUery =`*[_type == "faqSection"] | order(_createdAt desc) {
 
 
 const features = FEATURES_QUERY.slice(0, 4).reverse()
-const services = LOYALTY_SERVICES_QUERY.slice(3, 6)
-const benefits = KEY_ISSUES_QUERY.slice(6, 12)
-const process = PROCESS_STEPS_QUERY.slice(5, 10)
-const industries = INDUSTRIES_QUERY.slice(8, 16)
+const services = LOYALTY_SERVICES_QUERY.slice(6, 9  )
+const benefits = KEY_ISSUES_QUERY.slice(12, 18)
+const process = PROCESS_STEPS_QUERY.slice(10, 15)
+const industries = INDUSTRIES_QUERY.slice(16, 24)
 
 const heading = await sanityClient.fetch(HEADING_QUERY);
 
@@ -402,5 +402,5 @@ const homeFaq = await sanityClient.fetch(Home_Faq_QUery)
   <ServicesProcess client:load process={process} heading={heading[19]}/>
   <ServicesIndustries client:load industries={industries} heading={heading[20]}/>
   <ConsultationCTA client:load />
-  <NewFAQ client:load Faq={[homeFaq[1]]}/>
+  <NewFAQ client:load Faq={[homeFaq[3]]}/>
 </Base>

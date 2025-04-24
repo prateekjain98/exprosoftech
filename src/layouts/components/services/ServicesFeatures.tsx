@@ -8,10 +8,26 @@ import {
   FaRocket,
   FaShieldAlt,
   FaHeadset,
+  FaUsers,
+  FaMapMarkedAlt,
+  FaStore,
+  FaChartBar,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaGlobe,
+  FaHandshake,
+  FaMoneyBillWave,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaRecycle,
+  FaUserTie,
+  FaBullseye
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 import { useState } from "react";
-import { FaUser } from "react-icons/fa6";
 
 interface Feature {
   title: string;
@@ -51,6 +67,23 @@ const iconMap: Record<string, IconType> = {
   FaRocket,
   FaShieldAlt,
   FaHeadset,
+  FaUsers,
+  FaMapMarkedAlt,
+  FaStore,
+  FaChartBar,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaGlobe,
+  FaHandshake,
+  FaMoneyBillWave,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaRecycle,
+  FaUserTie,
+  FaBullseye
 };
 
 interface HeadingProps {
@@ -142,7 +175,6 @@ export const ServicesFeatures: React.FC<Props> = ({
             data-aos-delay="100"
           >
             {features.map((feature: Features, index: number) => {
-              const IconComponent = getIconComponent(feature.icon);
               return (
                 <button
                   key={index}
@@ -165,7 +197,7 @@ export const ServicesFeatures: React.FC<Props> = ({
                         : "bg-blue-50 group-hover:bg-blue-100"
                     }`}
                   >
-                    <IconComponent size={16} />
+                    {renderIcon(feature.icon)}
                   </div>
                   <span className="text-sm sm:text-base font-medium">
                     {feature.title}

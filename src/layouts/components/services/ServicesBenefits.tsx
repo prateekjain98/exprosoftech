@@ -8,6 +8,23 @@ import {
   FaLightbulb,
   FaShieldAlt,
   FaUsers,
+  FaGlobe,
+  FaChartBar,
+  FaHeadset,
+  FaMoneyBillWave,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaMapMarkedAlt,
+  FaStore,
+  FaRecycle,
+  FaCalendarAlt,
+  FaFilter,
+
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 
@@ -43,6 +60,22 @@ const iconMap: Record<string, IconType> = {
   FaLightbulb,
   FaShieldAlt,
   FaUsers,
+  FaGlobe,
+  FaChartBar,
+  FaHeadset,
+  FaMoneyBillWave,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaMapMarkedAlt,
+  FaStore,
+  FaRecycle,
+  FaCalendarAlt,
+  FaFilter,
 };
 
 export const ServicesBenefits: React.FC<Props> = ({ 

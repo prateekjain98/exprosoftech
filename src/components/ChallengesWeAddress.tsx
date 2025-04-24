@@ -63,7 +63,7 @@ interface ChallengesWeAddressProps {
 // };
 
 const ChallengesWeAddress = async ({ heading }: { heading: HeadingProps }) => {
-  const challengesQuery = `*[_type == "challengesWeAddress"] | order(title desc) {
+  const challengesQuery = `*[_type == "challengesWeAddress"] | order(_createdAt asc) {
     title,
     description,
     "iconUrl": icon.asset->url

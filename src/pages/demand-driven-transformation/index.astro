@@ -17,7 +17,7 @@ const { title, description, meta_title, image } = consulting?.data || {};
 
 import { sanityClient } from "sanity:client"
 
-const keyServicesQuery = `*[_type == "keyServices"] | order(title asc) {
+const keyServicesQuery = `*[_type == "keyServices"] | order(_createdAt asc) {
   id,
   title,
   "icon": icon,
@@ -125,5 +125,5 @@ const consultancyFaq = await sanityClient.fetch(Consultancy_Faq_Query)
   <BusinessGuidance businessGuidanceData={businessGuidanceData} empowermentData={empowermentData} client:load />
   <!-- <CaseStudies client:load /> -->
   <ConsultationCTA client:load />
-  <NewFAQ client:load Faq={[consultancyFaq[0]]}/>
+  <NewFAQ client:load Faq={[consultancyFaq[2]]}/>
 </Base>
