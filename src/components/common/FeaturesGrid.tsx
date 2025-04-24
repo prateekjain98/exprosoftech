@@ -109,21 +109,27 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
                 key={index}
                 data-aos="fade-up-sm"
                 data-aos-delay={index * 100}
-                className="group bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl border border-gray-100/50 hover:border-primary/20"
-              >
-                <div className="mb-6">
-                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                    <Icon size={32} weight="duotone" />
+                className="group bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl border border-gray-100/50 hover:border-primary/20 flex flex-col h-full"
+                >
+                  <div>
+                    <div className="mb-6">
+                      <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                        <Icon size={32} weight="duotone" />
+                      </div>
+                    </div>
+                    <h3 className="mb-4 text-xl font-semibold text-gray-900">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                </div>
-                <h3 className="mb-4 text-xl font-semibold text-gray-900">
-                  {feature.title}
-                </h3>
-                <p className="mb-6 text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
-                {feature.stats && (
-                  <div className="pt-6 border-t border-gray-100">
+  
+                  {/* Spacer to push stats to bottom */}
+                  <div className="flex-grow"></div>
+  
+                  {feature.stats && (
+                    <div className="pt-6 border-t border-gray-100 mt-6">
                     <div className="flex items-baseline gap-2">
                       <span className="text-3xl font-bold bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent">
                         {feature.stats.value}
