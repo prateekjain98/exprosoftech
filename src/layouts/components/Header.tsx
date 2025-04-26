@@ -200,7 +200,13 @@ const Header: React.FC<HeaderProps> = ({
   ) => {
     event.stopPropagation();
     if (window.innerWidth < 1024) {
-      setOpenMobileDropdown(openMobileDropdown === menuName ? "" : menuName);
+      // Instead of toggling the dropdown, navigate to a page or show all items
+      setIsMobileMenuOpen(false);
+      
+      // You can either:
+      // 1. Show all dropdown items by default in mobile view (implemented below)
+      // 2. Or navigate to a main category page if you have one
+      setOpenMobileDropdown(menuName);
     }
   };
 
@@ -242,7 +248,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <div className={`header-wrapper ${!errorPage && "pb-6"}`}>
+    <div className={`header-wrapper ${!errorPage && "pb-2"}`}>
       <header
         className={`header z-[999] transition-all duration-300 shadow-sm ${isHidden ? "header-hidden" : ""}`}
       >
@@ -326,19 +332,17 @@ const Header: React.FC<HeaderProps> = ({
                     </span>
                     {/* Mobile Menu Dropdown */}
                     <div
-                      className={`lg:hidden ${openMobileDropdown === menu.name ? "block" : "hidden"}`}
+                      className="lg:hidden block mt-2 space-y-3 px-2"
                     >
-                      <div className="mt-2 space-y-3 px-2">
-                        {menu.children?.map((child, childIndex) => (
-                          <ProductMenuItem
-                            key={childIndex}
-                            child={child}
-                            childIndex={childIndex}
-                            menuName={menu.name}
-                            setIsMobileMenuOpen={setIsMobileMenuOpen}
-                          />
-                        ))}
-                      </div>
+                      {menu.children?.map((child, childIndex) => (
+                        <ProductMenuItem
+                          key={childIndex}
+                          child={child}
+                          childIndex={childIndex}
+                          menuName={menu.name}
+                          setIsMobileMenuOpen={setIsMobileMenuOpen}
+                        />
+                      ))}
                     </div>
                     {/* Desktop Menu Dropdown */}
                     <div

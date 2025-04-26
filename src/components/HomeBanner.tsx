@@ -51,9 +51,9 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ banner }: HomeBannerProps
 
 
   return (
-    <section className="relative z-[1] pt-6 pb-10 lg:pt-10">
+    <section className="relative z-[1] pb-10 lg:pt-10">
       <div className="max-w-[85rem] mx-auto px-3">
-        <div className="row items-center justify-between">
+        <div className="row items-center justify-between flex-col-reverse lg:flex-row">
           {/* Left Column - Content */}
           <div className="mb-8 lg:mb-0 text-center lg:text-left lg:col-6">
             {banner.title && (
@@ -93,7 +93,7 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ banner }: HomeBannerProps
           </div>
 
           {/* Right Column - Image */}
-          <div className="lg:col-6">
+          <div className="lg:col-6 mb-12 lg:mb-0">
             <div
               className="relative"
               data-aos="fade-up-sm"

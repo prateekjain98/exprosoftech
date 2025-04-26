@@ -735,7 +735,7 @@ export const AnimatedMetrics: React.FC = () => {
         <div className="absolute w-[85%] md:w-[75%] h-[82%] bg-gray-50/95 rounded-[2.5rem]" />
 
         {/* Hero Image Container */}
-        <div className="relative z-10 w-[75%] md:w-[55%] flex items-center justify-center">
+        <div className="relative z-10 w-[70%] md:w-[55%] flex items-center justify-center">
           <img
             src="/images/home/hero.jpeg"
             alt="Hero"
