@@ -47,7 +47,46 @@ const productAdditionalFeaturesQuery = `
       description,
       icon
     }
-  }`
+}`
+
+// const features: Feature[] = [
+//   {
+//     title: "Quick Implementation",
+//     description:
+//       "Get up and running quickly with our streamlined implementation process and expert support team.",
+//     icon: Rocket,
+//   },
+//   {
+//     title: "Performance Tracking",
+//     description:
+//       "Monitor and analyze key performance metrics to optimize your operations and drive better results.",
+//     icon: ChartLine,
+//   },
+//   {
+//     title: "Team Collaboration",
+//     description:
+//       "Enable seamless communication and collaboration between field teams and office staff.",
+//     icon: Users,
+//   },
+//   {
+//     title: "Global Accessibility",
+//     description:
+//       "Access your data and tools from anywhere in the world with our cloud-based solution.",
+//     icon: Globe,
+//   },
+//   {
+//     title: "Enterprise Security",
+//     description:
+//       "Rest easy knowing your data is protected by industry-leading security measures and encryption.",
+//     icon: Shield,
+//   },
+//   {
+//     title: "Custom Configuration",
+//     description:
+//       "Tailor the platform to your specific needs with customizable workflows and settings.",
+//     icon: Gear,
+//   },
+// ];
 
 export const AdditionalFeatures = async ({ className, heading }: AdditionalFeaturesProps) => {
   const featuresArray = await sanityClient.fetch(productAdditionalFeaturesQuery)

@@ -22,6 +22,40 @@ interface ScrollableServicesProps {
   heading: Heading;
 }
 
+// const services: Service[] = [
+//   {
+//     number: "01",
+//     title: "Loyalty Management",
+//     subheading: "Product-Focused Customer Loyalty Solutions",
+//     description:
+//       "Transform your customer relationships with our comprehensive loyalty management platform. We help businesses design, implement, and optimize reward programs that drive engagement, increase retention, and maximize customer lifetime value through data-driven personalization.",
+//     image: "/images/services/loyalty.png",
+//   },
+//   {
+//     number: "02",
+//     title: "Channel Reach Expansion",
+//     subheading: "Strategic Market Presence Enhancement",
+//     description:
+//       "Expand your market presence through strategic channel partnerships and distribution networks. Our approach focuses on identifying and developing optimal channel mix, enabling businesses to reach new markets and customer segments effectively.",
+//     image: "/images/services/channel-reach.png",
+//   },
+//   {
+//     number: "03",
+//     title: "B2B Sales Excellence",
+//     subheading: "End-to-End B2B Sales Pipeline Management",
+//     description:
+//       "Accelerate your B2B sales with our comprehensive approach covering prospecting, content creation, multi-channel outreach (LinkedIn & Email), appointment scheduling, and complete funnel management. We help you build and maintain a robust sales pipeline that delivers consistent results.",
+//     image: "/images/services/b2b-sales.png",
+//   },
+// ];
+
+const sectionHeader = {
+  tagline: "Services",
+  heading: "Driving Growth as an extension of your team",
+  subheading:
+    "We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership. Our integrated approach ensures measurable results and long-term success.",
+};
+
 export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services, heading }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);

@@ -28,6 +28,41 @@ interface FeaturesGridProps {
   }>;
 }
 
+// const features: Feature[] = [
+//   {
+//     tagline: "A demand-driven approach",
+//     title: "Supply chain Effectiveness",
+//     description:
+//       "A demand-driven approach ensures the right product is available at the right place, at the right time. By aligning supply chain execution with real demand, businesses can improve availability at OEMs and channel outlets, manage demand variability, optimize inventory, and enhance service levels. This also leads to shorter supply lead times, reduced working capital, and a more resilient, responsive supply chain.",
+//     image: "/images/FeatureImgOne.png",
+//     icon: Gear,
+//   },
+//   {
+//     tagline: "Optimized operations",
+//     title: "Operational Excellence",
+//     description:
+//       "Optimized operations eliminate bottlenecks, enhance On-Time-In-Full (OTIF) delivery, and reduce manufacturing lead times. By improving workflow efficiency, uncovering hidden capacity, and minimizing excess inventory, businesses achieve smoother production, faster fulfillment, and higher overall productivity—without additional investment.",
+//     image: "/images/FeatureImgTwo.png",
+//     icon: ChartLineUp,
+//   },
+//   {
+//     tagline: "Expanding channel reach",
+//     title: "Sales transformation",
+//     description:
+//       "Expanding channel reach and B2B engagement fuels market penetration, while loyalty programs strengthen retention and sustainable growth powered by Optimized sales execution, powered by CRM, outreach and productivity tools, and structured team alignment. Coupled with better product availability,plugging sales losses creates sustained revenue growth.",
+//     image: "/images/FeatureImgThree.png",
+//     icon: Database,
+//   },
+//   {
+//     tagline: "Seamless integration of technology",
+//     title: "Digital Transformation",
+//     description:
+//       "Seamless integration of technology enhances supply chain planning, sales productivity, and functional alignment. By developing dedicated systems, patching existing tools, and enabling real-time, data-driven decision-making, we drive efficiency, agility, and sustained business performance.",
+//     image: "/images/FeatureImgFour.png",
+//     icon: Users,
+//   },
+// ];
+
 // Use props in the component definition
 export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ heading, features }) => {
   const [activeTab, setActiveTab] = useState<number>(0);

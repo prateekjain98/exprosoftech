@@ -51,6 +51,64 @@ interface EmpowermentData {
   points: EmpowermentPoint[];
 }
 
+// const businessGuidanceData: BusinessGuidanceData = {
+//   title: "Guiding Your Business",
+//   subtitle: "Towards Success",
+//   description:
+//     "We combine proven methodologies with guaranteed results to deliver measurable business transformation. Our experienced team ensures end-to-end implementation with a focus on sustainable growth and operational excellence.",
+//   image: {
+//     src: "/images/consulting/demand-driven-business-transformation/business-impact-1.png",
+//     alt: "Business Guidance Meeting",
+//   },
+//   guidancePoints: [
+//     {
+//       id: 1,
+//       title: "Proven Methodologies",
+//       description:
+//         "Backed by the Theory of Constraints (TOC) and other scientific management techniques.",
+//     },
+//     {
+//       id: 2,
+//       title: "Guaranteed Results",
+//       description:
+//         "We assure measurable outcomes such as a 25% increase in sales or inventory reduction, or we refund the evaluation cost.",
+//     },
+//     {
+//       id: 3,
+//       title: "End-To-End Implementation",
+//       description:
+//         "From strategy design to execution and team handholding, we deliver comprehensive solutions.",
+//     },
+//     {
+//       id: 4,
+//       title: "Experienced Leadership",
+//       description:
+//         "Our team comprises industry veterans with decades of expertise in business transformation.",
+//     },
+//   ],
+// };
+
+// const empowermentData = {
+//   title: "Strategic Partnership",
+//   subtitle: "For Business Excellence",
+//   description:
+//     "Partner with us to create a competitive advantage through strategic planning, market positioning, and innovative solutions. We help you navigate complex business landscapes and capitalize on emerging opportunities.",
+//   points: [
+//     {
+//       icon: Target,
+//       title: "Strategic Market Positioning",
+//       description:
+//         "Develop a strong market presence through competitive analysis, strategic positioning, and targeted growth initiatives. We help you identify and capitalize on market opportunities.",
+//     },
+//     {
+//       icon: Handshake,
+//       title: "Collaborative Partnership Model",
+//       description:
+//         "Experience a unique partnership approach where we work alongside your team, transfer knowledge, and ensure sustainable implementation of solutions for long-term success.",
+//     },
+//   ],
+// };
+
 const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
   businessGuidanceData: BusinessGuidanceData;
   empowermentData: EmpowermentData;

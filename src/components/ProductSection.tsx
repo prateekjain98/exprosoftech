@@ -35,36 +35,6 @@ interface ProductSectionProps {
 
 // const products: Product[] = [
 
-  // {
-  //   title: "Intuiflow",
-  //   description:
-  //     "Build an agile and resilient supply chain with our AI/ML-powered planning software. Get actionable insights and improve operational stability from strategy to shop floor.",
-  //   image:
-  //     "https://demanddriventech.com/wp-content/uploads/2024/07/intuiflow-screen-1.png",
-  //   label: "Supply Chain Solution",
-  //   features: [
-  //     {
-  //       title: "Materials Planning",
-  //       description:
-  //         "Ensure steady material supply and minimize bullwhip effect with enhanced supply-demand visibility and adaptive buffer management.",
-  //     },
-  //     {
-  //       title: "Demand Planning",
-  //       description:
-  //         "Visualize backlog vs forecast, assess adaptability to change, and establish forecasted demand rates with intelligent analytics.",
-  //     },
-  //     {
-  //       title: "Sales & Operations Planning",
-  //       description:
-  //         "Generate forward-looking simulations, identify operational gaps, and respond quickly to market changes for optimal performance.",
-  //     },
-  //     {
-  //       title: "Scheduling & Execution",
-  //       description:
-  //         "Align resources to demand, improve due date performance, and reduce impact of variation with real-time work order status.",
-  //     },
-  //   ],
-  // },
 
 
 //   {
