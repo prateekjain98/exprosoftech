@@ -25,9 +25,12 @@ import { clientsType } from './Clients'
 import { heroBannerSections } from './HeroBannersSections'
 import { consultingDropdownType } from './ConsultingDropdown'
 import { faqSection } from './FAQSections'
+import post from './Post'
+import author from './Author'
+import blockContent from './BlockContent'
 
 export const schemaTypes = [headingType , cardType , featuresType , serviceType , productType ,faqType , demandDrivenFAQType , demandDrivenImpact ,
     challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType , loyaltyManagementServiceCards , LoayltyManagementkeyIssuesType , 
     loyaltyManagementProcessSteps , loyaltyIndustries , productFeaturesType , mobileFeaturesTypes , showcaseContentTypes , productAdditionalFeatures , aboutDualData , leadershipTeam , 
-    clientsType , heroBannerSections , consultingDropdownType , faqSection
+    clientsType , heroBannerSections , consultingDropdownType , faqSection , post , author , blockContent
 ]

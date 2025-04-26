@@ -1,29 +1,39 @@
 ---
 import Base from "@/layouts/Base.astro";
 import BlogSingle from "@/layouts/BlogSingle.astro";
-import { getSinglePage } from "@/lib/contentParser.astro";
+import { sanityClient } from "sanity:client";
 
 export async function getStaticPaths() {
-  const BLOG_FOLDER = "blog";
-  const posts = await getSinglePage(BLOG_FOLDER);
+  const posts = await sanityClient.fetch(`
+    *[_type == "post"] {
+      "slug": slug.current,
+      title,
+      date,
+      "image": image.asset->url,
+      body,
+      excerpt,
+      "author": author->{
+        name,
+        "slug": slug.current,
+        "image": image.asset->url
+      }
+    }
+  `);
 
-  const paths = posts.map((post) => ({
-    params: {
-      single: post.slug,
-    },
+  return posts.map((post: { slug: string }) => ({
+    params: { slug: post.slug },
     props: { post },
   }));
-  return paths;
 }
 
 const { post } = Astro.props;
-const { title, meta_title, description, image } = post.data;
+const { title, excerpt, image } = post;
 ---
 
 <Base
   title={title}
-  meta_title={meta_title}
-  description={description}
+  meta_title={title}
+  description={excerpt || ""}
   image={image}>
   <BlogSingle post={post} />
 </Base>
