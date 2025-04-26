@@ -16,18 +16,19 @@ interface ServicesContent {
   services: Service[];
 }
 
-interface ServiceCardProps {
+// Add interface for queried services
+interface QueriedService {
   title: string;
   description: string;
   features: string[];
-  index: number;
+  index?: number;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({
+const ServiceCard: React.FC<QueriedService> = ({
   title,
   description,
   features,
-  index,
+  index = 0,
 }) => {
   return (
     <motion.div
@@ -51,22 +52,33 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   );
 };
 
-interface Props {
-  className?: string;
-  content: ServicesContent;
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
 }
 
-export const ServicesServices: React.FC<Props> = ({ className, content }) => {
+interface Props {
+  className?: string;
+  heading: HeadingProps;
+  services: QueriedService[];
+}
+
+export const ServicesServices: React.FC<Props> = ({ 
+  className = "", 
+  heading,
+  services = []
+}) => {
   return (
     <section className={`py-20 bg-gray-50 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
         />
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {content.services.map((service, index) => (
+          {services.map((service, index) => (
             <ServiceCard key={service.title} {...service} index={index} />
           ))}
         </div>

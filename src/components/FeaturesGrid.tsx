@@ -8,51 +8,75 @@ import {
 } from "@phosphor-icons/react";
 import SectionHeader from "./SectionHeader";
 
-interface Feature {
-  tagline: string;
+// Define the heading prop interface
+export interface HeadingData {
+  _id: string;
+  subtitle?: string;
   title: string;
   description: string;
-  image: string;
-  icon: React.ForwardRefExoticComponent<any>;
 }
 
-const features: Feature[] = [
-  {
-    tagline: "A demand-driven approach",
-    title: "Supply chain Effectiveness",
-    description:
-      "A demand-driven approach ensures the right product is available at the right place, at the right time. By aligning supply chain execution with real demand, businesses can improve availability at OEMs and channel outlets, manage demand variability, optimize inventory, and enhance service levels. This also leads to shorter supply lead times, reduced working capital, and a more resilient, responsive supply chain.",
-    image: "/images/FeatureImgOne.png",
-    icon: Gear,
-  },
-  {
-    tagline: "Optimized operations",
-    title: "Operational Excellence",
-    description:
-      "Optimized operations eliminate bottlenecks, enhance On-Time-In-Full (OTIF) delivery, and reduce manufacturing lead times. By improving workflow efficiency, uncovering hidden capacity, and minimizing excess inventory, businesses achieve smoother production, faster fulfillment, and higher overall productivity—without additional investment.",
-    image: "/images/FeatureImgTwo.png",
-    icon: ChartLineUp,
-  },
-  {
-    tagline: "Expanding channel reach",
-    title: "Sales transformation",
-    description:
-      "Expanding channel reach and B2B engagement fuels market penetration, while loyalty programs strengthen retention and sustainable growth powered by Optimized sales execution, powered by CRM, outreach and productivity tools, and structured team alignment. Coupled with better product availability,plugging sales losses creates sustained revenue growth.",
-    image: "/images/FeatureImgThree.png",
-    icon: Database,
-  },
-  {
-    tagline: "Seamless integration of technology",
-    title: "Digital Transformation",
-    description:
-      "Seamless integration of technology enhances supply chain planning, sales productivity, and functional alignment. By developing dedicated systems, patching existing tools, and enabling real-time, data-driven decision-making, we drive efficiency, agility, and sustained business performance.",
-    image: "/images/FeatureImgFour.png",
-    icon: Users,
-  },
-];
+// Update the FeaturesGridProps interface
+interface FeaturesGridProps {
+  heading: HeadingData;
+  features: Array<{
+    tagline: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+    icon: string;
+  }>;
+}
 
-export const FeaturesGrid: React.FC = () => {
+// const features: Feature[] = [
+//   {
+//     tagline: "A demand-driven approach",
+//     title: "Supply chain Effectiveness",
+//     description:
+//       "A demand-driven approach ensures the right product is available at the right place, at the right time. By aligning supply chain execution with real demand, businesses can improve availability at OEMs and channel outlets, manage demand variability, optimize inventory, and enhance service levels. This also leads to shorter supply lead times, reduced working capital, and a more resilient, responsive supply chain.",
+//     image: "/images/FeatureImgOne.png",
+//     icon: Gear,
+//   },
+//   {
+//     tagline: "Optimized operations",
+//     title: "Operational Excellence",
+//     description:
+//       "Optimized operations eliminate bottlenecks, enhance On-Time-In-Full (OTIF) delivery, and reduce manufacturing lead times. By improving workflow efficiency, uncovering hidden capacity, and minimizing excess inventory, businesses achieve smoother production, faster fulfillment, and higher overall productivity—without additional investment.",
+//     image: "/images/FeatureImgTwo.png",
+//     icon: ChartLineUp,
+//   },
+//   {
+//     tagline: "Expanding channel reach",
+//     title: "Sales transformation",
+//     description:
+//       "Expanding channel reach and B2B engagement fuels market penetration, while loyalty programs strengthen retention and sustainable growth powered by Optimized sales execution, powered by CRM, outreach and productivity tools, and structured team alignment. Coupled with better product availability,plugging sales losses creates sustained revenue growth.",
+//     image: "/images/FeatureImgThree.png",
+//     icon: Database,
+//   },
+//   {
+//     tagline: "Seamless integration of technology",
+//     title: "Digital Transformation",
+//     description:
+//       "Seamless integration of technology enhances supply chain planning, sales productivity, and functional alignment. By developing dedicated systems, patching existing tools, and enabling real-time, data-driven decision-making, we drive efficiency, agility, and sustained business performance.",
+//     image: "/images/FeatureImgFour.png",
+//     icon: Users,
+//   },
+// ];
+
+// Use props in the component definition
+export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ heading, features }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
+
+  // Convert icon string to component
+  const getIconComponent = (iconName: string) => {
+    const icons = {
+      Gear,
+      ChartLineUp,
+      Database,
+      Users,
+    };
+    return icons[iconName as keyof typeof icons] || Gear;
+  };
 
   return (
     <section className="py-16 lg:py-24">
@@ -67,9 +91,9 @@ export const FeaturesGrid: React.FC = () => {
           <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <div className="mx-auto lg:col-11 mb-10 lg:mb-16">
               <SectionHeader
-                tagline="Consulting"
-                heading="Demand driven <span class='bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent'>Business Excellence</span>"
-                subheading="Relying on forecasts leads to stock imbalances, excess inventory, and missed sales. Aligning sales, supply chain, and operations with real demand ensures agility, optimized inventory, and seamless execution—minimizing waste while maximizing availability and profitability."
+                tagline={heading?.subtitle || ""}
+                heading={heading?.title || ""}
+                subheading={heading?.description || ""}
                 theme="dark"
               />
             </div>
@@ -81,35 +105,38 @@ export const FeaturesGrid: React.FC = () => {
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
-                {features.map((feature, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveTab(index)}
-                    className={`
-                      group flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 
-                      px-2.5 sm:px-6 py-2.5 sm:py-4 rounded-lg sm:rounded-xl 
-                      transition-all duration-300
-                      ${
-                        activeTab === index
-                          ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25"
-                          : "bg-gray-800/50 text-gray-300 hover:bg-gray-800 hover:shadow-lg"
-                      }
-                    `}
-                  >
-                    <div
-                      className={`p-1.5 sm:p-2 rounded-lg ${
-                        activeTab === index
-                          ? "bg-white/20"
-                          : "bg-gray-700/50 group-hover:bg-gray-700"
-                      }`}
+                {features.map((feature, index) => {
+                  const IconComponent = getIconComponent(feature.icon);
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => setActiveTab(index)}
+                      className={`
+                        group flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 
+                        px-2.5 sm:px-6 py-2.5 sm:py-4 rounded-lg sm:rounded-xl 
+                        transition-all duration-300
+                        ${
+                          activeTab === index
+                            ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25"
+                            : "bg-gray-800/50 text-gray-300 hover:bg-gray-800 hover:shadow-lg"
+                        }
+                      `}
                     >
-                      <feature.icon size={16} weight="duotone" />
-                    </div>
-                    <span className="text-[11px] leading-tight sm:text-base font-medium text-center sm:text-left">
-                      {feature.title}
-                    </span>
-                  </button>
-                ))}
+                      <div
+                        className={`p-1.5 sm:p-2 rounded-lg ${
+                          activeTab === index
+                            ? "bg-white/20"
+                            : "bg-gray-700/50 group-hover:bg-gray-700"
+                        }`}
+                      >
+                        <IconComponent size={16} weight="duotone" />
+                      </div>
+                      <span className="text-[11px] leading-tight sm:text-base font-medium text-center sm:text-left">
+                        {feature.title}
+                      </span>
+                    </button>
+                  );
+                })}
               </nav>
 
               {/* Feature Cards */}
@@ -153,7 +180,7 @@ export const FeaturesGrid: React.FC = () => {
                         <div className="order-1 lg:order-2 p-4 pb-0 md:p-6 lg:p-8 flex items-center justify-center">
                           <div className="relative w-full aspect-[4/3] max-w-[400px] md:max-w-[450px]">
                             <img
-                              src={feature.image}
+                              src={feature.imageUrl}
                               alt={feature.title}
                               className="w-full h-full object-contain"
                               width={600}

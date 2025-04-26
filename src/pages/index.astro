@@ -3,22 +3,108 @@ import Base from "@/layouts/Base.astro";
 import { Clients } from "../components/Clients";
 import { Offerings } from "../components/Offerings";
 import CaseStudies from "../components/CaseStudies";
-import FAQ from "../components/FAQ";
+import NewFAQ from "../components/NewFAQ";
 import { FeaturesGrid } from "../components/FeaturesGrid";
 import { ScrollableServices } from "../components/ScrollableServices";
 import { ProductSection } from "../components/ProductSection";
 import { HomeBanner } from "../components/HomeBanner";
 import { getEntry } from "astro:content";
 
+import { sanityClient } from "sanity:client"
+
+const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
+//featuregrid
+const FEATURES_QUERY = await sanityClient.fetch(`*[_type == "features"] | order(_createdAt desc){
+  tagline,
+  title,
+  description,
+  "imageUrl": image.asset->url,
+  icon
+}`)
+
+//scrollableServices
+const SERVICES_QUERY = `*[_type == "service"] | order(number asc) {
+  _id,
+  number,
+  title,
+  subheading,
+  description,
+  "imageUrl": image.asset->url
+}`;
+
+//Product Section
+const productsQuery = `*[_type == "product"] {
+  title,
+  description,
+  "image": image.asset->url,
+  label,
+
+  buttonHref,
+  buttonLabel,
+  mainCTA,
+  features[] {
+    title,
+    description
+  }
+}`
+
+const homeBannerQuery = `
+  *[_type == "heroBannerSections"] | order(_createdAt desc) [0] {
+    title,
+    description,
+    image[] {
+      src,
+      alt
+    },
+    buttons[] {
+      label,
+      link,
+      isCalendly
+    }
+  }
+  `
+
+  const Home_Faq_QUery =`*[_type == "faqSection"] | order(_createdAt desc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active
+  }
+}`
+
+
+
+const headings = await sanityClient.fetch(HEADING_QUERY);
+const services = await sanityClient.fetch(SERVICES_QUERY);
+const products = await sanityClient.fetch(productsQuery)
+
+const features = FEATURES_QUERY.slice(12, 16).reverse()
+const homeBanner = await sanityClient.fetch(homeBannerQuery)
+
+const homeFaq = await sanityClient.fetch(Home_Faq_QUery)
+
+
+
 ---
 
 <Base>
-  <HomeBanner client:load />
+  <HomeBanner client:load banner={homeBanner} />
   <Clients client:load />
   <Offerings client:load />
-  <FeaturesGrid client:load />
-  <ScrollableServices client:load />
-  <ProductSection client:load />
+  <FeaturesGrid heading={headings[1]} features={features} client:load />
+  <ScrollableServices heading={headings[2]} services={services} client:load />
+  <ProductSection products={products.reverse()} client:load />
   <!-- <CaseStudies client:load /> -->
-  <FAQ client:load variant="home" />
+  <NewFAQ client:load Faq={[homeFaq[3]]}/>
 </Base>

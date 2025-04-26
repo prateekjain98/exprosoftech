@@ -12,10 +12,10 @@ const {
 
 const {
   cardLayout,
-  content: { data, slug, body },
+  content
 } = Astro.props;
 
-const { title, image, date } = data;
+const { title, slug, image, date, excerpt, body } = content;
 ---
 
 <div class="bg-body">
@@ -61,16 +61,15 @@ const { title, image, date } = data;
     )
   }
   {
-    body && (
-      <p class="mb-6">{plainify(body?.slice(0, Number(summary_length)))}</p>
-    )
+    excerpt ? (
+      <p class="mb-6">{excerpt}</p>
+    ) : body ? (
+      <p class="mb-6">{typeof body === 'string' ? body.slice(0, Number(summary_length)) : 'Read more...'}</p>
+    ) : null
   }
   <a class="btn btn-text border-none" href={`/${blog_folder}/${slug}/`}>
     Read More
     <div class="icon-wrapper">
-      <!-- <span class="icon">
-        <DynamicIcon className="w-4" icon={"FaArrowRight"} />
-      </span> -->
       <span class="icon" aria-hidden="true">
         <DynamicIcon className="w-4" icon={"FaArrowRight"} />
       </span>

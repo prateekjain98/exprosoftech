@@ -1,5 +1,12 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
+import { sanityClient } from "sanity:client";
+
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
 
 interface ChallengeType {
   title: string;
@@ -7,57 +14,63 @@ interface ChallengeType {
   icon: string;
 }
 
-interface ChallengesData {
-  sectionTitle: string;
-  subtitle: string;
-  challenges: ChallengeType[];
+interface ChallengesWeAddressProps {
+  heading: HeadingProps;
 }
 
-const challengesData: ChallengesData = {
-  sectionTitle: "Challenges We Address",
-  subtitle:
-    "We address the critical challenges organizations face across industries, enabling them to achieve operational excellence and financial success",
-  challenges: [
-    {
-      title: "Stagnant Sales Growth",
-      description:
-        "Experience tailored financial counsel that maximizes your assets and secures your financial future.",
-      icon: "/images/consulting/demand-driven-business-transformation/challenges/stagnant-sales-growth.png",
-    },
-    {
-      title: "Market Share Stagnation",
-      description:
-        "Optimize inventory for a competitive edge—boost accuracy, cut costs, and streamline the supply chain.",
-      icon: "/images/consulting/demand-driven-business-transformation/challenges/market-share-stagnation.png",
-    },
-    {
-      title: "Poor Cash Flow",
-      description:
-        "Optimized procurement and faster deliveries enhance revenue cycles while streamlining vendor payments and minimizing capital tie-ups.",
-      icon: "/images/consulting/demand-driven-business-transformation/challenges/poor-cash-flow.png",
-    },
-    {
-      title: "Demand Variability",
-      description:
-        "DDMRP stabilizes demand by buffering fluctuations, ensuring steady supply, reducing stockouts, and improving responsiveness for smoother operations.",
-      icon: "/images/consulting/demand-driven-business-transformation/challenges/demand-variability.png",
-    },
-    {
-      title: "Delayed Customer Deliveries",
-      description:
-        "Navigate your projects with precision using our strategic project management solutions.",
-      icon: "/images/consulting/demand-driven-business-transformation/challenges/delayed-customer-deliveries.png",
-    },
-    {
-      title: "High Inventory Cost",
-      description:
-        "Discover tailored solutions to strategically optimize your operations and enhance business efficiency.",
-      icon: "/images/consulting/demand-driven-business-transformation/challenges/high-inventory-cost.png",
-    },
-  ],
-};
+// const challengesData: ChallengesData = {
+//   sectionTitle: "Challenges We Address",
+//   subtitle:
+//     "We address the critical challenges organizations face across industries, enabling them to achieve operational excellence and financial success",
+//   challenges: [
+//     {
+//       title: "Stagnant Sales Growth",
+//       description:
+//         "Experience tailored financial counsel that maximizes your assets and secures your financial future.",
+//       icon: "/images/consulting/demand-driven-business-transformation/challenges/stagnant-sales-growth.png",
+//     },
+//     {
+//       title: "Market Share Stagnation",
+//       description:
+//         "Optimize inventory for a competitive edge—boost accuracy, cut costs, and streamline the supply chain.",
+//       icon: "/images/consulting/demand-driven-business-transformation/challenges/market-share-stagnation.png",
+//     },
+//     {
+//       title: "Poor Cash Flow",
+//       description:
+//         "Optimized procurement and faster deliveries enhance revenue cycles while streamlining vendor payments and minimizing capital tie-ups.",
+//       icon: "/images/consulting/demand-driven-business-transformation/challenges/poor-cash-flow.png",
+//     },
+//     {
+//       title: "Demand Variability",
+//       description:
+//         "DDMRP stabilizes demand by buffering fluctuations, ensuring steady supply, reducing stockouts, and improving responsiveness for smoother operations.",
+//       icon: "/images/consulting/demand-driven-business-transformation/challenges/demand-variability.png",
+//     },
+//     {
+//       title: "Delayed Customer Deliveries",
+//       description:
+//         "Navigate your projects with precision using our strategic project management solutions.",
+//       icon: "/images/consulting/demand-driven-business-transformation/challenges/delayed-customer-deliveries.png",
+//     },
+//     {
+//       title: "High Inventory Cost",
+//       description:
+//         "Discover tailored solutions to strategically optimize your operations and enhance business efficiency.",
+//       icon: "/images/consulting/demand-driven-business-transformation/challenges/high-inventory-cost.png",
+//     },
+//   ],
+// };
 
-const ChallengesWeAddress: React.FC = () => {
+const ChallengesWeAddress = async ({ heading }: { heading: HeadingProps }) => {
+  const challengesQuery = `*[_type == "challengesWeAddress"] | order(_createdAt asc) {
+    title,
+    description,
+    "iconUrl": icon.asset->url
+  }`;
+
+  const challengesData = await sanityClient.fetch(challengesQuery);
+
   return (
     <section className="py-16 lg:py-24">
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 md:px-8">
@@ -70,14 +83,14 @@ const ChallengesWeAddress: React.FC = () => {
         >
           <div className="relative z-10 px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <SectionHeader
-              tagline="Key Issues"
-              heading={`Challenges We <span class="text-[#0066FF]">Address</span>`}
-              subheading={challengesData.subtitle}
+              tagline={heading.subtitle}
+              heading={heading.title}
+              subheading={heading.description}
               className="mb-10 lg:mb-16"
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
-              {challengesData.challenges.map((challenge, index) => (
+              {challengesData.map((challenge :any, index:number) => (
                 <div
                   key={index}
                   data-aos="fade-up"
@@ -88,7 +101,7 @@ const ChallengesWeAddress: React.FC = () => {
                     <div className="flex-shrink-0 pt-1 sm:pt-0">
                       <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-[#E6F0FF] rounded-xl sm:rounded-2xl group-hover:bg-[#CCE3FF] transition-colors duration-300">
                         <img
-                          src={challenge.icon}
+                          src={challenge.iconUrl}
                           alt={challenge.title}
                           width={48}
                           height={48}

@@ -9,30 +9,24 @@ import {
   FaShoppingBag,
   FaCarAlt,
   FaGamepad,
+  FaNetworkWired,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaLaptopCode,
+  FaIndustry,
+  FaUserTie,
+  FaMoneyBillWave,
+  FaHospital,
+  FaShoppingCart,
   FaGraduationCap,
+  FaServer,
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 
-interface Industry {
-  title: string;
-  description: string;
-  icon: any;
-}
-
-interface IndustriesContent {
-  tagline: string;
-  heading: string;
-  subheading: string;
-  industries: Industry[];
-}
-
-interface Props {
-  className?: string;
-  content: IndustriesContent;
-}
-
-// Icon mapping
-const iconMap: Record<string, IconType> = {
+// Improve icon mapping with better typing
+const iconMap: { [key: string]: IconType } = {
   FaStore,
   FaHotel,
   FaPlane,
@@ -41,44 +35,72 @@ const iconMap: Record<string, IconType> = {
   FaCarAlt,
   FaGamepad,
   FaGraduationCap,
+  FaShoppingCart,
+  FaIndustry,
+  FaNetworkWired,
+  FaMoneyBillWave,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaUserTie,
+  FaLaptopCode,
+  FaHospital,
+  FaServer,
 };
 
-export const ServicesIndustries: React.FC<Props> = ({ className, content }) => {
-  // Function to safely render icons
-  const renderIcon = (icon: any) => {
-    if (!icon) {
-      return <FaStore size={28} />;
-    }
+// Update the Industry interface to be more specific about icon type
+interface Industry {
+  title: string;
+  description: string;
+  icon: keyof typeof iconMap; // This ensures icon must be a key from iconMap
+}
 
-    // If icon is a function (React component)
-    if (typeof icon === "function") {
-      const IconComponent = icon;
-      return <IconComponent size={28} />;
-    }
+// Content structure for the section
+interface IndustriesContent {
+  tagline: string;
+  heading: string;
+  subheading: string;
+}
 
-    // If icon is a string (icon name)
-    if (typeof icon === "string") {
-      // Check if the icon exists in our map
-      if (iconMap[icon]) {
-        const IconComponent = iconMap[icon];
-        return <IconComponent size={28} />;
-      }
-    }
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
 
-    // Default fallback
-    return <FaStore size={28} />;
+// Component props
+interface Props {
+  className?: string;
+  heading?: HeadingProps;  // Make heading optional
+  industries: Industry[];
+}
+
+export const ServicesIndustries: React.FC<Props> = ({
+  className = "",
+  heading,
+  industries = []
+}): JSX.Element => {
+  const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
+    const IconComponent = iconMap[iconName];
+    if (!IconComponent) {
+      console.warn(`Icon "${iconName}" not found in iconMap`);
+      return React.createElement(iconMap.FaStore, { size: 28 });
+    }
+    return React.createElement(IconComponent, { size: 28 });
   };
 
   return (
     <section className={`py-20 ${className}`}>
       <div className="container">
-        <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
-        />
+       
+          <SectionHeader
+            tagline="Industries"
+            heading="Tailored Solutions for Every Industry"
+            subheading="Our loyalty program management services are tailored to meet the unique needs of various industries and business models."
+          />
         <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
-          {content.industries.map((industry, index) => (
+          {industries.map((industry, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}

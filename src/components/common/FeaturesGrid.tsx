@@ -56,12 +56,19 @@ interface Feature {
   };
 }
 
-interface FeaturesGridProps {
-  badge: string;
+interface HeadingProps {
+  subtitle: string;
   title: string;
   description: string;
+}
+
+interface FeaturesGridProps {
+  badge?: string;
+  title?: string;
+  description?: string;
   features: Feature[];
   className?: string;
+  heading?: HeadingProps;
 }
 
 export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
@@ -70,7 +77,13 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
   description,
   features,
   className,
+  heading,
 }) => {
+  // Use heading prop values if available, otherwise fall back to direct props
+  const displayBadge = heading?.subtitle || badge || "";
+  const displayTitle = heading?.title || title || "";
+  const displayDescription = heading?.description || description || "";
+
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-b from-white to-slate-50/30 relative overflow-hidden">
       {/* Background Elements */}
@@ -85,19 +98,19 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
             className="inline-block px-4 py-2 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full"
             data-aos="fade-up-sm"
           >
-            {badge}
+            {displayBadge}
           </span>
           <h2
             className="mb-6 text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent"
             data-aos="fade-up-sm"
           >
-            {title}
+            {displayTitle}
           </h2>
           <p
             className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed"
             data-aos="fade-up-sm"
           >
-            {description}
+            {displayDescription}
           </p>
         </div>
 
@@ -110,26 +123,26 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
                 data-aos="fade-up-sm"
                 data-aos-delay={index * 100}
                 className="group bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl border border-gray-100/50 hover:border-primary/20 flex flex-col h-full"
-                >
-                  <div>
-                    <div className="mb-6">
-                      <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                        <Icon size={32} weight="duotone" />
-                      </div>
+              >
+                <div>
+                  <div className="mb-6">
+                    <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                      <Icon size={32} weight="duotone" />
                     </div>
-                    <h3 className="mb-4 text-xl font-semibold text-gray-900">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {feature.description}
-                    </p>
                   </div>
-  
-                  {/* Spacer to push stats to bottom */}
-                  <div className="flex-grow"></div>
-  
-                  {feature.stats && (
-                    <div className="pt-6 border-t border-gray-100 mt-6">
+                  <h3 className="mb-4 text-xl font-semibold text-gray-900">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+                
+                {/* Spacer to push stats to bottom */}
+                <div className="flex-grow"></div>
+                
+                {feature.stats && (
+                  <div className="pt-6 border-t border-gray-100 mt-6">
                     <div className="flex items-baseline gap-2">
                       <span className="text-3xl font-bold bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent">
                         {feature.stats.value}

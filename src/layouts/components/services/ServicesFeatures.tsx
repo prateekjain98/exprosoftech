@@ -8,6 +8,23 @@ import {
   FaRocket,
   FaShieldAlt,
   FaHeadset,
+  FaUsers,
+  FaMapMarkedAlt,
+  FaStore,
+  FaChartBar,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaGlobe,
+  FaHandshake,
+  FaMoneyBillWave,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaRecycle,
+  FaUserTie,
+  FaBullseye
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 import { useState } from "react";
@@ -27,9 +44,19 @@ interface FeaturesContent {
   features: Feature[];
 }
 
+// Updated Features interface
+interface Features {
+  tagline: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  icon: string;
+}
+
 interface Props {
   className?: string;
-  content: FeaturesContent;
+  heading: HeadingProps;
+  features: Features[]; // Changed to array of Features directly
 }
 
 // Icon mapping
@@ -40,10 +67,71 @@ const iconMap: Record<string, IconType> = {
   FaRocket,
   FaShieldAlt,
   FaHeadset,
+  FaUsers,
+  FaMapMarkedAlt,
+  FaStore,
+  FaChartBar,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaGlobe,
+  FaHandshake,
+  FaMoneyBillWave,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaRecycle,
+  FaUserTie,
+  FaBullseye
 };
 
-export const ServicesFeatures: React.FC<Props> = ({ className, content }) => {
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  className?: string;
+  heading: HeadingProps;
+  features: Features[];
+}
+
+export const ServicesFeatures: React.FC<Props> = ({ 
+  className = "", 
+  heading,
+  features = [] // Add default empty array
+}) => {
   const [activeTab, setActiveTab] = useState<number>(0);
+
+  // Add error handling for missing features
+  if (!features || features.length === 0) {
+    return (
+      <section className={`py-20 ${className}`}>
+        <div className="container">
+          <SectionHeader
+            tagline={heading.subtitle}
+            heading={heading.title}
+            subheading={heading.description}
+          />
+          <div className="mt-12 text-center text-gray-500">
+            No features available
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const getIconComponent = (iconName: string) => {
+    const icons = {
+      FaUserFriends,
+      FaChartLine,
+      FaCogs,
+      FaRocket,
+    };
+    return icons[iconName as keyof typeof icons] || FaUserFriends;
+  };
 
   // Function to safely render icons
   const renderIcon = (icon: any) => {
@@ -74,9 +162,9 @@ export const ServicesFeatures: React.FC<Props> = ({ className, content }) => {
     <section className={`py-20 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
         />
 
         <div className="mt-12">
@@ -86,35 +174,37 @@ export const ServicesFeatures: React.FC<Props> = ({ className, content }) => {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            {content.features.map((feature, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTab(index)}
-                className={`
-                  group flex flex-col sm:flex-row items-center gap-3 
-                  px-4 sm:px-6 py-3 sm:py-4 rounded-xl 
-                  transition-all duration-300
-                  ${
-                    activeTab === index
-                      ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25"
-                      : "bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md"
-                  }
-                `}
-              >
-                <div
-                  className={`p-2 rounded-lg ${
-                    activeTab === index
-                      ? "bg-white/20"
-                      : "bg-blue-50 group-hover:bg-blue-100"
-                  }`}
+            {features.map((feature: Features, index: number) => {
+              return (
+                <button
+                  key={index}
+                  onClick={() => setActiveTab(index)}
+                  className={`
+                    group flex flex-col sm:flex-row items-center gap-3 
+                    px-4 sm:px-6 py-3 sm:py-4 rounded-xl 
+                    transition-all duration-300
+                    ${
+                      activeTab === index
+                        ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25"
+                        : "bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md"
+                    }
+                  `}
                 >
-                  {renderIcon(feature.icon)}
-                </div>
-                <span className="text-sm sm:text-base font-medium">
-                  {feature.title}
-                </span>
-              </button>
-            ))}
+                  <div
+                    className={`p-2 rounded-lg ${
+                      activeTab === index
+                        ? "bg-white/20"
+                        : "bg-blue-50 group-hover:bg-blue-100"
+                    }`}
+                  >
+                    {renderIcon(feature.icon)}
+                  </div>
+                  <span className="text-sm sm:text-base font-medium">
+                    {feature.title}
+                  </span>
+                </button>
+              );
+            })}
           </nav>
 
           {/* Feature Cards */}
@@ -123,7 +213,7 @@ export const ServicesFeatures: React.FC<Props> = ({ className, content }) => {
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            {content.features.map((feature, index) => (
+            {features.map((feature, index) => (
               <div
                 key={index}
                 className={`
@@ -158,7 +248,7 @@ export const ServicesFeatures: React.FC<Props> = ({ className, content }) => {
                     <div className="order-1 lg:order-2 relative h-48 sm:h-64 lg:h-full overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 mix-blend-multiply z-10" />
                       <img
-                        src={feature.image}
+                        src={feature.imageUrl}
                         alt={feature.title}
                         className="absolute inset-0 w-full h-full object-cover"
                         loading="lazy"
@@ -173,4 +263,10 @@ export const ServicesFeatures: React.FC<Props> = ({ className, content }) => {
       </div>
     </section>
   );
+};
+
+// Add defaultProps
+ServicesFeatures.defaultProps = {
+  className: "",
+  features: [],
 };

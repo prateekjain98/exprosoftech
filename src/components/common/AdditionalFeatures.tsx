@@ -6,60 +6,100 @@ import {
   Globe,
   Shield,
   Gear,
+  DeviceMobile,
 } from "@phosphor-icons/react";
+import { sanityClient } from "sanity:client";
 
 interface Feature {
   title: string;
   description: string;
-  icon: React.ForwardRefExoticComponent<any>;
+  icon: string;
 }
 
-const features: Feature[] = [
-  {
-    title: "Quick Implementation",
-    description:
-      "Get up and running quickly with our streamlined implementation process and expert support team.",
-    icon: Rocket,
-  },
-  {
-    title: "Performance Tracking",
-    description:
-      "Monitor and analyze key performance metrics to optimize your operations and drive better results.",
-    icon: ChartLine,
-  },
-  {
-    title: "Team Collaboration",
-    description:
-      "Enable seamless communication and collaboration between field teams and office staff.",
-    icon: Users,
-  },
-  {
-    title: "Global Accessibility",
-    description:
-      "Access your data and tools from anywhere in the world with our cloud-based solution.",
-    icon: Globe,
-  },
-  {
-    title: "Enterprise Security",
-    description:
-      "Rest easy knowing your data is protected by industry-leading security measures and encryption.",
-    icon: Shield,
-  },
-  {
-    title: "Custom Configuration",
-    description:
-      "Tailor the platform to your specific needs with customizable workflows and settings.",
-    icon: Gear,
-  },
-];
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
 
 interface AdditionalFeaturesProps {
   className?: string;
+  heading?: HeadingProps;
 }
 
-export const AdditionalFeatures: React.FC<AdditionalFeaturesProps> = ({
-  className,
-}) => {
+interface IconMap {
+  [key: string]: React.ForwardRefExoticComponent<any>;
+}
+
+const iconMap: IconMap = {
+  'Rocket': Rocket,
+  'ChartLine': ChartLine,
+  'Users': Users,
+  'Globe': Globe,
+  'Shield': Shield,
+  'Gear': Gear
+};
+
+const productAdditionalFeaturesQuery = `
+  *[_type == "productAdditionalFeatures"] {
+    features[] {
+      title,
+      description,
+      icon
+    }
+}`
+
+// const features: Feature[] = [
+//   {
+//     title: "Quick Implementation",
+//     description:
+//       "Get up and running quickly with our streamlined implementation process and expert support team.",
+//     icon: Rocket,
+//   },
+//   {
+//     title: "Performance Tracking",
+//     description:
+//       "Monitor and analyze key performance metrics to optimize your operations and drive better results.",
+//     icon: ChartLine,
+//   },
+//   {
+//     title: "Team Collaboration",
+//     description:
+//       "Enable seamless communication and collaboration between field teams and office staff.",
+//     icon: Users,
+//   },
+//   {
+//     title: "Global Accessibility",
+//     description:
+//       "Access your data and tools from anywhere in the world with our cloud-based solution.",
+//     icon: Globe,
+//   },
+//   {
+//     title: "Enterprise Security",
+//     description:
+//       "Rest easy knowing your data is protected by industry-leading security measures and encryption.",
+//     icon: Shield,
+//   },
+//   {
+//     title: "Custom Configuration",
+//     description:
+//       "Tailor the platform to your specific needs with customizable workflows and settings.",
+//     icon: Gear,
+//   },
+// ];
+
+export const AdditionalFeatures = async ({ className, heading }: AdditionalFeaturesProps) => {
+  const featuresArray = await sanityClient.fetch(productAdditionalFeaturesQuery)
+  if (!featuresArray?.[0]?.features) return null;
+  
+  const features = featuresArray[0].features;
+  
+  // Use heading prop values if available, otherwise use defaults
+  const displaySubtitle = heading?.subtitle || "Additional Benefits";
+  const displayTitle = heading?.title || "Everything You Need to Succeed";
+  const displayDescription = heading?.description || 
+    "Beyond core features, our platform offers additional capabilities to enhance your operations";
+
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50/30 to-white relative overflow-hidden">
       {/* Background Elements */}
@@ -74,44 +114,46 @@ export const AdditionalFeatures: React.FC<AdditionalFeaturesProps> = ({
             className="inline-block px-4 py-2 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full"
             data-aos="fade-up-sm"
           >
-            Additional Benefits
+            {displaySubtitle}
           </span>
           <h2
             className="mb-6 text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent"
             data-aos="fade-up-sm"
           >
-            Everything You Need to Succeed
+            {displayTitle}
           </h2>
           <p
             className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed"
             data-aos="fade-up-sm"
           >
-            Beyond core features, our platform offers additional capabilities to
-            enhance your operations
+            {displayDescription}
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              data-aos="fade-up-sm"
-              data-aos-delay={index * 100}
-              className="group bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl border border-gray-100/50 hover:border-primary/20"
-            >
-              <div className="mb-6">
-                <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                  <feature.icon size={32} weight="duotone" />
+          {features.map((feature: Feature, index: number) => {
+            const Icon = feature.icon ? iconMap[feature.icon] : DeviceMobile;
+            return (
+              <div
+                key={index}
+                data-aos="fade-up-sm"
+                data-aos-delay={index * 100}
+                className="group bg-white rounded-2xl p-8 shadow-lg transition-all duration-300 hover:shadow-xl border border-gray-100/50 hover:border-primary/20"
+              >
+                <div className="mb-6">
+                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                    <Icon size={32} weight="duotone" />
+                  </div>
                 </div>
+                <h3 className="mb-4 text-xl font-semibold text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
-              <h3 className="mb-4 text-xl font-semibold text-gray-900">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

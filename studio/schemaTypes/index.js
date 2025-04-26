@@ -1,0 +1,36 @@
+import { businessGuidanceType } from './BusinessGuidance'
+import { challengesAddressedType } from './ChallengesSection'
+import { consultationCTAType } from './ConsultationCTA'
+import { keyServices } from './ConsultingKeyServices'
+import { demandDrivenFAQType } from './DemandDrivenFAQ'
+import { demandDrivenImpact } from './DemandDrivenImpact'
+import { empowermentType } from './Empowerment'
+import { faqType } from './FAQ'
+import { featuresType } from './FeaturesGrid' 
+import {headingType} from './Headings'
+import { productType } from './ProductSection'
+import  serviceType  from './ServiceScroller'
+import {cardType} from './cards'
+import {loyaltyManagementServiceCards} from './LoyaltyManagementServiceCards'
+import { LoayltyManagementkeyIssuesType } from './LoyaltyManagementKeyIssues'
+import { loyaltyManagementProcessSteps } from './LoyaltyManagementProcess'
+import { loyaltyIndustries } from './LoyaltyManagementIndustries'
+import { productFeaturesType } from './ProductFeatures'
+import { mobileFeaturesTypes } from './MobileProductContent'
+import { showcaseContentTypes } from './ShowacaseContent'
+import { productAdditionalFeatures } from './ProductAddiotionalFeatures'
+import { aboutDualData } from './AboutPageDualSection'
+import  leadershipTeam  from './AboutTeamSection'
+import { clientsType } from './Clients'
+import { heroBannerSections } from './HeroBannersSections'
+import { consultingDropdownType } from './ConsultingDropdown'
+import { faqSection } from './FAQSections'
+import post from './Post'
+import author from './Author'
+import blockContent from './BlockContent'
+
+export const schemaTypes = [headingType , cardType , featuresType , serviceType , productType ,faqType , demandDrivenFAQType , demandDrivenImpact ,
+    challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType , loyaltyManagementServiceCards , LoayltyManagementkeyIssuesType , 
+    loyaltyManagementProcessSteps , loyaltyIndustries , productFeaturesType , mobileFeaturesTypes , showcaseContentTypes , productAdditionalFeatures , aboutDualData , leadershipTeam , 
+    clientsType , heroBannerSections , consultingDropdownType , faqSection , post , author , blockContent
+]

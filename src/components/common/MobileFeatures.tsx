@@ -29,27 +29,49 @@ interface Feature {
   icon?: string;
 }
 
-interface MobileFeaturesProps {
+interface HeadingProps {
+  subtitle: string;
   title: string;
   description: string;
-  features: Feature[];
-  image: {
-    src: string;
-    alt: string;
+}
+
+interface MobileFeaturesProps {
+  mobileFeatures: {
+    title: string;
+    description: string;
+    features: {
+      title: string;
+      description: string;
+      icon: string;
+    }[];
+    image: {
+      src: string;
+      alt: string;
+    };
   };
   className?: string;
+  heading?: HeadingProps;
 }
 
 export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
-  title,
-  description,
-  features,
-  image,
-  className,
+  mobileFeatures,
+  className = "",
+  heading,
 }) => {
+  if (!mobileFeatures) {
+    return null; // or return a loading state/error message
+  }
+
+  const { features, image } = mobileFeatures;
+  
+  // Use heading prop values if available, otherwise fall back to mobileFeatures
+  const displayTitle = heading?.title || mobileFeatures.title || "";
+  const displayDescription = heading?.description || mobileFeatures.description || "";
+  const displaySubtitle = heading?.subtitle || "Why Choose Fieldkonnect";
+  
   return (
     <section
-      className={`w-full h-auto py-16 px-4 lg:px-32 bg-white ${className || ""}`}
+      className={`w-full h-auto py-16 px-4 lg:px-32 bg-white ${className}`}
     >
       <div className="w-full h-fit bg-[#E9F2FF] rounded-[2rem] px-6 py-12 relative md:px-24 md:py-16 overflow-hidden">
         {/* SVG Background */}
@@ -114,16 +136,16 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
                 className="inline-block px-4 py-2 mb-6 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full"
                 data-aos="fade-up-sm"
               >
-                Why Choose Fieldkonnect
+                {displaySubtitle}
               </span>
               <h2
                 className="mb-8 text-3xl font-bold md:text-4xl lg:text-5xl bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent"
                 data-aos="fade-up-sm"
               >
-                {title}
+                {displayTitle}
               </h2>
               <p className="mb-8 text-lg text-gray-600 leading-relaxed">
-                {description}
+                {displayDescription}
               </p>
               <div className="space-y-8">
                 {features.map((feature, index) => {

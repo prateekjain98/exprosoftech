@@ -4,11 +4,39 @@ import AboutBanner from "../components/AboutBanner";
 import AboutCompany from "../components/AboutCompany";
 import LeadershipTeam from "../components/LeadershipTeam";
 import WhyGreymetre from "../components/WhyGreymetre";
-import FAQ from "../components/FAQ";
+import NewFAQ from "../components/NewFAQ";
 import { getEntry } from "astro:content";
-
+import { sanityClient } from "sanity:client";
 const about = await getEntry("about", "-index");
 const { title, description, meta_title, image } = about.data;
+
+const leadershipTeamQuery = `
+*[_type == "leadershipTeam"][0] {
+  leaders[] {
+    name,
+    title,
+    description,
+    linkedin,
+    image
+  }
+}
+`
+const leadershipTeamData = await sanityClient.fetch(leadershipTeamQuery)
+
+const About_Faq_QUery =`*[_type == "faqSection"] | order(_updatedAt asc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active  
+  }
+}`
+
+const aboutFaq = await sanityClient.fetch(About_Faq_QUery)
 ---
 
 <Base
@@ -19,7 +47,7 @@ const { title, description, meta_title, image } = about.data;
 >
   <AboutBanner client:load />
   <AboutCompany client:load />
-  <LeadershipTeam client:load />
+  <LeadershipTeam client:load leadershipTeamData={leadershipTeamData} />
   <WhyGreymetre client:load />
-  <FAQ client:load />
+  <NewFAQ client:load Faq={[aboutFaq[0]]}/>
 </Base>

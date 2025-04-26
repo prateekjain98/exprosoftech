@@ -20,33 +20,74 @@ import {
   Plugs,
   Lightning,
 } from "@phosphor-icons/react";
+import { sanityClient } from "sanity:client";
+
+const iconMap: { [key: string]: React.ForwardRefExoticComponent<any> } = {
+  Cube,
+  ChartLineUp,
+  Gear,
+  ChartPieSlice,
+  Brain,
+  Truck,
+  Package,
+  Coins,
+  ChartBar,
+  Medal,
+  Gauge,
+  Robot,
+  Receipt,
+  Wallet,
+  ChartDonut,
+  Clock,
+  Plugs,
+  Lightning,
+};
 
 interface ServicePoint {
   text: string;
 }
 
-interface ServiceMetrics {
-  mainMetric: {
-    value: string;
-    label: string;
-    trend: string;
-  };
-  highlights: Array<{
-    icon: React.ForwardRefExoticComponent<any>;
-    value: string;
-    label: string;
-  }>;
-}
+// interface ServiceMetrics {
+//   mainMetric: {
+//     value: string;
+//     label: string;
+//     trend: string;
+//   };
+//   highlights: Array<{
+//     icon: React.ForwardRefExoticComponent<any>;
+//     value: string;
+//     label: string;
+//   }>;
+// }
 
-interface ServiceTab {
+// interface ServiceTab {
+//   id: string;
+//   title: string;
+//   icon: React.ForwardRefExoticComponent<any>;
+//   points: ServicePoint[];
+//   metrics: ServiceMetrics;
+// }
+
+interface SanityServiceTab {
   id: string;
   title: string;
-  icon: React.ForwardRefExoticComponent<any>;
+  icon: string;
   points: ServicePoint[];
-  metrics: ServiceMetrics;
+  metrics: {
+    mainMetric: {
+      value: string;
+      label: string;
+      trend: string;
+    };
+    highlights: Array<{
+      icon: string;
+      value: string;
+      label: string;
+    }>;
+  };
 }
 
-const services: ServiceTab[] = [
+const services = [
   {
     id: "supply-chain",
     title: "Supply Chain Transformation",
@@ -233,37 +274,37 @@ const services: ServiceTab[] = [
   },
 ];
 
-const MetricsCard: React.FC<{ service: ServiceTab }> = ({ service }) => {
+const MetricsCard = ({ keyServicesData } : { keyServicesData: SanityServiceTab }) => {
   return (
     <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-gray-700/50">
       {/* Main Metric */}
       <div className="mb-6 sm:mb-10">
         <div className="flex items-baseline gap-2 mb-1.5 sm:mb-3">
           <h4 className="text-2xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-            {service.metrics.mainMetric.value}
+            {keyServicesData.metrics.mainMetric.value}
           </h4>
         </div>
         <p className="text-xs sm:text-base lg:text-lg text-gray-400 mb-1 sm:mb-2">
-          {service.metrics.mainMetric.label}
+          {keyServicesData.metrics.mainMetric.label}
         </p>
         <p className="text-[10px] sm:text-sm text-emerald-400 font-medium">
-          {service.metrics.mainMetric.trend}
+          {keyServicesData.metrics.mainMetric.trend}
         </p>
       </div>
 
       {/* Highlights Grid */}
       <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-5">
-        {service.metrics.highlights.map((highlight, index) => (
+        {keyServicesData.metrics.highlights.map((highlight, index) => (
           <div
             key={index}
             className="bg-gray-800/50 rounded-lg sm:rounded-xl p-2 sm:p-4 text-center hover:bg-gray-800/70 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-1.5 sm:gap-4"
           >
             <div className="w-6 h-6 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-md sm:rounded-xl p-1 sm:p-2 lg:p-2.5 flex items-center justify-center">
-              <highlight.icon
-                size={16}
-                weight="duotone"
-                className="text-blue-400"
-              />
+              {React.createElement(iconMap[highlight.icon], {
+                size: 16,
+                weight: "duotone",
+                className: "text-blue-400"
+              })}
             </div>
             <div className="min-w-0">
               <div className="text-sm sm:text-lg lg:text-xl font-semibold text-white truncate mb-0.5 sm:mb-1">
@@ -280,9 +321,42 @@ const MetricsCard: React.FC<{ service: ServiceTab }> = ({ service }) => {
   );
 };
 
-const KeyServices: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>(services[0].id);
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
+interface KeyServicesProps {
+  heading: HeadingProps;
+  keyServicesData: SanityServiceTab[];
+}
+
+const KeyServices = ({ heading, keyServicesData = [] }: KeyServicesProps) => {
+  // Add null check and default value for activeTab
+  const [activeTab, setActiveTab] = useState(() => 
+    keyServicesData && keyServicesData.length > 0 ? keyServicesData[0].id : ""
+  );
+  
+  // Add null check for services transformation
+  const services = keyServicesData?.map(service => ({
+    ...service,
+    icon: iconMap[service.icon],
+    metrics: {
+      ...service.metrics,
+      highlights: service.metrics.highlights.map(highlight => ({
+        ...highlight,
+        icon: iconMap[highlight.icon]
+      }))
+    }
+  })) || [];
+
   const activeService = services.find((service) => service.id === activeTab);
+
+  // Add loading state or empty state handling
+  if (!keyServicesData || keyServicesData.length === 0) {
+    return null; // Or return a loading/empty state component
+  }
 
   return (
     <section className="py-16 lg:py-24">
@@ -297,17 +371,13 @@ const KeyServices: React.FC = () => {
           <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <div className="text-center mb-10 lg:mb-16" data-aos="fade-up">
               <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs sm:text-sm font-medium shadow-lg mb-4 sm:mb-5">
-                Key Services
+                {heading.subtitle}
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-[42px] font-medium mb-4 sm:mb-5 text-white">
-                How Our Services Assist You{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                  Accomplish Better
-                </span>
+                {heading.title}
               </h2>
               <p className="text-sm sm:text-base text-gray-300/90 max-w-2xl sm:max-w-3xl mx-auto leading-relaxed">
-                Witness the transformation of your financial goals into
-                realities with the benefits we deliver.
+                {heading.description}
               </p>
             </div>
 
@@ -374,7 +444,17 @@ const KeyServices: React.FC = () => {
                     </ul>
                   </div>
 
-                  <MetricsCard service={activeService} />
+                  <MetricsCard keyServicesData={{
+                    ...activeService,
+                    icon: keyServicesData.find(s => s.id === activeService.id)?.icon || '',
+                    metrics: {
+                      ...activeService.metrics,
+                      highlights: activeService.metrics.highlights.map(h => ({
+                        ...h,
+                        icon: keyServicesData.find(s => s.id === activeService.id)?.metrics.highlights.find(hl => hl.value === h.value)?.icon || ''
+                      }))
+                    }
+                  }} />
                 </div>
               )}
             </div>

@@ -8,7 +8,7 @@ import { ServicesBenefits } from "@/layouts/components/services/ServicesBenefits
 import { ServicesProcess } from "@/layouts/components/services/ServicesProcess";
 import { ServicesIndustries } from "@/layouts/components/services/ServicesIndustries";
 import ConsultationCTA from "../../../components/ConsultationCTA";
-import FAQ from "../../../components/FAQ";
+import NewFAQ from "../../../components/NewFAQ";
 import {
   FaUserFriends,
   FaChartLine,
@@ -29,6 +29,7 @@ import {
   FaGamepad,
   FaGraduationCap,
 } from "react-icons/fa";
+import { sanityClient } from "sanity:client";
 
 const title = "Loyalty Management Services";
 const meta_title = "Loyalty Management Services | Greymetre";
@@ -36,16 +37,57 @@ const description =
   "End-to-end loyalty program management services to drive customer retention and engagement. Transform your customer relationships with our expertise.";
 const image = "/images/services/loyalty-management/hero.png";
 
+const homeBannerQuery = `
+  *[_type == "heroBannerSections"] | order(_createdAt asc) [2] {
+    title,
+    description,
+    image[] {
+      src,
+      alt
+    },
+    buttons[] {
+      label,
+      link,
+      isCalendly
+    }
+  }
+`
+const loyaltyBanner = await sanityClient.fetch(homeBannerQuery)
+
 // Banner content
 const bannerContent = {
-  title: "Transform Customer Loyalty into Lasting Growth",
-  description:
-    "Elevate your customer relationships with our comprehensive loyalty program management services. We help you design, implement, and optimize loyalty programs that drive retention and maximize customer lifetime value.",
-  buttonText: "Get Started",
-  image: {
-    src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&h=1800&fit=crop",
-    alt: "Loyalty Management Solutions",
-  },
+  // title: "Transform Customer Loyalty into Lasting Growth",
+  // description:
+  //   "Elevate your customer relationships with our comprehensive loyalty program management services. We help you design, implement, and optimize loyalty programs that drive retention and maximize customer lifetime value.",
+  // buttonText: "Get Started",
+  // image: {
+  //   src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&h=1800&fit=crop",
+  //   alt: "Loyalty Management Solutions",
+  // },
+  // },
+  //   floatingElements: [
+  //     {
+  //       icon: "FaUsers",
+  //       title: "Customer Growth",
+  //       value: "+45%",
+  //       color: "blue",
+  //       position: "topLeft" as const,
+  //     },
+  //     {
+  //       icon: "FaChartLine",
+  //       title: "Retention Rate",
+  //       value: "92%",
+  //       color: "purple",
+  //       position: "bottomRight" as const,
+  //     },
+  //   ],
+  // };
+  title: loyaltyBanner.title,
+  description: loyaltyBanner.description,
+  label: loyaltyBanner.buttons[0].label,
+  link: loyaltyBanner.buttons[0].link,
+  isCalendly: loyaltyBanner.buttons[0].isCalendly,
+  image: loyaltyBanner.image[0],
   floatingElements: [
     {
       icon: "FaUsers",
@@ -63,6 +105,7 @@ const bannerContent = {
     },
   ],
 };
+
 
 // Features content
 const featuresContent = {
@@ -291,6 +334,71 @@ const industriesContent = {
     },
   ],
 };
+
+const FEATURES_QUERY = await sanityClient.fetch(`*[_type == "features"] | order(_createdAt desc) {
+  tagline,
+  title,
+  description,
+  "imageUrl": image.asset->url,
+  icon
+}`)
+
+const LOYALTY_SERVICES_QUERY = await sanityClient.fetch(`*[_type == "loyaltyManagementServiceCards"] | order(_updatedAt asc) {
+  title,
+  description,
+  features
+}`)
+
+const KEY_ISSUES_QUERY = await sanityClient.fetch(`*[_type == "LoayltyManagementkeyIssues"] | order(_createdAt asc) {
+  title,
+  description,
+  icon
+}`)
+
+const PROCESS_STEPS_QUERY = await sanityClient.fetch(`*[_type == "loyaltyProcessSteps"] | order(_createdAt asc) {
+  title,
+  description,
+  image,
+  order
+}`)
+
+const INDUSTRIES_QUERY = await sanityClient.fetch(`*[_type == "loyaltyIndustries"] | order(_createdAt asc) {
+  title,
+  description,
+  icon
+}`)
+
+const HEADING_QUERY = `*[_type == "heading"] | order(_updatedAt asc) {
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
+const Home_Faq_QUery =`*[_type == "faqSection"] | order(_createdAt desc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active
+  }
+}`
+
+
+const features = FEATURES_QUERY.slice(8, 12).reverse()
+const services = LOYALTY_SERVICES_QUERY.slice(0, 3)
+const benefits = KEY_ISSUES_QUERY.slice(0, 6)
+const process = PROCESS_STEPS_QUERY.slice(0, 5)
+const industries = INDUSTRIES_QUERY.slice(0, 8)
+
+
+const heading = await sanityClient.fetch(HEADING_QUERY);
+
+const homeFaq = await sanityClient.fetch(Home_Faq_QUery)
 ---
 
 <Base
@@ -301,11 +409,11 @@ const industriesContent = {
 >
   <ServicesBanner client:load content={bannerContent} />
   <Clients client:load />
-  <ServicesFeatures client:load content={featuresContent} />
-  <ServicesServices client:load content={servicesContent} />
-  <ServicesBenefits client:load content={benefitsContent} />
-  <ServicesProcess client:load content={processContent} />
-  <ServicesIndustries client:load content={industriesContent} />
+  <ServicesFeatures client:load features={features} heading={heading[6]} />
+  <ServicesServices client:load  heading={heading[7]} services={services}/>
+  <ServicesBenefits client:load  heading={heading[8]} benefits={benefits}/>
+  <ServicesProcess client:load heading={heading[9]} process={process}/>
+  <ServicesIndustries client:load heading={heading[10]} industries={industries}/>
   <ConsultationCTA client:load />
-  <FAQ client:load variant="home" />
+  <NewFAQ client:load Faq={[homeFaq[3]]}/>
 </Base>

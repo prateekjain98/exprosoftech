@@ -1,21 +1,34 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
+import { sanityClient } from "sanity:client";
 
 // Data embedded directly in the component
-const aboutCompanyData = {
-  subtitle: "Our Mission",
-  title: "Transforming Business Operations",
-  description:
-    "Delivering Sustainable Growth Through Strategic Innovation and Operational Excellence",
-  content: [
-    "At Greymetre, we bring decades of expertise in transforming businesses through innovative methodologies and data-driven solutions. Our approach combines strategic thinking with practical implementation to drive measurable results.",
-    "We specialize in implementing advanced methodologies like DDMRP and Theory of Constraints (TOC), helping organizations optimize their supply chains, reduce operational costs, and achieve unprecedented efficiency in their operations.",
-    "Our commitment extends beyond implementation – we focus on building sustainable frameworks, providing comprehensive training, and ensuring continuous improvement to create lasting impact for our clients' businesses.",
-  ],
-  featuredImage: "/images/about-us/mission.png",
-};
+// const aboutCompanyData = {
+//   subtitle: "Our Mission",
+//   title: "Transforming Business Operations",
+//   description:
+//     "Delivering Sustainable Growth Through Strategic Innovation and Operational Excellence",
+//   content: [
+//     "At Greymetre, we bring decades of expertise in transforming businesses through innovative methodologies and data-driven solutions. Our approach combines strategic thinking with practical implementation to drive measurable results.",
+//     "We specialize in implementing advanced methodologies like DDMRP and Theory of Constraints (TOC), helping organizations optimize their supply chains, reduce operational costs, and achieve unprecedented efficiency in their operations.",
+//     "Our commitment extends beyond implementation – we focus on building sustainable frameworks, providing comprehensive training, and ensuring continuous improvement to create lasting impact for our clients' businesses.",
+//   ],
+//   featuredImage: "/images/about-us/mission.png",
+// };
 
-const AboutCompany: React.FC = () => {
+const aboutCompanyQuery = `
+  *[_type == "aboutDualData"][1] {
+    subtitle,
+    title,
+    description,
+    content,
+    featuredImage
+  }
+`
+
+const AboutCompany = async () => {
+  const aboutCompanyData = await sanityClient.fetch(aboutCompanyQuery)
+
   const { title, subtitle, description, content, featuredImage } =
     aboutCompanyData;
 
@@ -66,7 +79,7 @@ const AboutCompany: React.FC = () => {
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
-                {content.map((paragraph, index) => (
+                {content.map((paragraph: string, index: number) => (
                   <p
                     key={index}
                     className="text-gray-600 text-[14px] sm:text-[16px] leading-relaxed"

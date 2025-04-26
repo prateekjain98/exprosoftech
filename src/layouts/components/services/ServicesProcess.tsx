@@ -3,6 +3,14 @@ import { motion } from "framer-motion";
 import SectionHeader from "../../../components/SectionHeader";
 import { useState, useEffect } from "react";
 
+// Process step from Sanity query
+interface ProcessStepData {
+  title: string;
+  description: string;
+  image: string;
+}
+
+// Process step for component usage
 interface ProcessStep {
   title: string;
   description: string;
@@ -16,6 +24,19 @@ interface ProcessContent {
   steps: ProcessStep[];
 }
 
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  className?: string;
+  heading: HeadingProps;
+  process: ProcessStepData[];
+}
+
+// ProcessStep component props
 interface ProcessStepProps {
   number: number;
   title: string;
@@ -111,30 +132,29 @@ const ProcessStep: React.FC<ProcessStepProps> = ({
   );
 };
 
-interface Props {
-  className?: string;
-  content: ProcessContent;
-}
-
-export const ServicesProcess: React.FC<Props> = ({ className, content }) => {
+export const ServicesProcess: React.FC<Props> = ({ 
+  className = "", 
+  heading,
+  process = []
+}) => {
   const [activeStep, setActiveStep] = useState<number>(0);
 
   // Autoplay functionality
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveStep((current) => (current + 1) % content.steps.length);
+      setActiveStep((current) => (current + 1) % process.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [content.steps.length]);
+  }, [process.length]);
 
   return (
     <section className={`py-20 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
         />
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -145,7 +165,7 @@ export const ServicesProcess: React.FC<Props> = ({ className, content }) => {
               {/* Connector lines background */}
               <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-100 to-purple-100 -translate-y-1/2" />
 
-              {content.steps.map((step, index) => (
+              {process.map((step, index) => (
                 <button
                   key={`mobile-${step.title}`}
                   onClick={() => setActiveStep(index)}
@@ -162,15 +182,15 @@ export const ServicesProcess: React.FC<Props> = ({ className, content }) => {
 
             {/* Desktop Vertical Steps */}
             <div className="hidden lg:block space-y-8">
-              {content.steps.map((step, index) => (
+              {process.map((step, index) => (
                 <div
                   key={`desktop-${step.title}`}
                   className={`relative ${
-                    index < content.steps.length - 1 ? "lg:relative" : ""
+                    index < process.length - 1 ? "lg:relative" : ""
                   }`}
                 >
                   {/* Vertical line connector */}
-                  {index < content.steps.length - 1 && (
+                  {index < process.length - 1 && (
                     <div className="absolute left-7 top-full h-6 w-[2px] -translate-x-1/2 bg-gradient-to-b from-blue-200 to-purple-200" />
                   )}
 
@@ -224,8 +244,8 @@ export const ServicesProcess: React.FC<Props> = ({ className, content }) => {
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
-                src={content.steps[activeStep].image}
-                alt={content.steps[activeStep].title}
+                src={process[activeStep].image}
+                alt={process[activeStep].title}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 via-transparent to-purple-500/20" />
@@ -234,10 +254,10 @@ export const ServicesProcess: React.FC<Props> = ({ className, content }) => {
               <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8">
                 <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-lg">
                   <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-2">
-                    Step {activeStep + 1}: {content.steps[activeStep].title}
+                    Step {activeStep + 1}: {process[activeStep].title}
                   </h4>
                   <p className="text-sm sm:text-base text-gray-600">
-                    {content.steps[activeStep].description}
+                    {process[activeStep].description}
                   </p>
                 </div>
               </div>
@@ -250,7 +270,7 @@ export const ServicesProcess: React.FC<Props> = ({ className, content }) => {
                   className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
                   initial={{ width: "0%" }}
                   animate={{
-                    width: `${((activeStep + 1) / content.steps.length) * 100}%`,
+                    width: `${((activeStep + 1) / process.length) * 100}%`,
                   }}
                   transition={{ duration: 0.5 }}
                 />

@@ -84,6 +84,10 @@ export const mainMenu: NavigationLink[] = [
     ],
   },
   {
+    name: "Blogs",
+    url: "/blog/",
+  },
+  {
     name: "About Us",
     url: "/about/",
   },

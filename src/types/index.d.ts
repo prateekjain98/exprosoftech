@@ -4,6 +4,7 @@ export type Feature = {
   bulletpoints: string[];
   content: string;
   title: string;
+  description: string;
 };
 
 export type Button = {

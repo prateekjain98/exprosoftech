@@ -1,24 +1,31 @@
 import { useEffect, useState } from "react";
+import { sanityClient } from "sanity:client";
 
-interface ClientsProps {}
 
-export const Clients: React.FC<ClientsProps> = ({}) => {
+
+export const Clients= async () => {
   // Define the list of client logos
-  const clientLogos: string[] = [
-    "/images/clients/IMG1.png",
-    "/images/clients/IMG2.png",
-    "/images/clients/IMG3.png",
-    "/images/clients/IMG4.png",
-    "/images/clients/IMG5.png",
-    "/images/clients/IMG6.png",
-    "/images/clients/IMG7.png",
-    "/images/clients/IMG8.png",
-    "/images/clients/IMG9.png",
-    "/images/clients/IMG10.png",
-    "/images/clients/IMG11.png",
-  ];
+  // const clientLogos: string[] = [
+  //   "/images/clients/IMG1.png",
+  //   "/images/clients/IMG2.png",
+  //   "/images/clients/IMG3.png",
+  //   "/images/clients/IMG4.png",
+  //   "/images/clients/IMG5.png",
+  //   "/images/clients/IMG6.png",
+  //   "/images/clients/IMG7.png",
+  //   "/images/clients/IMG8.png",
+  //   "/images/clients/IMG9.png",
+  //   "/images/clients/IMG10.png",
+  //   "/images/clients/IMG11.png",
+  // ];
+
+  const clientsLogosQuery = `*[_type == "clients"][0].clientLogos`
+
+  const clientLogos = await sanityClient.fetch(clientsLogosQuery)
 
   return (
+
+
     <section className="section">
       <div className="max-w-[85rem] mx-auto px-3 overflow-hidden">
         <div className="row">

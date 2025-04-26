@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SectionHeader from "./SectionHeader";
+import { sanityClient } from "sanity:client";
 
 interface TeamMember {
   name: string;
@@ -9,84 +10,99 @@ interface TeamMember {
   image: string;
 }
 
-// Data embedded directly in the component
-const leadershipData = {
-  subtitle: "Leadership",
-  title: "Meet Our Leadership Team",
-  description:
-    "Our diverse team of experts brings decades of combined experience across sales, manufacturing, supply chain, and technology to drive transformational change.",
-  leaders: [
-    {
-      name: "Subodh Shrivastava",
-      title: "Co-founder",
-      description:
-        "A CII-certified Business Excellence expert with over 35 years of experience, Subodh has led transformational projects in sales, manufacturing, and supply chain for global and Indian enterprises. His expertise in TOC, Lean, and Six Sigma methodologies helps businesses unlock hidden capacity, reduce lead times, and improve operational efficiency.",
-      linkedin: "https://www.linkedin.com/in/subodhshrivastava/",
-      image: "/images/about-us/subodh.png",
-    },
-    {
-      name: "Anadi Shrivastava",
-      title: "Co-founder",
-      description:
-        "An expert in sales transformation and digital adoption, Anadi brings a strategic yet hands-on approach to business growth. With an MBA from IIM Lucknow, he has successfully implemented inside sales, sales acceleration, and demand-driven sales strategies across industries. His expertise in TOC and synchronized manufacturing systems helps businesses optimize sales processes, increase productivity, and expand market reach without increasing costs.",
-      linkedin: "https://www.linkedin.com/in/anadi-shrivastava-1163a6a8/",
-      image: "/images/about-us/anadi.png",
-    },
-    {
-      name: "Asit Shrivastava",
-      title: "Co-founder",
-      description:
-        "A Tech Leader, he heads Sales-tech and Supply Chain Product Development owing to a unique blend of experience in Software development, amalgamated with Sales and Supply Chain. He leads the strategy related to Digital transformation. He has guided the adoption of Intelligent Systems and Tech in Supply chain, Channel Sales, and B2B Sales to enable quick and data-backed decision-making.",
-      linkedin: "https://www.linkedin.com/in/asit-shrivastava-78916715a/",
-      image: "/images/about-us/asit.png",
-    },
-    {
-      name: "Imran H. Shaikh",
-      title: "Partner, Operations Transformation & Thought Leadership",
-      description:
-        "A seasoned leader with over 25 years of Industry experience. High Performance awards from various OEMs in India & Globally. He Champions the Scientific Business Management methodology - Theory of Constraints & other Business Excellence Practices. As COO, he transformed organizations like Fleetguard-Filtrum, Cummins Co.",
-      linkedin: "https://www.linkedin.com/in/imranhshaikh-thoughtleader/",
-      image: "/images/about-us/imran.png",
-    },
-    {
-      name: "Anil Jain",
-      title: "Partner, TOC Expert",
-      description:
-        "TOC Expert with 35+ years' experience, Anil Jain transforms business potential into 3x to 4x profit growth and near 100% on-time delivery. Known for simplifying complexity, he boosts throughput, eliminates delays, and delivers rapid results. A practical game-changer who partners with organizations for real, lasting performance breakthroughs.",
-      linkedin: "https://www.linkedin.com/in/anil-jain-dosi-00aa619/",
-      image: "/images/about-us/anil.png",
-    },
-    {
-      name: "Venkat Yechuri",
-      title: "Partner, Advisory Board Member",
-      description:
-        "With global C-suite experience spanning two decades, Venkat is a business strategist and transformation expert. His ability to drive enterprise-wide efficiency, cost optimization, and strategic execution helps organizations scale sustainably.",
-      linkedin: "https://www.linkedin.com/in/venkatyechuri/",
-      image: "/images/about-us/venkat.png",
-    },
-    {
-      name: "Rajendra Joshi",
-      title: "Partner, Operations & Supply Chain",
-      description:
-        "A Lean and TQM expert, Rajendra has a proven track record of improving plant performance, material planning, and procurement strategies. His expertise ensures businesses achieve cost-effective procurement, optimized inventory, and manufacturing agility.",
-      linkedin: "https://www.linkedin.com/in/rajendra-joshi-43756510/",
-      image: "/images/about-us/rajendra.png",
-    },
-  ],
-};
+interface LeadershipTeamProps {
+  leadershipTeamData?: {
+    leaders: TeamMember[];
+  };
+  className?: string;
+}
 
-const LeadershipTeam: React.FC = () => {
-  const { subtitle, title, description, leaders } = leadershipData;
+// Data embedded directly in the component
+// const leadershipData: LeadershipData = {
+//   subtitle: "Leadership",
+//   title: "Meet Our Leadership Team",
+//   description:
+//     "Our diverse team of experts brings decades of combined experience across sales, manufacturing, supply chain, and technology to drive transformational change.",
+//   // leaders: [
+  //   {
+  //     name: "Subodh Shrivastava",
+  //     title: "Co-founder",
+  //     description:
+  //       "A CII-certified Business Excellence expert with over 35 years of experience, Subodh has led transformational projects in sales, manufacturing, and supply chain for global and Indian enterprises. His expertise in TOC, Lean, and Six Sigma methodologies helps businesses unlock hidden capacity, reduce lead times, and improve operational efficiency.",
+  //     linkedin: "https://www.linkedin.com/in/subodhshrivastava/",
+  //     image: "/images/about-us/subodh.png",
+  //   },
+  //   {
+  //     name: "Anadi Shrivastava",
+  //     title: "Co-founder",
+  //     description:
+  //       "An expert in sales transformation and digital adoption, Anadi brings a strategic yet hands-on approach to business growth. With an MBA from IIM Lucknow, he has successfully implemented inside sales, sales acceleration, and demand-driven sales strategies across industries. His expertise in TOC and synchronized manufacturing systems helps businesses optimize sales processes, increase productivity, and expand market reach without increasing costs.",
+  //     linkedin: "https://www.linkedin.com/in/anadi-shrivastava-1163a6a8/",
+  //     image: "/images/about-us/anadi.png",
+  //   },
+  //   {
+  //     name: "Asit Shrivastava",
+  //     title: "Co-founder",
+  //     description:
+  //       "A Tech Leader, he heads Sales-tech and Supply Chain Product Development owing to a unique blend of experience in Software development, amalgamated with Sales and Supply Chain. He leads the strategy related to Digital transformation. He has guided the adoption of Intelligent Systems and Tech in Supply chain, Channel Sales, and B2B Sales to enable quick and data-backed decision-making.",
+  //     linkedin: "https://www.linkedin.com/in/asit-shrivastava-78916715a/",
+  //     image: "/images/about-us/asit.png",
+  //   },
+  //   {
+  //     name: "Imran H. Shaikh",
+  //     title: "Partner, Operations Transformation & Thought Leadership",
+  //     description:
+  //       "A seasoned leader with over 25 years of Industry experience. High Performance awards from various OEMs in India & Globally. He Champions the Scientific Business Management methodology - Theory of Constraints & other Business Excellence Practices. As COO, he transformed organizations like Fleetguard-Filtrum, Cummins Co.",
+  //     linkedin: "https://www.linkedin.com/in/imranhshaikh-thoughtleader/",
+  //     image: "/images/about-us/imran.png",
+  //   },
+  //   {
+  //     name: "Anil Jain",
+  //     title: "Partner, TOC Expert",
+  //     description:
+  //       "TOC Expert with 35+ years' experience, Anil Jain transforms business potential into 3x to 4x profit growth and near 100% on-time delivery. Known for simplifying complexity, he boosts throughput, eliminates delays, and delivers rapid results. A practical game-changer who partners with organizations for real, lasting performance breakthroughs.",
+  //     linkedin: "https://www.linkedin.com/in/anil-jain-dosi-00aa619/",
+  //     image: "/images/about-us/anil.png",
+  //   },
+  //   {
+  //     name: "Venkat Yechuri",
+  //     title: "Partner, Advisory Board Member",
+  //     description:
+  //       "With global C-suite experience spanning two decades, Venkat is a business strategist and transformation expert. His ability to drive enterprise-wide efficiency, cost optimization, and strategic execution helps organizations scale sustainably.",
+  //     linkedin: "https://www.linkedin.com/in/venkatyechuri/",
+  //     image: "/images/about-us/venkat.png",
+  //   },
+  //   {
+  //     name: "Rajendra Joshi",
+  //     title: "Partner, Operations & Supply Chain",
+  //     description:
+  //       "A Lean and TQM expert, Rajendra has a proven track record of improving plant performance, material planning, and procurement strategies. His expertise ensures businesses achieve cost-effective procurement, optimized inventory, and manufacturing agility.",
+  //     linkedin: "https://www.linkedin.com/in/rajendra-joshi-43756510/",
+  //     image: "/images/about-us/rajendra.png",
+  //   },
+  // ],
+// };
+
+const LeadershipTeam: React.FC<LeadershipTeamProps> = ({ 
+  leadershipTeamData,
+  className 
+}) => {
   const [activeMember, setActiveMember] = useState<number>(0);
+  
+  if (!leadershipTeamData?.leaders) {
+    return null; // or a loading state
+  }
+
+  const { leaders } = leadershipTeamData;
 
   return (
     <section id="leadership" className="py-20 lg:py-28 bg-white relative">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
           <SectionHeader
-            tagline={subtitle}
-            heading={title}
-            subheading={description}
+            tagline="Leadership"
+            heading="Meet Our Leadership Team"
+            subheading="Our diverse team of experts brings decades of combined experience across sales, manufacturing, supply chain, and technology to drive transformational change."
           />
         </div>
 
@@ -97,7 +113,7 @@ const LeadershipTeam: React.FC = () => {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            {leaders.map((leader, index) => (
+            {leaders.map((leader: { name: string; image: string }, index: number) => (
               <button
                 key={index}
                 className={`relative rounded-full overflow-hidden w-16 h-16 mx-auto transition-all duration-300 ${

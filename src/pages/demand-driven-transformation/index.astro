@@ -7,13 +7,107 @@ import KeyServices from "../../components/KeyServices";
 import BusinessGuidance from "../../components/BusinessGuidance";
 import CaseStudies from "../../components/CaseStudies";
 import ConsultationCTA from "../../components/ConsultationCTA";
-import FAQ from "../../components/FAQ";
+import NewFAQ from "../../components/NewFAQ";
 import Base from "@/layouts/Base.astro";
 import { getEntry } from "astro:content";
 import { Clients } from "../../components/Clients";
 const consulting = await getEntry("consulting", "-index");
 const bannerData = await getEntry("sections", "demand-driven-banner");
 const { title, description, meta_title, image } = consulting?.data || {};
+
+import { sanityClient } from "sanity:client"
+
+const keyServicesQuery = `*[_type == "keyServices"] | order(_createdAt asc) {
+  id,
+  title,
+  "icon": icon,
+  points[] {
+    text
+  },
+  metrics {
+    mainMetric {
+      value,
+      label,
+      trend
+    },
+    highlights[] {
+      icon,
+      value,
+      label
+    }
+  }
+}`;
+
+const keyServicesData = await sanityClient.fetch(keyServicesQuery);
+
+//businessGuidance
+const businessGuidanceQuery = `*[_type == "businessGuidance"][0]{
+  title,
+  subtitle,
+  description,
+  image {
+    asset->{
+      url,
+      metadata {
+        dimensions {
+          width,
+          height
+        }
+      }
+    },
+    alt
+  },
+  guidancePoints[] {
+    id,
+    title,
+    description
+  }
+}`
+
+const businessGuidanceData = await sanityClient.fetch(businessGuidanceQuery);
+
+//empowerment
+const empowermentQuery = `*[_type == "empowerment"][0]{
+  title,
+  subtitle,
+  description,
+  points[] {
+    icon {
+      asset->{
+        url
+      }
+    },
+    title,
+    description
+  }
+}`
+
+const empowermentData =  await sanityClient.fetch(empowermentQuery);
+
+const HEADING_QUERY = `*[_type == "heading"] | order(_createdAt asc) {
+  _id,
+  subtitle,
+  title,
+  description
+}`;
+
+const heading = await sanityClient.fetch(HEADING_QUERY);
+
+const Consultancy_Faq_Query =`*[_type == "faqSection"] | order(_createdAt desc) {
+  _id,
+  title,
+  pageTitle,
+  subtitle,
+  description,
+  list[] {
+    title,
+    description,
+    active
+  }
+}`
+
+const consultancyFaq = await sanityClient.fetch(Consultancy_Faq_Query)
+
 ---
 
 <Base
@@ -25,11 +119,11 @@ const { title, description, meta_title, image } = consulting?.data || {};
   <DemandDrivenBanner client:load />
   <Clients client:load/>
   <DemandDrivenImpact client:load />
-  <ChallengesWeAddress client:load />
+  <ChallengesWeAddress heading={heading[4]} client:load />
   <!-- <BusinessImpact client:load /> -->
-  <KeyServices client:load />
-  <BusinessGuidance client:load />
+  <KeyServices heading={heading[5]} keyServicesData={keyServicesData} client:load />
+  <BusinessGuidance businessGuidanceData={businessGuidanceData} empowermentData={empowermentData} client:load />
   <!-- <CaseStudies client:load /> -->
   <ConsultationCTA client:load />
-  <FAQ client:load variant="demand-driven" />
+  <NewFAQ client:load Faq={[consultancyFaq[2]]}/>
 </Base>

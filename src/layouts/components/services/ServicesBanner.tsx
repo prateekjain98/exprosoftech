@@ -15,7 +15,9 @@ interface FloatingElement {
 interface BannerContent {
   title: string;
   description: string;
-  buttonText: string;
+  label: string;
+  link: string;
+  isCalendly: boolean;
   image: {
     src: string;
     alt: string;
@@ -35,12 +37,12 @@ export const ServicesBanner: React.FC<Props> = ({ className, content }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="text-center lg:text-left order-2 lg:order-1">
             <h1
-              dangerouslySetInnerHTML={{
-                __html: markdownify(content.title),
-              }}
+              
               data-aos="fade-up-sm"
               className="mb-6 text-h3 lg:text-h1 bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium"
-            />
+            >
+            {content.title}
+            </h1>
             <p
               data-aos="fade-up-sm"
               className="mb-10 text-lg/[inherit] font-medium"
@@ -49,8 +51,8 @@ export const ServicesBanner: React.FC<Props> = ({ className, content }) => {
             </p>
             <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
               <li data-aos="fade-up-sm" data-aos-delay={100}>
-                <Button href="#" variant="primary" isCalendlyButton={true}>
-                  {content.buttonText}
+                <Button href={content.link} variant="primary" isCalendlyButton={content.isCalendly}>
+                  {content.label}
                 </Button>
               </li>
             </ul>

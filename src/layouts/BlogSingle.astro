@@ -1,47 +1,52 @@
 ---
 import Disqus from "@/helpers/Disqus";
-import { getSinglePage } from "@/lib/contentParser.astro";
 import dateFormat from "@/lib/utils/dateFormat";
-import {
-  humanize,
-  markdownify,
-  plainify,
-  slugify,
-} from "@/lib/utils/textConverter";
+import { humanize, slugify } from "@/lib/utils/textConverter";
 import ImageMod from "./components/ImageMod.astro";
 import BlogSection from "./partials/BlogSection.astro";
 import CallToAction from "./partials/CallToAction.astro";
+import { sanityClient } from "sanity:client";
+import { PortableText } from "astro-portabletext";
 
 const { post } = Astro.props;
+const { title, author, image, date, body, slug } = post;
 
-const { body } = post;
-const { Content } = await post.render();
-const { title, author, image, date } = post.data;
-
-const authorList = await getSinglePage("authors");
-const postAuthor =
-  authorList && authorList.filter((a: any) => a.data.title, author)[0];
+// Fetch related posts
+const relatedPosts = await sanityClient.fetch(`
+  *[_type == "post" && slug.current != $slug] | order(date desc)[0...3] {
+    title,
+    "slug": slug.current,
+    date,
+    excerpt,
+    "image": image.asset->url,
+    "author": author->name
+  }
+`, { slug });
 ---
 
 <section class="section">
   <div class="container">
     <div class="row justify-center">
       <div class="text-center lg:col-9" data-aos="fade-up-sm">
-        {title && <h1 set:html={markdownify(title)} class="h2 mb-4" />}
-        {body && <p class="mb-6 text-lg">{plainify(body?.slice(0, 190))}</p>}
+        {title && <h1 class="h2 mb-4">{title}</h1>}
+        {post.excerpt && <p class="mb-6 text-lg">{post.excerpt}</p>}
         <ul class="mb-4 flex items-center justify-center gap-4">
-          <li class="text-lg/[inherit]">
-            <a
-              href={`/authors/${slugify(postAuthor.slug)}`}
-              class="flex gap-2 font-medium">
-              <img
-                class="h-8 w-8"
-                src={postAuthor.data.image}
-                alt={postAuthor.data.title}
-              />
-              {humanize(postAuthor.data.title)}
-            </a>
-          </li>
+          {author && (
+            <li class="text-lg/[inherit]">
+              <a
+                href={`/authors/${author.slug}`}
+                class="flex gap-2 font-medium">
+                {author.image && (
+                  <img
+                    class="h-8 w-8"
+                    src={author.image}
+                    alt={author.name}
+                  />
+                )}
+                {humanize(author.name)}
+              </a>
+            </li>
+          )}
           <li class="flex items-center gap-x-2">
             <img
               class="h-8 w-8"
@@ -75,13 +80,13 @@ const postAuthor =
       </div>
       <article class="pb-10 lg:col-8" data-aos="fade-up-sm">
         <div class="content">
-          <Content />
+          <PortableText value={body} />
         </div>
         <Disqus className="mt-20" client:load />
       </article>
     </div>
   </div>
   <!-- Related posts -->
-  <BlogSection visiblePosts={3} />
+  <BlogSection visiblePosts={3} posts={relatedPosts} />
   <CallToAction />
 </section>

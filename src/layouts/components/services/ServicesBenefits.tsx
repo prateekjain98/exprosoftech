@@ -8,6 +8,23 @@ import {
   FaLightbulb,
   FaShieldAlt,
   FaUsers,
+  FaGlobe,
+  FaChartBar,
+  FaHeadset,
+  FaMoneyBillWave,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaMapMarkedAlt,
+  FaStore,
+  FaRecycle,
+  FaCalendarAlt,
+  FaFilter,
+
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 
@@ -17,16 +34,22 @@ interface Benefit {
   icon: any; // Changed from IconType to any
 }
 
-interface BenefitsContent {
-  tagline: string;
-  heading: string;
-  subheading: string;
-  benefits: Benefit[];
+interface HeadingProps {
+  subtitle: string;
+  title: string;
+  description: string;
+}
+
+interface Benefits {
+  title: string;
+  description: string;
+  icon: string;
 }
 
 interface Props {
   className?: string;
-  content: BenefitsContent;
+  heading: HeadingProps;
+  benefits: Benefits[];
 }
 
 // Icon mapping
@@ -37,9 +60,29 @@ const iconMap: Record<string, IconType> = {
   FaLightbulb,
   FaShieldAlt,
   FaUsers,
+  FaGlobe,
+  FaChartBar,
+  FaHeadset,
+  FaMoneyBillWave,
+  FaNetworkWired,
+  FaIndustry,
+  FaShoppingCart,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaMapMarkedAlt,
+  FaStore,
+  FaRecycle,
+  FaCalendarAlt,
+  FaFilter,
 };
 
-export const ServicesBenefits: React.FC<Props> = ({ className, content }) => {
+export const ServicesBenefits: React.FC<Props> = ({ 
+  className = "", 
+  heading,
+  benefits = []
+}) => {
   // Function to safely render icons
   const renderIcon = (icon: any) => {
     if (!icon) {
@@ -71,12 +114,12 @@ export const ServicesBenefits: React.FC<Props> = ({ className, content }) => {
     >
       <div className="container">
         <SectionHeader
-          tagline={content.tagline}
-          heading={content.heading}
-          subheading={content.subheading}
+          tagline={heading.subtitle}
+          heading={heading.title}
+          subheading={heading.description}
         />
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {content.benefits.map((benefit, index) => (
+          {benefits.map((benefit, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}

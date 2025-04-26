@@ -12,79 +12,107 @@ interface BusinessGuidanceData {
   subtitle: string;
   description: string;
   image: {
-    src: string;
+    asset: {
+      url: string;
+      metadata: {
+        dimensions: {
+          width: number;
+          height: number;
+        }
+      }
+    };
     alt: string;
   };
   guidancePoints: GuidancePoint[];
 }
 
+// First, create an IconType for the icons
+type IconType = typeof ChartLineUp | typeof Brain | typeof Handshake | typeof Target;
+
+// Update the iconMap type
+const iconMap: Record<string, IconType> = {
+  ChartLineUp,
+  Brain,
+  Handshake,
+  Target
+};
+
+// Update the EmpowermentPoint interface
 interface EmpowermentPoint {
-  icon: React.ForwardRefExoticComponent<any>;
+  icon: keyof typeof iconMap;
   title: string;
   description: string;
 }
 
-const businessGuidanceData: BusinessGuidanceData = {
-  title: "Guiding Your Business",
-  subtitle: "Towards Success",
-  description:
-    "We combine proven methodologies with guaranteed results to deliver measurable business transformation. Our experienced team ensures end-to-end implementation with a focus on sustainable growth and operational excellence.",
-  image: {
-    src: "/images/consulting/demand-driven-business-transformation/business-impact-1.png",
-    alt: "Business Guidance Meeting",
-  },
-  guidancePoints: [
-    {
-      id: 1,
-      title: "Proven Methodologies",
-      description:
-        "Backed by the Theory of Constraints (TOC) and other scientific management techniques.",
-    },
-    {
-      id: 2,
-      title: "Guaranteed Results",
-      description:
-        "We assure measurable outcomes such as a 25% increase in sales or inventory reduction, or we refund the evaluation cost.",
-    },
-    {
-      id: 3,
-      title: "End-To-End Implementation",
-      description:
-        "From strategy design to execution and team handholding, we deliver comprehensive solutions.",
-    },
-    {
-      id: 4,
-      title: "Experienced Leadership",
-      description:
-        "Our team comprises industry veterans with decades of expertise in business transformation.",
-    },
-  ],
-};
+interface EmpowermentData {
+  title: string;
+  subtitle: string;
+  description: string;
+  points: EmpowermentPoint[];
+}
 
-const empowermentData = {
-  title: "Strategic Partnership",
-  subtitle: "For Business Excellence",
-  description:
-    "Partner with us to create a competitive advantage through strategic planning, market positioning, and innovative solutions. We help you navigate complex business landscapes and capitalize on emerging opportunities.",
-  points: [
-    {
-      icon: Target,
-      title: "Strategic Market Positioning",
-      description:
-        "Develop a strong market presence through competitive analysis, strategic positioning, and targeted growth initiatives. We help you identify and capitalize on market opportunities.",
-    },
-    {
-      icon: Handshake,
-      title: "Collaborative Partnership Model",
-      description:
-        "Experience a unique partnership approach where we work alongside your team, transfer knowledge, and ensure sustainable implementation of solutions for long-term success.",
-    },
-  ],
-};
+// const businessGuidanceData: BusinessGuidanceData = {
+//   title: "Guiding Your Business",
+//   subtitle: "Towards Success",
+//   description:
+//     "We combine proven methodologies with guaranteed results to deliver measurable business transformation. Our experienced team ensures end-to-end implementation with a focus on sustainable growth and operational excellence.",
+//   image: {
+//     src: "/images/consulting/demand-driven-business-transformation/business-impact-1.png",
+//     alt: "Business Guidance Meeting",
+//   },
+//   guidancePoints: [
+//     {
+//       id: 1,
+//       title: "Proven Methodologies",
+//       description:
+//         "Backed by the Theory of Constraints (TOC) and other scientific management techniques.",
+//     },
+//     {
+//       id: 2,
+//       title: "Guaranteed Results",
+//       description:
+//         "We assure measurable outcomes such as a 25% increase in sales or inventory reduction, or we refund the evaluation cost.",
+//     },
+//     {
+//       id: 3,
+//       title: "End-To-End Implementation",
+//       description:
+//         "From strategy design to execution and team handholding, we deliver comprehensive solutions.",
+//     },
+//     {
+//       id: 4,
+//       title: "Experienced Leadership",
+//       description:
+//         "Our team comprises industry veterans with decades of expertise in business transformation.",
+//     },
+//   ],
+// };
 
-const BusinessGuidance: React.FC = () => {
-  const { title, subtitle, description, image, guidancePoints } =
-    businessGuidanceData;
+// const empowermentData = {
+//   title: "Strategic Partnership",
+//   subtitle: "For Business Excellence",
+//   description:
+//     "Partner with us to create a competitive advantage through strategic planning, market positioning, and innovative solutions. We help you navigate complex business landscapes and capitalize on emerging opportunities.",
+//   points: [
+//     {
+//       icon: Target,
+//       title: "Strategic Market Positioning",
+//       description:
+//         "Develop a strong market presence through competitive analysis, strategic positioning, and targeted growth initiatives. We help you identify and capitalize on market opportunities.",
+//     },
+//     {
+//       icon: Handshake,
+//       title: "Collaborative Partnership Model",
+//       description:
+//         "Experience a unique partnership approach where we work alongside your team, transfer knowledge, and ensure sustainable implementation of solutions for long-term success.",
+//     },
+//   ],
+// };
+
+const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
+  businessGuidanceData: BusinessGuidanceData;
+  empowermentData: EmpowermentData;
+}) => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
   const toggleExpand = (id: number) => {
@@ -100,8 +128,8 @@ const BusinessGuidance: React.FC = () => {
               <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] bg-[#0066FF]/5 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[-4deg] transform -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 translate-x-2 sm:translate-x-3 lg:translate-x-4" />
               <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] border-2 border-[#0066FF]/20 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[4deg] transform translate-y-2 sm:translate-y-3 lg:translate-y-4 -translate-x-2 sm:-translate-x-3 lg:-translate-x-4" />
               <img
-                src={image.src}
-                alt={image.alt}
+                src={businessGuidanceData.image.asset.url}
+                alt={businessGuidanceData.image.alt}
                 width={440}
                 height={480}
                 className="relative w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] object-contain rounded-[20px] sm:rounded-[28px] lg:rounded-[32px] transform transition-transform duration-500 hover:scale-[1.02] z-10"
@@ -115,21 +143,21 @@ const BusinessGuidance: React.FC = () => {
                   data-aos="fade-up-sm"
                   className="text-[26px] sm:text-[32px] lg:text-[42px] font-medium leading-[1.2] mb-4"
                 >
-                  {title}
+                  {businessGuidanceData.title}
                   <br />
-                  <span className="text-[#0066FF] mt-1 block">{subtitle}</span>
+                  <span className="text-[#0066FF] mt-1 block">{businessGuidanceData.subtitle}</span>
                 </h2>
                 <p
                   className="text-[15px] sm:text-[16px] text-gray-600 leading-relaxed"
                   data-aos="fade-up-sm"
                   data-aos-delay={100}
                 >
-                  {description}
+                  {businessGuidanceData.description}
                 </p>
               </div>
 
               <div className="space-y-4 w-full">
-                {guidancePoints.map((point) => (
+                {businessGuidanceData.guidancePoints.map((point:any) => (
                   <div
                     key={point.id}
                     data-aos="fade-up-sm"
@@ -201,7 +229,7 @@ const BusinessGuidance: React.FC = () => {
               </p>
 
               <div className="space-y-6 sm:space-y-8">
-                {empowermentData.points.map((point, index) => (
+                {empowermentData.points.map((point: EmpowermentPoint, index: number) => (
                   <div
                     key={index}
                     className="flex gap-3 sm:gap-4 w-full"
@@ -209,11 +237,15 @@ const BusinessGuidance: React.FC = () => {
                     data-aos-delay={index * 100}
                   >
                     <div className="flex-shrink-0 w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-[#0066FF]/10 flex items-center justify-center">
-                      <point.icon
-                        size={18}
-                        weight="duotone"
-                        className="text-[#0066FF]"
-                      />
+                      {iconMap[point.icon] ? (
+                        React.createElement(iconMap[point.icon], {
+                          size: 18,
+                          weight: "duotone",
+                          className: "text-[#0066FF]"
+                        })
+                      ) : (
+                        <ChartLineUp size={18} weight="duotone" className="text-[#0066FF]" />
+                      )}
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="text-[15px] sm:text-[16px] font-medium text-gray-900 mb-2">
