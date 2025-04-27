@@ -1,0 +1,159 @@
+---
+import Base from "@/layouts/Base.astro";
+import { Clients } from "../../components/Clients";
+import { AdditionalFeatures } from "../../components/common/AdditionalFeatures";
+import NewFAQ from "../../components/NewFAQ";
+import { FeaturesGrid } from "../../components/common/FeaturesGrid";
+import { FeatureShowcase } from "../../components/common/FeatureShowcase";
+import { MobileFeatures } from "../../components/common/MobileFeatures";
+import { ProductHeader } from "../../components/common/ProductHeader";
+import SFACTA from "../../components/sfa/SFACTA";
+import LECTA from "../../components/loyalty/LECTA";
+import { sanityClient } from "sanity:client";
+
+// Get the product ID from the URL
+const { id } = Astro.params;
+
+// Fetch the product data from Sanity based on the slug
+const productQuery = `
+  *[_type == "dynamicProductPage" && slug.current == "${id}"][0] {
+    title,
+    metaTitle,
+    metaDescription,
+    slug,
+    headerContent {
+      badge,
+      title,
+      subtitle,
+      description,
+      image {
+        src,
+        alt
+      },
+      buttons[] {
+        label,
+        link,
+        variant,
+        isCalendly
+      }
+    },
+    featuresGridSection {
+      heading {
+        subtitle,
+        title,
+        description
+      },
+      features[]->
+    },
+    mobileFeaturesSection {
+      title,
+      description,
+      features[] {
+        title,
+        description,
+        icon
+      },
+      image {
+        src,
+        alt
+      }
+    },
+    featureShowcaseSection {
+      title,
+      description,
+      features[] {
+        title,
+        description
+      },
+      image {
+        src,
+        alt
+      }
+    },
+    additionalFeaturesSection {
+      heading {
+        subtitle,
+        title,
+        description
+      },
+      features[] {
+        title,
+        description,
+        icon
+      }
+    },
+    faqSection {
+      title,
+      pageTitle,
+      subtitle,
+      description,
+      list[] {
+        title,
+        description,
+        active
+      }
+    },
+    ctaSection {
+      title,
+      description,
+      button {
+        label,
+        link,
+        isCalendly
+      }
+    }
+  }
+`;
+
+const product = await sanityClient.fetch(productQuery);
+
+// If product not found, redirect to 404
+if (!product) {
+  return Astro.redirect('/404');
+}
+
+// Extract product data for components
+const headerContent = product.headerContent;
+const featuresGridHeading = product.featuresGridSection.heading;
+const features = product.featuresGridSection.features;
+const mobileFeatures = product.mobileFeaturesSection;
+const showcaseContent = product.featureShowcaseSection;
+const additionalFeaturesHeading = product.additionalFeaturesSection.heading;
+const additionalFeatures = product.additionalFeaturesSection.features;
+const faqData = [product.faqSection];
+const ctaContent = product.ctaSection;
+
+// Determine which CTA component to use based on product ID
+const CTAComponent = id === "sfa" ? SFACTA : LECTA;
+
+export async function getStaticPaths() {
+  // Fetch all product slugs from Sanity
+  const productsQuery = `
+    *[_type == "dynamicProductPage"] {
+      "id": slug.current
+    }
+  `;
+  
+  const products = await sanityClient.fetch(productsQuery);
+  
+  // Create a path for each product
+  return products.map((product: { id: string }) => ({
+    params: { id: product.id },
+  }));
+}
+---
+
+<Base
+  title={product.title}
+  meta_title={product.metaTitle}
+  description={product.metaDescription}
+>
+  <ProductHeader {...headerContent} client:load />
+  <Clients client:load />
+  <FeaturesGrid client:load features={features} heading={featuresGridHeading} />
+  <MobileFeatures client:load mobileFeatures={mobileFeatures} />
+  <FeatureShowcase variant={showcaseContent.variant} showcaseContent={showcaseContent} client:load />
+  <AdditionalFeatures client:load heading={additionalFeaturesHeading} additionalFeatures={product.additionalFeaturesSection} />
+  <NewFAQ client:load Faq={faqData} />
+  <!-- <CTAComponent client:load ctaContent={ctaContent} /> -->
+</Base>

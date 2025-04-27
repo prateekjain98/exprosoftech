@@ -22,9 +22,15 @@ interface HeadingProps {
   description: string;
 }
 
+interface AdditionalFeaturesSection {
+  heading: HeadingProps;
+  features: Feature[];
+}
+
 interface AdditionalFeaturesProps {
   className?: string;
   heading?: HeadingProps;
+  additionalFeatures?: AdditionalFeaturesSection;
 }
 
 interface IconMap {
@@ -88,17 +94,28 @@ const productAdditionalFeaturesQuery = `
 //   },
 // ];
 
-export const AdditionalFeatures = async ({ className, heading }: AdditionalFeaturesProps) => {
-  const featuresArray = await sanityClient.fetch(productAdditionalFeaturesQuery)
-  if (!featuresArray?.[0]?.features) return null;
+export const AdditionalFeatures = async ({ className, heading, additionalFeatures }: AdditionalFeaturesProps) => {
+  // Use additionalFeatures prop if provided, otherwise fetch from Sanity
+  let features: Feature[] = [];
   
-  const features = featuresArray[0].features;
+  if (additionalFeatures?.features) {
+    features = additionalFeatures.features;
+  } else {
+    const featuresArray = await sanityClient.fetch(productAdditionalFeaturesQuery);
+    if (featuresArray?.[0]?.features) {
+      features = featuresArray[0].features;
+    } else {
+      return null; // No features to display
+    }
+  }
   
-  // Use heading prop values if available, otherwise use defaults
-  const displaySubtitle = heading?.subtitle || "Additional Benefits";
-  const displayTitle = heading?.title || "Everything You Need to Succeed";
-  const displayDescription = heading?.description || 
+  // Use heading from props or additionalFeatures, or fallback to defaults
+  const displaySubtitle = heading?.subtitle || additionalFeatures?.heading?.subtitle || "Additional Benefits";
+  const displayTitle = heading?.title || additionalFeatures?.heading?.title || "Everything You Need to Succeed";
+  const displayDescription = heading?.description || additionalFeatures?.heading?.description || 
     "Beyond core features, our platform offers additional capabilities to enhance your operations";
+
+  if (features.length === 0) return null;
 
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50/30 to-white relative overflow-hidden">
