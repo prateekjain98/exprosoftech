@@ -1,0 +1,140 @@
+---
+import Base from "../../layouts/Base.astro";
+import { Clients } from "../../components/Clients";
+import  DemandDrivenBanner  from "../../components/DemandDrivenBanner";
+import  DemandDrivenImpact from "../../components/DemandDrivenImpact";
+import  ChallengesWeAddress from "../../components/ChallengesWeAddress";
+import  KeyServices  from "../../components/KeyServices";
+import  BusinessGuidance  from "../../components/BusinessGuidance";
+import ConsultationCTA from "../../components/ConsultationCTA";
+import NewFAQ from "../../components/NewFAQ";
+import { sanityClient } from "sanity:client";
+
+interface ConsultingPage {
+  id: string;
+  title: string;
+  metaTitle: string;
+  description: string;
+  image: string;
+  banner: any;
+  impact: any;
+  challenges: any;
+  keyServices: any;
+  businessGuidance: any;
+  faq: any;
+}
+
+// Get static paths for all consulting pages
+export async function getStaticPaths() {
+  const pages = await sanityClient.fetch(`
+    *[_type == "dynamicConsultingsPage"] {
+      "id": _id,
+      title,
+      metaTitle,
+      "description": metaDescription,
+      "image": image.asset->url
+    }
+  `);
+
+  return pages.map((page: ConsultingPage) => ({
+    params: { id: page.id },
+    props: {
+      title: page.title,
+      meta_title: page.metaTitle,
+      description: page.description,
+      image: page.image
+    },
+  }));
+}
+
+const { id } = Astro.params;
+const { title, meta_title, description, image } = Astro.props;
+
+// Fetch full page data
+const pageData = await sanityClient.fetch(`
+  *[_type == "dynamicConsultingsPage" && _id == $id][0] {
+    banner {
+      title,
+      subtitle,
+      description,
+      image[] {
+        "src": src.asset->url,
+        alt
+      },
+      buttons
+    },
+    impact {
+      title,
+      subtitle,
+      description,
+      image {
+        "src": src.asset->url,
+        alt
+      },
+      stats
+    },
+    challenges {
+      title,
+      subtitle,
+      description,
+      challengesList[] {
+        title,
+        description,
+        "icon": icon.asset->url
+      }
+    },
+    keyServices {
+      title,
+      subtitle,
+      description,
+      services[] {
+        title,
+        icon,
+        points,
+        metrics
+      }
+    },
+    businessGuidance {
+      title,
+      subtitle,
+      description,
+      "image": image.asset->url,
+      points
+    },
+    faq {
+      title,
+      subtitle,
+      description,
+      list
+    }
+  }
+`, { id });
+
+if (!pageData) {
+  return Astro.redirect('/404');
+}
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <DemandDrivenBanner client:load content={pageData.banner} />
+  <Clients client:load />
+  <DemandDrivenImpact client:load content={pageData.impact} />
+  <ChallengesWeAddress client:load content={pageData.challenges} />
+  <KeyServices 
+    client:load 
+    heading={pageData.keyServices}
+    keyServicesData={pageData.keyServices.services} 
+  />
+  <BusinessGuidance 
+    client:load 
+    businessGuidanceData={pageData.businessGuidance}
+    empowermentData={pageData.businessGuidance.empowerment} 
+  />
+  <ConsultationCTA client:load />
+  <NewFAQ client:load Faq={[pageData.faq]} />
+</Base>

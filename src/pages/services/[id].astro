@@ -1,0 +1,190 @@
+---
+import Base from "@/layouts/Base.astro";
+import { Clients } from "../../components/Clients";
+import { ServicesBanner } from "@/layouts/components/services/ServicesBanner";
+import { ServicesFeatures } from "@/layouts/components/services/ServicesFeatures";
+import { ServicesServices } from "@/layouts/components/services/ServicesServices";
+import { ServicesBenefits } from "@/layouts/components/services/ServicesBenefits";
+import { ServicesProcess } from "@/layouts/components/services/ServicesProcess";
+import { ServicesIndustries } from "@/layouts/components/services/ServicesIndustries";
+import ConsultationCTA from "../../components/ConsultationCTA";
+import NewFAQ from "../../components/NewFAQ";
+import { sanityClient } from "sanity:client";
+
+interface Service {
+  slug: { current: string };
+  title: string;
+  metaTitle: string;
+  metaDescription: string;
+  image: string;
+}
+
+// Get the service page data based on slug
+export async function getStaticPaths() {
+  const services = await sanityClient.fetch(`
+    *[_type == "dynamicServicePage"] {
+      slug {
+        current
+      },
+      title,
+      metaTitle,
+      metaDescription,
+      "image": banner.image.src
+    }
+  `);
+
+  return services.map((service: Service) => ({
+    params: { id: service.slug.current },
+    props: {
+      title: service.title,
+      meta_title: service.metaTitle,
+      description: service.metaDescription,
+      image: service.image
+    },
+  }));
+}
+
+const { id } = Astro.params;
+const { title, meta_title, description, image } = Astro.props;
+
+// Fetch full service page data
+const serviceData = await sanityClient.fetch(`
+  *[_type == "dynamicServicePage" && slug.current == $id][0] {
+    banner {
+      title,
+      description,
+      buttons[] {
+        label,
+        link,
+        isCalendly
+      },
+      image {
+        src,
+        alt
+      },
+      floatingElements[] {
+        icon,
+        title,
+        value,
+        color,
+        position
+      }
+    },
+    featuresSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      features[] {
+        title,
+        tagline,
+        description,
+        icon,
+        image
+      }
+    },
+    servicesSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      services[] {
+        title,
+        description,
+        features
+      }
+    },
+    benefitsSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      benefits[] {
+        title,
+        description,
+        icon
+      }
+    },
+    processSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      steps[] {
+        title,
+        description,
+        image
+      }
+    },
+    industriesSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      industries[] {
+        title,
+        description,
+        icon
+      }
+    },
+    faqSection {
+      title,
+      pageTitle,
+      subtitle,
+      description,
+      list[] {
+        title,
+        description,
+        active
+      }
+    }
+  }
+`, { id });
+
+// If no service found, redirect to 404
+if (!serviceData) {
+  return Astro.redirect('/404');
+}
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <ServicesBanner client:load content={serviceData.banner} />
+  <Clients client:load />
+  <ServicesFeatures 
+    client:load 
+    features={serviceData.featuresSection.features} 
+    heading={serviceData.featuresSection.heading}
+  />
+  <ServicesServices 
+    client:load 
+    services={serviceData.servicesSection.services} 
+    heading={serviceData.servicesSection.heading}
+  />
+  <ServicesBenefits 
+    client:load 
+    benefits={serviceData.benefitsSection.benefits} 
+    heading={serviceData.benefitsSection.heading}
+  />
+  <ServicesProcess 
+    client:load 
+    process={serviceData.processSection.steps} 
+    heading={serviceData.processSection.heading}
+  />
+  <ServicesIndustries 
+    client:load 
+    industries={serviceData.industriesSection.industries} 
+    heading={serviceData.industriesSection.heading}
+  />
+  <ConsultationCTA client:load />
+  <NewFAQ client:load Faq={[serviceData.faqSection]} />
+</Base>

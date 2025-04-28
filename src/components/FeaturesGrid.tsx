@@ -18,14 +18,20 @@ export interface HeadingData {
 
 // Update the FeaturesGridProps interface
 interface FeaturesGridProps {
-  heading: HeadingData;
-  features: Array<{
-    tagline: string;
-    title: string;
-    description: string;
-    imageUrl: string;
-    icon: string;
-  }>;
+  data: {
+    heading: {
+      title: string;
+      subtitle: string;
+      description: string;
+    };
+    features: Array<{
+      tagline: string;
+      title: string;
+      description: string;
+      image: string;  // This will be the resolved URL
+      icon: string;
+    }>;
+  };
 }
 
 // const features: Feature[] = [
@@ -64,7 +70,7 @@ interface FeaturesGridProps {
 // ];
 
 // Use props in the component definition
-export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ heading, features }) => {
+export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   // Convert icon string to component
@@ -91,9 +97,9 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ heading, features })
           <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <div className="mx-auto lg:col-11 mb-10 lg:mb-16">
               <SectionHeader
-                tagline={heading?.subtitle || ""}
-                heading={heading?.title || ""}
-                subheading={heading?.description || ""}
+                tagline={data.heading.subtitle || ""}
+                heading={data.heading.title || ""}
+                subheading={data.heading.description || ""}
                 theme="dark"
               />
             </div>
@@ -105,7 +111,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ heading, features })
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
-                {features.map((feature, index) => {
+                {data.features.map((feature, index) => {
                   const IconComponent = getIconComponent(feature.icon);
                   return (
                     <button
@@ -145,7 +151,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ heading, features })
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
-                {features.map((feature, index) => (
+                {data.features.map((feature, index) => (
                   <div
                     key={index}
                     className={`
@@ -180,7 +186,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ heading, features })
                         <div className="order-1 lg:order-2 p-4 pb-0 md:p-6 lg:p-8 flex items-center justify-center">
                           <div className="relative w-full aspect-[4/3] max-w-[400px] md:max-w-[450px]">
                             <img
-                              src={feature.imageUrl}
+                              src={feature.image}
                               alt={feature.title}
                               className="w-full h-full object-contain"
                               width={600}

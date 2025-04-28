@@ -29,9 +29,12 @@ import post from './Post'
 import author from './Author'
 import blockContent from './BlockContent'
 import { dynamicProductPageType } from './dynamicProductPage'
+import { dynamicServicePageType } from './dynamicServicePage'
+import { dynamicConsultingsPageType } from './dynamicConsultingsPage'
+import homePage from './homePage'
 
 export const schemaTypes = [headingType , cardType , featuresType , serviceType , productType ,faqType , demandDrivenFAQType , demandDrivenImpact ,
     challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType , loyaltyManagementServiceCards , LoayltyManagementkeyIssuesType , 
     loyaltyManagementProcessSteps , loyaltyIndustries , productFeaturesType , mobileFeaturesTypes , showcaseContentTypes , productAdditionalFeatures , aboutDualData , leadershipTeam , 
-    clientsType , heroBannerSections , consultingDropdownType , faqSection , post , author , blockContent , dynamicProductPageType
+    clientsType , heroBannerSections , consultingDropdownType , faqSection , post , author , blockContent , dynamicProductPageType , dynamicServicePageType , dynamicConsultingsPageType , homePage       
 ]

@@ -580,20 +580,19 @@ export const dynamicProductPageType = defineType({
         })
       ],
       validation: Rule => Rule.required()
-    }),
-    
+    })
     
   ],
-  preview: {
-    select: {
-      title: 'title',
-      subtitle: 'slug.current'
-    },
-    prepare({ title, subtitle }) {
-      return {
-        title,
-        subtitle: `/products/${subtitle}`
-      }
-    }
-  }
+  // preview: {
+  //   select: {
+  //     title: 'title',
+  //     subtitle: 'slug.current'
+  //   },
+  //   prepare({ title, subtitle }) {
+  //     return {
+  //       title,
+  //       subtitle: `/products/${subtitle}`
+  //     }
+  //   }
+  // }
 }) 

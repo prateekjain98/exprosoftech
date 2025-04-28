@@ -22,6 +22,23 @@ interface BannerData {
   buttons: ButtonType[];
 }
 
+interface DemandDrivenBannerProps {
+  content: {
+    title: string;
+    subtitle: string;
+    description: string;
+    image: Array<{
+      src: string;
+      alt: string;
+    }>;
+    buttons: Array<{
+      label: string;
+      link: string;
+      isCalendly: boolean;
+    }>;
+  }
+}
+
 // Define the banner data directly from the markdown file
 const bannerData: BannerData = {
   title: "Demand Driven Business Transformation",
@@ -58,9 +75,8 @@ const homeBannerQuery = `
   }
 `
 
-const DemandDrivenBanner = async () => {
-  const bannerData = await sanityClient.fetch(homeBannerQuery)
-  const { title, description, image, buttons } = bannerData;
+const DemandDrivenBanner = async ({ content }: DemandDrivenBannerProps) => {
+  const { title, description, image, buttons } = content;
 
   return (
     <section className="relative z-[1] pt-16 pb-24 lg:pt-12 lg:pb-32">

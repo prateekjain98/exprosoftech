@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { sanityClient } from "sanity:client";
 
-
+interface ClientsProps {
+  data: {
+    clients: Array<{
+      name: string;
+      logo: string;  // This will be the resolved URL
+    }>;
+  };
+}
 
 export const Clients= async () => {
   // Define the list of client logos

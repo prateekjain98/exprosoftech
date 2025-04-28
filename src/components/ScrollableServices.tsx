@@ -17,9 +17,23 @@ interface Heading {
   description: string;
 }
 
+
+
 interface ScrollableServicesProps {
-  services: Service[];
-  heading: Heading;
+  data: {
+    heading: {
+      title: string;
+      subtitle: string;
+      description: string;
+    };
+    services: Array<{
+      number: string;
+      title: string;
+      subheading: string;
+      description: string;
+      image: string;  // This will be the resolved URL
+    }>;
+  };
 }
 
 // const services: Service[] = [
@@ -56,7 +70,7 @@ const sectionHeader = {
     "We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership. Our integrated approach ensures measurable results and long-term success.",
 };
 
-export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services, heading }) => {
+export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -136,9 +150,9 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services
     <section className="py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container max-w-[1440px] mx-auto px-4">
         <SectionHeader
-          tagline={heading.subtitle}
-          heading={heading.title}
-          subheading={heading.description}
+          tagline={data.heading.subtitle}
+          heading={data.heading.title}
+          subheading={data.heading.description}
           theme="light"
         />
 
@@ -192,7 +206,7 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services
                 </div>
 
                 {/* Images */}
-                {services.map((service, index) => (
+                {data.services.map((service, index) => (
                   <div
                     key={index}
                     className="feature-image absolute inset-0 w-full h-full"
@@ -207,7 +221,7 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services
                     <div className="relative w-full h-full p-8">
                       <div className="relative z-10 w-full h-full p-4">
                         <img
-                          src={service.imageUrl}
+                          src={service.image}
                           alt={service.title}
                           className="w-full h-full object-contain transform transition-all duration-1000"
                           style={{
@@ -248,7 +262,7 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services
               />
             </div>
 
-            {services.map((service, index) => (
+            {data.services.map((service, index) => (
               <div
                 key={index}
                 className="feature-section mb-16 last:mb-0 p-8 pl-12 min-h-[70vh] flex flex-col justify-start pt-[8vh] relative"
@@ -264,7 +278,7 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ services
                   {/* Mobile Image */}
                   <div className="lg:hidden w-full mb-8">
                     <img
-                      src={service.imageUrl}
+                      src={service.image}
                       alt={service.title}
                       className="w-full h-auto object-contain"
                     />

@@ -8,6 +8,23 @@ interface StatType {
   label: string;
 }
 
+interface DemandDrivenImpactProps {
+  content: {
+    title: string;
+    imageOverlayTitle: string;
+    imageOverlayDescription: string;
+    image: {
+      src: string;
+      alt: string;
+    };
+    stats: Array<{
+      value: string;
+      label: string;
+      description: string;
+    }>;
+  }
+}
+
 // interface ImpactData {
 //   title: string;
 //   imageOverlayTitle: string;
@@ -49,7 +66,7 @@ interface StatType {
 //   ],
 // };
 
-const DemandDrivenImpact = async () => {
+const DemandDrivenImpact = ({ content }: DemandDrivenImpactProps) => {
   // const { title, imageOverlayTitle, imageOverlayDescription, image, stats } =
   //   impactData;
 
@@ -75,7 +92,7 @@ const DemandDrivenImpact = async () => {
     }
   }`
 
-  const demandDrivenImpact = await sanityClient.fetch(demandDrivenImpactQuery);
+  // const demandDrivenImpact = await sanityClient.fetch(demandDrivenImpactQuery);
   
    
   return (
@@ -85,8 +102,8 @@ const DemandDrivenImpact = async () => {
           <div className="relative order-2 lg:order-1" data-aos="fade-right">
             <div className="relative rounded-2xl overflow-hidden shadow-lg h-[320px] sm:h-[400px] lg:h-[480px] group">
               <img
-                src={demandDrivenImpact.image.src}
-                alt={demandDrivenImpact.image.alt}
+                src={content.image.src}
+                alt={content.image.alt}
                 width={580}
                 height={480}
                 className="w-full h-full object-cover"
@@ -97,10 +114,10 @@ const DemandDrivenImpact = async () => {
               <div className="absolute inset-x-3 sm:inset-x-6 bottom-4 sm:bottom-6">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-white/10">
                   <h3 className="text-white text-lg sm:text-2xl font-medium mb-2 sm:mb-3">
-                    {demandDrivenImpact.imageOverlayTitle}
+                    {content.imageOverlayTitle}
                   </h3>
                   <p className="text-white/90 text-sm sm:text-base">
-                    {demandDrivenImpact.imageOverlayDescription}
+                    {content.imageOverlayDescription}
                   </p>
                 </div>
               </div>
@@ -112,12 +129,12 @@ const DemandDrivenImpact = async () => {
               <h2
                 data-aos="fade-up-sm"
                 className="text-[28px] lg:text-[36px] font-medium leading-tight"
-                dangerouslySetInnerHTML={{ __html: highlightText(demandDrivenImpact.title) }}
+                dangerouslySetInnerHTML={{ __html: highlightText(content.title) }}
               />
             </div>
 
             <div className="space-y-6">
-              {demandDrivenImpact.stats.map((stat: StatType, index:number) => (
+              {content.stats.map((stat: StatType, index:number) => (
                 <div
                   key={index}
                   data-aos="fade-up-sm"

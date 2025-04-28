@@ -4,35 +4,52 @@ import SectionHeader from "./SectionHeader";
 import Button from "./common/Button";
 import { FaArrowRight } from "react-icons/fa";
 
-interface Heading{
-  _id: string,
-  title: string , 
-  subtitle?: string , 
-  description: string
-}
+// interface Heading{
+//   _id: string,
+//   title: string , 
+//   subtitle?: string , 
+//   description: string
+// }
 
-interface FeaturePoint {
-  title: string;
-  description: string;
-}
+// interface FeaturePoint {
+//   title: string;
+//   description: string;
+// }
 
-interface Product {
-  title: string;
-  description: string;
-  image: string;
-  features: FeaturePoint[];
-  label: string;
-  buttonHref: string;
-  buttonLabel: string;
-  mainCTA?: boolean;
-}
+// interface Product {
+//   title: string;
+//   description: string;
+//   image: string;
+//   features: FeaturePoint[];
+//   label: string;
+//   buttonHref: string;
+//   buttonLabel: string;
+//   mainCTA?: boolean;
+// }
+
+// interface ProductSectionProps {
+//   hideHeadingBar?: boolean;
+//   heading?: Heading;
+//   products: Product[];
+// }
 
 interface ProductSectionProps {
-  hideHeadingBar?: boolean;
-  heading?: Heading;
-  products: Product[];
+  data: {
+    products: Array<{
+      title: string;
+      description: string;
+      image: string;  // This will be the resolved URL
+      label: string;
+      buttonHref: string;
+      buttonLabel: string;
+      mainCTA: boolean;
+      features: Array<{
+        title: string;
+        description: string;
+      }>;
+    }>;
+  };
 }
-
 // const products: Product[] = [
 
 
@@ -115,8 +132,7 @@ const contentVariants = {
 };
 
 export const ProductSection: React.FC<ProductSectionProps> = ({
-  hideHeadingBar = false,
-  products
+data
 }) => {
   const [activeProduct, setActiveProduct] = useState<number>(0);
 
@@ -131,15 +147,15 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
         0,
         Math.min(1, -rect.top / (rect.height - window.innerHeight))
       );
-      const sectionSize = 1 / products.length;
+      const sectionSize = 1 / data.products.length;
 
       const newActiveProduct = Math.min(
-        products.length - 1,
+        data.products.length - 1,
         Math.floor(scrollProgress / sectionSize)
       );
 
       // Only update if the new active product is valid
-      if (newActiveProduct >= 0 && newActiveProduct < products.length) {
+      if (newActiveProduct >= 0 && newActiveProduct < data.products.length) {
         setActiveProduct(newActiveProduct);
       }
     };
@@ -156,7 +172,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
       <div className="block lg:hidden">
         <div className="container px-4">
           <div className="space-y-16">
-            {products.map((product, productIndex) => (
+            {data.products.map((product, productIndex) => (
               <div key={productIndex} className="w-full">
                 {/* Section Header for each product */}
                 <div className="mb-8">
@@ -228,7 +244,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
       <div className="hidden lg:block">
         <div
           className="sticky-container"
-          style={{ height: `${products.length * 100}vh` }}
+          style={{ height: `${data.products.length * 100}vh` }}
         >
           <div className="sticky top-0 h-screen flex items-center">
             <div className="flex w-full items-center px-4">
@@ -246,8 +262,8 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                     <div className="mb-4">
                       <SectionHeader
                         tagline="Products"
-                        heading={products[activeProduct].title}
-                        subheading={products[activeProduct].description}
+                        heading={data.products[activeProduct].title}
+                        subheading={data.products[activeProduct].description}
                       />
                     </div>
 
@@ -259,7 +275,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                         className="relative z-10 self-center"
                       >
                         <div className="space-y-8">
-                          {products[activeProduct].features
+                          {data.products[activeProduct].features
                             .slice(0, 2)
                             .map((feature, index) => (
                               <motion.div
@@ -294,8 +310,8 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                       >
                         <div className="relative w-full max-w-[800px]">
                           <img
-                            src={products[activeProduct].image}
-                            alt={products[activeProduct].title}
+                            src={data.products[activeProduct].image}
+                            alt={data.products[activeProduct].title}
                             className="w-full h-auto object-contain relative z-10"
                           />
                         </div>
@@ -307,7 +323,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                         className="relative z-10 self-center"
                       >
                         <div className="space-y-8">
-                          {products[activeProduct].features
+                          {data.products[activeProduct].features
                             .slice(2, 4)
                             .map((feature, index) => (
                               <motion.div
@@ -337,11 +353,11 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
                     {/* CTA Button */}
                     <div className="text-center">
                       <Button
-                        href={products[activeProduct].buttonHref}
+                        href={data.products[activeProduct].buttonHref}
                         size="md"
-                        isCalendlyButton={products[activeProduct].mainCTA}
+                        isCalendlyButton={data.products[activeProduct].mainCTA}
                       >
-                        {products[activeProduct].buttonLabel}
+                        {data.products[activeProduct].buttonLabel}
                       </Button>
                     </div>
                   </motion.div>
@@ -349,7 +365,7 @@ export const ProductSection: React.FC<ProductSectionProps> = ({
 
                 {/* Progress Indicator */}
                 <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-3">
-                  {products.map((_, index) => (
+                  {data.products.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setActiveProduct(index)}
