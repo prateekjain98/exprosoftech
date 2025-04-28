@@ -5,49 +5,133 @@ import AboutCompany from "../components/AboutCompany";
 import LeadershipTeam from "../components/LeadershipTeam";
 import WhyGreymetre from "../components/WhyGreymetre";
 import NewFAQ from "../components/NewFAQ";
-import { getEntry } from "astro:content";
 import { sanityClient } from "sanity:client";
-const about = await getEntry("about", "-index");
-const { title, description, meta_title, image } = about.data;
 
-const leadershipTeamQuery = `
-*[_type == "leadershipTeam"][0] {
-  leaders[] {
-    name,
+// GROQ query to fetch all about page data
+const aboutQuery = `*[_type == "about"][0] {
+  meta {
     title,
     description,
-    linkedin,
-    image
-  }
-}
-`
-const leadershipTeamData = await sanityClient.fetch(leadershipTeamQuery)
-
-const About_Faq_QUery =`*[_type == "faqSection"] | order(_updatedAt asc) {
-  _id,
-  title,
-  pageTitle,
-  subtitle,
-  description,
-  list[] {
+    meta_title,
+    image {
+      asset->
+    }
+  },
+  bannerSection {
+    subtitle,
     title,
     description,
-    active  
+    content,
+    image {
+      asset->
+    }
+  },
+  companySection {
+    subtitle,
+    title,
+    description,
+    content,
+    image {
+      asset->
+    }
+  },
+  leadershipSection {
+    subtitle,
+    title,
+    description,
+    leaders[] {
+      name,
+      title,
+      description,
+      linkedin,
+      image {
+        asset->
+      }
+    }
+  },
+  whySection {
+    subtitle,
+    title,
+    description,
+    features[] {
+      title,
+      description,
+      icon
+    }
+  },
+  faqSection {
+    title,
+    pageTitle,
+    subtitle,
+    description,
+    list[] {
+      title,
+      description,
+      active
+    }
   }
 }`
 
-const aboutFaq = await sanityClient.fetch(About_Faq_QUery)
+const pageData = await sanityClient.fetch(aboutQuery);
+
+// Destructure meta data
+const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection } = pageData;
+
+// Structure data for each component
+const bannerData = {
+  subtitle: bannerSection.subtitle,
+  title: bannerSection.title,
+  description: bannerSection.description,
+  content: bannerSection.content,
+  featuredImage: bannerSection.image
+};
+
+const companyData = {
+  subtitle: companySection.subtitle,
+  title: companySection.title,
+  description: companySection.description,
+  content: companySection.content,
+  featuredImage: companySection.image
+};
+
+const leadershipData = {
+  subtitle: leadershipSection.subtitle,
+  title: leadershipSection.title,
+  description: leadershipSection.description,
+  leaders: leadershipSection.leaders
+};
+
+const whyGreymetreData = {
+  subtitle: whySection.subtitle,
+  title: whySection.title,
+  description: whySection.description,
+  features: whySection.features
+};
+
+const faqData = [{
+  title: faqSection.title,
+  pageTitle: faqSection.pageTitle,
+  subtitle: faqSection.subtitle,
+  description: faqSection.description,
+  list: faqSection.list
+}];
 ---
 
 <Base
-  title="About Greymetre | Business Transformation Partner"
-  meta_title="About Greymetre - Sales, Supply Chain & Operations Excellence"
-  description="Greymetre is a business transformation partner specializing in sales acceleration, supply chain excellence, operational optimization, and digital transformation."
-  image={image}
+  title={meta.title}
+  meta_title={meta.meta_title}
+  description={meta.description}
+  image={meta.image}
 >
-  <AboutBanner client:load />
-  <AboutCompany client:load />
-  <LeadershipTeam client:load leadershipTeamData={leadershipTeamData} />
-  <WhyGreymetre client:load />
-  <NewFAQ client:load Faq={[aboutFaq[0]]}/>
+  <AboutBanner client:load data={bannerData} />
+  <AboutCompany client:load data={companyData} />
+  <LeadershipTeam 
+    client:load 
+    subtitle={leadershipData.subtitle}
+    title={leadershipData.title}
+    description={leadershipData.description}
+    leadershipTeamData={{ leaders: leadershipData.leaders }} 
+  />
+  <WhyGreymetre client:load data={whyGreymetreData} />
+  <NewFAQ client:load Faq={faqData} />
 </Base>

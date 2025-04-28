@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import SectionHeader from "./SectionHeader";
-import { sanityClient } from "sanity:client";
 
 interface TeamMember {
   name: string;
   title: string;
   description: string;
   linkedin: string;
-  image: string;
+  image: {
+    asset: {
+      _ref: string;
+      url: string;
+    }
+  };
 }
 
 interface LeadershipTeamProps {
-  leadershipTeamData?: {
+  subtitle: string;
+  title: string;
+  description: string;
+  leadershipTeamData: {
     leaders: TeamMember[];
   };
   className?: string;
@@ -84,13 +91,16 @@ interface LeadershipTeamProps {
 // };
 
 const LeadershipTeam: React.FC<LeadershipTeamProps> = ({ 
+  subtitle,
+  title,
+  description,
   leadershipTeamData,
   className 
 }) => {
   const [activeMember, setActiveMember] = useState<number>(0);
   
   if (!leadershipTeamData?.leaders) {
-    return null; // or a loading state
+    return null;
   }
 
   const { leaders } = leadershipTeamData;
@@ -100,9 +110,9 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
           <SectionHeader
-            tagline="Leadership"
-            heading="Meet Our Leadership Team"
-            subheading="Our diverse team of experts brings decades of combined experience across sales, manufacturing, supply chain, and technology to drive transformational change."
+            tagline={subtitle}
+            heading={title}
+            subheading={description}
           />
         </div>
 
@@ -113,7 +123,7 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            {leaders.map((leader: { name: string; image: string }, index: number) => (
+            {leaders.map((leader: TeamMember, index: number) => (
               <button
                 key={index}
                 className={`relative rounded-full overflow-hidden w-16 h-16 mx-auto transition-all duration-300 ${
@@ -125,7 +135,7 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({
                 aria-label={`View details for ${leader.name}`}
               >
                 <img
-                  src={leader.image}
+                  src={leader.image.asset.url}
                   alt={leader.name}
                   className="w-full h-full object-cover object-top"
                 />
@@ -141,7 +151,7 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({
                   <div className="flex flex-col md:flex-row gap-8 items-start">
                     <div className="w-full md:w-72 shrink-0">
                       <img
-                        src={leaders[activeMember].image}
+                        src={leaders[activeMember].image.asset.url}
                         alt={leaders[activeMember].name}
                         className="w-full aspect-square object-cover object-top rounded-xl"
                       />
@@ -182,7 +192,7 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({
               </div>
             )}
 
-            {/* Navigation Buttons - Moved outside */}
+            {/* Navigation Buttons */}
             <div className="absolute left-1/2 -translate-x-1/2 -bottom-6">
               <div className="flex gap-3 bg-white rounded-full shadow-lg p-2">
                 <button
