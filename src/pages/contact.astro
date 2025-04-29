@@ -5,9 +5,74 @@ import CallToAction from "@/partials/CallToAction.astro";
 import Faq from "../components/FAQ";
 import { getEntry } from "astro:content";
 import ConsultationCTA from "../components/ConsultationCTA";
+import { sanityClient } from "sanity:client";
+import NewFAQ from "../components/NewFAQ";
 
-const contact = await getEntry("contact", "-index");
-const { title, description, meta_title, image } = contact.data;
+// const contact = await getEntry("contact", "-index");
+
+const contactQuery = `*[_type == "contact"][0] {
+  title,
+  description,
+  meta_title,
+  "image": image.asset->url,
+  hero {
+    title,
+    subtitle,
+    description,
+    contact_info[] {
+      "icon": icon.asset->url,
+      title,
+      description
+    },
+    list[] {
+      "icon": icon.asset->url,
+      title,
+      description
+    }
+  },
+  faq {
+    heading {
+      title,
+      subtitle,
+      description
+    },
+    faqItems[] {
+      title,
+      description
+    }
+  },
+  consultationCTA {
+    tagline,
+    title,
+    subtitle,
+    description,
+    metrices[] {
+      value,
+      label,
+      icon
+    },
+    buttonText,
+    image {
+      "src": src.asset->url,
+      alt
+    }
+  }
+}`
+
+const contactData = await sanityClient.fetch(contactQuery);
+const { title, description, meta_title, image, hero, faq, consultationCTA } = contactData;
+
+// Transform FAQ data to match NewFAQ component's expected format
+const transformedFaq = {
+  title: faq.heading.title,
+  pageTitle: faq.heading.title,
+  subtitle: faq.heading.subtitle,
+  description: faq.heading.description,
+  list: faq.faqItems.map((item: any) => ({
+    ...item,
+    active: false
+  }))
+};
 ---
 
 <Base
@@ -15,7 +80,7 @@ const { title, description, meta_title, image } = contact.data;
   meta_title={meta_title}
   description={description}
   image={image}>
-  <ContactHero />
-  <Faq client:load />
+  <ContactHero hero={hero} />
+  <NewFAQ client:load Faq={[transformedFaq]} />
   <ConsultationCTA client:load />
 </Base>
