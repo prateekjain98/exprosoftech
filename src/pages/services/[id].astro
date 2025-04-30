@@ -10,181 +10,200 @@ import { ServicesIndustries } from "@/layouts/components/services/ServicesIndust
 import ConsultationCTA from "../../components/ConsultationCTA";
 import NewFAQ from "../../components/NewFAQ";
 import { sanityClient } from "sanity:client";
+import DynamicCTA from "../../components/DynamicCTA";
 
 interface Service {
-  slug: { current: string };
+  id: string;
   title: string;
   metaTitle: string;
   metaDescription: string;
   image: string;
+  banner: any;
+  featuresSection: any;
+  servicesSection: any;
+  benefitsSection: any;
+  processSection: any;
+  industriesSection: any;
+  faqSection: any;
+  ctaSection: any;
 }
 
-// Get the service page data based on slug
+// Get all service page data in a single query
 export async function getStaticPaths() {
-  const services = await sanityClient.fetch(`
+  const servicesQuery = `
     *[_type == "dynamicServicePage"] {
-      slug {
-        current
-      },
+      "id": slug.current,
       title,
       metaTitle,
       metaDescription,
-      "image": banner.image.src
+      banner {
+        title,
+        description,
+        buttons[] {
+          label,
+          link,
+          isCalendly
+        },
+        image {
+          "src": src.asset->url,
+          alt
+        },
+        floatingElements[] {
+          icon,
+          title,
+          value,
+          color,
+          position
+        }
+      },
+      featuresSection {
+        heading {
+          tagline,
+          title,
+          description
+        },
+        features[] {
+          title,
+          tagline,
+          description,
+          icon,
+          "imageUrl": image.asset->url
+        }
+      },
+      servicesSection {
+        heading {
+          tagline,
+          title,
+          description
+        },
+        services[] {
+          title,
+          description,
+          features
+        }
+      },
+      benefitsSection {
+        heading {
+          tagline,
+          title,
+          description
+        },
+        benefits[] {
+          title,
+          description,
+          icon
+        }
+      },
+      processSection {
+        heading {
+          tagline,
+          title,
+          description
+        },
+        steps[] {
+          title,
+          description,
+          "image": image.asset->url
+        }
+      },
+      industriesSection {
+        heading {
+          tagline,
+          title,
+          description
+        },
+        industries[] {
+          title,
+          description,
+          icon
+        }
+      },
+      faqSection {
+        title,
+        pageTitle,
+        subtitle,
+        description,
+        list[] {
+          title,
+          description,
+          active
+        }
+      },
+      ctaSection {
+        tagline,
+        title,
+        subtitle,
+        description,
+        metrices[] {
+          value,
+          label,
+          icon
+        },
+        buttonText,
+        image {
+          "src": src.asset->url,
+          alt
+        }
+      }
     }
-  `);
-
-  return services.map((service: Service) => ({
-    params: { id: service.slug.current },
-    props: {
-      title: service.title,
-      meta_title: service.metaTitle,
-      description: service.metaDescription,
-      image: service.image
-    },
-  }));
+  `;
+  
+  try {
+    const services = await sanityClient.fetch(servicesQuery);
+    
+    return services.map((service: {id: string}) => {
+      return {
+        params: { id: service.id },
+        props: { service },
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching services:", error);
+    return [];
+  }
 }
 
-const { id } = Astro.params;
-const { title, meta_title, description, image } = Astro.props;
+// Add type annotation to props destructuring
+const { service } = Astro.props as { service: Service };
 
-// Fetch full service page data
-const serviceData = await sanityClient.fetch(`
-  *[_type == "dynamicServicePage" && slug.current == $id][0] {
-    banner {
-      title,
-      description,
-      buttons[] {
-        label,
-        link,
-        isCalendly
-      },
-      image {
-        src,
-        alt
-      },
-      floatingElements[] {
-        icon,
-        title,
-        value,
-        color,
-        position
-      }
-    },
-    featuresSection {
-      heading {
-        tagline,
-        title,
-        description
-      },
-      features[] {
-        title,
-        tagline,
-        description,
-        icon,
-        image
-      }
-    },
-    servicesSection {
-      heading {
-        tagline,
-        title,
-        description
-      },
-      services[] {
-        title,
-        description,
-        features
-      }
-    },
-    benefitsSection {
-      heading {
-        tagline,
-        title,
-        description
-      },
-      benefits[] {
-        title,
-        description,
-        icon
-      }
-    },
-    processSection {
-      heading {
-        tagline,
-        title,
-        description
-      },
-      steps[] {
-        title,
-        description,
-        image
-      }
-    },
-    industriesSection {
-      heading {
-        tagline,
-        title,
-        description
-      },
-      industries[] {
-        title,
-        description,
-        icon
-      }
-    },
-    faqSection {
-      title,
-      pageTitle,
-      subtitle,
-      description,
-      list[] {
-        title,
-        description,
-        active
-      }
-    }
-  }
-`, { id });
-
-// If no service found, redirect to 404
-if (!serviceData) {
+if (!service) {
   return Astro.redirect('/404');
 }
 ---
 
 <Base
-  title={title}
-  meta_title={meta_title}
-  description={description}
-  image={image}
+  title={service.title}
+  meta_title={service.metaTitle}
+  description={service.metaDescription}
+  image={service.image}
 >
-  <ServicesBanner client:load content={serviceData.banner} />
+  <ServicesBanner client:load content={service.banner} />
   <Clients client:load />
   <ServicesFeatures 
     client:load 
-    features={serviceData.featuresSection.features} 
-    heading={serviceData.featuresSection.heading}
+    features={service.featuresSection.features} 
+    heading={service.featuresSection.heading}
   />
   <ServicesServices 
     client:load 
-    services={serviceData.servicesSection.services} 
-    heading={serviceData.servicesSection.heading}
+    services={service.servicesSection.services} 
+    heading={service.servicesSection.heading}
   />
   <ServicesBenefits 
     client:load 
-    benefits={serviceData.benefitsSection.benefits} 
-    heading={serviceData.benefitsSection.heading}
+    benefits={service.benefitsSection.benefits} 
+    heading={service.benefitsSection.heading}
   />
   <ServicesProcess 
     client:load 
-    process={serviceData.processSection.steps} 
-    heading={serviceData.processSection.heading}
+    process={service.processSection.steps} 
+    heading={service.processSection.heading}
   />
   <ServicesIndustries 
     client:load 
-    industries={serviceData.industriesSection.industries} 
-    heading={serviceData.industriesSection.heading}
+    industries={service.industriesSection.industries} 
+    heading={service.industriesSection.heading}
   />
-  <ConsultationCTA client:load />
-  <NewFAQ client:load Faq={[serviceData.faqSection]} />
+  <DynamicCTA client:load ctaContent={service.ctaSection} />
+  <NewFAQ client:load Faq={[service.faqSection]} />
 </Base>

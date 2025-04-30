@@ -7,9 +7,8 @@ import { FeaturesGrid } from "../../components/common/FeaturesGrid";
 import { FeatureShowcase } from "../../components/common/FeatureShowcase";
 import { MobileFeatures } from "../../components/common/MobileFeatures";
 import { ProductHeader } from "../../components/common/ProductHeader";
-import SFACTA from "../../components/sfa/SFACTA";
-import LECTA from "../../components/loyalty/LECTA";
 import { sanityClient } from "sanity:client";
+import { DynamicCTA } from "../../components/DynamicCTA";
 
 interface Product {
   id: string;
@@ -32,13 +31,57 @@ export async function getStaticPaths() {
       title,
       metaTitle,
       metaDescription,
-      headerContent,
+      headerContent {
+        badge,
+        title,
+        subtitle,
+        description,
+        image {
+          "src": src.asset->url,
+          alt
+        },
+        buttons
+      },
       featuresGridSection,
-      mobileFeaturesSection,
-      featureShowcaseSection,
+      mobileFeaturesSection {
+        title,
+        description,
+        features[] {
+          title,
+          description,
+          icon
+        },
+        image {
+          "src": src.asset->url,
+          alt
+        }
+      },
+      featureShowcaseSection {
+        title,
+        description,
+        features[] {
+          title,
+          description
+        },
+        image {
+          "src": src.asset->url,
+          alt
+        }
+      },
       additionalFeaturesSection,
       faqSection,
-      ctaSection
+      ctaSection {
+        tagline,
+        title,
+        subtitle,
+        description,
+        metrices,
+        buttonText,
+        image {
+          "src": src.asset->url,
+          alt
+        }
+      }
     }
   `;
   
@@ -64,8 +107,6 @@ if (!product) {
   return Astro.redirect('/404');
 }
 
-// Determine which CTA component to use based on product ID
-const CTAComponent = product.id === "sfa-test" ? SFACTA : LECTA;
 
 ---
 
@@ -86,7 +127,6 @@ const CTAComponent = product.id === "sfa-test" ? SFACTA : LECTA;
     mobileFeatures={product.mobileFeaturesSection} 
   />
   <FeatureShowcase 
-    variant={product.id as "sfa" | "loyalty"} 
     showcaseContent={product.featureShowcaseSection} 
     client:load 
   />
@@ -98,5 +138,5 @@ const CTAComponent = product.id === "sfa-test" ? SFACTA : LECTA;
     }} 
   />
   <NewFAQ client:load Faq={[product.faqSection]} />
-  <!-- // <CTAComponent client:load ctaContent={product.ctaSection} /> -->
+  <DynamicCTA client:load ctaContent={product.ctaSection} />
 </Base>

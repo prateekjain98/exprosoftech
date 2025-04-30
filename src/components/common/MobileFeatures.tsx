@@ -185,7 +185,7 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
                   <img
                     src={image.src}
                     alt={image.alt}
-                    className="object-contain w-auto h-auto max-h-full max-w-[65%]"
+                    className="object-contain w-auto h-auto max-h-full max-w-[65%] translate-y-12"
                   />
                 </div>
 

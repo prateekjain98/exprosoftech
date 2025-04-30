@@ -9,132 +9,192 @@ import  BusinessGuidance  from "../../components/BusinessGuidance";
 import ConsultationCTA from "../../components/ConsultationCTA";
 import NewFAQ from "../../components/NewFAQ";
 import { sanityClient } from "sanity:client";
+import { DynamicCTA } from "../../components/DynamicCTA";
 
 interface ConsultingPage {
   id: string;
   title: string;
   metaTitle: string;
-  description: string;
-  image: string;
+  metaDescription: string;
   banner: any;
   impact: any;
   challenges: any;
   keyServices: any;
   businessGuidance: any;
   faq: any;
+  ctaSection: any;
 }
 
-// Get static paths for all consulting pages
 export async function getStaticPaths() {
-  const pages = await sanityClient.fetch(`
+  const consultingQuery = `
     *[_type == "dynamicConsultingsPage"] {
-      "id": _id,
+      "id": slug.current,
       title,
       metaTitle,
-      "description": metaDescription,
-      "image": image.asset->url
+      metaDescription,
+      banner {
+        title,
+        subtitle,
+        description,
+        image[] {
+          "src": src.asset->url,
+          alt
+        },
+        buttons[] {
+          label,
+          link,
+          isCalendly
+        }
+      },
+      impact {
+        title,
+        imageOverlayTitle,
+        imageOverlayDescription,
+        image {
+          "src": src.asset->url,
+          alt
+        },
+        stats[] {
+          value,
+          label,
+          description
+        }
+      },
+      challenges {
+        title,
+        subtitle,
+        description,
+        challengesList[] {
+          title,
+          description,
+          "icon": icon.asset->url
+        }
+      },
+      keyServices {
+        title,
+        subtitle,
+        description,
+        services[] {
+          id,
+          title,
+          icon,
+          points,
+          metrics {
+            value,
+            label,
+            trend
+          },
+          highlights[] {
+            icon,
+            value,
+            label
+          }
+        }
+      },
+      businessGuidance {
+        title,
+        subtitle,
+        description,
+        "image": {
+          "src": image.asset->url,
+          "alt": image.alt
+        },
+        guidancePoints[] {
+          id,
+          title,
+          description
+        },
+        empowerment {
+          title,
+          subtitle,
+          description,
+          points[] {
+            icon,
+            title,
+            description
+          }
+        }
+      },
+      faq {
+        title,
+        subtitle,
+        description,
+        list[] {
+          title,
+          description,
+          active
+        }
+      },
+      ctaSection {
+        tagline,
+        title,
+        subtitle,
+        description,
+        metrices[] {
+          value,
+          label,
+          icon
+        },
+        buttonText,
+        image {
+          "src": src.asset->url,
+          alt
+        }
+      }
     }
-  `);
+  `;
+  
+  try {
+    const pages = await sanityClient.fetch(consultingQuery);
+    
+    if (!pages || !Array.isArray(pages)) {
+      console.error("No pages found or invalid response");
+      return [];
+    }
 
-  return pages.map((page: ConsultingPage) => ({
-    params: { id: page.id },
-    props: {
-      title: page.title,
-      meta_title: page.metaTitle,
-      description: page.description,
-      image: page.image
-    },
-  }));
+    return pages.map((page: {id: string}) => {
+      return {
+        params: { id: page.id },
+        props: { page },
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching consulting pages:", error);
+    return [];
+  }
 }
 
-const { id } = Astro.params;
-const { title, meta_title, description, image } = Astro.props;
+// Add type annotation to props destructuring
+const { page } = Astro.props as { page: ConsultingPage };
 
-// Fetch full page data
-const pageData = await sanityClient.fetch(`
-  *[_type == "dynamicConsultingsPage" && _id == $id][0] {
-    banner {
-      title,
-      subtitle,
-      description,
-      image[] {
-        "src": src.asset->url,
-        alt
-      },
-      buttons
-    },
-    impact {
-      title,
-      subtitle,
-      description,
-      image {
-        "src": src.asset->url,
-        alt
-      },
-      stats
-    },
-    challenges {
-      title,
-      subtitle,
-      description,
-      challengesList[] {
-        title,
-        description,
-        "icon": icon.asset->url
-      }
-    },
-    keyServices {
-      title,
-      subtitle,
-      description,
-      services[] {
-        title,
-        icon,
-        points,
-        metrics
-      }
-    },
-    businessGuidance {
-      title,
-      subtitle,
-      description,
-      "image": image.asset->url,
-      points
-    },
-    faq {
-      title,
-      subtitle,
-      description,
-      list
-    }
-  }
-`, { id });
-
-if (!pageData) {
+if (!page) {
   return Astro.redirect('/404');
 }
 ---
 
 <Base
-  title={title}
-  meta_title={meta_title}
-  description={description}
-  image={image}
+  title={page.title}
+  meta_title={page.metaTitle}
+  description={page.metaDescription}
 >
-  <DemandDrivenBanner client:load content={pageData.banner} />
+  <DemandDrivenBanner client:load content={page.banner} />
   <Clients client:load />
-  <DemandDrivenImpact client:load content={pageData.impact} />
-  <ChallengesWeAddress client:load content={pageData.challenges} />
+  <DemandDrivenImpact client:load content={page.impact} />
+  <ChallengesWeAddress client:load content={page.challenges} />
   <KeyServices 
     client:load 
-    heading={pageData.keyServices}
-    keyServicesData={pageData.keyServices.services} 
+    heading={{
+      title: page.keyServices.title,
+      subtitle: page.keyServices.subtitle,
+      description: page.keyServices.description
+    }}
+    keyServicesData={page.keyServices.services || []} 
   />
   <BusinessGuidance 
     client:load 
-    businessGuidanceData={pageData.businessGuidance}
-    empowermentData={pageData.businessGuidance.empowerment} 
+    businessGuidanceData={page.businessGuidance}
+    empowermentData={page.businessGuidance.empowerment}
   />
-  <ConsultationCTA client:load />
-  <NewFAQ client:load Faq={[pageData.faq]} />
+  <DynamicCTA client:load ctaContent={page.ctaSection} />
+  <NewFAQ client:load Faq={[page.faq]} />
 </Base>

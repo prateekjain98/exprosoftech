@@ -1,4 +1,4 @@
----
+<!-- ---
 import Base from "@/layouts/Base.astro";
 import { Clients } from "../../components/Clients";
 import { AdditionalFeatures } from "../../components/common/AdditionalFeatures";
@@ -7,7 +7,7 @@ import { FeaturesGrid } from "../../components/common/FeaturesGrid";
 import { FeatureShowcase } from "../../components/common/FeatureShowcase";
 import { MobileFeatures } from "../../components/common/MobileFeatures";
 import { ProductHeader } from "../../components/common/ProductHeader";
-import SFACTA from "../../components/sfa/SFACTA";
+// import SFACTA from "../../components/sfa/SFACTA";
 import { sanityClient } from "sanity:client";
 import NewFAQ from "../../components/NewFAQ";
 
@@ -325,4 +325,4 @@ const sfaFaq = await sanityClient.fetch(SFA_Faq_QUery)
   <AdditionalFeatures client:load heading={heading[22]}/>
   <NewFAQ client:load Faq={[sfaFaq[2]]}/>
   <SFACTA client:load />
-</Base>
+</Base> -->

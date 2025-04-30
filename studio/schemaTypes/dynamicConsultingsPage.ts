@@ -124,13 +124,13 @@ export const dynamicConsultingsPageType = defineType({
           type: 'string'
         }),
         defineField({
-          name: 'subtitle',
-          title: 'Subtitle',
+          name: 'imageOverlayTitle',
+          title: 'Image Overlay Title',
           type: 'string'
         }),
         defineField({
-          name: 'description',
-          title: 'Description',
+          name: 'imageOverlayDescription',
+          title: 'Image Overlay Description',
           type: 'text'
         }),
         defineField({
@@ -256,6 +256,12 @@ export const dynamicConsultingsPageType = defineType({
             type: 'object',
             fields: [
               defineField({
+                name: 'id',
+                title: 'Service ID',
+                type: 'string',
+                validation: Rule => Rule.required()
+              }),
+              defineField({
                 name: 'title',
                 title: 'Title',
                 type: 'string'
@@ -292,6 +298,33 @@ export const dynamicConsultingsPageType = defineType({
                     type: 'string'
                   })
                 ]
+              }),
+              defineField({
+                name: 'highlights',
+                title: 'Metric Highlights',
+                type: 'array',
+                of: [
+                  {
+                    type: 'object',
+                    fields: [
+                      defineField({
+                        name: 'icon',
+                        title: 'Icon Name',
+                        type: 'string'
+                      }),
+                      defineField({
+                        name: 'value',
+                        title: 'Value',
+                        type: 'string'
+                      }),
+                      defineField({
+                        name: 'label',
+                        title: 'Label',
+                        type: 'string'
+                      })
+                    ]
+                  }
+                ]
               })
             ]
           }]
@@ -305,52 +338,54 @@ export const dynamicConsultingsPageType = defineType({
       title: 'Business Guidance Section',
       type: 'object',
       fields: [
-        defineField({
-          name: 'title',
-          title: 'Title',
-          type: 'string'
-        }),
-        defineField({
-          name: 'subtitle',
-          title: 'Subtitle',
-          type: 'string'
-        }),
-        defineField({
-          name: 'description',
-          title: 'Description',
-          type: 'text'
-        }),
+        defineField({ name: 'title', type: 'string' }),
+        defineField({ name: 'subtitle', type: 'string' }),
+        defineField({ name: 'description', type: 'text' }),
         defineField({
           name: 'image',
-          title: 'Image',
           type: 'image',
           fields: [
-            defineField({
-              name: 'alt',
-              title: 'Alt Text',
-              type: 'string'
-            })
+            defineField({ name: 'alt', type: 'string' })
           ]
         }),
         defineField({
-          name: 'points',
-          title: 'Guidance Points',
+          name: 'guidancePoints',
           type: 'array',
           of: [{
             type: 'object',
             fields: [
-              defineField({
-                name: 'title',
-                title: 'Title',
-                type: 'string'
-              }),
-              defineField({
-                name: 'description',
-                title: 'Description',
-                type: 'text'
-              })
+              defineField({ name: 'id', type: 'number' }),
+              defineField({ name: 'title', type: 'string' }),
+              defineField({ name: 'description', type: 'text' })
             ]
           }]
+        }),
+        defineField({
+          name: 'empowerment',
+          type: 'object',
+          fields: [
+            defineField({ name: 'title', type: 'string' }),
+            defineField({ name: 'subtitle', type: 'string' }),
+            defineField({ name: 'description', type: 'text' }),
+            defineField({
+              name: 'points',
+              type: 'array',
+              of: [{
+                type: 'object',
+                fields: [
+                  defineField({ 
+                    name: 'icon',
+                    type: 'string',
+                    options: {
+                      list: ['ChartLineUp', 'Brain', 'Handshake', 'Target']
+                    }
+                  }),
+                  defineField({ name: 'title', type: 'string' }),
+                  defineField({ name: 'description', type: 'text' })
+                ]
+              }]
+            })
+          ]
         })
       ]
     }),
@@ -403,6 +438,98 @@ export const dynamicConsultingsPageType = defineType({
           }]
         })
       ]
+    }),
+
+    // CTA Section
+    defineField({
+      name: 'ctaSection',
+      title: 'CTA Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'tagline',
+          title: 'Tagline',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'metrices',
+          title: 'Metrics',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                  validation: Rule => Rule.required()
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                  validation: Rule => Rule.required()
+                }),
+                defineField({
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'string',
+                  description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
+                  validation: Rule => Rule.required()
+                })
+              ]
+            }
+          ],
+          validation: Rule => Rule.required().min(3)
+        }),
+        defineField({
+          name: 'buttonText',
+          title: 'Button Text',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'src',
+              title: 'Image Source',
+              type: 'image',
+              validation: Rule => Rule.required()
+            }),
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              validation: Rule => Rule.required()
+            })
+          ],
+          validation: Rule => Rule.required()
+        })
+      ],
+      validation: Rule => Rule.required()
     })
   ]
 })

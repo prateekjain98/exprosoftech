@@ -12,12 +12,16 @@ interface FloatingElement {
   position: "topLeft" | "bottomRight";
 }
 
-interface BannerContent {
-  title: string;
-  description: string;
+interface Button {
   label: string;
   link: string;
   isCalendly: boolean;
+}
+
+interface BannerContent {
+  title: string;
+  description: string;
+  buttons: Button[];
   image: {
     src: string;
     alt: string;
@@ -31,17 +35,21 @@ interface Props {
 }
 
 export const ServicesBanner: React.FC<Props> = ({ className, content }) => {
+  // Default button if none provided
+  const primaryButton = content.buttons && content.buttons.length > 0 
+    ? content.buttons[0] 
+    : { label: "Get Started", link: "#", isCalendly: false };
+
   return (
     <section className="relative z-[1] pt-16 pb-24 lg:pt-12 lg:pb-32">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="text-center lg:text-left order-2 lg:order-1">
             <h1
-              
               data-aos="fade-up-sm"
               className="mb-6 text-h3 lg:text-h1 bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium"
             >
-            {content.title}
+              {content.title}
             </h1>
             <p
               data-aos="fade-up-sm"
@@ -50,11 +58,13 @@ export const ServicesBanner: React.FC<Props> = ({ className, content }) => {
               {content.description}
             </p>
             <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
-              <li data-aos="fade-up-sm" data-aos-delay={100}>
-                <Button href={content.link} variant="primary" isCalendlyButton={content.isCalendly}>
-                  {content.label}
-                </Button>
-              </li>
+              {content.buttons && content.buttons.map((button, index) => (
+                <li key={index} data-aos="fade-up-sm" data-aos-delay={100 + (index * 50)}>
+                  <Button href={button.link} variant="primary" isCalendlyButton={button.isCalendly}>
+                    {button.label}
+                  </Button>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -72,17 +82,19 @@ export const ServicesBanner: React.FC<Props> = ({ className, content }) => {
                 <div className="absolute -inset-4 border-2 border-secondary-300/10 rounded-2xl transform -rotate-2" />
 
                 <div className="relative rounded-xl overflow-hidden shadow-2xl">
-                  <img
-                    src={content.image.src}
-                    alt={content.image.alt}
-                    width={580}
-                    height={480}
-                    className="w-full h-[480px] object-cover"
-                  />
+                  {content.image && (
+                    <img
+                      src={content.image.src}
+                      alt={content.image.alt || "Service banner image"}
+                      width={580}
+                      height={480}
+                      className="w-full h-[480px] object-cover"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-secondary-300/20" />
 
                   {/* Floating Elements */}
-                  {content.floatingElements.map((element, index) => (
+                  {content.floatingElements && content.floatingElements.map((element, index) => (
                     <div
                       key={index}
                       className={`absolute ${

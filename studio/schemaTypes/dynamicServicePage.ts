@@ -487,6 +487,97 @@ export const dynamicServicePageType = defineType({
           }]
         })
       ]
+    }),
+
+    defineField({
+      name: 'ctaSection',
+      title: 'CTA Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'tagline',
+          title: 'Tagline',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'metrices',
+          title: 'Metrics',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                  validation: Rule => Rule.required()
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                  validation: Rule => Rule.required()
+                }),
+                defineField({
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'string',
+                  description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
+                  validation: Rule => Rule.required()
+                })
+              ]
+            }
+          ],
+          validation: Rule => Rule.required().min(3)
+        }),
+        defineField({
+          name: 'buttonText',
+          title: 'Button Text',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'src',
+              title: 'Image Source',
+              type: 'image',
+              validation: Rule => Rule.required()
+            }),
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              validation: Rule => Rule.required()
+            })
+          ],
+          validation: Rule => Rule.required()
+        })
+      ],
+      validation: Rule => Rule.required()
     })
   ]
-})
+})  

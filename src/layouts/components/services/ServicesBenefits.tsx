@@ -35,7 +35,7 @@ interface Benefit {
 }
 
 interface HeadingProps {
-  subtitle: string;
+  tagline: string;
   title: string;
   description: string;
 }
@@ -114,7 +114,7 @@ export const ServicesBenefits: React.FC<Props> = ({
     >
       <div className="container">
         <SectionHeader
-          tagline={heading.subtitle}
+          tagline={heading.tagline}
           heading={heading.title}
           subheading={heading.description}
         />
