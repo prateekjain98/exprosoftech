@@ -11,34 +11,38 @@ interface CaseStudy {
   src: string;
 }
 
-const caseStudies: CaseStudy[] = [
-  {
-    category: "Manufacturing Excellence",
-    title: "Rotex Automation",
-    description:
-      "36% growth in manufacturing efficiency and 60% faster production timelines.",
-    logo: "/images/company-logos/rotex.png",
-    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=3270&auto=format&fit=crop",
-  },
-  {
-    category: "Product Strategy",
-    title: "Kirloskar Oil Engines",
-    description:
-      "Strategic product innovation driving ₹80 Cr revenue within accelerated market timeline.",
-    logo: "/images/company-logos/kirloskar.png",
-    src: "https://images.unsplash.com/photo-1531265726475-52ad60219627?q=80&w=3270&auto=format&fit=crop",
-  },
-  {
-    category: "Supply Chain Optimization",
-    title: "Michelin",
-    description:
-      "Optimized inventory and elevated service excellence from 91% to industry-leading 99%.",
-    logo: "/images/company-logos/michelin.png",
-    src: "https://images.unsplash.com/photo-1518466088889-82466d82e1ba?q=80&w=3270&auto=format&fit=crop",
-  },
-];
+interface CaseStudiesProps {
+  caseStudies: CaseStudy[];
+}
 
-const CaseStudyCard: React.FC<{ study: CaseStudy }> = ({ study }) => {
+// const caseStudies: CaseStudy[] = [
+//   {
+//     category: "Manufacturing Excellence",
+//     title: "Rotex Automation",
+//     description:
+//       "36% growth in manufacturing efficiency and 60% faster production timelines.",
+//     logo: "/images/company-logos/rotex.png",
+//     src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=3270&auto=format&fit=crop",
+//   },
+//   {
+//     category: "Product Strategy",
+//     title: "Kirloskar Oil Engines",
+//     description:
+//       "Strategic product innovation driving ₹80 Cr revenue within accelerated market timeline.",
+//     logo: "/images/company-logos/kirloskar.png",
+//     src: "https://images.unsplash.com/photo-1531265726475-52ad60219627?q=80&w=3270&auto=format&fit=crop",
+//   },
+//   {
+//     category: "Supply Chain Optimization",
+//     title: "Michelin",
+//     description:
+//       "Optimized inventory and elevated service excellence from 91% to industry-leading 99%.",
+//     logo: "/images/company-logos/michelin.png",
+//     src: "https://images.unsplash.com/photo-1518466088889-82466d82e1ba?q=80&w=3270&auto=format&fit=crop",
+//   },
+// ];
+
+const CaseStudyCard = ({ study }: { study: CaseStudy }) => {
   const [imageError, setImageError] = React.useState<boolean>(false);
 
   const getInitials = (name: string) => {
@@ -78,7 +82,7 @@ const CaseStudyCard: React.FC<{ study: CaseStudy }> = ({ study }) => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-30 h-full flex flex-col items-center px-4 sm:px-8">
+      <div className="absolute inset-0 z-30 flex flex-col items-center justify-between p-6 sm:p-8">
         {/* Logo Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -119,7 +123,7 @@ const CaseStudyCard: React.FC<{ study: CaseStudy }> = ({ study }) => {
         </motion.div>
 
         {/* Text Content */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center mt-6 sm:mt-8">
+        <div className="text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -147,7 +151,7 @@ const CaseStudyCard: React.FC<{ study: CaseStudy }> = ({ study }) => {
   );
 };
 
-const CaseStudies: React.FC = () => {
+const CaseStudies: React.FC<CaseStudiesProps> = ({ caseStudies }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center",
@@ -195,7 +199,7 @@ const CaseStudies: React.FC = () => {
         <div className="relative">
           <div className="overflow-hidden mx-auto" ref={emblaRef}>
             <div className="flex backface-hidden touch-pan-y">
-              {caseStudies.map((study, index) => (
+              {caseStudies.map((study: CaseStudy, index: number) => (
                 <div
                   key={index}
                   className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-2 sm:px-3 md:px-4"
@@ -209,7 +213,7 @@ const CaseStudies: React.FC = () => {
           </div>
 
           {/* Navigation Arrows - Hidden on Mobile, Shown on Tablet and Above */}
-          <div className="hidden sm:flex absolute inset-y-0 -left-5 -right-5 items-center justify-between pointer-events-none">
+          <div className="hidden sm:flex justify-between absolute top-1/2 left-0 right-0 -translate-y-1/2 pointer-events-none px-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -258,7 +262,7 @@ const CaseStudies: React.FC = () => {
 
           {/* Mobile Scroll Indicator */}
           <div className="flex sm:hidden justify-center mt-6 gap-2">
-            {caseStudies.map((_, index) => (
+            {caseStudies.map((_: CaseStudy, index: number) => (
               <div
                 key={index}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
