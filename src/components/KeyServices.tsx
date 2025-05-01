@@ -72,19 +72,17 @@ interface SanityServiceTab {
   id: string;
   title: string;
   icon: string;
-  points: ServicePoint[];
+  points: string[]; 
   metrics: {
-    mainMetric: {
-      value: string;
-      label: string;
-      trend: string;
-    };
-    highlights: Array<{
-      icon: string;
-      value: string;
-      label: string;
-    }>;
+    value: string;
+    label: string;
+    trend: string;
   };
+  highlights: Array<{
+    icon: string;
+    value: string;
+    label: string;
+  }>;
 }
 
 const services = [
@@ -274,39 +272,46 @@ const services = [
   },
 ];
 
-const MetricsCard = ({ keyServicesData } : { keyServicesData: SanityServiceTab }) => {
+const MetricsCard = ({ keyServicesData }: { keyServicesData: SanityServiceTab }) => {
+  // The issue is here - in your schema, metrics is a direct object, not containing a mainMetric property
+  const mainMetric = keyServicesData?.metrics || { value: '', label: '', trend: '' };
+  const highlights = keyServicesData?.highlights || [];
+  
   return (
     <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-gray-700/50">
       {/* Main Metric */}
       <div className="mb-6 sm:mb-10">
         <div className="flex items-baseline gap-2 mb-1.5 sm:mb-3">
           <h4 className="text-2xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-            {keyServicesData.metrics.mainMetric.value}
+            {mainMetric.value}
           </h4>
         </div>
         <p className="text-xs sm:text-base lg:text-lg text-gray-400 mb-1 sm:mb-2">
-          {keyServicesData.metrics.mainMetric.label}
+          {mainMetric.label}
         </p>
-        <p className="text-[10px] sm:text-sm text-emerald-400 font-medium">
-          {keyServicesData.metrics.mainMetric.trend}
+        <p className="text-[10px] sm:text-xs text-gray-500">
+          {mainMetric.trend}
         </p>
       </div>
 
-      {/* Highlights Grid */}
-      <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-5">
-        {keyServicesData.metrics.highlights.map((highlight, index) => (
-          <div
-            key={index}
-            className="bg-gray-800/50 rounded-lg sm:rounded-xl p-2 sm:p-4 text-center hover:bg-gray-800/70 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-1.5 sm:gap-4"
-          >
-            <div className="w-6 h-6 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-md sm:rounded-xl p-1 sm:p-2 lg:p-2.5 flex items-center justify-center">
-              {React.createElement(iconMap[highlight.icon], {
-                size: 16,
-                weight: "duotone",
-                className: "text-blue-400"
-              })}
+      {/* Highlights */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+        {highlights.map((highlight, index) => (
+          <div key={index} className="flex items-start gap-3">
+            <div className="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400">
+              {iconMap[highlight.icon] ? (
+                React.createElement(iconMap[highlight.icon], {
+                  size: 20,
+                  weight: "duotone",
+                })
+              ) : (
+                React.createElement(iconMap.Cube, {
+                  size: 20,
+                  weight: "duotone",
+                })
+              )}
             </div>
-            <div className="min-w-0">
+            <div className="flex-1 min-w-0">
               <div className="text-sm sm:text-lg lg:text-xl font-semibold text-white truncate mb-0.5 sm:mb-1">
                 {highlight.value}
               </div>
@@ -343,13 +348,13 @@ const KeyServices = ({ heading, keyServicesData = [] }: KeyServicesProps) => {
     ...service,
     icon: iconMap[service.icon],
     metrics: {
-      ...service.metrics,
-      highlights: service.metrics.highlights.map(highlight => ({
-        ...highlight,
-        icon: iconMap[highlight.icon]
-      }))
-    }
-  })) || [];
+      ...service.metrics
+    },
+    highlights: service.highlights?.map(highlight => ({
+      ...highlight,
+      icon: iconMap[highlight.icon]
+    })) || []
+  }));
 
   const activeService = services.find((service) => service.id === activeTab);
 
@@ -430,30 +435,27 @@ const KeyServices = ({ heading, keyServicesData = [] }: KeyServicesProps) => {
                       {activeService.title}
                     </h3>
                     <ul className="space-y-4 sm:space-y-5">
-                      {activeService.points.map((point, index) => (
+                      {activeService.points && activeService.points.map((point, index) => (
                         <li
                           key={index}
                           className="flex items-start gap-3 sm:gap-4 group"
                         >
                           <span className="flex-shrink-0 w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-blue-500 mt-2 sm:mt-2.5 group-hover:scale-125 transition-transform" />
                           <p className="text-sm sm:text-base lg:text-lg text-gray-300/90 leading-relaxed">
-                            {point.text}
+                            {point}
                           </p>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <MetricsCard keyServicesData={{
-                    ...activeService,
-                    icon: keyServicesData.find(s => s.id === activeService.id)?.icon || '',
-                    metrics: {
-                      ...activeService.metrics,
-                      highlights: activeService.metrics.highlights.map(h => ({
-                        ...h,
-                        icon: keyServicesData.find(s => s.id === activeService.id)?.metrics.highlights.find(hl => hl.value === h.value)?.icon || ''
-                      }))
-                    }
+                  <MetricsCard keyServicesData={keyServicesData.find(s => s.id === activeService.id) || {
+                    id: '',
+                    title: '',
+                    icon: '',
+                    points: [],
+                    metrics: { value: '', label: '', trend: '' },
+                    highlights: []
                   }} />
                 </div>
               )}

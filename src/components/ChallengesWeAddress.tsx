@@ -15,7 +15,16 @@ interface ChallengeType {
 }
 
 interface ChallengesWeAddressProps {
-  heading: HeadingProps;
+  content: {
+    title: string;
+    subtitle: string;
+    description: string;
+    challengesList: Array<{
+      title: string;
+      description: string;
+      icon: string;
+    }>;
+  }
 }
 
 // const challengesData: ChallengesData = {
@@ -62,15 +71,7 @@ interface ChallengesWeAddressProps {
 //   ],
 // };
 
-const ChallengesWeAddress = async ({ heading }: { heading: HeadingProps }) => {
-  const challengesQuery = `*[_type == "challengesWeAddress"] | order(_createdAt asc) {
-    title,
-    description,
-    "iconUrl": icon.asset->url
-  }`;
-
-  const challengesData = await sanityClient.fetch(challengesQuery);
-
+const ChallengesWeAddress = ({ content }: ChallengesWeAddressProps) => {
   return (
     <section className="py-16 lg:py-24">
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 md:px-8">
@@ -83,14 +84,14 @@ const ChallengesWeAddress = async ({ heading }: { heading: HeadingProps }) => {
         >
           <div className="relative z-10 px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <SectionHeader
-              tagline={heading.subtitle}
-              heading={heading.title}
-              subheading={heading.description}
+              tagline={content.subtitle}
+              heading={content.title}
+              subheading={content.description}
               className="mb-10 lg:mb-16"
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
-              {challengesData.map((challenge :any, index:number) => (
+              {content.challengesList.map((challenge, index) => (
                 <div
                   key={index}
                   data-aos="fade-up"
@@ -101,7 +102,7 @@ const ChallengesWeAddress = async ({ heading }: { heading: HeadingProps }) => {
                     <div className="flex-shrink-0 pt-1 sm:pt-0">
                       <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-[#E6F0FF] rounded-xl sm:rounded-2xl group-hover:bg-[#CCE3FF] transition-colors duration-300">
                         <img
-                          src={challenge.iconUrl}
+                          src={challenge.icon}
                           alt={challenge.title}
                           width={48}
                           height={48}

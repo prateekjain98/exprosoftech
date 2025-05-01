@@ -27,7 +27,7 @@ export const mainMenu: NavigationLink[] = [
     children: [
       {
         name: "Demand-Driven Business Transformation",
-        url: "/demand-driven-transformation/",
+        url: "/consulting/demand-driven-business-transformation/",
         description:
           "Transform your supply chain with DDMRP methodology and cutting-edge tools",
       },
@@ -40,19 +40,19 @@ export const mainMenu: NavigationLink[] = [
     children: [
       {
         name: "Channel Loyalty Management",
-        url: "/services/loyalty-management/",
+        url: "/services/loyalty-managementt/",
         description:
           "End to end Channel Loyalty Management to Maximize Channel Reach X Range to Increase Market Share",
       },
       {
         name: "Channel Reach Expansion",
-        url: "/services/channel-reach/",
+        url: "/services/channel-reach-expansion/",
         description:
           "Expand retail footprint across channels to increase market share",
       },
       {
         name: "B2B Sales",
-        url: "/services/b2b-sales/",
+        url: "/services/b2b-saless/",
         description:
           "Comprehensive B2B sales solutions to accelerate your business growth",
       },
@@ -71,13 +71,13 @@ export const mainMenu: NavigationLink[] = [
       // },
       {
         name: "Sales Force Automation",
-        url: "/sfa/",
+        url: "/products/sfa/",
         description:
           "Empower your field force with real-time tracking, route optimization, and performance analytics",
       },
       {
         name: "Loyalty Engine",
-        url: "/loyalty-engine/",
+        url: "/products/loyalty-engine-test/",
         description:
           "Drive customer retention with personalized rewards, gamification, and engagement analytics",
       },

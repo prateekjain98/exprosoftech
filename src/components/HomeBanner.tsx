@@ -3,50 +3,49 @@ import { AnimatedMetrics } from "./AnimatedMetrics";
 import Button from "./common/Button";
 import { sanityClient } from "sanity:client";
 
-interface BannerContent {
-  title: string;
-  description: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  buttons: {
-    label: string;
-    link: string;
-    isCalendly: boolean;
-  }[];
-}
-
 interface HomeBannerProps {
-  banner: BannerContent;
+  data: {
+    title: string;
+    description: string;
+    image: Array<{
+      src: string;
+      alt: string;
+    }>;
+    buttons: Array<{
+      label: string;
+      link: string;
+      isCalendly: boolean;
+    }>;
+  };
 }
 
-const bannerContent: BannerContent = {
-  title: "Empowering Strategic Business Transformation",
-  description:
-    "Achieve sustainable growth through Demand Driven Business Excellence, Supply Chain Effectiveness, Sales Transformation and Channel Loyalty—leveraging real-time data, intelligent workflows, and digital tools for sustainable growth.",
-  image: {
-    src: "/images/hero.jpeg",
-    alt: "Hero image showing business transformation platform",
-  },
-  buttons: [
-    {
-      label: "Book a call",
-      link: "#",
-      isCalendly: true,
-    },
-    // {
-    //   label: "Download Deck",
-    //   link: "/about/",
-    // },
-  ],
-};
+
+// const bannerContent: BannerContent = {
+//   title: "Empowering Strategic Business Transformation",
+//   description:
+//     "Achieve sustainable growth through Demand Driven Business Excellence, Supply Chain Effectiveness, Sales Transformation and Channel Loyalty—leveraging real-time data, intelligent workflows, and digital tools for sustainable growth.",
+//   image: {
+//     src: "/images/hero.jpeg",
+//     alt: "Hero image showing business transformation platform",
+//   },
+//   buttons: [
+//     {
+//       label: "Book a call",
+//       link: "#",
+//       isCalendly: true,
+//     },
+//     // {
+//     //   label: "Download Deck",
+//     //   link: "/about/",
+//     // },
+//   ],
+// };
 
 
 
 
 
-export const HomeBanner:React.FC<HomeBannerProps> = ({ banner }: HomeBannerProps ) => {
+export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps ) => {
 
 
 
@@ -56,23 +55,23 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ banner }: HomeBannerProps
         <div className="row items-center justify-between flex-col-reverse lg:flex-row">
           {/* Left Column - Content */}
           <div className="mb-8 lg:mb-0 text-center lg:text-left lg:col-6">
-            {banner.title && (
+            {data.title && (
               <h1
-                dangerouslySetInnerHTML={{ __html: banner.title }}
+                dangerouslySetInnerHTML={{ __html: data.title }}
                 data-aos="fade-up-sm"
                 className="mb-4 text-h3 lg:text-h1 bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium"
               />
             )}
-            {banner.description && (
+            {data.description && (
               <p
-                dangerouslySetInnerHTML={{ __html: banner.description }}
+                dangerouslySetInnerHTML={{ __html: data.description }}
                 data-aos="fade-up-sm"
                 className="mb-8 text-lg/[inherit]"
               />
             )}
-            {banner.buttons && (
+            {data.buttons && (
               <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
-                {banner.buttons.map(({ label, link, isCalendly }: { label: string, link: string, isCalendly: boolean }, index: number) => (
+                {data.buttons.map(({ label, link, isCalendly }: { label: string, link: string, isCalendly: boolean }, index: number) => (
                   <li
                     key={index}
                     data-aos="fade-up-sm"

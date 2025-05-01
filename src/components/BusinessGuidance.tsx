@@ -12,15 +12,7 @@ interface BusinessGuidanceData {
   subtitle: string;
   description: string;
   image: {
-    asset: {
-      url: string;
-      metadata: {
-        dimensions: {
-          width: number;
-          height: number;
-        }
-      }
-    };
+    src: string;
     alt: string;
   };
   guidancePoints: GuidancePoint[];
@@ -128,7 +120,7 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
               <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] bg-[#0066FF]/5 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[-4deg] transform -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 translate-x-2 sm:translate-x-3 lg:translate-x-4" />
               <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] border-2 border-[#0066FF]/20 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[4deg] transform translate-y-2 sm:translate-y-3 lg:translate-y-4 -translate-x-2 sm:-translate-x-3 lg:-translate-x-4" />
               <img
-                src={businessGuidanceData.image.asset.url}
+                src={businessGuidanceData.image.src}
                 alt={businessGuidanceData.image.alt}
                 width={440}
                 height={480}

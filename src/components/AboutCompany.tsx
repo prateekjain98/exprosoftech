@@ -1,36 +1,25 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
-import { sanityClient } from "sanity:client";
 
-// Data embedded directly in the component
-// const aboutCompanyData = {
-//   subtitle: "Our Mission",
-//   title: "Transforming Business Operations",
-//   description:
-//     "Delivering Sustainable Growth Through Strategic Innovation and Operational Excellence",
-//   content: [
-//     "At Greymetre, we bring decades of expertise in transforming businesses through innovative methodologies and data-driven solutions. Our approach combines strategic thinking with practical implementation to drive measurable results.",
-//     "We specialize in implementing advanced methodologies like DDMRP and Theory of Constraints (TOC), helping organizations optimize their supply chains, reduce operational costs, and achieve unprecedented efficiency in their operations.",
-//     "Our commitment extends beyond implementation – we focus on building sustainable frameworks, providing comprehensive training, and ensuring continuous improvement to create lasting impact for our clients' businesses.",
-//   ],
-//   featuredImage: "/images/about-us/mission.png",
-// };
+interface CompanyData {
+  subtitle: string;
+  title: string;
+  description: string;
+  content: string[];
+  featuredImage: {
+    asset: {
+      _ref: string;
+      url: string;
+    }
+  };
+}
 
-const aboutCompanyQuery = `
-  *[_type == "aboutDualData"][1] {
-    subtitle,
-    title,
-    description,
-    content,
-    featuredImage
-  }
-`
+interface AboutCompanyProps {
+  data: CompanyData;
+}
 
-const AboutCompany = async () => {
-  const aboutCompanyData = await sanityClient.fetch(aboutCompanyQuery)
-
-  const { title, subtitle, description, content, featuredImage } =
-    aboutCompanyData;
+const AboutCompany: React.FC<AboutCompanyProps> = ({ data }) => {
+  const { title, subtitle, description, content, featuredImage } = data;
 
   return (
     <section className="relative py-20 lg:py-28">
@@ -46,7 +35,7 @@ const AboutCompany = async () => {
               <div className="relative aspect-[4/3] lg:aspect-[16/10]">
                 <div className="absolute inset-0 translate-x-4 translate-y-4 lg:translate-x-8 lg:translate-y-8 bg-gradient-to-tl from-purple-600/20 to-blue-600/20 rounded-2xl lg:rounded-3xl transform"></div>
                 <img
-                  src={featuredImage}
+                  src={featuredImage.asset.url}
                   alt="Greymetre Business Excellence"
                   className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                 />

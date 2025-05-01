@@ -53,7 +53,7 @@ const ServiceCard: React.FC<QueriedService> = ({
 };
 
 interface HeadingProps {
-  subtitle: string;
+  tagline: string;
   title: string;
   description: string;
 }
@@ -73,7 +73,7 @@ export const ServicesServices: React.FC<Props> = ({
     <section className={`py-20 bg-gray-50 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={heading.subtitle}
+          tagline={heading.tagline}
           heading={heading.title}
           subheading={heading.description}
         />

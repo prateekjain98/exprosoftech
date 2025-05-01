@@ -15,19 +15,29 @@ interface ImageType {
   alt: string;
 }
 
-interface BannerData {
-  title: string;
-  description: string;
-  images: ImageType[];
-  buttons: ButtonType[];
+interface DemandDrivenBannerProps {
+  content: {
+    title: string;
+    subtitle: string;
+    description: string;
+    image: Array<{
+      src: string;
+      alt: string;
+    }>;
+    buttons: Array<{
+      label: string;
+      link: string;
+      isCalendly: boolean;
+    }>;
+  }
 }
 
-// Define the banner data directly from the markdown file
-const bannerData: BannerData = {
+// Define fallback banner data
+const fallbackBannerData = {
   title: "Demand Driven Business Transformation",
   description:
     "Transforming organizations into high-performing entities by leveraging Demand-Driven Material Requirements Planning (DDMRP) and cutting-edge tools like Intuiflow",
-  images: [
+  image: [
     {
       src: "/images/consulting/demand-driven-business-transformation/hero.png",
       alt: "Demand Driven Business Transformation",
@@ -42,25 +52,10 @@ const bannerData: BannerData = {
   ],
 };
 
-const homeBannerQuery = `
-  *[_type == "heroBannerSections"] | order(_createdAt asc) [1] {
-    title,
-    description,
-    image[] {
-      src,
-      alt
-    },
-    buttons[] {
-      label,
-      link,
-      isCalendly
-    }
-  }
-`
-
-const DemandDrivenBanner = async () => {
-  const bannerData = await sanityClient.fetch(homeBannerQuery)
-  const { title, description, image, buttons } = bannerData;
+const DemandDrivenBanner = ({ content }: DemandDrivenBannerProps) => {
+  // Use content or fallback to default data if content is missing
+  const bannerContent = content || fallbackBannerData;
+  const { title, description, image, buttons } = bannerContent;
 
   return (
     <section className="relative z-[1] pt-16 pb-24 lg:pt-12 lg:pb-32">
@@ -105,7 +100,7 @@ const DemandDrivenBanner = async () => {
             )}
           </div>
 
-          {image && image[0] && (
+          {image && image.length > 0 && (
             <div className="relative px-4 md:px-0 order-1 lg:order-2">
               <div
                 className="relative max-w-[580px] mx-auto"
@@ -122,7 +117,7 @@ const DemandDrivenBanner = async () => {
                   <div className="relative rounded-xl overflow-hidden shadow-2xl">
                     <img
                       src={image[0].src}
-                      alt={image[0].alt}
+                      alt={image[0].alt || "Banner image"}
                       width={580}
                       height={480}
                       className="w-full h-auto object-cover"

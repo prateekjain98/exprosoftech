@@ -1,0 +1,142 @@
+---
+import Base from "@/layouts/Base.astro";
+import { Clients } from "../../components/Clients";
+import { AdditionalFeatures } from "../../components/common/AdditionalFeatures";
+import NewFAQ from "../../components/NewFAQ";
+import { FeaturesGrid } from "../../components/common/FeaturesGrid";
+import { FeatureShowcase } from "../../components/common/FeatureShowcase";
+import { MobileFeatures } from "../../components/common/MobileFeatures";
+import { ProductHeader } from "../../components/common/ProductHeader";
+import { sanityClient } from "sanity:client";
+import { DynamicCTA } from "../../components/DynamicCTA";
+
+interface Product {
+  id: string;
+  title: string;
+  metaTitle: string;
+  metaDescription: string;
+  headerContent: any;
+  featuresGridSection: any;
+  mobileFeaturesSection: any;
+  featureShowcaseSection: any;
+  additionalFeaturesSection: any;
+  faqSection: any;
+  ctaSection: any;
+}
+
+export async function getStaticPaths() {
+  const productsQuery = `
+    *[_type == "dynamicProductPage"] {
+      "id": slug.current,
+      title,
+      metaTitle,
+      metaDescription,
+      headerContent {
+        badge,
+        title,
+        subtitle,
+        description,
+        image {
+          "src": src.asset->url,
+          alt
+        },
+        buttons
+      },
+      featuresGridSection,
+      mobileFeaturesSection {
+        title,
+        description,
+        features[] {
+          title,
+          description,
+          icon
+        },
+        image {
+          "src": src.asset->url,
+          alt
+        }
+      },
+      featureShowcaseSection {
+        title,
+        description,
+        features[] {
+          title,
+          description
+        },
+        image {
+          "src": src.asset->url,
+          alt
+        }
+      },
+      additionalFeaturesSection,
+      faqSection,
+      ctaSection {
+        tagline,
+        title,
+        subtitle,
+        description,
+        metrices,
+        buttonText,
+        image {
+          "src": src.asset->url,
+          alt
+        }
+      }
+    }
+  `;
+  
+  try {
+    const products = await sanityClient.fetch(productsQuery);
+    
+    return products.map((product: {id: string}) => {
+      return {
+        params: { id: product.id },
+        props: { product },
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+}
+
+// Add type annotation to props destructuring
+const { product } = Astro.props as { product: Product };
+
+if (!product) {
+  return Astro.redirect('/404');
+}
+
+
+---
+
+<Base
+  title={product.title}
+  meta_title={product.metaTitle}
+  description={product.metaDescription}
+>
+  <ProductHeader {...product.headerContent} client:load />
+  <Clients client:load />
+  <FeaturesGrid 
+    client:load 
+    features={product.featuresGridSection.features} 
+    heading={product.featuresGridSection.heading} 
+  />
+  <MobileFeatures 
+    client:load 
+    mobileFeatures={product.mobileFeaturesSection} 
+  />
+  <FeatureShowcase 
+    showcaseContent={product.featureShowcaseSection} 
+    client:load 
+  />
+  <AdditionalFeatures 
+    client:load 
+    additionalFeatures={{
+      heading: product.additionalFeaturesSection.heading,
+      features: product.additionalFeaturesSection.features
+    }} 
+  />
+  <NewFAQ client:load Faq={[product.faqSection]} />
+  <DynamicCTA client:load ctaContent={product.ctaSection} />
+</Base>

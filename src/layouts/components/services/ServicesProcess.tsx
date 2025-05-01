@@ -25,7 +25,7 @@ interface ProcessContent {
 }
 
 interface HeadingProps {
-  subtitle: string;
+  tagline: string;
   title: string;
   description: string;
 }
@@ -152,7 +152,7 @@ export const ServicesProcess: React.FC<Props> = ({
     <section className={`py-20 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={heading.subtitle}
+          tagline={heading.tagline}
           heading={heading.title}
           subheading={heading.description}
         />

@@ -46,18 +46,18 @@ interface FeaturesContent {
 
 // Updated Features interface
 interface Features {
-  tagline: string;
   title: string;
+  tagline: string;
   description: string;
-  imageUrl: string;
   icon: string;
+  imageUrl: string; // Changed from image to imageUrl to match the query
 }
 
-interface Props {
-  className?: string;
-  heading: HeadingProps;
-  features: Features[]; // Changed to array of Features directly
-}
+// interface Props {
+//   className?: string;
+//   heading: HeadingProps;
+//   features: Features[]; // Changed to array of Features directly
+// }
 
 // Icon mapping
 const iconMap: Record<string, IconType> = {
@@ -87,7 +87,7 @@ const iconMap: Record<string, IconType> = {
 };
 
 interface HeadingProps {
-  subtitle: string;
+  tagline: string;
   title: string;
   description: string;
 }
@@ -111,7 +111,7 @@ export const ServicesFeatures: React.FC<Props> = ({
       <section className={`py-20 ${className}`}>
         <div className="container">
           <SectionHeader
-            tagline={heading.subtitle}
+            tagline={heading.tagline}
             heading={heading.title}
             subheading={heading.description}
           />
@@ -162,7 +162,7 @@ export const ServicesFeatures: React.FC<Props> = ({
     <section className={`py-20 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={heading.subtitle}
+          tagline={heading.tagline}
           heading={heading.title}
           subheading={heading.description}
         />
@@ -247,12 +247,18 @@ export const ServicesFeatures: React.FC<Props> = ({
                     {/* Image Side */}
                     <div className="order-1 lg:order-2 relative h-48 sm:h-64 lg:h-full overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 mix-blend-multiply z-10" />
-                      <img
-                        src={feature.imageUrl}
-                        alt={feature.title}
-                        className="absolute inset-0 w-full h-full object-cover"
-                        loading="lazy"
-                      />
+                      {feature.imageUrl ? (
+                        <img
+                          src={feature.imageUrl}
+                          alt={feature.title}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                          <span className="text-gray-400">No image available</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

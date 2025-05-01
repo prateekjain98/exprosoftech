@@ -1,35 +1,26 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
 import Button from "./common/Button";
-import { sanityClient } from "sanity:client";
 
-// Data embedded directly in the component
-// const aboutBannerData = {
-//   subtitle: "About Us",
-//   title: "Who We Are",
-//   description:
-//     "Empowering Business Transformation Through Strategy, Execution, and Technology",
-//   content: [
-//     "Greymetre is a business transformation partner specializing in sales acceleration, supply chain excellence, operational optimization, and digital transformation. We integrate strategic consulting, turnkey execution, and technology-driven solutions to help organizations enhance efficiency, improve market reach, and drive sustainable growth.",
-//   ],
-//   featuredImage: "/images/about-us/banner.png",
-// };
+interface BannerData {
+  subtitle: string;
+  title: string;
+  description: string;
+  content: string[];
+  featuredImage: {
+    asset: {
+      _ref: string;
+      url: string;
+    }
+  };
+}
 
-const aboutBannerQuery = `
-  *[_type == "aboutDualData"][1] {
-    subtitle,
-    title,
-    description,
-    content,
-    featuredImage
-  }
-`
+interface AboutBannerProps {
+  data: BannerData;
+}
 
-const AboutBanner = async () => {
-  const aboutBannerData = await sanityClient.fetch(aboutBannerQuery)
-
-  const { title, subtitle, description, content, featuredImage } = aboutBannerData;
-
+const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
+  const { title, subtitle, description, content, featuredImage } = data;
 
   return (
     <section className="relative py-20 lg:pb-28 overflow-hidden">
@@ -83,7 +74,7 @@ const AboutBanner = async () => {
               <div className="relative aspect-[4/3] lg:aspect-[16/10]">
                 <div className="absolute inset-0 -translate-x-4 -translate-y-4 lg:-translate-x-8 lg:-translate-y-8 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-2xl lg:rounded-3xl transform"></div>
                 <img
-                  src={featuredImage}
+                  src={featuredImage.asset.url}
                   alt="Greymetre Business Transformation Team"
                   className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                 />
