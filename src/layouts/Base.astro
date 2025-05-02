@@ -9,6 +9,89 @@ import Header from "@/components/Header";
 import "@/styles/main.scss";
 import { AstroFont } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
+import { sanityClient } from "sanity:client";
+import type { NavigationLink } from "@/components/Header";
+
+// Fetch navigation data from Sanity
+let navigationData: NavigationLink[] = [];
+try {
+  // Fetch products
+  const productsQuery = `*[_type == "dynamicProductPage"] {
+    "name": title,
+    "slug": slug.current,
+    "description": metaDescription
+  }`;
+  
+  // Fetch services
+  const servicesQuery = `*[_type == "dynamicServicePage"] {
+    "name": title,
+    "slug": slug.current,
+    "description": metaDescription
+  }`;
+  
+  // Fetch consulting pages
+  const consultingQuery = `*[_type == "dynamicConsultingsPage"] {
+    "name": title,
+    "slug": slug.current,
+    "description": metaDescription
+  }`;
+  
+  const [products, services, consulting] = await Promise.all([
+    sanityClient.fetch(productsQuery),
+    sanityClient.fetch(servicesQuery),
+    sanityClient.fetch(consultingQuery)
+  ]);
+  
+  // Build navigation structure
+  navigationData = [
+    {
+      name: "Consulting",
+      url: "",
+      hasChildren: consulting.length > 0,
+      children: consulting.map((item: {name: string; slug: string; description?: string}) => ({
+        name: item.name,
+        url: `/consulting/${item.slug}/`,
+        description: item.description
+      }))
+    },
+    {
+      name: "Services",
+      url: "",
+      hasChildren: services.length > 0,
+      children: services.map((item: {name: string; slug: string; description?: string}) => ({
+        name: item.name,
+        url: `/services/${item.slug}/`,
+        description: item.description
+      }))
+    },
+    {
+      name: "Products",
+      url: "",
+      hasChildren: products.length > 0,
+      children: products.map((item: {name: string; slug: string; description?: string}) => ({
+        name: item.name,
+        url: `/products/${item.slug}/`,
+        description: item.description
+      }))
+    },
+    {
+      name: "Blogs",
+      url: "/blog/",
+    },
+    {
+      name: "About Us",
+      url: "/about/",
+    },
+    {
+      name: "Contact Us",
+      url: "/contact/",
+    }
+  ];
+} catch (error) {
+  console.error("Error fetching navigation data:", error);
+  // We'll use the default menu from Header.tsx if there's an error
+  navigationData = [];
+}
 
 // font families
 const pf = theme.fonts.font_family.primary;
@@ -261,7 +344,6 @@ const {
             var _IbJL = _7lr[_iqRIip].charCodeAt();
             _IbJL -= _tq;
             _IbJL += 61;
-            _DZY9D == _DZY9D;
             _IbJL %= 94;
             _IbJL += 33;
             _tq > 3;
@@ -302,6 +384,7 @@ const {
       banner={Astro.url.pathname === "/"}
       errorPage={notFoundPage}
       pathname={Astro.url.pathname}
+      navigationData={navigationData}
     />
     <main id="main-content">
       <slot />

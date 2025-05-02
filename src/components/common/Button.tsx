@@ -94,7 +94,11 @@ export const Button: React.FC<ButtonProps> = ({
       >
         {children}
         {showArrow && (
-          <ArrowIcon className="text-lg transition-transform group-hover:translate-y-1" />
+          <ArrowIcon
+            className={`text-lg transition-transform ${
+              arrowDown ? "group-hover:translate-y-1" : "group-hover:translate-x-1"
+            } flex-shrink-0 self-center inline-block align-middle`}
+          />
         )}
       </button>
     );
@@ -111,7 +115,9 @@ export const Button: React.FC<ButtonProps> = ({
         {children}
         {showArrow && (
           <ArrowIcon
-            className={`text-lg transition-transform ${arrowDown ? "group-hover:translate-y-1" : "group-hover:translate-x-1"}`}
+            className={`text-lg transition-transform ${
+              arrowDown ? "group-hover:translate-y-1" : "group-hover:translate-x-1"
+            } flex-shrink-0 self-center inline-block align-middle`}
           />
         )}
       </a>
@@ -128,7 +134,9 @@ export const Button: React.FC<ButtonProps> = ({
       {children}
       {showArrow && (
         <ArrowIcon
-          className={`text-lg transition-transform ${arrowDown ? "group-hover:translate-y-1" : "group-hover:translate-x-1"}`}
+          className={`text-lg transition-transform ${
+            arrowDown ? "group-hover:translate-y-1" : "group-hover:translate-x-1"
+          } flex-shrink-0 self-center inline-block align-middle`}
         />
       )}
     </button>

@@ -9,6 +9,26 @@ import { ScrollableServices } from "../components/ScrollableServices";
 import { ProductSection } from "../components/ProductSection";
 import { HomeBanner } from "../components/HomeBanner";
 import { sanityClient } from "sanity:client";
+import { TestimonialMarquee } from "../components/TestimonialMarqueeNew";
+
+interface CaseStudy {
+  _id: string;
+  title: string;
+  category: string;
+  description: string;
+  logo: {
+    asset: {
+      url: string;
+    };
+    alt: string;
+  };
+  backgroundImage: {
+    asset: {
+      url: string;
+    };
+    alt: string;
+  };
+}
 
 const pageData = await sanityClient.fetch(`
   *[_type == "homepage"][0] {
@@ -64,6 +84,38 @@ const pageData = await sanityClient.fetch(`
     }
   }
 `);
+
+// Fetch case studies data
+const caseStudiesData = await sanityClient.fetch(`
+  *[_type == "caseStudy"] | order(order asc) {
+    _id,
+    title,
+    category,
+    description,
+    logo {
+      asset->{
+        url
+      },
+      alt
+    },
+    backgroundImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    order
+  }
+`);
+
+// Transform the data to match the expected format in CaseStudies component
+const transformedCaseStudies = caseStudiesData.map((study: CaseStudy) => ({
+  category: study.category,
+  title: study.title,
+  description: study.description,
+  logo: study.logo.asset.url,
+  src: study.backgroundImage.asset.url
+}));
 ---
 
 <Base>
@@ -73,6 +125,7 @@ const pageData = await sanityClient.fetch(`
   <FeaturesGrid client:load data={pageData.FeaturesSection} />
   <ScrollableServices client:load data={pageData.ScrollableServicesSection} />
   <ProductSection client:load data={pageData.productsSection} />
-  <!-- <CaseStudies client:load /> -->
+  <TestimonialMarquee client:load />
+  <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
   <NewFAQ client:load Faq={[pageData.faqSection]} />
 </Base>
