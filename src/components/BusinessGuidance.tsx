@@ -41,6 +41,10 @@ interface EmpowermentData {
   subtitle: string;
   description: string;
   points: EmpowermentPoint[];
+  image: {
+    src: string;
+    alt: string;
+  };
 }
 
 // const businessGuidanceData: BusinessGuidanceData = {
@@ -256,8 +260,8 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
               <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] bg-[#0066FF]/5 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[-4deg] transform -translate-y-2 sm:-translate-y-3 lg:-translate-y-4 translate-x-2 sm:translate-x-3 lg:translate-x-4" />
               <div className="absolute w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] border-2 border-[#0066FF]/20 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] rotate-[4deg] transform translate-y-2 sm:translate-y-3 lg:translate-y-4 -translate-x-2 sm:-translate-x-3 lg:-translate-x-4" />
               <img
-                src="/images/consulting/demand-driven-business-transformation/business-impact-2.png"
-                alt="Business Impact"
+                src={empowermentData.image.src}
+                alt={empowermentData.image.alt}
                 className="relative w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] object-contain rounded-[20px] sm:rounded-[28px] lg:rounded-[32px] transform transition-transform duration-500 hover:scale-[1.02] z-10"
                 data-aos="fade-left"
               />

@@ -112,6 +112,10 @@ export async function getStaticPaths() {
             icon,
             title,
             description
+          },
+          image {
+            "src": image.asset->url,
+            "alt": image.alt
           }
         }
       },
