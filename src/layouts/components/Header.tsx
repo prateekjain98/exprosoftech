@@ -103,6 +103,7 @@ interface HeaderProps {
   errorPage?: boolean;
   pathname?: string;
   navigationData?: NavigationLink[];
+  productDropdownData?: any[];
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -110,6 +111,7 @@ const Header: React.FC<HeaderProps> = ({
   errorPage = false,
   pathname: initialPathname = "/",
   navigationData = [],
+  productDropdownData = [],
 }) => {
   const [pathname, setPathname] = useState(initialPathname);
   const [isSticky, setIsSticky] = useState(false);
@@ -367,6 +369,7 @@ const Header: React.FC<HeaderProps> = ({
                             selectedProduct={selectedProduct}
                             handleProductClick={handleProductClick}
                             setIsMobileMenuOpen={setIsMobileMenuOpen}
+                            productDropdownData={productDropdownData}
                           />
                         )}
                         {menu.name === "Services" && (

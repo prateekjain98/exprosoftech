@@ -14,6 +14,8 @@ import type { NavigationLink } from "@/components/Header";
 
 // Fetch navigation data from Sanity
 let navigationData: NavigationLink[] = [];
+let productDropdownData: any[] = [];
+
 try {
   // Fetch products
   const productsQuery = `*[_type == "dynamicProductPage"] {
@@ -36,11 +38,38 @@ try {
     "description": metaDescription
   }`;
   
-  const [products, services, consulting] = await Promise.all([
+  // Add product dropdown content query
+  const productDropdownQuery = `*[_type == "productDropdownContent" && isActive == true] {
+    name,
+    dropdownContent {
+      tagline,
+      title,
+      description,
+      features,
+      backgroundImage {
+        asset->{
+          url
+        },
+        alt
+      },
+      productImages[] {
+        asset->{
+          url
+        },
+        alt
+      }
+    }
+  }`;
+  
+  const [products, services, consulting, productDropdown] = await Promise.all([
     sanityClient.fetch(productsQuery),
     sanityClient.fetch(servicesQuery),
-    sanityClient.fetch(consultingQuery)
+    sanityClient.fetch(consultingQuery),
+    sanityClient.fetch(productDropdownQuery)
   ]);
+  
+  // Store the product dropdown data
+  productDropdownData = productDropdown;
   
   // Build navigation structure
   navigationData = [
@@ -88,9 +117,9 @@ try {
     }
   ];
 } catch (error) {
-  console.error("Error fetching navigation data:", error);
-  // We'll use the default menu from Header.tsx if there's an error
+  console.error("Error fetching data:", error);
   navigationData = [];
+  productDropdownData = [];
 }
 
 // font families
@@ -385,6 +414,7 @@ const {
       errorPage={notFoundPage}
       pathname={Astro.url.pathname}
       navigationData={navigationData}
+      productDropdownData={productDropdownData}
     />
     <main id="main-content">
       <slot />
