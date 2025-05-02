@@ -353,7 +353,9 @@ const Header: React.FC<HeaderProps> = ({
                     </div>
                     {/* Desktop Menu Dropdown */}
                     <div
-                      className="hidden lg:group-hover:block absolute left-1/2 -translate-x-1/2 top-full pt-[12px]"
+                      className={`hidden lg:group-hover:block absolute left-1/2 ${
+                        menu.name === "Consulting" ? "-translate-x-1/3" : "-translate-x-1/2"
+                      } top-full pt-[12px]`}
                       onMouseEnter={() => handleDropdownVisibility(true)}
                       onMouseLeave={() => handleDropdownVisibility(false)}
                     >
