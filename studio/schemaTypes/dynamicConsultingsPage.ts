@@ -379,16 +379,17 @@ export const dynamicConsultingsPageType = defineType({
                   defineField({ name: 'description', type: 'text' })
                 ]
               }]
+            }),
+            defineField({
+              name: 'empowermentImage',
+              type: 'image',
+              fields: [
+                defineField({ name: 'alt', type: 'string' })
+              ]
             })
           ]
         }),
-        defineField({
-          name: 'empowermentImage',
-          type: 'image',
-          fields: [
-            defineField({ name: 'alt', type: 'string' })
-          ]
-        })
+        
       ]
     }),
 
