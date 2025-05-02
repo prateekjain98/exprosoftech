@@ -9,6 +9,7 @@ import { ScrollableServices } from "../components/ScrollableServices";
 import { ProductSection } from "../components/ProductSection";
 import { HomeBanner } from "../components/HomeBanner";
 import { sanityClient } from "sanity:client";
+import { TestimonialMarquee } from "../components/TestimonialMarqueeNew";
 
 interface CaseStudy {
   _id: string;
@@ -124,6 +125,7 @@ const transformedCaseStudies = caseStudiesData.map((study: CaseStudy) => ({
   <FeaturesGrid client:load data={pageData.FeaturesSection} />
   <ScrollableServices client:load data={pageData.ScrollableServicesSection} />
   <ProductSection client:load data={pageData.productsSection} />
+  <TestimonialMarquee client:load />
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
   <NewFAQ client:load Faq={[pageData.faqSection]} />
 </Base>
