@@ -37,10 +37,11 @@ import contact from './contact'
 import { caseStudyType } from './caseStudy.ts'
 import testimonialSection from './testimonialSection.ts'
 import { productDropdownType } from './productDropwdown'
+import { serviceDropdownType } from './serviceDropdown'
 
 export const schemaTypes = [headingType , cardType , featuresType , serviceType , productType ,faqType , demandDrivenFAQType , demandDrivenImpact ,
     challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType , loyaltyManagementServiceCards , LoayltyManagementkeyIssuesType , 
     loyaltyManagementProcessSteps , loyaltyIndustries , productFeaturesType , mobileFeaturesTypes , showcaseContentTypes , productAdditionalFeatures , aboutDualData , leadershipTeam , 
     clientsType , heroBannerSections , faqSection , post , author , blockContent , dynamicProductPageType , dynamicServicePageType , dynamicConsultingsPageType , homePage,      
-    about , contact , caseStudyType , testimonialSection , productDropdownType
+    about , contact , caseStudyType , testimonialSection , productDropdownType , serviceDropdownType
 ]

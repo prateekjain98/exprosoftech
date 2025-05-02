@@ -15,6 +15,7 @@ import type { NavigationLink } from "@/components/Header";
 // Fetch navigation data from Sanity
 let navigationData: NavigationLink[] = [];
 let productDropdownData: any[] = [];
+let serviceDropdownData: any[] = [];
 
 try {
   // Fetch products
@@ -60,16 +61,52 @@ try {
       }
     }
   }`;
+
+  const serviceDropdownQuery = `*[_type == "serviceDropdownContent" && isActive == true] | order(_createdAt asc) {
+  name,
+  isDefaultView,
+  dropdownContent {
+    tagline,
+    title,
+    subtitle,
+    description,
+    features,
+    metrics[] {
+      value,
+      label
+    },
+    successStories[] {
+      company,
+      achievement
+    },
+    hoverPrompt,
+    companyLogo {
+      asset->{
+        url
+      },
+      alt
+    },
+    backgroundImage {
+      asset->{
+        url
+      },
+      alt
+    }
+    }
+  }`;
+
   
-  const [products, services, consulting, productDropdown] = await Promise.all([
+  const [products, services, consulting, productDropdown, serviceDropdown] = await Promise.all([
     sanityClient.fetch(productsQuery),
     sanityClient.fetch(servicesQuery),
     sanityClient.fetch(consultingQuery),
-    sanityClient.fetch(productDropdownQuery)
+    sanityClient.fetch(productDropdownQuery),
+    sanityClient.fetch(serviceDropdownQuery)
   ]);
   
   // Store the product dropdown data
   productDropdownData = productDropdown;
+  serviceDropdownData = serviceDropdown;
   
   // Build navigation structure
   navigationData = [
@@ -415,6 +452,7 @@ const {
       pathname={Astro.url.pathname}
       navigationData={navigationData}
       productDropdownData={productDropdownData}
+      serviceDropdownData={serviceDropdownData}
     />
     <main id="main-content">
       <slot />

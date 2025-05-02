@@ -104,7 +104,8 @@ interface HeaderProps {
   pathname?: string;
   navigationData?: NavigationLink[];
   productDropdownData?: any[];
-}
+  serviceDropdownData?: any[];
+  }
 
 const Header: React.FC<HeaderProps> = ({
   banner = false,
@@ -112,6 +113,7 @@ const Header: React.FC<HeaderProps> = ({
   pathname: initialPathname = "/",
   navigationData = [],
   productDropdownData = [],
+  serviceDropdownData = [],
 }) => {
   const [pathname, setPathname] = useState(initialPathname);
   const [isSticky, setIsSticky] = useState(false);
@@ -376,6 +378,7 @@ const Header: React.FC<HeaderProps> = ({
                           <ServicesDropdown
                             children={menu.children || []}
                             setIsMobileMenuOpen={setIsMobileMenuOpen}
+                            serviceDropdownData={serviceDropdownData}
                           />
                         )}
                         {menu.name === "Consulting" && (
