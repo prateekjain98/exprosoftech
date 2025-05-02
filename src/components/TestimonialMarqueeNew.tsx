@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionHeader from "./SectionHeader";
+import { sanityClient } from "sanity:client"; // Assuming you have a sanity client setup
 
 interface Testimonial {
   name: string;
@@ -19,8 +20,28 @@ interface TestimonialMarqueeProps {
   };
 }
 
-export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) => {
-  // Default testimonials
+export const TestimonialMarquee= async () => {
+
+    
+    // GROQ query to fetch testimonial section data
+    const query = `*[_type == "testimonialSection"][0]{
+      title,
+      subtitle,
+      description,
+      testimonials[]{
+        name,
+        role,
+        company,
+        content,
+        "avatar": avatar.asset->url,
+        "companyLogo": companyLogo.asset->url
+      }
+    }`;
+    
+    const testimonialData = await sanityClient.fetch(query);
+
+  // Default testimonials as fallback if data fetch fails
+  /* 
   const testimonials: Testimonial[] = data?.testimonials || [
     {
       name: "John Smith",
@@ -59,18 +80,27 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
       content: "Our customer engagement metrics have shown remarkable improvement since implementing this loyalty engine."
     }
   ];
+  */
+  
+  // Use fetched data or fallback to empty arrays if not available
+  const testimonials = testimonialData?.testimonials || [];
 
   // Split testimonials for two rows
-  const firstRowTestimonials = testimonials.slice(0, 3);
-  const secondRowTestimonials = testimonials.slice(3);
+  const firstRowTestimonials = testimonials.slice(0, Math.ceil(testimonials.length / 2));
+  const secondRowTestimonials = testimonials.slice(Math.ceil(testimonials.length / 2));
+
+  // If no testimonials are available after fetching, show a message
+  if (testimonials.length === 0) {
+    return <div className="py-20 text-center">No testimonials available.</div>;
+  }
 
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionHeader
-          tagline={data?.subtitle || "Testimonials"}
-          heading={data?.title || "See What People Are Saying About Us"}
-          subheading={data?.description || ""}
+          tagline={testimonialData?.subtitle || "Testimonials"}
+          heading={testimonialData?.title || "See What People Are Saying About Us"}
+          subheading={testimonialData?.description || ""}
         />
 
         <div className="mt-16 relative">
