@@ -5,6 +5,7 @@ import ProductsDropdown from "../../components/navigation/ProductsDropdown";
 import ServicesDropdown from "../../components/navigation/ServicesDropdown";
 import ConsultingDropdown from "../../components/navigation/ConsultingDropdown";
 import Button from "../../components/common/Button";
+import { sanityClient } from "sanity:client";
 
 export interface ChildNavigationLink {
   name: string;
@@ -101,12 +102,14 @@ interface HeaderProps {
   banner?: boolean;
   errorPage?: boolean;
   pathname?: string;
+  navigationData?: NavigationLink[];
 }
 
 const Header: React.FC<HeaderProps> = ({
   banner = false,
   errorPage = false,
   pathname: initialPathname = "/",
+  navigationData = [],
 }) => {
   const [pathname, setPathname] = useState(initialPathname);
   const [isSticky, setIsSticky] = useState(false);
@@ -117,7 +120,11 @@ const Header: React.FC<HeaderProps> = ({
   const [selectedProduct, setSelectedProduct] = useState("Loyalty Engine");
   const [isAnyMenuOpen, setIsAnyMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const { navigation_button } = config;
+  
+  // Use the navigationData from props or fallback to mainMenu
+  const menuItems = navigationData.length > 0 ? navigationData : mainMenu;
 
   // Update pathname when it changes
   useEffect(() => {
@@ -301,7 +308,7 @@ const Header: React.FC<HeaderProps> = ({
                 : "hidden"
             } lg:static lg:flex lg:order-1 lg:w-auto lg:space-x-1 lg:p-0 xl:space-x-6`}
           >
-            {mainMenu.map((menu, index) => (
+            {menuItems.map((menu, index) => (
               <React.Fragment key={index}>
                 {menu.hasChildren ? (
                   <li className="nav-item nav-dropdown group relative">
