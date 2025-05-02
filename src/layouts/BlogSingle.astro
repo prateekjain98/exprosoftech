@@ -66,13 +66,12 @@ const relatedPosts = await sanityClient.fetch(`
         {
           image && (
             <div class="mb-10">
-              <ImageMod
+              <img
                 src={image}
                 height={500}
                 width={1200}
                 alt={title}
                 class="h-auto w-full rounded-3xl object-cover md:h-[700px]"
-                format="webp"
               />
             </div>
           )
