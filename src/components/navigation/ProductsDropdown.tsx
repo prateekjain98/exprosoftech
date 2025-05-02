@@ -231,7 +231,7 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
                 </div>
               </div>
             </div>
-          ) : activeProduct === "Sales Force Automation" ? (
+          ) : activeProduct === "SFA" ? (
             <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
               <div className="absolute inset-0 bg-[url('/images/field-konnect.png')] bg-cover bg-center opacity-50 mix-blend-overlay" />
               <div className="relative p-8 flex flex-col h-full">
