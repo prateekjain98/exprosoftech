@@ -189,6 +189,28 @@ export const dynamicProductPageType = defineType({
                   name: 'icon',
                   title: 'Feature Icon',
                   type: 'string',
+                  options: {
+                    list:[
+                      "ShoppingCart",
+                      "MapPin",
+                      "Package",
+                      "Book",
+                      "Users",
+                      "ChartLineUp",
+                      "Target",
+                      "ChatCenteredText",
+                      "Lightbulb",
+                      "ChartBar",
+                      "QrCode",
+                      "Receipt",
+                      "CurrencyDollar",
+                      "Recycle",
+                      "Shield",
+                      "Wallet",
+                      "Stack",
+                      "UserFocus",
+                    ]
+                  },
                   description: 'Icon name from Phosphor Icons (e.g., ShoppingCart, MapPin, etc.)',
                   validation: Rule => Rule.required()
                 }),
@@ -262,6 +284,28 @@ export const dynamicProductPageType = defineType({
                   name: 'icon',
                   title: 'Feature Icon',
                   type: 'string',
+                  options: {
+                    list:[
+                      "ShoppingCart",
+                      "MapPin",
+                      "Package",
+                      "Book",
+                      "Users",
+                      "ChartLineUp",
+                      "Target",
+                      "ChatCenteredText",
+                      "Lightbulb",
+                      "ChartBar",
+                      "QrCode",
+                      "Receipt",
+                      "CurrencyDollar",
+                      "Recycle",
+                      "Shield",
+                      "Wallet",
+                      "Stack",
+                      "UserFocus",
+                    ]
+                  },
                   validation: Rule => Rule.required()
                 })
               ]
@@ -416,6 +460,28 @@ export const dynamicProductPageType = defineType({
                   name: 'icon',
                   title: 'Feature Icon',
                   type: 'string',
+                  options: {
+                    list:[
+                      "ShoppingCart",
+                      "MapPin",
+                      "Package",
+                      "Book",
+                      "Users",
+                      "ChartLineUp",
+                      "Target",
+                      "ChatCenteredText",
+                      "Lightbulb",
+                      "ChartBar",
+                      "QrCode",
+                      "Receipt",
+                      "CurrencyDollar",
+                      "Recycle",
+                      "Shield",
+                      "Wallet",
+                      "Stack",
+                      "UserFocus",
+                    ]
+                  },
                   validation: Rule => Rule.required()
                 })
               ]
@@ -544,6 +610,31 @@ export const dynamicProductPageType = defineType({
                   name: 'icon',
                   title: 'Icon',
                   type: 'string',
+                  options: {
+                      list: [
+                        'Cube',
+                        'ChartLineUp',
+                        'Gear',
+                        'ChartPieSlice',
+                        'Brain',
+                        'Truck',
+                        'Package',
+                        'Coins',
+                        'ChartBar',
+                        'Medal',
+                        'Gauge',
+                        'Robot',
+                        'Receipt',
+                        'Wallet',
+                        'ChartDonut',
+                        'Clock',
+                        'Database',
+                        'Plugs',
+                        'Lightning',
+                        'Handshake',
+                        'Target'
+                      ]
+                  },
                   description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
                   validation: Rule => Rule.required()
                 })

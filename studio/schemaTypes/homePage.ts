@@ -134,7 +134,34 @@ export default defineType({
                 defineField({ name: 'title', type: 'string' }),
                 defineField({ name: 'description', type: 'text' }),
                 defineField({ name: 'image', type: 'image' }),
-                defineField({ name: 'icon', type: 'string' })
+                defineField({ 
+                  name: 'icon', 
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Gear', value: 'Gear' },
+                      { title: 'ChartLineUp', value: 'ChartLineUp' },
+                      { title: 'Database', value: 'Database' },
+                      { title: 'Users', value: 'Users' },
+                      { title: 'ArrowRight', value: 'ArrowRight' },
+                      { title: 'Briefcase', value: 'Briefcase' },
+                      { title: 'ChartBar', value: 'ChartBar' },
+                      { title: 'Cloud', value: 'Cloud' },
+                      { title: 'Code', value: 'Code' },
+                      { title: 'CurrencyDollar', value: 'CurrencyDollar' },
+                      { title: 'Desktop', value: 'Desktop' },
+                      { title: 'Globe', value: 'Globe' },
+                      { title: 'LightbulbFilament', value: 'LightbulbFilament' },
+                      { title: 'Lightning', value: 'Lightning' },
+                      { title: 'Lock', value: 'Lock' },
+                      { title: 'Rocket', value: 'Rocket' },
+                      { title: 'ShieldCheck', value: 'ShieldCheck' },
+                      { title: 'Storefront', value: 'Storefront' },
+                      { title: 'Truck', value: 'Truck' },
+                      { title: 'UserCircle', value: 'UserCircle' }
+                    ]
+                  }
+                })
               ]
             }
           ]
@@ -142,7 +169,7 @@ export default defineType({
       ]
     }),
 
-    // Features Grid Section
+    // Scrollable Services Section
     defineField({
       name: 'ScrollableServicesSection',
       title: 'Scrollable Services Section',

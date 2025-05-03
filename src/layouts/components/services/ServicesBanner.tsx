@@ -34,7 +34,7 @@ interface Props {
   content: BannerContent;
 }
 
-export const ServicesBanner: React.FC<Props> = ({ className, content }) => {
+export const  ServicesBanner: React.FC<Props> = ({ className, content }) => {
   // Default button if none provided
   const primaryButton = content.buttons && content.buttons.length > 0 
     ? content.buttons[0] 
