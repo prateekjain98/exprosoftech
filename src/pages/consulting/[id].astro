@@ -1,11 +1,12 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { Clients } from "../../components/Clients";
-import  DemandDrivenBanner  from "../../components/DemandDrivenBanner";
-import  DemandDrivenImpact from "../../components/DemandDrivenImpact";
-import  ChallengesWeAddress from "../../components/ChallengesWeAddress";
-import  KeyServices  from "../../components/KeyServices";
-import  BusinessGuidance  from "../../components/BusinessGuidance";
+import DemandDrivenBanner from "../../components/DemandDrivenBanner";
+import DemandDrivenImpact from "../../components/DemandDrivenImpact";
+import ChallengesWeAddress from "../../components/ChallengesWeAddress";
+import KeyServices from "../../components/KeyServices";
+import BusinessGuidance from "../../components/BusinessGuidance";
+import IndustryServicesAndApplications from "../../layouts/components/IndustriesWeServe";
 import ConsultationCTA from "../../components/ConsultationCTA";
 import NewFAQ from "../../components/NewFAQ";
 import { sanityClient } from "sanity:client";
@@ -20,6 +21,8 @@ interface ConsultingPage {
   impact: any;
   challenges: any;
   keyServices: any;
+  industries: any;
+  industryApplications: any;
   businessGuidance: any;
   faq: any;
   ctaSection: any;
@@ -119,6 +122,32 @@ export async function getStaticPaths() {
           }
         }
       },
+      industryApplications {
+        title,
+        tagline,
+        description,
+        ctaText,
+        ctaLink,
+        isCalendly,
+        industries[] {
+          name,
+          description,
+          icon
+        },
+        compatibility {
+          title,
+          description,
+          features[] {
+            title,
+            description,
+            icon
+          }
+        },
+        timeline[] {
+          period,
+          description
+        }
+      },
       faq {
         title,
         subtitle,
@@ -194,10 +223,25 @@ if (!page) {
     }}
     keyServicesData={page.keyServices.services || []} 
   />
+  
   <BusinessGuidance 
     client:load 
     businessGuidanceData={page.businessGuidance}
     empowermentData={page.businessGuidance.empowerment}
+  />
+  <IndustryServicesAndApplications
+    client:load
+    applicationsHeading={{
+      title: page.industryApplications?.title || "Demand-Driven Transformation – Industry Applications",
+      tagline: page.industryApplications?.tagline,
+      description: page.industryApplications?.description || "Our solutions work across industries, including:"
+    }}
+    ctaText={page.industryApplications?.ctaText || "Find Out How It Works for Your Industry →"}
+    ctaLink={page.industryApplications?.ctaLink || "#contact"}
+    isCalendly={page.industryApplications?.isCalendly || false}
+    applicationIndustries={page.industryApplications?.industries || []}
+    compatibilityFeatures={page.industryApplications?.compatibility?.features || []}
+    timeline={page.industryApplications?.timeline || []}
   />
   <DynamicCTA client:load ctaContent={page.ctaSection} />
   <NewFAQ client:load Faq={[page.faq]} />
