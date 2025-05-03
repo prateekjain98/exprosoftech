@@ -5,7 +5,6 @@ import ProductsDropdown from "../../components/navigation/ProductsDropdown";
 import ServicesDropdown from "../../components/navigation/ServicesDropdown";
 import ConsultingDropdown from "../../components/navigation/ConsultingDropdown";
 import Button from "../../components/common/Button";
-import { sanityClient } from "sanity:client";
 
 export interface ChildNavigationLink {
   name: string;
@@ -103,13 +102,19 @@ interface HeaderProps {
   errorPage?: boolean;
   pathname?: string;
   navigationData?: NavigationLink[];
-}
+  productDropdownData?: any[];
+  serviceDropdownData?: any[];
+  consultingDropdownData?: any[];
+  }
 
 const Header: React.FC<HeaderProps> = ({
   banner = false,
   errorPage = false,
   pathname: initialPathname = "/",
   navigationData = [],
+  productDropdownData = [],
+  serviceDropdownData = [],
+  consultingDropdownData = [],
 }) => {
   const [pathname, setPathname] = useState(initialPathname);
   const [isSticky, setIsSticky] = useState(false);
@@ -367,12 +372,14 @@ const Header: React.FC<HeaderProps> = ({
                             selectedProduct={selectedProduct}
                             handleProductClick={handleProductClick}
                             setIsMobileMenuOpen={setIsMobileMenuOpen}
+                            productDropdownData={productDropdownData}
                           />
                         )}
                         {menu.name === "Services" && (
                           <ServicesDropdown
                             children={menu.children || []}
                             setIsMobileMenuOpen={setIsMobileMenuOpen}
+                            serviceDropdownData={serviceDropdownData}
                           />
                         )}
                         {menu.name === "Consulting" && (
@@ -380,6 +387,7 @@ const Header: React.FC<HeaderProps> = ({
                             children={menu.children || []}
                             setIsMobileMenuOpen={setIsMobileMenuOpen}
                             scrollToCaseStudies={scrollToCaseStudies}
+                            consultingDropdownData={consultingDropdownData}
                           />
                         )}
                       </div>

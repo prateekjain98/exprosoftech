@@ -14,6 +14,10 @@ import type { NavigationLink } from "@/components/Header";
 
 // Fetch navigation data from Sanity
 let navigationData: NavigationLink[] = [];
+let productDropdownData: any[] = [];
+let serviceDropdownData: any[] = [];
+let consultingDropdownData: any[] = [];
+
 try {
   // Fetch products
   const productsQuery = `*[_type == "dynamicProductPage"] {
@@ -36,11 +40,97 @@ try {
     "description": metaDescription
   }`;
   
-  const [products, services, consulting] = await Promise.all([
+  // Add product dropdown content query
+  const productDropdownQuery = `*[_type == "productDropdownContent" && isActive == true] {
+    name,
+    dropdownContent {
+      tagline,
+      title,
+      description,
+      features,
+      backgroundImage {
+        asset->{
+          url
+        },
+        alt
+      },
+      productImages[] {
+        asset->{
+          url
+        },
+        alt
+      }
+    }
+  }`;
+
+  const serviceDropdownQuery = `*[_type == "serviceDropdownContent" && isActive == true] | order(_createdAt asc) {
+  name,
+  isDefaultView,
+  dropdownContent {
+    tagline,
+    title,
+    subtitle,
+    description,
+    features,
+    metrics[] {
+      value,
+      label
+    },
+    successStories[] {
+      company,
+      achievement
+    },
+    hoverPrompt,
+    companyLogo {
+      asset->{
+        url
+      },
+      alt
+    },
+    backgroundImage {
+      asset->{
+        url
+      },
+      alt
+    }
+    }
+  }`;
+
+  const consultingDropdownQuery = `*[_type == "consultingDropdownContent" && isActive == true] {
+    name,
+    dropdownContent {
+      tagline,
+      title,
+      description,
+      features,
+      backgroundImage {
+        asset->{
+          url
+        },
+        alt
+      },
+      productImages[] {
+        asset->{
+          url
+        },
+        alt
+      }
+    }
+  }`;
+  
+  const [products, services, consulting, productDropdown, serviceDropdown, consultingDropdown] = await Promise.all([
     sanityClient.fetch(productsQuery),
     sanityClient.fetch(servicesQuery),
-    sanityClient.fetch(consultingQuery)
+    sanityClient.fetch(consultingQuery),
+    sanityClient.fetch(productDropdownQuery),
+    sanityClient.fetch(serviceDropdownQuery),
+    sanityClient.fetch(consultingDropdownQuery)
   ]);
+  
+  // Store the product dropdown data
+  productDropdownData = productDropdown;
+  serviceDropdownData = serviceDropdown;
+  consultingDropdownData = consultingDropdown;
   
   // Build navigation structure
   navigationData = [
@@ -88,9 +178,9 @@ try {
     }
   ];
 } catch (error) {
-  console.error("Error fetching navigation data:", error);
-  // We'll use the default menu from Header.tsx if there's an error
+  console.error("Error fetching data:", error);
   navigationData = [];
+  productDropdownData = [];
 }
 
 // font families
@@ -385,6 +475,9 @@ const {
       errorPage={notFoundPage}
       pathname={Astro.url.pathname}
       navigationData={navigationData}
+      productDropdownData={productDropdownData}
+      serviceDropdownData={serviceDropdownData}
+      consultingDropdownData={consultingDropdownData}
     />
     <main id="main-content">
       <slot />
