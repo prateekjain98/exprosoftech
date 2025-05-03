@@ -18,7 +18,8 @@ const postsQuery = `*[_type == "post"] | order(date desc) {
   "image": image.asset->url,
   "body": body,
   "author": author->name
-}`;
+}`; 
+//comment
 
 const posts = await sanityClient.fetch(postsQuery);
 const totalPages: number = Math.ceil(posts.length / config.settings.pagination);
@@ -36,7 +37,7 @@ const headingContent = postIndex.data.hero;
   <BlogSection
     largeHeading={true}
     content={headingContent}
-    visiblePosts={2}
+    visiblePosts={3}
     cardLayout="creative"
     showHeader={true}
   />
