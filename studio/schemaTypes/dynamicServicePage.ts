@@ -107,7 +107,56 @@ export const dynamicServicePageType = defineType({
               defineField({
                 name: 'icon',
                 title: 'Icon',
-                type: 'string'
+                type: 'string',
+                options: {
+                  list: [
+                    // Analytics/Data icons
+                    { title: 'Chart Line', value: 'FaChartLine' },
+                    { title: 'Chart Bar', value: 'FaChartBar' },
+                    { title: 'Chart Pie', value: 'FaChartPie' },
+                    { title: 'Chart Area', value: 'FaChartArea' },
+                    { title: 'Analytics', value: 'FaChartSimple' },
+                    
+                    // Performance/Speed icons
+                    { title: 'Gauge', value: 'FaGauge' },
+                    { title: 'Tachometer', value: 'FaTachometerAlt' },
+                    { title: 'Bolt/Lightning', value: 'FaBolt' },
+                    { title: 'Rocket', value: 'FaRocket' },
+                    
+                    // Financial icons
+                    { title: 'Dollar Sign', value: 'FaDollarSign' },
+                    { title: 'Money Bill', value: 'FaMoneyBill' },
+                    { title: 'Coins', value: 'FaCoins' },
+                    { title: 'Percentage', value: 'FaPercent' },
+                    { title: 'Piggy Bank', value: 'FaPiggyBank' },
+                    
+                    // Growth/Success icons
+                    { title: 'Arrow Up', value: 'FaArrowUp' },
+                    { title: 'Arrow Trend Up', value: 'FaArrowTrendUp' },
+                    { title: 'Trophy', value: 'FaTrophy' },
+                    { title: 'Medal', value: 'FaMedal' },
+                    { title: 'Star', value: 'FaStar' },
+                    
+                    // Time/Efficiency icons
+                    { title: 'Clock', value: 'FaClock' },
+                    { title: 'Hourglass', value: 'FaHourglass' },
+                    { title: 'Calendar', value: 'FaCalendar' },
+                    
+                    // User/Customer icons
+                    { title: 'User', value: 'FaUser' },
+                    { title: 'Users', value: 'FaUsers' },
+                    { title: 'User Group', value: 'FaUserGroup' },
+                    { title: 'Handshake', value: 'FaHandshake' },
+                    
+                    // Technology icons
+                    { title: 'Gear', value: 'FaGear' },
+                    { title: 'Cogs', value: 'FaCogs' },
+                    { title: 'Microchip', value: 'FaMicrochip' },
+                    { title: 'Server', value: 'FaServer' },
+                    { title: 'Database', value: 'FaDatabase' },
+                    { title: 'Cloud', value: 'FaCloud' }
+                  ]
+                }
               }),
               defineField({
                 name: 'title',
@@ -196,7 +245,55 @@ export const dynamicServicePageType = defineType({
               defineField({
                 name: 'icon',
                 title: 'Icon',
-                type: 'string'
+                type: 'string',
+                options: {
+                  list: [
+                    { title: 'Chart Line', value: 'FaChartLine' },
+                    { title: 'Chart Bar', value: 'FaChartBar' },
+                    { title: 'Chart Pie', value: 'FaChartPie' },
+                    { title: 'Chart Area', value: 'FaChartArea' },
+                    { title: 'Analytics', value: 'FaChartSimple' },
+                    
+                    // Performance/Speed icons
+                    { title: 'Gauge', value: 'FaGauge' },
+                    { title: 'Tachometer', value: 'FaTachometerAlt' },
+                    { title: 'Bolt/Lightning', value: 'FaBolt' },
+                    { title: 'Rocket', value: 'FaRocket' },
+                    
+                    // Financial icons
+                    { title: 'Dollar Sign', value: 'FaDollarSign' },
+                    { title: 'Money Bill', value: 'FaMoneyBill' },
+                    { title: 'Coins', value: 'FaCoins' },
+                    { title: 'Percentage', value: 'FaPercent' },
+                    { title: 'Piggy Bank', value: 'FaPiggyBank' },
+                    
+                    // Growth/Success icons
+                    { title: 'Arrow Up', value: 'FaArrowUp' },
+                    { title: 'Arrow Trend Up', value: 'FaArrowTrendUp' },
+                    { title: 'Trophy', value: 'FaTrophy' },
+                    { title: 'Medal', value: 'FaMedal' },
+                    { title: 'Star', value: 'FaStar' },
+                    
+                    // Time/Efficiency icons
+                    { title: 'Clock', value: 'FaClock' },
+                    { title: 'Hourglass', value: 'FaHourglass' },
+                    { title: 'Calendar', value: 'FaCalendar' },
+                    
+                    // User/Customer icons
+                    { title: 'User', value: 'FaUser' },
+                    { title: 'Users', value: 'FaUsers' },
+                    { title: 'User Group', value: 'FaUserGroup' },
+                    { title: 'Handshake', value: 'FaHandshake' },
+                    
+                    // Technology icons
+                    { title: 'Gear', value: 'FaGear' },
+                    { title: 'Cogs', value: 'FaCogs' },
+                    { title: 'Microchip', value: 'FaMicrochip' },
+                    { title: 'Server', value: 'FaServer' },
+                    { title: 'Database', value: 'FaDatabase' },
+                    { title: 'Cloud', value: 'FaCloud' }
+                  ]
+                }
               }),
               defineField({
                 name: 'image',
@@ -314,7 +411,61 @@ export const dynamicServicePageType = defineType({
               defineField({
                 name: 'icon',
                 title: 'Icon',
-                type: 'string'
+                type: 'string',
+                options: {
+                  list:[
+                    { title: 'Chart Line', value: 'FaChartLine' },
+                    { title: 'Handshake', value: 'FaHandshake' },
+                    { title: 'Heart', value: 'FaHeart' },
+                    { title: 'Lightbulb', value: 'FaLightbulb' },
+                    { title: 'Shield', value: 'FaShieldAlt' },
+                    { title: 'Users', value: 'FaUsers' },
+                    { title: 'Globe', value: 'FaGlobe' },
+                    { title: 'Chart Bar', value: 'FaChartBar' },
+                    { title: 'Headset', value: 'FaHeadset' },
+                    { title: 'Money Bill', value: 'FaMoneyBillWave' },
+                    { title: 'Network', value: 'FaNetworkWired' },
+                    { title: 'Industry', value: 'FaIndustry' },
+                    { title: 'Shopping Cart', value: 'FaShoppingCart' },
+                    { title: 'Phone', value: 'FaPhoneAlt' },
+                    { title: 'Boxes', value: 'FaBoxes' },
+                    { title: 'Building', value: 'FaBuilding' },
+                    { title: 'Search Location', value: 'FaSearchLocation' },
+                    { title: 'Map Marker', value: 'FaMapMarkedAlt' },
+                    { title: 'Store', value: 'FaStore' },
+                    { title: 'Recycle', value: 'FaRecycle' },
+                    { title: 'Calendar', value: 'FaCalendarAlt' },
+                    { title: 'Filter', value: 'FaFilter' },
+                    
+                    // Additional icons from previous list
+                    { title: 'Chart Pie', value: 'FaChartPie' },
+                    { title: 'Chart Area', value: 'FaChartArea' },
+                    { title: 'Analytics', value: 'FaChartSimple' },
+                    { title: 'Gauge', value: 'FaGauge' },
+                    { title: 'Tachometer', value: 'FaTachometerAlt' },
+                    { title: 'Bolt/Lightning', value: 'FaBolt' },
+                    { title: 'Rocket', value: 'FaRocket' },
+                    { title: 'Dollar Sign', value: 'FaDollarSign' },
+                    { title: 'Coins', value: 'FaCoins' },
+                    { title: 'Percentage', value: 'FaPercent' },
+                    { title: 'Piggy Bank', value: 'FaPiggyBank' },
+                    { title: 'Arrow Up', value: 'FaArrowUp' },
+                    { title: 'Arrow Trend Up', value: 'FaArrowTrendUp' },
+                    { title: 'Trophy', value: 'FaTrophy' },
+                    { title: 'Medal', value: 'FaMedal' },
+                    { title: 'Star', value: 'FaStar' },
+                    { title: 'Clock', value: 'FaClock' },
+                    { title: 'Hourglass', value: 'FaHourglass' },
+                    { title: 'User', value: 'FaUser' },
+                    { title: 'User Group', value: 'FaUserGroup' },
+                    { title: 'Gear', value: 'FaGear' },
+                    { title: 'Cogs', value: 'FaCogs' },
+                    { title: 'Microchip', value: 'FaMicrochip' },
+                    { title: 'Server', value: 'FaServer' },
+                    { title: 'Database', value: 'FaDatabase' },
+                    { title: 'Cloud', value: 'FaCloud' }
+                  ]
+                }
               })
             ]
           }]
@@ -426,7 +577,61 @@ export const dynamicServicePageType = defineType({
               defineField({
                 name: 'icon',
                 title: 'Icon',
-                type: 'string'
+                type: 'string',
+                options:{
+                  list:[
+                    { title: 'Chart Line', value: 'FaChartLine' },
+                    { title: 'Handshake', value: 'FaHandshake' },
+                    { title: 'Heart', value: 'FaHeart' },
+                    { title: 'Lightbulb', value: 'FaLightbulb' },
+                    { title: 'Shield', value: 'FaShieldAlt' },
+                    { title: 'Users', value: 'FaUsers' },
+                    { title: 'Globe', value: 'FaGlobe' },
+                    { title: 'Chart Bar', value: 'FaChartBar' },
+                    { title: 'Headset', value: 'FaHeadset' },
+                    { title: 'Money Bill', value: 'FaMoneyBillWave' },
+                    { title: 'Network', value: 'FaNetworkWired' },
+                    { title: 'Industry', value: 'FaIndustry' },
+                    { title: 'Shopping Cart', value: 'FaShoppingCart' },
+                    { title: 'Phone', value: 'FaPhoneAlt' },
+                    { title: 'Boxes', value: 'FaBoxes' },
+                    { title: 'Building', value: 'FaBuilding' },
+                    { title: 'Search Location', value: 'FaSearchLocation' },
+                    { title: 'Map Marker', value: 'FaMapMarkedAlt' },
+                    { title: 'Store', value: 'FaStore' },
+                    { title: 'Recycle', value: 'FaRecycle' },
+                    { title: 'Calendar', value: 'FaCalendarAlt' },
+                    { title: 'Filter', value: 'FaFilter' },
+                    
+                    // Additional icons from previous list
+                    { title: 'Chart Pie', value: 'FaChartPie' },
+                    { title: 'Chart Area', value: 'FaChartArea' },
+                    { title: 'Analytics', value: 'FaChartSimple' },
+                    { title: 'Gauge', value: 'FaGauge' },
+                    { title: 'Tachometer', value: 'FaTachometerAlt' },
+                    { title: 'Bolt/Lightning', value: 'FaBolt' },
+                    { title: 'Rocket', value: 'FaRocket' },
+                    { title: 'Dollar Sign', value: 'FaDollarSign' },
+                    { title: 'Coins', value: 'FaCoins' },
+                    { title: 'Percentage', value: 'FaPercent' },
+                    { title: 'Piggy Bank', value: 'FaPiggyBank' },
+                    { title: 'Arrow Up', value: 'FaArrowUp' },
+                    { title: 'Arrow Trend Up', value: 'FaArrowTrendUp' },
+                    { title: 'Trophy', value: 'FaTrophy' },
+                    { title: 'Medal', value: 'FaMedal' },
+                    { title: 'Star', value: 'FaStar' },
+                    { title: 'Clock', value: 'FaClock' },
+                    { title: 'Hourglass', value: 'FaHourglass' },
+                    { title: 'User', value: 'FaUser' },
+                    { title: 'User Group', value: 'FaUserGroup' },
+                    { title: 'Gear', value: 'FaGear' },
+                    { title: 'Cogs', value: 'FaCogs' },
+                    { title: 'Microchip', value: 'FaMicrochip' },
+                    { title: 'Server', value: 'FaServer' },
+                    { title: 'Database', value: 'FaDatabase' },
+                    { title: 'Cloud', value: 'FaCloud' }
+                  ]
+                }
               })
             ]
           }]
@@ -542,6 +747,31 @@ export const dynamicServicePageType = defineType({
                   name: 'icon',
                   title: 'Icon',
                   type: 'string',
+                  options:{
+                      list: [
+                        'Cube',
+                        'ChartLineUp',
+                        'Gear',
+                        'ChartPieSlice',
+                        'Brain',
+                        'Truck',
+                        'Package',
+                        'Coins',
+                        'ChartBar',
+                        'Medal',
+                        'Gauge',
+                        'Robot',
+                        'Receipt',
+                        'Wallet',
+                        'ChartDonut',
+                        'Clock',
+                        'Database',
+                        'Plugs',
+                        'Lightning',
+                        'Handshake',
+                        'Target'
+                      ]
+                    },
                   description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
                   validation: Rule => Rule.required()
                 })

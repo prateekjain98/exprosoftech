@@ -264,7 +264,32 @@ export const dynamicConsultingsPageType = defineType({
               defineField({
                 name: 'icon',
                 title: 'Icon',
-                type: 'string'
+                type: 'string',
+                options: {
+                  list: [
+                    'Cube',
+                    'ChartLineUp',
+                    'Gear',
+                    'ChartPieSlice',
+                    'Brain',
+                    'Truck',
+                    'Package',
+                    'Coins',
+                    'ChartBar',
+                    'Medal',
+                    'Gauge',
+                    'Robot',
+                    'Receipt',
+                    'Wallet',
+                    'ChartDonut',
+                    'Clock',
+                    'Database',
+                    'Plugs',
+                    'Lightning',
+                    'Handshake',
+                    'Target'
+                  ]
+                }
               }),
               defineField({
                 name: 'points',
@@ -305,7 +330,32 @@ export const dynamicConsultingsPageType = defineType({
                       defineField({
                         name: 'icon',
                         title: 'Icon Name',
-                        type: 'string'
+                        type: 'string',
+                        options: {
+                          list: [
+                            'Cube',
+                            'ChartLineUp',
+                            'Gear',
+                            'ChartPieSlice',
+                            'Brain',
+                            'Truck',
+                            'Package',
+                            'Coins',
+                            'ChartBar',
+                            'Medal',
+                            'Gauge',
+                            'Robot',
+                            'Receipt',
+                            'Wallet',
+                            'ChartDonut',
+                            'Clock',
+                            'Database',
+                            'Plugs',
+                            'Lightning',
+                            'Handshake',
+                            'Target'
+                          ]
+                        }
                       }),
                       defineField({
                         name: 'value',
@@ -372,7 +422,29 @@ export const dynamicConsultingsPageType = defineType({
                     name: 'icon',
                     type: 'string',
                     options: {
-                      list: ['ChartLineUp', 'Brain', 'Handshake', 'Target']
+                      list: [
+                        'Cube',
+                        'ChartLineUp',
+                        'Gear',
+                        'ChartPieSlice',
+                        'Brain',
+                        'Truck',
+                        'Package',
+                        'Coins',
+                        'ChartBar',
+                        'Medal',
+                        'Gauge',
+                        'Robot',
+                        'Receipt',
+                        'Wallet',
+                        'ChartDonut',
+                        'Clock',
+                        'Database',
+                        'Plugs',
+                        'Lightning',
+                        'Handshake',
+                        'Target'
+                      ]
                     }
                   }),
                   defineField({ name: 'title', type: 'string' }),
@@ -497,6 +569,31 @@ export const dynamicConsultingsPageType = defineType({
                   name: 'icon',
                   title: 'Icon',
                   type: 'string',
+                  options: {
+                    list: [
+                      'Cube',
+                      'ChartLineUp',
+                      'Gear',
+                      'ChartPieSlice',
+                      'Brain',
+                      'Truck',
+                      'Package',
+                      'Coins',
+                      'ChartBar',
+                      'Medal',
+                      'Gauge',
+                      'Robot',
+                      'Receipt',
+                      'Wallet',
+                      'ChartDonut',
+                      'Clock',
+                      'Database',
+                      'Plugs',
+                      'Lightning',
+                      'Handshake',
+                      'Target'
+                    ]
+                  },
                   description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
                   validation: Rule => Rule.required()
                 })
