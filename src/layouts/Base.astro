@@ -16,6 +16,7 @@ import type { NavigationLink } from "@/components/Header";
 let navigationData: NavigationLink[] = [];
 let productDropdownData: any[] = [];
 let serviceDropdownData: any[] = [];
+let consultingDropdownData: any[] = [];
 
 try {
   // Fetch products
@@ -95,18 +96,41 @@ try {
     }
   }`;
 
+  const consultingDropdownQuery = `*[_type == "consultingDropdownContent" && isActive == true] {
+    name,
+    dropdownContent {
+      tagline,
+      title,
+      description,
+      features,
+      backgroundImage {
+        asset->{
+          url
+        },
+        alt
+      },
+      productImages[] {
+        asset->{
+          url
+        },
+        alt
+      }
+    }
+  }`;
   
-  const [products, services, consulting, productDropdown, serviceDropdown] = await Promise.all([
+  const [products, services, consulting, productDropdown, serviceDropdown, consultingDropdown] = await Promise.all([
     sanityClient.fetch(productsQuery),
     sanityClient.fetch(servicesQuery),
     sanityClient.fetch(consultingQuery),
     sanityClient.fetch(productDropdownQuery),
-    sanityClient.fetch(serviceDropdownQuery)
+    sanityClient.fetch(serviceDropdownQuery),
+    sanityClient.fetch(consultingDropdownQuery)
   ]);
   
   // Store the product dropdown data
   productDropdownData = productDropdown;
   serviceDropdownData = serviceDropdown;
+  consultingDropdownData = consultingDropdown;
   
   // Build navigation structure
   navigationData = [
@@ -453,6 +477,7 @@ const {
       navigationData={navigationData}
       productDropdownData={productDropdownData}
       serviceDropdownData={serviceDropdownData}
+      consultingDropdownData={consultingDropdownData}
     />
     <main id="main-content">
       <slot />

@@ -5,13 +5,18 @@ interface ConsultingDropdownProps {
   children: ChildNavigationLink[];
   setIsMobileMenuOpen: (isOpen: boolean) => void;
   scrollToCaseStudies: (e: React.MouseEvent) => void;
+  consultingDropdownData: any[];
 }
 
 const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
   children,
   setIsMobileMenuOpen,
   scrollToCaseStudies,
+  consultingDropdownData = [],
 }) => {
+  // Get the featured case study data from Sanity if available
+  const featuredCaseStudy = consultingDropdownData.length > 0 ? consultingDropdownData[0] : null;
+
   return (
     <div className="grid grid-cols-12">
       {/* Left Section - Main Services */}
@@ -88,86 +93,29 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
                       Key Challenges We Address
                     </h5>
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="flex items-center gap-2">
-                        <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
-                          <svg
-                            className="w-3 h-3 text-primary"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                          >
-                            <path
-                              d="M10 3L4.5 8.5L2 6"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
+                      {consultingDropdownData.length > 0 && 
+                       consultingDropdownData[0]?.dropdownContent?.features.map((feature: string, idx: number) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
+                            <svg
+                              className="w-3 h-3 text-primary"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                            >
+                              <path
+                                d="M10 3L4.5 8.5L2 6"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </div>
+                          <span className="text-sm text-slate-600">
+                            {feature}
+                          </span>
                         </div>
-                        <span className="text-sm text-slate-600">
-                          High demand variability
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
-                          <svg
-                            className="w-3 h-3 text-primary"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                          >
-                            <path
-                              d="M10 3L4.5 8.5L2 6"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-sm text-slate-600">
-                          High Lead times
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
-                          <svg
-                            className="w-3 h-3 text-primary"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                          >
-                            <path
-                              d="M10 3L4.5 8.5L2 6"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-sm text-slate-600">
-                          Excess and shortage of material
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
-                          <svg
-                            className="w-3 h-3 text-primary"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                          >
-                            <path
-                              d="M10 3L4.5 8.5L2 6"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                        <span className="text-sm text-slate-600">
-                          Service levels / OTIF
-                        </span>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -181,68 +129,61 @@ const ConsultingDropdown: React.FC<ConsultingDropdownProps> = ({
       <div className="col-span-5 bg-gradient-to-br from-slate-50 to-white">
         <div className="relative h-full">
           {/* Background Image with Gradient Overlay */}
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=3270&auto=format&fit=crop')",
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 to-slate-900/70" />
-          </div>
+          {featuredCaseStudy?.dropdownContent?.backgroundImage?.asset?.url && (
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url('${featuredCaseStudy.dropdownContent.backgroundImage.asset.url}')`
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 to-slate-900/70" />
+            </div>
+          )}
 
           {/* Content */}
           <div className="relative p-8 h-full flex flex-col">
             <div className="mb-auto">
-              <h3 className="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-6">
-                Featured Success Story
-              </h3>
+              {featuredCaseStudy?.dropdownContent?.tagline && (
+                <h3 className="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-6">
+                  {featuredCaseStudy.dropdownContent.tagline}
+                </h3>
+              )}
 
               {/* Company Logo */}
-              <div className="w-20 h-20 bg-white rounded-xl p-3 mb-6">
-                <img
-                  src="/images/company-logos/rotex.png"
-                  alt="Rotex Automation"
-                  className="w-full h-full object-contain"
-                />
-              </div>
+              {featuredCaseStudy?.dropdownContent?.productImages && 
+               featuredCaseStudy.dropdownContent.productImages.length > 0 && (
+                <div className="w-20 h-20 bg-white rounded-xl p-3 mb-6">
+                  <img
+                    src={featuredCaseStudy.dropdownContent.productImages[0].asset.url}
+                    alt={featuredCaseStudy.dropdownContent.productImages[0].alt || ""}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              )}
 
               {/* Case Study Details */}
               <div className="space-y-4">
-                <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold">
-                  Manufacturing Excellence
-                </span>
-                <h4 className="text-xl font-semibold text-white">
-                  Rotex Automation
-                </h4>
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  36% growth in manufacturing efficiency and 60% faster
-                  production timelines.
-                </p>
+                {featuredCaseStudy?.name && (
+                  <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold">
+                    {featuredCaseStudy.name}
+                  </span>
+                )}
+                
+                {featuredCaseStudy?.dropdownContent?.title && (
+                  <h4 className="text-xl font-semibold text-white">
+                    {featuredCaseStudy.dropdownContent.title}
+                  </h4>
+                )}
+                
+                {featuredCaseStudy?.dropdownContent?.description && (
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    {featuredCaseStudy.dropdownContent.description}
+                  </p>
+                )}
               </div>
             </div>
 
-            {/* CTA Section */}
-            {/* <div className="mt-8">
-              <a
-                href="/demand-driven-transformation/#case-studies"
-                onClick={scrollToCaseStudies}
-                className="inline-flex items-center text-blue-400 font-medium hover:text-blue-300 transition-colors duration-200"
-              >
-                View All Case Studies
-                <svg
-                  className="w-4 h-4 ml-2"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </a>
-            </div> */}
+            {/* CTA Section removed as requested */}
           </div>
         </div>
       </div>

@@ -5,7 +5,6 @@ import ProductsDropdown from "../../components/navigation/ProductsDropdown";
 import ServicesDropdown from "../../components/navigation/ServicesDropdown";
 import ConsultingDropdown from "../../components/navigation/ConsultingDropdown";
 import Button from "../../components/common/Button";
-import { sanityClient } from "sanity:client";
 
 export interface ChildNavigationLink {
   name: string;
@@ -105,6 +104,7 @@ interface HeaderProps {
   navigationData?: NavigationLink[];
   productDropdownData?: any[];
   serviceDropdownData?: any[];
+  consultingDropdownData?: any[];
   }
 
 const Header: React.FC<HeaderProps> = ({
@@ -114,6 +114,7 @@ const Header: React.FC<HeaderProps> = ({
   navigationData = [],
   productDropdownData = [],
   serviceDropdownData = [],
+  consultingDropdownData = [],
 }) => {
   const [pathname, setPathname] = useState(initialPathname);
   const [isSticky, setIsSticky] = useState(false);
@@ -386,6 +387,7 @@ const Header: React.FC<HeaderProps> = ({
                             children={menu.children || []}
                             setIsMobileMenuOpen={setIsMobileMenuOpen}
                             scrollToCaseStudies={scrollToCaseStudies}
+                            consultingDropdownData={consultingDropdownData}
                           />
                         )}
                       </div>
