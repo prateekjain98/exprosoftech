@@ -465,6 +465,169 @@ export const dynamicConsultingsPageType = defineType({
       ]
     }),
 
+    defineField({
+      name: 'industryApplications',
+      title: 'Industry Applications Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          description: 'Main heading for the industry applications section'
+        }),
+        defineField({
+          name: 'tagline',
+          title: 'Tagline',
+          type: 'string',
+          description: 'Optional tagline displayed above the title'
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          description: 'Subheading text that appears below the title'
+        }),
+        defineField({
+          name: 'ctaText',
+          title: 'CTA Text',
+          type: 'string',
+          description: 'Text for the call-to-action link',
+          initialValue: 'Find Out How It Works for Your Industry →'
+        }),
+        defineField({
+          name: 'ctaLink',
+          title: 'CTA Link',
+          type: 'string',
+          description: 'URL for the call-to-action link',
+          initialValue: '#contact'
+        }),
+        defineField({
+          name: 'isCalendly',
+          title: 'Is Calendly',
+          type: 'boolean',
+          description: 'Indicates if the CTA link is a Calendly link',
+          initialValue: true
+        }),
+        defineField({
+          name: 'industries',
+          title: 'Industry Applications',
+          type: 'array',
+          description: 'List of industries where your solutions apply',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'name',
+                title: 'Industry Name',
+                type: 'string',
+                validation: Rule => Rule.required()
+              }),
+              defineField({
+                name: 'description',
+                title: 'Description',
+                type: 'text',
+                description: 'Brief description of how your solution helps this industry'
+              }),
+              defineField({
+                name: 'icon',
+                title: 'Icon',
+                type: 'string',
+                description: 'Icon to represent this industry',
+                options: {
+                  list: [
+                    {title: 'Store', value: 'FaStore'},
+                    {title: 'Hotel', value: 'FaHotel'},
+                    {title: 'Plane', value: 'FaPlane'},
+                    {title: 'Restaurant', value: 'FaUtensils'},
+                    {title: 'Shopping Bag', value: 'FaShoppingBag'},
+                    {title: 'Car', value: 'FaCarAlt'},
+                    {title: 'Game', value: 'FaGamepad'},
+                    {title: 'Education', value: 'FaGraduationCap'},
+                    {title: 'Shopping Cart', value: 'FaShoppingCart'},
+                    {title: 'Industry', value: 'FaIndustry'},
+                    {title: 'Network', value: 'FaNetworkWired'},
+                    {title: 'Finance', value: 'FaMoneyBillWave'},
+                    {title: 'Phone', value: 'FaPhoneAlt'},
+                    {title: 'Boxes', value: 'FaBoxes'},
+                    {title: 'Building', value: 'FaBuilding'},
+                    {title: 'Location', value: 'FaSearchLocation'},
+                    {title: 'Business Person', value: 'FaUserTie'},
+                    {title: 'Technology', value: 'FaLaptopCode'},
+                    {title: 'Healthcare', value: 'FaHospital'},
+                    {title: 'Server', value: 'FaServer'}
+                  ]
+                }
+              })
+            ]
+          }]
+        }),
+        defineField({
+          name: 'compatibility',
+          title: 'Integration & Technical Compatibility',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              initialValue: 'Integration & Technical Compatibility'
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              initialValue: 'We understand the importance of aligning new systems with your existing IT infrastructure:'
+            }),
+            defineField({
+              name: 'features',
+              title: 'Compatibility Features',
+              type: 'array',
+              of: [{
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'title',
+                    title: 'Feature Title',
+                    type: 'string',
+                    validation: Rule => Rule.required()
+                  }),
+                  defineField({
+                    name: 'description',
+                    title: 'Feature Description',
+                    type: 'text'
+                  }),
+                ]
+              }]
+            })
+          ]
+        }),
+        defineField({
+          name: 'timeline',
+          title: 'Implementation Timeline',
+          type: 'array',
+          description: 'Timeline showing implementation milestones',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'period',
+                title: 'Time Period',
+                type: 'string',
+                description: 'e.g., "3-6 Months"',
+                validation: Rule => Rule.required()
+              }),
+              defineField({
+                name: 'description',
+                title: 'Description',
+                type: 'text',
+                description: 'What happens during this period'
+              })
+            ]
+          }]
+        })
+      ]
+    }),
     // FAQ Section
     defineField({
       name: 'faq',
