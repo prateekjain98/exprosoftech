@@ -272,7 +272,7 @@ const metrics: MetricCard[] = [
     secondaryColor: "#818CF8",
     value: "+30%",
     position: { top: "45%", right: "0" },
-    mobilePosition: { top: "calc(100% - 130px)", left: "0" },
+    mobilePosition: { top: "15%", right: "0" }, // Top right
     category: "business",
     data: generateComposedData("roce"),
   },
@@ -285,7 +285,7 @@ const metrics: MetricCard[] = [
     secondaryColor: "#67E8F9",
     value: "+20%",
     position: { top: "25%", left: "0" },
-    mobilePosition: { top: "calc(100% - 130px)", right: "0" },
+    mobilePosition: { top: "65%", left: "0" }, // Changed to bottom left
     category: "business",
     data: generateComposedData("cashFlow"),
   },
@@ -298,7 +298,7 @@ const metrics: MetricCard[] = [
     secondaryColor: "#A78BFA",
     value: "99%",
     position: { top: "70%", left: "0" },
-    mobilePosition: { top: "calc(100% - 130px)", left: "0" },
+    mobilePosition: { top: "30%", left: "0" }, // Middle left
     category: "business",
     data: generateComposedData("throughput"),
   },
@@ -313,7 +313,7 @@ const metrics: MetricCard[] = [
     secondaryColor: "#F472B6",
     value: "-40%",
     position: { top: "25%", left: "0" },
-    mobilePosition: { top: "calc(100% - 130px)", right: "0" },
+    mobilePosition: { top: "65%", right: "0" }, // Middle right
     category: "operational",
     data: generateBarData("leadTime"),
   },
@@ -326,7 +326,8 @@ const metrics: MetricCard[] = [
     secondaryColor: "#FCD34D",
     value: "2X",
     position: { top: "45%", right: "0" },
-    mobilePosition: { top: "calc(100% - 130px)", left: "0" },
+
+    mobilePosition: { top: "15%", left: "0" }, // Bottom right
     category: "operational",
     data: generateStackedData("inventoryTurns"),
   },
@@ -339,7 +340,7 @@ const metrics: MetricCard[] = [
     secondaryColor: "#6EE7B7",
     value: "+50%",
     position: { top: "35%", left: "5%" },
-    mobilePosition: { top: "calc(100% - 130px)", right: "0" },
+    mobilePosition: { top: "65%", right: "0" }, // Bottom left
     category: "sales",
     data: generateBarData("stockouts"),
   },
@@ -354,7 +355,7 @@ const metrics: MetricCard[] = [
     secondaryColor: "#93C5FD",
     value: "+45%",
     position: { top: "70%", right: "0" },
-    mobilePosition: { top: "calc(100% - 130px)", left: "0" },
+    mobilePosition: { top: "15%", left: "0%" }, // Bottom center
     category: "sales",
     data: generateBarData("reachPenetration"),
   },
@@ -621,10 +622,15 @@ const MetricCard: React.FC<MetricCard & { index: number }> = ({
 
   return (
     <motion.div
-      className={`absolute bg-white/95 backdrop-blur-md rounded-xl shadow-lg border border-gray-100/30 z-20 ${
+      className={`absolute backdrop-blur-md rounded-xl shadow-lg border z-20 ${
         isMobile ? "w-[130px] p-3" : "w-[200px] p-4"
       }`}
-      style={{ ...positionStyle, ...additionalStyle }}
+      style={{ 
+        ...positionStyle, 
+        ...additionalStyle,
+        backgroundColor: `rgba(59, 130, 246, 0.09)`, // Light blue background with low opacity
+        borderColor: `rgba(59, 130, 246, 0.2)` // Blue border with higher opacity
+      }}
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.8, y: -20 }}
@@ -643,7 +649,7 @@ const MetricCard: React.FC<MetricCard & { index: number }> = ({
           {title}
         </h3>
         {subtitle && (
-          <p className={`text-gray-500 ${isMobile ? "text-[8px]" : "text-xs"}`}>
+          <p className={`text-gray-800 ${isMobile ? "text-[8px]" : "text-xs"}`}>
             {subtitle}
           </p>
         )}
@@ -735,11 +741,11 @@ export const AnimatedMetrics: React.FC = () => {
         <div className="absolute w-[85%] md:w-[75%] h-[82%] bg-gray-50/95 rounded-[2.5rem]" />
 
         {/* Hero Image Container */}
-        <div className="relative z-10 w-[70%] md:w-[55%] flex items-center justify-center">
+        <div className="relative z-10 w-[60%] md:w-[55%] flex items-center justify-center">
           <img
             src="/images/home/hero.jpeg"
             alt="Hero"
-            className="w-full h-auto object-contain"
+            className="w-full h-auto object-contain scale-[0.85] md:scale-100"
           />
         </div>
       </div>
