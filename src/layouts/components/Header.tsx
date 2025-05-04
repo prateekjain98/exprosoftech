@@ -260,7 +260,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <div className={`header-wrapper ${!errorPage && "pb-2"}`}>
+    <div className={`header-wrapper ${!errorPage && "pb-0"}`}>
       <header
         className={`header z-[999] transition-all duration-300 shadow-sm ${isHidden ? "header-hidden" : ""}`}
       >
