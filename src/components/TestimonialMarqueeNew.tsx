@@ -110,7 +110,7 @@ export const TestimonialMarquee= async () => {
           
           {/* First row */}
           <div className="overflow-hidden">
-            <div className="flex animate-marquee gap-6 hover:animation-pause">
+            <div className="flex animate-marquee gap-6 hover:animation-pause w-max"> {/* Add w-max */}
               {[...firstRowTestimonials, ...firstRowTestimonials, ...firstRowTestimonials].map((testimonial, idx) => (
                 <TestimonialCard key={`row1-${idx}`} testimonial={testimonial} />
               ))}
@@ -119,7 +119,7 @@ export const TestimonialMarquee= async () => {
           
           {/* Second row */}
           <div className="overflow-hidden mt-4">
-            <div className="flex animate-marquee-reverse gap-6 hover:animation-pause">
+            <div className="flex animate-marquee-reverse gap-6 hover:animation-pause w-max"> {/* Add w-max */}
               {[...secondRowTestimonials, ...secondRowTestimonials, ...secondRowTestimonials].map((testimonial, idx) => (
                 <TestimonialCard key={`row2-${idx}`} testimonial={testimonial} />
               ))}
@@ -130,24 +130,38 @@ export const TestimonialMarquee= async () => {
       
       <style>{`
         @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-100% / 3)); }
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-33.3333%); } /* Increased precision */
         }
         
         @keyframes marquee-reverse {
-          0% { transform: translateX(calc(-100% / 3)); }
-          100% { transform: translateX(0); }
+          0% { transform: translateX(-33.3333%); } /* Increased precision */
+          100% { transform: translateX(0%); }
         }
         
+        .animate-marquee, .animate-marquee-reverse {
+          /* Use longer duration for smoother effect, adjust as needed */
+          animation-duration: 40s; 
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+
         .animate-marquee {
-          animation: marquee 40s linear infinite;
+          animation-name: marquee;
         }
-        
+
         .animate-marquee-reverse {
-          animation: marquee-reverse 40s linear infinite;
+          animation-name: marquee-reverse;
+        }
+
+        @media (max-width: 768px) {
+          .animate-marquee, .animate-marquee-reverse {
+            /* Faster speed for mobile */
+            animation-duration: 20s; 
+          }
         }
         
-        .hover\\:animation-pause:hover {
+        .hover\:animation-pause:hover {
           animation-play-state: paused;
         }
       `}</style>
