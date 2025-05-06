@@ -115,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({
   productDropdownData = [],
   serviceDropdownData = [],
   consultingDropdownData = [],
-}) => {
+}): JSX.Element => {
   const [pathname, setPathname] = useState(initialPathname);
   const [isSticky, setIsSticky] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -126,6 +126,7 @@ const Header: React.FC<HeaderProps> = ({
   const [isAnyMenuOpen, setIsAnyMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [closedDropdowns, setClosedDropdowns] = useState<string[]>([]);
   const { navigation_button } = config;
   
   // Use the navigationData from props or fallback to mainMenu
@@ -206,19 +207,18 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   // Handle dropdown toggle for mobile
+  // Update the toggle function
   const toggleDropdown = (
     event: React.MouseEvent<HTMLSpanElement>,
     menuName: string
   ) => {
     event.stopPropagation();
     if (window.innerWidth < 1024) {
-      // Instead of toggling the dropdown, navigate to a page or show all items
-      setIsMobileMenuOpen(false);
-      
-      // You can either:
-      // 1. Show all dropdown items by default in mobile view (implemented below)
-      // 2. Or navigate to a main category page if you have one
-      setOpenMobileDropdown(menuName);
+      setClosedDropdowns(prev =>
+        prev.includes(menuName)
+          ? prev.filter(name => name !== menuName)
+          : [...prev, menuName]
+      );
     }
   };
 
@@ -344,7 +344,7 @@ const Header: React.FC<HeaderProps> = ({
                     </span>
                     {/* Mobile Menu Dropdown */}
                     <div
-                      className="lg:hidden block mt-2 space-y-3 px-2"
+                      className={`lg:hidden mt-2 space-y-3 px-2 ${closedDropdowns.includes(menu.name) ? 'hidden' : 'block'}`}
                     >
                       {menu.children?.map((child, childIndex) => (
                         <ProductMenuItem
