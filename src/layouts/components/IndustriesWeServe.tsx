@@ -286,7 +286,7 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
               <div className="p-3 bg-blue-100 rounded-full text-blue-600">
                 <FaClock size={24} />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900">Implementation Timeline</h3>
+              <h3 className="text-2xl font-semibold text-gray-900">ROI Timeline</h3>
             </div>
             
             <div className="space-y-6">
