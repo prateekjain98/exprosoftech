@@ -258,6 +258,7 @@ const Header: React.FC<HeaderProps> = ({
       }
     }
   };
+  //Header component
 
   return (
     <div className={`header-wrapper ${!errorPage && "pb-0"}`}>
