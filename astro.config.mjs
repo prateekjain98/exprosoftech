@@ -34,6 +34,7 @@ export default defineConfig({
   }), mdx(), sanity({
     projectId: "7kxeavu0",
     dataset: "production",
+    useCdn: true,
   })],
   markdown: {
     remarkPlugins: [
