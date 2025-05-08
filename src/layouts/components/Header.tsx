@@ -303,7 +303,7 @@ const Header: React.FC<HeaderProps> = ({
               ></polygon>
             </svg>
           </button>
-
+          
           {/* navigation menu */}
           <ul
             id="nav-menu"
