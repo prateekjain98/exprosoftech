@@ -24,89 +24,72 @@ interface Product {
   ctaSection: any;
 }
 
-export async function getStaticPaths() {
-  const productsQuery = `
-    *[_type == "dynamicProductPage"] {
-      "id": slug.current,
+const { id } = Astro.params;
+
+// Fetch product data directly
+const product = await sanityClient.fetch(`
+  *[_type == "dynamicProductPage" && slug.current == $id][0] {
+    "id": slug.current,
+    title,
+    metaTitle,
+    metaDescription,
+    headerContent {
+      badge,
       title,
-      metaTitle,
-      metaDescription,
-      headerContent {
-        badge,
-        title,
-        subtitle,
-        description,
-        image {
-          "src": src.asset->url,
-          alt
-        },
-        buttons
+      subtitle,
+      description,
+      image {
+        "src": src.asset->url,
+        alt
       },
-      featuresGridSection,
-      mobileFeaturesSection {
+      buttons
+    },
+    featuresGridSection,
+    mobileFeaturesSection {
+      title,
+      description,
+      features[] {
         title,
         description,
-        features[] {
-          title,
-          description,
-          icon
-        },
-        image {
-          "src": src.asset->url,
-          alt
-        }
+        icon
       },
-      featureShowcaseSection {
+      image {
+        "src": src.asset->url,
+        alt
+      }
+    },
+    featureShowcaseSection {
+      title,
+      description,
+      features[] {
         title,
-        description,
-        features[] {
-          title,
-          description
-        },
-        image {
-          "src": src.asset->url,
-          alt
-        }
+        description
       },
-      additionalFeaturesSection,
-      faqSection,
-      ctaSection {
-        tagline,
-        title,
-        subtitle,
-        description,
-        metrices,
-        buttonText,
-        image {
-          "src": src.asset->url,
-          alt
-        }
+      image {
+        "src": src.asset->url,
+        alt
+      }
+    },
+    additionalFeaturesSection,
+    faqSection,
+    ctaSection {
+      tagline,
+      title,
+      subtitle,
+      description,
+      metrices,
+      buttonText,
+      image {
+        "src": src.asset->url,
+        alt
       }
     }
-  `;
-  
-  try {
-    const products = await sanityClient.fetch(productsQuery);
-    
-    return products.map((product: {id: string}) => {
-      return {
-        params: { id: product.id },
-        props: { product },
-      };
-    });
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    return [];
   }
-}
-
-// Add type annotation to props destructuring
-const { product } = Astro.props as { product: Product };
+`, { id });
 
 if (!product) {
   return Astro.redirect('/404');
 }
-
 
 ---
 

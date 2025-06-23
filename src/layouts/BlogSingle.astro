@@ -11,6 +11,33 @@ import { PortableText } from "astro-portabletext";
 const { post } = Astro.props;
 const { title, author, image, date, body, slug } = post;
 
+interface SanityImage {
+  asset: {
+    url: string;
+  };
+  alt?: string;
+}
+
+// Define components for PortableText
+const components = {
+  types: {
+    image: ({ value }: { value: SanityImage }) => {
+      if (!value?.asset?.url) {
+        return null;
+      }
+      return {
+        Component: 'img',
+        props: {
+          src: value.asset.url,
+          alt: value.alt || ' ',
+          loading: "lazy",
+          class: "rounded-lg my-6"
+        }
+      };
+    }
+  }
+};
+
 // Fetch related posts
 const relatedPosts = await sanityClient.fetch(`
   *[_type == "post" && slug.current != $slug] | order(date desc)[0...3] {
@@ -79,7 +106,7 @@ const relatedPosts = await sanityClient.fetch(`
       </div>
       <article class="pb-10 lg:col-8" data-aos="fade-up-sm">
         <div class="content">
-          <PortableText value={body} />
+          <PortableText value={body} components={components} />
         </div>
         <Disqus className="mt-20" client:load />
       </article>

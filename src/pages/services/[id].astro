@@ -28,143 +28,126 @@ interface Service {
   ctaSection: any;
 }
 
-// Get all service page data in a single query
-export async function getStaticPaths() {
-  const servicesQuery = `
-    *[_type == "dynamicServicePage"] {
-      "id": slug.current,
+const { id } = Astro.params;
+
+// Fetch service data directly
+const service = await sanityClient.fetch(`
+  *[_type == "dynamicServicePage" && slug.current == $id][0] {
+    "id": slug.current,
+    title,
+    metaTitle,
+    metaDescription,
+    banner {
       title,
-      metaTitle,
-      metaDescription,
-      banner {
+      description,
+      buttons[] {
+        label,
+        link,
+        isCalendly
+      },
+      image {
+        "src": src.asset->url,
+        alt
+      },
+      floatingElements[] {
+        icon,
         title,
-        description,
-        buttons[] {
-          label,
-          link,
-          isCalendly
-        },
-        image {
-          "src": src.asset->url,
-          alt
-        },
-        floatingElements[] {
-          icon,
-          title,
-          value,
-          color,
-          position
-        }
-      },
-      featuresSection {
-        heading {
-          tagline,
-          title,
-          description
-        },
-        features[] {
-          title,
-          tagline,
-          description,
-          icon,
-          "imageUrl": image.asset->url
-        }
-      },
-      servicesSection {
-        heading {
-          tagline,
-          title,
-          description
-        },
-        services[] {
-          title,
-          description,
-          features
-        }
-      },
-      benefitsSection {
-        heading {
-          tagline,
-          title,
-          description
-        },
-        benefits[] {
-          title,
-          description,
-          icon
-        }
-      },
-      processSection {
-        heading {
-          tagline,
-          title,
-          description
-        },
-        steps[] {
-          title,
-          description,
-          "image": image.asset->url
-        }
-      },
-      industriesSection {
-        heading {
-          tagline,
-          title,
-          description
-        },
-        industries[] {
-          title,
-          description,
-          icon
-        }
-      },
-      faqSection {
-        title,
-        pageTitle,
-        subtitle,
-        description,
-        list[] {
-          title,
-          description,
-          active
-        }
-      },
-      ctaSection {
+        value,
+        color,
+        position
+      }
+    },
+    featuresSection {
+      heading {
         tagline,
         title,
-        subtitle,
+        description
+      },
+      features[] {
+        title,
+        tagline,
         description,
-        metrices[] {
-          value,
-          label,
-          icon
-        },
-        buttonText,
-        image {
-          "src": src.asset->url,
-          alt
-        }
+        icon,
+        "imageUrl": image.asset->url
+      }
+    },
+    servicesSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      services[] {
+        title,
+        description,
+        features
+      }
+    },
+    benefitsSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      benefits[] {
+        title,
+        description,
+        icon
+      }
+    },
+    processSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      steps[] {
+        title,
+        description,
+        "image": image.asset->url
+      }
+    },
+    industriesSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      industries[] {
+        title,
+        description,
+        icon
+      }
+    },
+    faqSection {
+      title,
+      pageTitle,
+      subtitle,
+      description,
+      list[] {
+        title,
+        description,
+        active
+      }
+    },
+    ctaSection {
+      tagline,
+      title,
+      subtitle,
+      description,
+      metrices[] {
+        value,
+        label,
+        icon
+      },
+      buttonText,
+      image {
+        "src": src.asset->url,
+        alt
       }
     }
-  `;
-  
-  try {
-    const services = await sanityClient.fetch(servicesQuery);
-    
-    return services.map((service: {id: string}) => {
-      return {
-        params: { id: service.id },
-        props: { service },
-      };
-    });
-  } catch (error) {
-    console.error("Error fetching services:", error);
-    return [];
   }
-}
-
-// Add type annotation to props destructuring
-const { service } = Astro.props as { service: Service };
+`, { id });
 
 if (!service) {
   return Astro.redirect('/404');

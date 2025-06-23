@@ -301,21 +301,21 @@ declare module 'astro:content' {
   slug: "elements";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".mdx"] };
 "privacy-policy.md": {
 	id: "privacy-policy.md";
   slug: "privacy-policy";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".md"] };
 "terms-conditions.md": {
 	id: "terms-conditions.md";
   slug: "terms-conditions";
   body: string;
   collection: "pages";
-  data: any
+  data: InferEntrySchema<"pages">
 } & { render(): Render[".md"] };
 };
 "pricing": {
@@ -494,5 +494,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("./../../src/content/config.js");
 }

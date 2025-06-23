@@ -3,6 +3,8 @@ import Base from "@/layouts/Base.astro";
 import BlogSingle from "@/layouts/BlogSingle.astro";
 import { sanityClient } from "sanity:client";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const posts = await sanityClient.fetch(`
     *[_type == "post"] {
