@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+import { IoChevronDown } from "react-icons/io5";
 import SectionHeader from "./SectionHeader";
 import { motion, AnimatePresence } from "framer-motion";
 import { sanityClient } from "sanity:client"
@@ -79,10 +79,9 @@ interface Headings {
                     <span className="text-base sm:text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors pr-4">
                       {item.title}
                     </span>
-                    <CaretDown
-                      size={24}
-                      weight="bold"
-                      className={`flex-shrink-0 text-blue-600 transition-transform duration-300 ${
+                    <IoChevronDown
+                      size={20}
+                      className={`text-gray-500 transition-transform duration-300 ${
                         activeIndex === index ? "rotate-180" : ""
                       }`}
                     />
@@ -122,11 +121,10 @@ interface Headings {
                   onClick={() => setShowAllFaqs(!showAllFaqs)}
                   className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300 font-medium text-sm"
                 >
-                  {showAllFaqs ? (
+                   {showAllFaqs ? (
                     <>
                       Show Less
-                      <CaretDown
-                        weight="bold"
+                      <IoChevronDown
                         className="ml-2 rotate-180"
                         size={16}
                       />
@@ -134,7 +132,7 @@ interface Headings {
                   ) : (
                     <>
                       Load More FAQs
-                      <CaretDown weight="bold" className="ml-2" size={16} />
+                      <IoChevronDown className="ml-2" size={16} />
                     </>
                   )}
                 </button>

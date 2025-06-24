@@ -209,10 +209,15 @@ export const dynamicProductPageType = defineType({
                       "Wallet",
                       "Stack",
                       "UserFocus",
+                      "Rocket",
+                      "Globe",
+                      "Gear",
+                      "DeviceMobile",
+                      "ArrowsClockwise",
                     ]
                   },
-                  description: 'Icon name from Phosphor Icons (e.g., ShoppingCart, MapPin, etc.)',
-                  validation: Rule => Rule.required()
+                  description: 'Icon name from Phosphor Icons (e.g., ShoppingCart, MapPin, etc.)'
+                  // validation: Rule => Rule.required() // Temporarily commented out
                 }),
                 defineField({
                   name: 'stats',
@@ -304,6 +309,11 @@ export const dynamicProductPageType = defineType({
                       "Wallet",
                       "Stack",
                       "UserFocus",
+                      "Rocket",
+                      "Globe",
+                      "Gear",
+                      "DeviceMobile",
+                      "ArrowsClockwise",
                     ]
                   },
                   validation: Rule => Rule.required()
@@ -480,6 +490,11 @@ export const dynamicProductPageType = defineType({
                       "Wallet",
                       "Stack",
                       "UserFocus",
+                      "Rocket",
+                      "Globe",
+                      "Gear",
+                      "DeviceMobile",
+                      "ArrowsClockwise",
                     ]
                   },
                   validation: Rule => Rule.required()

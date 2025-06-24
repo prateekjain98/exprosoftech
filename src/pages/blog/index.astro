@@ -25,15 +25,15 @@ const posts = await sanityClient.fetch(postsQuery);
 const totalPages: number = Math.ceil(posts.length / config.settings.pagination);
 
 const postIndex = await getEntry("sections", "blog");
-const headingContent = postIndex.data.hero;
+const headingContent = postIndex?.data.hero;
 
 ---
 
 <Base
-  title={postIndex.data.title}
-  meta_title={postIndex.data.meta_title || postIndex.data.title}
-  image={postIndex.data.image}
-  description={postIndex.data.description}>
+  title={postIndex?.data.title}
+  meta_title={postIndex?.data.meta_title || postIndex?.data.title}
+  image={postIndex?.data.image}
+  description={postIndex?.data.description}>
   <BlogSection
     largeHeading={true}
     content={headingContent}

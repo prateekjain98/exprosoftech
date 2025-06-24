@@ -1,46 +1,45 @@
 import React, { useState } from "react";
 import {
-  Cube,
-  ChartLineUp,
-  Gear,
-  ChartPieSlice,
-  Brain,
-  Truck,
-  Package,
-  Coins,
-  ChartBar,
-  Medal,
-  Gauge,
-  Robot,
-  Receipt,
-  Wallet,
-  ChartDonut,
-  Clock,
-  Database,
-  Plugs,
-  Lightning,
-} from "@phosphor-icons/react";
+  FiBox,
+  FiTrendingUp,
+  FiSettings,
+  FiPieChart,
+  FiTruck,
+  FiPackage,
+  FiDollarSign,
+  FiBarChart,
+  FiAward,
+  FiCpu,
+  FiFileText,
+  FiCreditCard,
+  FiClock,
+  FiDatabase,
+  FiZap,
+  FiActivity,
+} from "react-icons/fi";
+import { HiOutlineCog } from "react-icons/hi";
 import { sanityClient } from "sanity:client";
 
-const iconMap: { [key: string]: React.ForwardRefExoticComponent<any> } = {
-  Cube,
-  ChartLineUp,
-  Gear,
-  ChartPieSlice,
-  Brain,
-  Truck,
-  Package,
-  Coins,
-  ChartBar,
-  Medal,
-  Gauge,
-  Robot,
-  Receipt,
-  Wallet,
-  ChartDonut,
-  Clock,
-  Plugs,
-  Lightning,
+const iconMap: { [key: string]: React.ComponentType<any> } = {
+  Cube: FiBox,
+  ChartLineUp: FiTrendingUp,
+  Gear: FiSettings,
+  ChartPieSlice: FiPieChart,
+  Brain: FiZap,
+  Truck: FiTruck,
+  Package: FiPackage,
+  Coins: FiDollarSign,
+  ChartBar: FiBarChart,
+  Medal: FiAward,
+  Gauge: FiActivity,
+  Robot: FiCpu,
+  Receipt: FiFileText,
+  Wallet: FiCreditCard,
+  ChartDonut: FiPieChart,
+  Clock: FiClock,
+  Database: FiDatabase,
+  Plugs: HiOutlineCog,
+  Lightning: FiZap,
 };
 
 interface ServicePoint {
@@ -85,192 +84,192 @@ interface SanityServiceTab {
   }>;
 }
 
-const services = [
-  {
-    id: "supply-chain",
-    title: "Supply Chain Transformation",
-    icon: Cube,
-    points: [
-      { text: "Shift from forecast-driven to demand-driven planning" },
-      {
-        text: "Reduce inventory costs and lead times with strategic buffer management",
-      },
-      {
-        text: "Enhance customer satisfaction by ensuring constant product availability",
-      },
-    ],
-    metrics: {
-      mainMetric: {
-        value: "45%",
-        label: "Inventory Optimization",
-        trend: "↑ 12% from last quarter",
-      },
-      highlights: [
-        {
-          icon: Truck,
-          value: "-35%",
-          label: "Lead Time Reduction",
-        },
-        {
-          icon: Package,
-          value: "98.5%",
-          label: "Stock Availability",
-        },
-        {
-          icon: Coins,
-          value: "₹2.4Cr",
-          label: "Cost Savings",
-        },
-      ],
-    },
-  },
-  {
-    id: "sales",
-    title: "Sales Acceleration",
-    icon: ChartLineUp,
-    points: [
-      {
-        text: "Boost sales across B2B, OEM, and channel networks, both domestically and globally",
-      },
-      {
-        text: "Create high-performing sales teams equipped with actionable data and insights",
-      },
-    ],
-    metrics: {
-      mainMetric: {
-        value: "₹82.3M",
-        label: "Revenue Generated",
-        trend: "↑ 28% Year over Year",
-      },
-      highlights: [
-        {
-          icon: ChartBar,
-          value: "32%",
-          label: "Conversion Rate",
-        },
-        {
-          icon: Medal,
-          value: "245+",
-          label: "Deals Closed",
-        },
-        {
-          icon: ChartPieSlice,
-          value: "4.2x",
-          label: "Growth Rate",
-        },
-      ],
-    },
-  },
-  {
-    id: "operational",
-    title: "Operational Excellence",
-    icon: Gear,
-    points: [
-      {
-        text: "Identify and resolve bottlenecks in manufacturing and supply chain processes",
-      },
-      {
-        text: "Improve delivery performance and lead times to meet customer expectations",
-      },
-    ],
-    metrics: {
-      mainMetric: {
-        value: "92%",
-        label: "Operational Efficiency",
-        trend: "↑ 15% this quarter",
-      },
-      highlights: [
-        {
-          icon: Gauge,
-          value: "+40%",
-          label: "Productivity Boost",
-        },
-        {
-          icon: Medal,
-          value: "99.9%",
-          label: "Quality Score",
-        },
-        {
-          icon: Robot,
-          value: "85%",
-          label: "Process Automation",
-        },
-      ],
-    },
-  },
-  {
-    id: "financial",
-    title: "Financial Optimization",
-    icon: Receipt,
-    points: [
-      {
-        text: "Increase revenue, profitability, and return on capital employed (ROCE)",
-      },
-      {
-        text: "Improve cash flow by reducing inventory and optimizing operations",
-      },
-    ],
-    metrics: {
-      mainMetric: {
-        value: "32%",
-        label: "ROCE Improvement",
-        trend: "↑ 8% Year over Year",
-      },
-      highlights: [
-        {
-          icon: ChartDonut,
-          value: "28%",
-          label: "Profit Margin",
-        },
-        {
-          icon: Wallet,
-          value: "₹12.5Cr",
-          label: "Working Capital Saved",
-        },
-        {
-          icon: ChartLineUp,
-          value: "3.5x",
-          label: "ROI",
-        },
-      ],
-    },
-  },
-  {
-    id: "technology",
-    title: "Technology-Driven Insights",
-    icon: Brain,
-    points: [
-      { text: "Implement real-time data access and automation tools" },
-      {
-        text: "Integrate IT-driven solutions for sales force management, inventory optimization, and customer engagement",
-      },
-    ],
-    metrics: {
-      mainMetric: {
-        value: "85%",
-        label: "Digital Adoption Rate",
-        trend: "↑ 25% from baseline",
-      },
-      highlights: [
-        {
-          icon: Clock,
-          value: "Real-time",
-          label: "Data Processing",
-        },
-        {
-          icon: Plugs,
-          value: "15+",
-          label: "Systems Integrated",
-        },
-        {
-          icon: Lightning,
-          value: "90%",
-          label: "Task Automation",
-        },
-      ],
-    },
-  },
-];
+// const services = [
+//   {
+//     id: "supply-chain",
+//     title: "Supply Chain Transformation",
+//     icon: Cube,
+//     points: [
+//       { text: "Shift from forecast-driven to demand-driven planning" },
+//       {
+//         text: "Reduce inventory costs and lead times with strategic buffer management",
+//       },
+//       {
+//         text: "Enhance customer satisfaction by ensuring constant product availability",
+//       },
+//     ],
+//     metrics: {
+//       mainMetric: {
+//         value: "45%",
+//         label: "Inventory Optimization",
+//         trend: "↑ 12% from last quarter",
+//       },
+//       highlights: [
+//         {
+//           icon: Truck,
+//           value: "-35%",
+//           label: "Lead Time Reduction",
+//         },
+//         {
+//           icon: Package,
+//           value: "98.5%",
+//           label: "Stock Availability",
+//         },
+//         {
+//           icon: Coins,
+//           value: "₹2.4Cr",
+//           label: "Cost Savings",
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     id: "sales",
+//     title: "Sales Acceleration",
+//     icon: ChartLineUp,
+//     points: [
+//       {
+//         text: "Boost sales across B2B, OEM, and channel networks, both domestically and globally",
+//       },
+//       {
+//         text: "Create high-performing sales teams equipped with actionable data and insights",
+//       },
+//     ],
+//     metrics: {
+//       mainMetric: {
+//         value: "₹82.3M",
+//         label: "Revenue Generated",
+//         trend: "↑ 28% Year over Year",
+//       },
+//       highlights: [
+//         {
+//           icon: ChartBar,
+//           value: "32%",
+//           label: "Conversion Rate",
+//         },
+//         {
+//           icon: Medal,
+//           value: "245+",
+//           label: "Deals Closed",
+//         },
+//         {
+//           icon: ChartPieSlice,
+//           value: "4.2x",
+//           label: "Growth Rate",
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     id: "operational",
+//     title: "Operational Excellence",
+//     icon: Gear,
+//     points: [
+//       {
+//         text: "Identify and resolve bottlenecks in manufacturing and supply chain processes",
+//       },
+//       {
+//         text: "Improve delivery performance and lead times to meet customer expectations",
+//       },
+//     ],
+//     metrics: {
+//       mainMetric: {
+//         value: "92%",
+//         label: "Operational Efficiency",
+//         trend: "↑ 15% this quarter",
+//       },
+//       highlights: [
+//         {
+//           icon: Gauge,
+//           value: "+40%",
+//           label: "Productivity Boost",
+//         },
+//         {
+//           icon: Medal,
+//           value: "99.9%",
+//           label: "Quality Score",
+//         },
+//         {
+//           icon: Robot,
+//           value: "85%",
+//           label: "Process Automation",
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     id: "financial",
+//     title: "Financial Optimization",
+//     icon: Receipt,
+//     points: [
+//       {
+//         text: "Increase revenue, profitability, and return on capital employed (ROCE)",
+//       },
+//       {
+//         text: "Improve cash flow by reducing inventory and optimizing operations",
+//       },
+//     ],
+//     metrics: {
+//       mainMetric: {
+//         value: "32%",
+//         label: "ROCE Improvement",
+//         trend: "↑ 8% Year over Year",
+//       },
+//       highlights: [
+//         {
+//           icon: ChartDonut,
+//           value: "28%",
+//           label: "Profit Margin",
+//         },
+//         {
+//           icon: Wallet,
+//           value: "₹12.5Cr",
+//           label: "Working Capital Saved",
+//         },
+//         {
+//           icon: ChartLineUp,
+//           value: "3.5x",
+//           label: "ROI",
+//         },
+//       ],
+//     },
+//   },
+//   {
+//     id: "technology",
+//     title: "Technology-Driven Insights",
+//     icon: Brain,
+//     points: [
+//       { text: "Implement real-time data access and automation tools" },
+//       {
+//         text: "Integrate IT-driven solutions for sales force management, inventory optimization, and customer engagement",
+//       },
+//     ],
+//     metrics: {
+//       mainMetric: {
+//         value: "85%",
+//         label: "Digital Adoption Rate",
+//         trend: "↑ 25% from baseline",
+//       },
+//       highlights: [
+//         {
+//           icon: Clock,
+//           value: "Real-time",
+//           label: "Data Processing",
+//         },
+//         {
+//           icon: Plugs,
+//           value: "15+",
+//           label: "Systems Integrated",
+//         },
+//         {
+//           icon: Lightning,
+//           value: "90%",
+//           label: "Task Automation",
+//         },
+//       ],
+//     },
+//   },
+// ];
 
 const MetricsCard = ({ keyServicesData }: { keyServicesData: SanityServiceTab }) => {
   // The issue is here - in your schema, metrics is a direct object, not containing a mainMetric property
@@ -302,12 +301,10 @@ const MetricsCard = ({ keyServicesData }: { keyServicesData: SanityServiceTab })
               {iconMap[highlight.icon] ? (
                 React.createElement(iconMap[highlight.icon], {
                   size: 20,
-                  weight: "duotone",
                 })
               ) : (
                 React.createElement(iconMap.Cube, {
                   size: 20,
-                  weight: "duotone",
                 })
               )}
             </div>
@@ -410,7 +407,7 @@ const KeyServices = ({ heading, keyServicesData = [] }: KeyServicesProps) => {
                           : "bg-gray-700/50 group-hover:bg-gray-700"
                       }`}
                     >
-                      <service.icon size={16} weight="duotone" />
+                      <service.icon size={16} />
                     </div>
                     <span className="text-[11px] leading-tight sm:text-base font-medium text-center sm:text-left">
                       {service.id === "supply-chain"

@@ -1,49 +1,77 @@
 import React from "react";
 import {
-  ShoppingCart,
-  MapPin,
-  Package,
-  Book,
-  Users,
-  ChartLineUp,
-  Target,
-  ChatCenteredText,
-  Lightbulb,
-  ChartBar,
-  QrCode,
-  Receipt,
-  CurrencyDollar,
-  Recycle,
-  Shield,
-  Wallet,
-  Stack,
-  UserFocus,
-} from "@phosphor-icons/react";
+  FiShoppingCart,
+  FiMapPin,
+  FiPackage,
+  FiBook,
+  FiUsers,
+  FiTrendingUp,
+  FiTarget,
+  FiMessageCircle,
+  FiBarChart,
+  FiGrid,
+  FiFileText,
+  FiDollarSign,
+  FiRefreshCw,
+  FiShield,
+  FiCreditCard,
+  FiLayers,
+  FiUserCheck,
+  FiGlobe,
+  FiSettings,
+} from "react-icons/fi";
+import { HiLightBulb } from "react-icons/hi";
+import { BiRocket } from "react-icons/bi";
 
 interface IconMap {
-  [key: string]: React.ForwardRefExoticComponent<any>;
+  [key: string]: React.ComponentType<any>;
 }
 
 const iconMap: IconMap = {
-  ShoppingCart,
-  MapPin,
-  Package,
-  Book,
-  Users,
-  ChartLineUp,
-  Target,
-  ChatCenteredText,
-  Lightbulb,
-  ChartBar,
-  QrCode,
-  Receipt,
-  CurrencyDollar,
-  Recycle,
-  Shield,
-  Wallet,
-  Stack,
-  UserFocus,
-  ChartLine: ChartLineUp, // Alias for consistency
+//   // Support both old and new naming for backwards compatibility
+  ShoppingCart: FiShoppingCart,
+  ShoppingCartIcon: FiShoppingCart,
+  MapPin: FiMapPin,
+  MapPinIcon: FiMapPin,
+  Package: FiPackage,
+  PackageIcon: FiPackage,
+  Book: FiBook,
+  BookIcon: FiBook,
+  Users: FiUsers,
+  UsersIcon: FiUsers,
+  ChartLineUp: FiTrendingUp,
+  ChartLineUpIcon: FiTrendingUp,
+  Target: FiTarget,
+  TargetIcon: FiTarget,
+  ChatCenteredText: FiMessageCircle,
+  ChatCenteredTextIcon: FiMessageCircle,
+  Lightbulb: HiLightBulb,
+  LightbulbIcon: HiLightBulb,
+  ChartBar: FiBarChart,
+  ChartBarIcon: FiBarChart,
+  QrCode: FiGrid,
+  QrCodeIcon: FiGrid,
+  Receipt: FiFileText,
+  ReceiptIcon: FiFileText,
+  CurrencyDollar: FiDollarSign,
+  CurrencyDollarIcon: FiDollarSign,
+  Recycle: FiRefreshCw,
+  RecycleIcon: FiRefreshCw,
+  Shield: FiShield,
+  ShieldIcon: FiShield,
+  Wallet: FiCreditCard,
+  WalletIcon: FiCreditCard,
+  Stack: FiLayers,
+  StackIcon: FiLayers,
+  UserFocus: FiUserCheck,
+  UserFocusIcon: FiUserCheck,
+  Rocket: BiRocket,
+  RocketIcon: BiRocket,
+  Globe: FiGlobe,
+  GlobeIcon: FiGlobe,
+  Gear: FiSettings,
+  GearIcon: FiSettings,
+  ChartLine: FiTrendingUp, // Alias for consistency
 };
 
 interface Feature {
@@ -127,7 +155,8 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
                 <div>
                   <div className="mb-6">
                     <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                      <Icon size={32} weight="duotone" />
+                      <Icon size={32} />
+                      {/* <div className="w-8 h-8 bg-current rounded"></div> */}
                     </div>
                   </div>
                   <h3 className="mb-4 text-xl font-semibold text-gray-900">

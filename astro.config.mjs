@@ -12,11 +12,18 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 
 import sanity from "@sanity/astro";
 
+import vercel from "@astrojs/vercel";
+
 // https://astro.build/config
 export default defineConfig({
   site: config.site.base_url ? config.site.base_url : "http://examplesite.com",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp"
+    }
+  },
   integrations: [react(), sitemap(), tailwind({
     config: {
       applyBaseStyles: false,
@@ -36,6 +43,7 @@ export default defineConfig({
     dataset: "production",
     useCdn: false,
   })],
+
   markdown: {
     remarkPlugins: [
       remarkModifiedTime,
@@ -54,4 +62,34 @@ export default defineConfig({
     },
     extendDefaultPlugins: true,
   },
+
+  output: "server",
+  adapter: vercel({
+    functionPerRoute: false,
+    edgeMiddleware: false,
+    webAnalytics: {
+      enabled: false
+    }
+  }),
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'astro-vendor': ['astro'],
+            'utils': ['dayjs', 'github-slugger', 'marked']
+          }
+        }
+      }
+    },
+    server: {
+      fs: {
+        strict: false
+      }
+    },
+    ssr: {
+      noExternal: ['marked']
+    }
+  }
 });

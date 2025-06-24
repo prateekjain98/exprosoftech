@@ -1,5 +1,21 @@
 import React from "react";
-import * as PhosphorIcons from "@phosphor-icons/react";
+import { 
+  FiHelpCircle, 
+  FiArrowRight, 
+  FiTrendingUp, 
+  FiActivity, 
+  FiClock,
+  FiUsers,
+  FiTarget,
+  FiZap,
+  FiCheckCircle,
+  FiStar,
+  FiShield,
+} from "react-icons/fi";
+import { HiLightBulb } from "react-icons/hi";
+import { BiRocket } from "react-icons/bi";
+import { RiHandHeartLine } from "react-icons/ri";
+import { HiTrophy } from "react-icons/hi2";
 import Button from "./common/Button";
 
 interface MetricType {
@@ -23,9 +39,48 @@ interface CTAProps {
   };
 }
 
+// Icon mapping to avoid wildcard imports - using new naming convention
+const iconMap: { [key: string]: React.ComponentType<any> } = {
+  // Support both old and new naming for backwards compatibility
+  Question: FiHelpCircle,
+  QuestionIcon: FiHelpCircle,
+  ArrowRight: FiArrowRight,
+  ArrowRightIcon: FiArrowRight,
+  ChartLine: FiTrendingUp,
+  ChartLineIcon: FiTrendingUp,
+  Gauge: FiActivity,
+  GaugeIcon: FiActivity,
+  Clock: FiClock,
+  ClockIcon: FiClock,
+  Users: FiUsers,
+  UsersIcon: FiUsers,
+  Target: FiTarget,
+  TargetIcon: FiTarget,
+  ChartLineUp: FiTrendingUp,
+  ChartLineUpIcon: FiTrendingUp,
+  Brain: FiZap,
+  BrainIcon: FiZap,
+  Handshake: RiHandHeartLine,
+  HandshakeIcon: RiHandHeartLine,
+  Trophy: HiTrophy,
+  TrophyIcon: HiTrophy,
+  TrendUp: FiTrendingUp,
+  TrendUpIcon: FiTrendingUp,
+  CheckCircle: FiCheckCircle,
+  CheckCircleIcon: FiCheckCircle,
+  Star: FiStar,
+  StarIcon: FiStar,
+  Lightbulb: HiLightBulb,
+  LightbulbIcon: HiLightBulb,
+  Rocket: BiRocket,
+  RocketIcon: BiRocket,
+  Shield: FiShield,
+  ShieldIcon: FiShield,
+};
+
 export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
   const getIcon = (iconName: string) => {
-    return (PhosphorIcons as any)[iconName] || PhosphorIcons.Question;
+    return iconMap[iconName] || FiHelpCircle;
   };
 
   return (
@@ -64,9 +119,9 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                         <div className="flex items-center justify-center lg:justify-start mb-3">
                           {React.createElement(getIcon(metric.icon), {
                             size: 24,
-                            weight: "duotone",
                             className: "text-blue-400"
                           })}
+                          {/* <div className="w-6 h-6 bg-blue-400 rounded"></div> */}
                         </div>
                         <div className="text-2xl font-bold text-white mb-1">
                           {metric.value}

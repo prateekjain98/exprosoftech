@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChartLineUp, Brain, Handshake, Target } from "@phosphor-icons/react";
+import { FiTrendingUp, FiTarget, FiZap, FiUsers } from "react-icons/fi";
 
 interface GuidancePoint {
   id: number;
@@ -19,14 +19,14 @@ interface BusinessGuidanceData {
 }
 
 // First, create an IconType for the icons
-type IconType = typeof ChartLineUp | typeof Brain | typeof Handshake | typeof Target;
+type IconType = typeof FiTrendingUp | typeof FiZap | typeof FiUsers | typeof FiTarget;
 
 // Update the iconMap type
 const iconMap: Record<string, IconType> = {
-  ChartLineUp,
-  Brain,
-  Handshake,
-  Target
+  ChartLineUp: FiTrendingUp,
+  Brain: FiZap,
+  Handshake: FiUsers,
+  Target: FiTarget
 };
 
 // Update the EmpowermentPoint interface
@@ -236,11 +236,10 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
                       {iconMap[point.icon] ? (
                         React.createElement(iconMap[point.icon], {
                           size: 18,
-                          weight: "duotone",
                           className: "text-[#0066FF]"
                         })
                       ) : (
-                        <ChartLineUp size={18} weight="duotone" className="text-[#0066FF]" />
+                        <FiTrendingUp size={18} className="text-[#0066FF]" />
                       )}
                     </div>
                     <div className="min-w-0 flex-1">

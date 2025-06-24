@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+// import { CaretDown } from "@phosphor-icons/react";
 import SectionHeader from "../SectionHeader";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -89,13 +89,20 @@ const SFAFAQ: React.FC = () => {
                   <span className="text-base sm:text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors pr-4">
                     {item.title}
                   </span>
-                  <CaretDown
-                    size={24}
+                  {/* <CaretDown
+                    size={20}
                     weight="bold"
-                    className={`flex-shrink-0 text-blue-600 transition-transform duration-300 ${
+                    className={`text-gray-500 transition-transform duration-300 ${
                       activeIndex === index ? "rotate-180" : ""
                     }`}
-                  />
+                  /> */}
+                  <div className={`w-5 h-5 bg-gray-500 transition-transform duration-300 ${
+                    activeIndex === index ? "rotate-180" : ""
+                  }`}>
+                    <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                  </div>
                 </button>
                 <AnimatePresence>
                   {activeIndex === index && (

@@ -39,10 +39,10 @@ export async function getStaticPaths() {
 ---
 
 <Base
-  title={postIndex.data.title}
-  meta_title={postIndex.data.meta_title}
-  image={postIndex.data.image}
-  description={postIndex.data.description}>
+  title={postIndex?.data.title}
+  meta_title={postIndex?.data.meta_title}
+  image={postIndex?.data.image}
+  description={postIndex?.data.description}>
   <BlogSection visiblePosts={3} posts={currentPosts}/>
   <Pagination
     section={BLOG_FOLDER}

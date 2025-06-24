@@ -1,5 +1,4 @@
 import { defineType, defineField } from 'sanity'
-import { min } from 'date-fns'
 
 export const aboutDualData = defineType({
     name: 'aboutDualData',
@@ -29,7 +28,7 @@ export const aboutDualData = defineType({
         title: 'Content',
         type: 'array',
         of: [{ type: 'text' }],
-        validation: Rule => Rule.required(min(1))
+        validation: Rule => Rule.required().min(1)
       }),
       defineField({
         name: 'featuredImage',
