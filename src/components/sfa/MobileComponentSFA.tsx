@@ -1,17 +1,18 @@
 import React from "react";
-import {
-  DeviceMobile,
-  Plugs,
-  ArrowsClockwise,
-  Shield,
-  Users,
-} from "@phosphor-icons/react";
+// import {
+//   DeviceMobile,
+//   Plugs,
+//   ArrowsClockwise,
+//   Shield,
+//   Users,
+// } from "@phosphor-icons/react";
 import { FaArrowRight } from "react-icons/fa";
 
 interface MobileFeature {
   title: string;
   description: string;
-  icon: React.ForwardRefExoticComponent<any>;
+  // icon: React.ForwardRefExoticComponent<any>;
+  iconName: string;
 }
 
 const mobileFeatures: MobileFeature[] = [
@@ -19,25 +20,29 @@ const mobileFeatures: MobileFeature[] = [
     title: "Enhanced Field Productivity",
     description:
       "By streamlining tasks and reducing manual work, sales reps can focus more on customer interactions and revenue-generating activities. Our AI-powered tools help increase daily customer visits by up to 40%.",
-    icon: DeviceMobile,
+    // icon: DeviceMobile,
+    iconName: "DeviceMobile",
   },
   {
     title: "Data-Driven Decision Making",
     description:
       "The analytics and reporting features empower managers to make informed decisions based on real-time insights, enabling strategic planning that aligns with business goals.",
-    icon: ArrowsClockwise,
+    // icon: ArrowsClockwise,
+    iconName: "ArrowsClockwise",
   },
   {
     title: "Boosted Customer Satisfaction",
     description:
       "Through optimized routes, personalized service, and real-time inventory updates, customers experience faster, more reliable service, building trust and brand loyalty.",
-    icon: Users,
+    // icon: Users,
+    iconName: "Users",
   },
   {
     title: "Enterprise-Grade Security",
     description:
       "Bank-level encryption and compliance with global data protection standards ensure your sensitive business data remains secure and protected.",
-    icon: Shield,
+    // icon: Shield,
+    iconName: "Shield",
   },
 ];
 
@@ -137,7 +142,8 @@ export const MobileComponentSFA: React.FC<MobileComponentSFAProps> = ({
                   >
                     <div className="flex-shrink-0">
                       <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                        <feature.icon size={28} weight="duotone" />
+                        {/* <feature.icon size={28} weight="duotone" /> */}
+                        <div className="w-7 h-7 bg-current rounded"></div>
                       </div>
                     </div>
                     <div>

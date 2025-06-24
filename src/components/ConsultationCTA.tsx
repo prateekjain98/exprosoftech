@@ -1,14 +1,14 @@
 import React from "react";
-import { ArrowRight, ChartLine, Gauge, Clock } from "@phosphor-icons/react";
+// import { ArrowRight, ChartLine, Gauge, Clock } from "@phosphor-icons/react";
 import Button from "./common/Button";
 import { sanityClient } from "sanity:client";
 
 
-const iconMap: { [key: string]: React.ForwardRefExoticComponent<any> } = {
-  ChartLine,
-  Gauge,
-  Clock,
-};
+// const iconMap: { [key: string]: React.ForwardRefExoticComponent<any> } = {
+//   ChartLine,
+//   Gauge,
+//   Clock,
+// };
 
 interface MetricType {
   value: string;
@@ -123,11 +123,12 @@ const consultantationCTA = await sanityClient.fetch(consultationCTAQuery);
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
                       <div className="relative p-4">
                       <div className="flex items-center justify-center lg:justify-start mb-3">
-                          {iconMap[metric.icon] && React.createElement(iconMap[metric.icon], {
+                          {/* {iconMap[metric.icon] && React.createElement(iconMap[metric.icon], {
                             size: 24,
                             weight: "duotone",
                             className: "text-blue-400"
-                          })}
+                          })} */}
+                          <div className="w-6 h-6 bg-blue-400 rounded"></div>
                         </div>
                         <div className="text-2xl font-bold text-white mb-1">
                           {metric.value}

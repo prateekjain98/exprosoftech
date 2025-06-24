@@ -1,84 +1,84 @@
 import React from "react";
-import {
-  DeviceMobileIcon,
-  ArrowsClockwiseIcon,
-  ShieldIcon,
-  UsersIcon,
-  StackIcon,
-  ChartLineUpIcon,
-  UserFocusIcon,
-  ShoppingCartIcon,
-  MapPinIcon,
-  PackageIcon,
-  BookIcon,
-  TargetIcon,
-  ChatCenteredTextIcon,
-  LightbulbIcon,
-  ChartBarIcon,
-  QrCodeIcon,
-  ReceiptIcon,
-  CurrencyDollarIcon,
-  RecycleIcon,
-  WalletIcon,
-  RocketIcon,
-  GlobeIcon,
-  GearIcon,
-} from "@phosphor-icons/react";
+// import {
+//   DeviceMobileIcon,
+//   ArrowsClockwiseIcon,
+//   ShieldIcon,
+//   UsersIcon,
+//   StackIcon,
+//   ChartLineUpIcon,
+//   UserFocusIcon,
+//   ShoppingCartIcon,
+//   MapPinIcon,
+//   PackageIcon,
+//   BookIcon,
+//   TargetIcon,
+//   ChatCenteredTextIcon,
+//   LightbulbIcon,
+//   ChartBarIcon,
+//   QrCodeIcon,
+//   ReceiptIcon,
+//   CurrencyDollarIcon,
+//   RecycleIcon,
+//   WalletIcon,
+//   RocketIcon,
+//   GlobeIcon,
+//   GearIcon,
+// } from "@phosphor-icons/react";
 
 interface IconMap {
   [key: string]: React.ForwardRefExoticComponent<any>;
 }
 
-const iconMap: IconMap = {
-  // Support both old and new naming for backwards compatibility
-  DeviceMobile: DeviceMobileIcon,
-  DeviceMobileIcon,
-  ArrowsClockwise: ArrowsClockwiseIcon,
-  ArrowsClockwiseIcon,
-  Shield: ShieldIcon,
-  ShieldIcon,
-  Users: UsersIcon,
-  UsersIcon,
-  Stack: StackIcon,
-  StackIcon,
-  ChartLine: ChartLineUpIcon,
-  ChartLineUp: ChartLineUpIcon,
-  ChartLineUpIcon,
-  UserFocus: UserFocusIcon,
-  UserFocusIcon,
-  ShoppingCart: ShoppingCartIcon,
-  ShoppingCartIcon,
-  MapPin: MapPinIcon,
-  MapPinIcon,
-  Package: PackageIcon,
-  PackageIcon,
-  Book: BookIcon,
-  BookIcon,
-  Target: TargetIcon,
-  TargetIcon,
-  ChatCenteredText: ChatCenteredTextIcon,
-  ChatCenteredTextIcon,
-  Lightbulb: LightbulbIcon,
-  LightbulbIcon,
-  ChartBar: ChartBarIcon,
-  ChartBarIcon,
-  QrCode: QrCodeIcon,
-  QrCodeIcon,
-  Receipt: ReceiptIcon,
-  ReceiptIcon,
-  CurrencyDollar: CurrencyDollarIcon,
-  CurrencyDollarIcon,
-  Recycle: RecycleIcon,
-  RecycleIcon,
-  Wallet: WalletIcon,
-  WalletIcon,
-  Rocket: RocketIcon,
-  RocketIcon,
-  Globe: GlobeIcon,
-  GlobeIcon,
-  Gear: GearIcon,
-  GearIcon,
-};
+// const iconMap: IconMap = {
+//   // Support both old and new naming for backwards compatibility
+//   DeviceMobile: DeviceMobileIcon,
+//   DeviceMobileIcon,
+//   ArrowsClockwise: ArrowsClockwiseIcon,
+//   ArrowsClockwiseIcon,
+//   Shield: ShieldIcon,
+//   ShieldIcon,
+//   Users: UsersIcon,
+//   UsersIcon,
+//   Stack: StackIcon,
+//   StackIcon,
+//   ChartLine: ChartLineUpIcon,
+//   ChartLineUp: ChartLineUpIcon,
+//   ChartLineUpIcon,
+//   UserFocus: UserFocusIcon,
+//   UserFocusIcon,
+//   ShoppingCart: ShoppingCartIcon,
+//   ShoppingCartIcon,
+//   MapPin: MapPinIcon,
+//   MapPinIcon,
+//   Package: PackageIcon,
+//   PackageIcon,
+//   Book: BookIcon,
+//   BookIcon,
+//   Target: TargetIcon,
+//   TargetIcon,
+//   ChatCenteredText: ChatCenteredTextIcon,
+//   ChatCenteredTextIcon,
+//   Lightbulb: LightbulbIcon,
+//   LightbulbIcon,
+//   ChartBar: ChartBarIcon,
+//   ChartBarIcon,
+//   QrCode: QrCodeIcon,
+//   QrCodeIcon,
+//   Receipt: ReceiptIcon,
+//   ReceiptIcon,
+//   CurrencyDollar: CurrencyDollarIcon,
+//   CurrencyDollarIcon,
+//   Recycle: RecycleIcon,
+//   RecycleIcon,
+//   Wallet: WalletIcon,
+//   WalletIcon,
+//   Rocket: RocketIcon,
+//   RocketIcon,
+//   Globe: GlobeIcon,
+//   GlobeIcon,
+//   Gear: GearIcon,
+//   GearIcon,
+// };
 
 interface Feature {
   title: string;
@@ -206,9 +206,9 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
               </p>
               <div className="space-y-8">
                 {features.map((feature, index) => {
-                  const Icon = feature.icon
-                    ? iconMap[feature.icon]
-                    : DeviceMobileIcon;
+                  // const Icon = feature.icon
+                  //   ? iconMap[feature.icon]
+                  //   : DeviceMobileIcon;
                   return (
                     <div
                       key={index}
@@ -218,7 +218,8 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
                     >
                       <div className="flex-shrink-0">
                         <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                          <Icon size={28} weight="duotone" />
+                          {/* <Icon size={28} weight="duotone" /> */}
+                          <div className="w-7 h-7 bg-current rounded"></div>
                         </div>
                       </div>
                       <div>

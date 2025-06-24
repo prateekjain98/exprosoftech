@@ -1,46 +1,46 @@
 import React, { useState } from "react";
-import {
-  Cube,
-  ChartLineUp,
-  Gear,
-  ChartPieSlice,
-  Brain,
-  Truck,
-  Package,
-  Coins,
-  ChartBar,
-  Medal,
-  Gauge,
-  Robot,
-  Receipt,
-  Wallet,
-  ChartDonut,
-  Clock,
-  Database,
-  Plugs,
-  Lightning,
-} from "@phosphor-icons/react";
+// import {
+//   Cube,
+//   ChartLineUp,
+//   Gear,
+//   ChartPieSlice,
+//   Brain,
+//   Truck,
+//   Package,
+//   Coins,
+//   ChartBar,
+//   Medal,
+//   Gauge,
+//   Robot,
+//   Receipt,
+//   Wallet,
+//   ChartDonut,
+//   Clock,
+//   Database,
+//   Plugs,
+//   Lightning,
+// } from "@phosphor-icons/react";
 import { sanityClient } from "sanity:client";
 
 const iconMap: { [key: string]: React.ForwardRefExoticComponent<any> } = {
-  Cube,
-  ChartLineUp,
-  Gear,
-  ChartPieSlice,
-  Brain,
-  Truck,
-  Package,
-  Coins,
-  ChartBar,
-  Medal,
-  Gauge,
-  Robot,
-  Receipt,
-  Wallet,
-  ChartDonut,
-  Clock,
-  Plugs,
-  Lightning,
+  // Cube,
+  // ChartLineUp,
+  // Gear,
+  // ChartPieSlice,
+  // Brain,
+  // Truck,
+  // Package,
+  // Coins,
+  // ChartBar,
+  // Medal,
+  // Gauge,
+  // Robot,
+  // Receipt,
+  // Wallet,
+  // ChartDonut,
+  // Clock,
+  // Plugs,
+  // Lightning,
 };
 
 interface ServicePoint {
@@ -89,7 +89,7 @@ const services = [
   {
     id: "supply-chain",
     title: "Supply Chain Transformation",
-    icon: Cube,
+    icon: "Cube",
     points: [
       { text: "Shift from forecast-driven to demand-driven planning" },
       {
@@ -107,17 +107,17 @@ const services = [
       },
       highlights: [
         {
-          icon: Truck,
+          icon: "Truck",
           value: "-35%",
           label: "Lead Time Reduction",
         },
         {
-          icon: Package,
+          icon: "Package",
           value: "98.5%",
           label: "Stock Availability",
         },
         {
-          icon: Coins,
+          icon: "Coins",
           value: "₹2.4Cr",
           label: "Cost Savings",
         },
@@ -127,7 +127,7 @@ const services = [
   {
     id: "sales",
     title: "Sales Acceleration",
-    icon: ChartLineUp,
+    icon: "ChartLineUp",
     points: [
       {
         text: "Boost sales across B2B, OEM, and channel networks, both domestically and globally",
@@ -144,17 +144,17 @@ const services = [
       },
       highlights: [
         {
-          icon: ChartBar,
+          icon: "ChartBar",
           value: "32%",
           label: "Conversion Rate",
         },
         {
-          icon: Medal,
+          icon: "Medal",
           value: "245+",
           label: "Deals Closed",
         },
         {
-          icon: ChartPieSlice,
+          icon: "ChartPieSlice",
           value: "4.2x",
           label: "Growth Rate",
         },
@@ -164,7 +164,7 @@ const services = [
   {
     id: "operational",
     title: "Operational Excellence",
-    icon: Gear,
+    icon: "Gear",
     points: [
       {
         text: "Identify and resolve bottlenecks in manufacturing and supply chain processes",
@@ -181,17 +181,17 @@ const services = [
       },
       highlights: [
         {
-          icon: Gauge,
+          icon: "Gauge",
           value: "+40%",
           label: "Productivity Boost",
         },
         {
-          icon: Medal,
+          icon: "Medal",
           value: "99.9%",
           label: "Quality Score",
         },
         {
-          icon: Robot,
+          icon: "Robot",
           value: "85%",
           label: "Process Automation",
         },
@@ -201,7 +201,7 @@ const services = [
   {
     id: "financial",
     title: "Financial Optimization",
-    icon: Receipt,
+    icon: "Receipt",
     points: [
       {
         text: "Increase revenue, profitability, and return on capital employed (ROCE)",
@@ -218,17 +218,17 @@ const services = [
       },
       highlights: [
         {
-          icon: ChartDonut,
+          icon: "ChartDonut",
           value: "28%",
           label: "Profit Margin",
         },
         {
-          icon: Wallet,
+          icon: "Wallet",
           value: "₹12.5Cr",
           label: "Working Capital Saved",
         },
         {
-          icon: ChartLineUp,
+          icon: "ChartLineUp",
           value: "3.5x",
           label: "ROI",
         },
@@ -238,7 +238,7 @@ const services = [
   {
     id: "technology",
     title: "Technology-Driven Insights",
-    icon: Brain,
+    icon: "Brain",
     points: [
       { text: "Implement real-time data access and automation tools" },
       {
@@ -253,17 +253,17 @@ const services = [
       },
       highlights: [
         {
-          icon: Clock,
+          icon: "Clock",
           value: "Real-time",
           label: "Data Processing",
         },
         {
-          icon: Plugs,
+          icon: "Plugs",
           value: "15+",
           label: "Systems Integrated",
         },
         {
-          icon: Lightning,
+          icon: "Lightning",
           value: "90%",
           label: "Task Automation",
         },
@@ -410,7 +410,7 @@ const KeyServices = ({ heading, keyServicesData = [] }: KeyServicesProps) => {
                           : "bg-gray-700/50 group-hover:bg-gray-700"
                       }`}
                     >
-                      <service.icon size={16} weight="duotone" />
+                      {/* {service.icon} */}
                     </div>
                     <span className="text-[11px] leading-tight sm:text-base font-medium text-center sm:text-left">
                       {service.id === "supply-chain"

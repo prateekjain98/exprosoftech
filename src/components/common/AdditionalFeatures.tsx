@@ -1,13 +1,13 @@
 import React from "react";
-import {
-  RocketIcon,
-  ChartLineIcon,
-  UsersIcon,
-  GlobeIcon,
-  ShieldIcon,
-  GearIcon,
-  DeviceMobileIcon,
-} from "@phosphor-icons/react";
+// import {
+//   RocketIcon,
+//   ChartLineIcon,
+//   UsersIcon,
+//   GlobeIcon,
+//   ShieldIcon,
+//   GearIcon,
+//   DeviceMobileIcon,
+// } from "@phosphor-icons/react";
 import { sanityClient } from "sanity:client";
 
 interface Feature {
@@ -37,21 +37,21 @@ interface IconMap {
   [key: string]: React.ForwardRefExoticComponent<any>;
 }
 
-const iconMap: IconMap = {
-  // Support both old and new naming for backwards compatibility
-  'Rocket': RocketIcon,
-  'RocketIcon': RocketIcon,
-  'ChartLine': ChartLineIcon,
-  'ChartLineIcon': ChartLineIcon,
-  'Users': UsersIcon,
-  'UsersIcon': UsersIcon,
-  'Globe': GlobeIcon,
-  'GlobeIcon': GlobeIcon,
-  'Shield': ShieldIcon,
-  'ShieldIcon': ShieldIcon,
-  'Gear': GearIcon,
-  'GearIcon': GearIcon
-};
+// const iconMap: IconMap = {
+//   // Support both old and new naming for backwards compatibility
+//   'Rocket': RocketIcon,
+//   'RocketIcon': RocketIcon,
+//   'ChartLine': ChartLineIcon,
+//   'ChartLineIcon': ChartLineIcon,
+//   'Users': UsersIcon,
+//   'UsersIcon': UsersIcon,
+//   'Globe': GlobeIcon,
+//   'GlobeIcon': GlobeIcon,
+//   'Shield': ShieldIcon,
+//   'ShieldIcon': ShieldIcon,
+//   'Gear': GearIcon,
+//   'GearIcon': GearIcon
+// };
 
 const productAdditionalFeaturesQuery = `
   *[_type == "productAdditionalFeatures"] {
@@ -156,7 +156,7 @@ export const AdditionalFeatures = async ({ className, heading, additionalFeature
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature: Feature, index: number) => {
-            const Icon = feature.icon ? iconMap[feature.icon] : DeviceMobileIcon;
+            // const Icon = feature.icon ? iconMap[feature.icon] : DeviceMobileIcon;
             return (
               <div
                 key={index}
@@ -166,7 +166,8 @@ export const AdditionalFeatures = async ({ className, heading, additionalFeature
               >
                 <div className="mb-6">
                   <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                    <Icon size={32} weight="duotone" />
+                    {/* <Icon size={32} weight="duotone" /> */}
+                    <div className="w-8 h-8 bg-current rounded"></div>
                   </div>
                 </div>
                 <h3 className="mb-4 text-xl font-semibold text-gray-900">

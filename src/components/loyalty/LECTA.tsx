@@ -1,28 +1,32 @@
 import React from "react";
-import { ArrowRight, Users, Target, ChartLineUp } from "@phosphor-icons/react";
+// import { ArrowRight, Users, Target, ChartLineUp } from "@phosphor-icons/react";
 import Button from "../common/Button";
 
 interface MetricType {
   value: string;
   label: string;
-  icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+  // icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+  iconName: string;
 }
 
 const metrics: MetricType[] = [
   {
     value: "45%",
     label: "Customer Engagement",
-    icon: ChartLineUp,
+    // icon: ChartLineUp,
+    iconName: "ChartLineUp",
   },
   {
     value: "85%",
     label: "Customer Retention",
-    icon: Users,
+    // icon: Users,
+    iconName: "Users",
   },
   {
     value: "50%",
     label: "Revenue Growth",
-    icon: Target,
+    // icon: Target,
+    iconName: "Target",
   },
 ];
 
@@ -63,11 +67,12 @@ const LECTA: React.FC = () => {
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
                       <div className="relative p-4">
                         <div className="flex items-center justify-center lg:justify-start mb-3">
-                          <metric.icon
+                          {/* <metric.icon
                             size={24}
                             weight="duotone"
                             className="text-blue-400"
-                          />
+                          /> */}
+                          <div className="w-6 h-6 bg-blue-400 rounded"></div>
                         </div>
                         <div className="text-2xl font-bold text-white mb-1">
                           {metric.value}

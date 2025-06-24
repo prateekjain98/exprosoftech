@@ -1,78 +1,78 @@
 import React from "react";
-import {
-  ShoppingCartIcon,
-  MapPinIcon,
-  PackageIcon,
-  BookIcon,
-  UsersIcon,
-  ChartLineUpIcon,
-  TargetIcon,
-  ChatCenteredTextIcon,
-  LightbulbIcon,
-  ChartBarIcon,
-  QrCodeIcon,
-  ReceiptIcon,
-  CurrencyDollarIcon,
-  RecycleIcon,
-  ShieldIcon,
-  WalletIcon,
-  StackIcon,
-  UserFocusIcon,
-  RocketIcon,
-  GlobeIcon,
-  GearIcon,
-} from "@phosphor-icons/react";
+// import {
+//   ShoppingCartIcon,
+//   MapPinIcon,
+//   PackageIcon,
+//   BookIcon,
+//   UsersIcon,
+//   ChartLineUpIcon,
+//   TargetIcon,
+//   ChatCenteredTextIcon,
+//   LightbulbIcon,
+//   ChartBarIcon,
+//   QrCodeIcon,
+//   ReceiptIcon,
+//   CurrencyDollarIcon,
+//   RecycleIcon,
+//   ShieldIcon,
+//   WalletIcon,
+//   StackIcon,
+//   UserFocusIcon,
+//   RocketIcon,
+//   GlobeIcon,
+//   GearIcon,
+// } from "@phosphor-icons/react";
 
 interface IconMap {
   [key: string]: React.ForwardRefExoticComponent<any>;
 }
 
-const iconMap: IconMap = {
-  // Support both old and new naming for backwards compatibility
-  ShoppingCart: ShoppingCartIcon,
-  ShoppingCartIcon,
-  MapPin: MapPinIcon,
-  MapPinIcon,
-  Package: PackageIcon,
-  PackageIcon,
-  Book: BookIcon,
-  BookIcon,
-  Users: UsersIcon,
-  UsersIcon,
-  ChartLineUp: ChartLineUpIcon,
-  ChartLineUpIcon,
-  Target: TargetIcon,
-  TargetIcon,
-  ChatCenteredText: ChatCenteredTextIcon,
-  ChatCenteredTextIcon,
-  Lightbulb: LightbulbIcon,
-  LightbulbIcon,
-  ChartBar: ChartBarIcon,
-  ChartBarIcon,
-  QrCode: QrCodeIcon,
-  QrCodeIcon,
-  Receipt: ReceiptIcon,
-  ReceiptIcon,
-  CurrencyDollar: CurrencyDollarIcon,
-  CurrencyDollarIcon,
-  Recycle: RecycleIcon,
-  RecycleIcon,
-  Shield: ShieldIcon,
-  ShieldIcon,
-  Wallet: WalletIcon,
-  WalletIcon,
-  Stack: StackIcon,
-  StackIcon,
-  UserFocus: UserFocusIcon,
-  UserFocusIcon,
-  Rocket: RocketIcon,
-  RocketIcon,
-  Globe: GlobeIcon,
-  GlobeIcon,
-  Gear: GearIcon,
-  GearIcon,
-  ChartLine: ChartLineUpIcon, // Alias for consistency
-};
+// const iconMap: IconMap = {
+//   // Support both old and new naming for backwards compatibility
+//   ShoppingCart: ShoppingCartIcon,
+//   ShoppingCartIcon,
+//   MapPin: MapPinIcon,
+//   MapPinIcon,
+//   Package: PackageIcon,
+//   PackageIcon,
+//   Book: BookIcon,
+//   BookIcon,
+//   Users: UsersIcon,
+//   UsersIcon,
+//   ChartLineUp: ChartLineUpIcon,
+//   ChartLineUpIcon,
+//   Target: TargetIcon,
+//   TargetIcon,
+//   ChatCenteredText: ChatCenteredTextIcon,
+//   ChatCenteredTextIcon,
+//   Lightbulb: LightbulbIcon,
+//   LightbulbIcon,
+//   ChartBar: ChartBarIcon,
+//   ChartBarIcon,
+//   QrCode: QrCodeIcon,
+//   QrCodeIcon,
+//   Receipt: ReceiptIcon,
+//   ReceiptIcon,
+//   CurrencyDollar: CurrencyDollarIcon,
+//   CurrencyDollarIcon,
+//   Recycle: RecycleIcon,
+//   RecycleIcon,
+//   Shield: ShieldIcon,
+//   ShieldIcon,
+//   Wallet: WalletIcon,
+//   WalletIcon,
+//   Stack: StackIcon,
+//   StackIcon,
+//   UserFocus: UserFocusIcon,
+//   UserFocusIcon,
+//   Rocket: RocketIcon,
+//   RocketIcon,
+//   Globe: GlobeIcon,
+//   GlobeIcon,
+//   Gear: GearIcon,
+//   GearIcon,
+//   ChartLine: ChartLineUpIcon, // Alias for consistency
+// };
 
 interface Feature {
   title: string;
@@ -144,7 +144,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, index) => {
-            const Icon = iconMap[feature.icon];
+            // const Icon = iconMap[feature.icon];
             return (
               <div
                 key={index}
@@ -155,7 +155,8 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
                 <div>
                   <div className="mb-6">
                     <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                      <Icon size={32} weight="duotone" />
+                      {/* <Icon size={32} weight="duotone" /> */}
+                      <div className="w-8 h-8 bg-current rounded"></div>
                     </div>
                   </div>
                   <h3 className="mb-4 text-xl font-semibold text-gray-900">

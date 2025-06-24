@@ -1,23 +1,23 @@
 import React from "react";
-import { 
-  QuestionIcon, 
-  ArrowRightIcon, 
-  ChartLineIcon, 
-  GaugeIcon, 
-  ClockIcon,
-  UsersIcon,
-  TargetIcon,
-  ChartLineUpIcon,
-  BrainIcon,
-  HandshakeIcon,
-  TrophyIcon,
-  TrendUpIcon,
-  CheckCircleIcon,
-  StarIcon,
-  LightbulbIcon,
-  RocketIcon,
-  ShieldIcon
-} from "@phosphor-icons/react";
+// import { 
+//   QuestionIcon, 
+//   ArrowRightIcon, 
+//   ChartLineIcon, 
+//   GaugeIcon, 
+//   ClockIcon,
+//   UsersIcon,
+//   TargetIcon,
+//   ChartLineUpIcon,
+//   BrainIcon,
+//   HandshakeIcon,
+//   TrophyIcon,
+//   TrendUpIcon,
+//   CheckCircleIcon,
+//   StarIcon,
+//   LightbulbIcon,
+//   RocketIcon,
+//   ShieldIcon
+// } from "@phosphor-icons/react";
 import Button from "./common/Button";
 
 interface MetricType {
@@ -42,48 +42,48 @@ interface CTAProps {
 }
 
 // Icon mapping to avoid wildcard imports - using new naming convention
-const iconMap: { [key: string]: React.ComponentType<any> } = {
-  // Support both old and new naming for backwards compatibility
-  Question: QuestionIcon,
-  QuestionIcon,
-  ArrowRight: ArrowRightIcon,
-  ArrowRightIcon,
-  ChartLine: ChartLineIcon,
-  ChartLineIcon,
-  Gauge: GaugeIcon,
-  GaugeIcon,
-  Clock: ClockIcon,
-  ClockIcon,
-  Users: UsersIcon,
-  UsersIcon,
-  Target: TargetIcon,
-  TargetIcon,
-  ChartLineUp: ChartLineUpIcon,
-  ChartLineUpIcon,
-  Brain: BrainIcon,
-  BrainIcon,
-  Handshake: HandshakeIcon,
-  HandshakeIcon,
-  Trophy: TrophyIcon,
-  TrophyIcon,
-  TrendUp: TrendUpIcon,
-  TrendUpIcon,
-  CheckCircle: CheckCircleIcon,
-  CheckCircleIcon,
-  Star: StarIcon,
-  StarIcon,
-  Lightbulb: LightbulbIcon,
-  LightbulbIcon,
-  Rocket: RocketIcon,
-  RocketIcon,
-  Shield: ShieldIcon,
-  ShieldIcon,
-};
+// const iconMap: { [key: string]: React.ComponentType<any> } = {
+//   // Support both old and new naming for backwards compatibility
+//   Question: QuestionIcon,
+//   QuestionIcon,
+//   ArrowRight: ArrowRightIcon,
+//   ArrowRightIcon,
+//   ChartLine: ChartLineIcon,
+//   ChartLineIcon,
+//   Gauge: GaugeIcon,
+//   GaugeIcon,
+//   Clock: ClockIcon,
+//   ClockIcon,
+//   Users: UsersIcon,
+//   UsersIcon,
+//   Target: TargetIcon,
+//   TargetIcon,
+//   ChartLineUp: ChartLineUpIcon,
+//   ChartLineUpIcon,
+//   Brain: BrainIcon,
+//   BrainIcon,
+//   Handshake: HandshakeIcon,
+//   HandshakeIcon,
+//   Trophy: TrophyIcon,
+//   TrophyIcon,
+//   TrendUp: TrendUpIcon,
+//   TrendUpIcon,
+//   CheckCircle: CheckCircleIcon,
+//   CheckCircleIcon,
+//   Star: StarIcon,
+//   StarIcon,
+//   Lightbulb: LightbulbIcon,
+//   LightbulbIcon,
+//   Rocket: RocketIcon,
+//   RocketIcon,
+//   Shield: ShieldIcon,
+//   ShieldIcon,
+// };
 
 export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
-  const getIcon = (iconName: string) => {
-    return iconMap[iconName] || QuestionIcon;
-  };
+  // const getIcon = (iconName: string) => {
+  //   return iconMap[iconName] || QuestionIcon;
+  // };
 
   return (
     <section className="py-16 lg:py-24">
@@ -119,11 +119,12 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
                       <div className="relative p-4">
                         <div className="flex items-center justify-center lg:justify-start mb-3">
-                          {React.createElement(getIcon(metric.icon), {
+                          {/* {React.createElement(getIcon(metric.icon), {
                             size: 24,
                             weight: "duotone",
                             className: "text-blue-400"
-                          })}
+                          })} */}
+                          <div className="w-6 h-6 bg-blue-400 rounded"></div>
                         </div>
                         <div className="text-2xl font-bold text-white mb-1">
                           {metric.value}

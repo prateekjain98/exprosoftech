@@ -1,19 +1,20 @@
 import React from "react";
-import {
-  WifiHighIcon,
-  BookIcon,
-  CalendarIcon,
-  ReceiptIcon,
-  UsersIcon,
-  ChartLineIcon,
-  ArrowRightIcon,
-} from "@phosphor-icons/react";
+// import {
+//   WifiHighIcon,
+//   BookIcon,
+//   CalendarIcon,
+//   ReceiptIcon,
+//   UsersIcon,
+//   ChartLineIcon,
+//   ArrowRightIcon,
+// } from "@phosphor-icons/react";
 import { FaArrowRight } from "react-icons/fa";
 
 interface AdditionalFeature {
   title: string;
   description: string;
-  icon: React.ForwardRefExoticComponent<any>;
+  // icon: React.ForwardRefExoticComponent<any>;
+  iconName: string;
   stats?: {
     value: string;
     label: string;
@@ -25,7 +26,8 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Offline Capabilities",
     description:
       "Continue working seamlessly even without internet connectivity. All data syncs automatically when back online.",
-    icon: WifiHighIcon,
+    // icon: WifiHighIcon,
+    iconName: "WifiHighIcon",
     stats: {
       value: "100%",
       label: "Offline Access",
@@ -35,7 +37,8 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Digital Catalog",
     description:
       "Access your complete product catalog with real-time pricing and inventory information.",
-    icon: BookIcon,
+    // icon: BookIcon,
+    iconName: "BookIcon",
     stats: {
       value: "10K+",
       label: "Products Managed",
@@ -45,7 +48,8 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Visit Planning",
     description:
       "Plan and schedule customer visits efficiently with smart scheduling tools.",
-    icon: CalendarIcon,
+    // icon: CalendarIcon,
+    iconName: "CalendarIcon",
     stats: {
       value: "45%",
       label: "Time Saved",
@@ -55,7 +59,8 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Expense Management",
     description:
       "Track and manage field expenses with digital receipts and automated reporting.",
-    icon: ReceiptIcon,
+    // icon: ReceiptIcon,
+    iconName: "ReceiptIcon",
     stats: {
       value: "50%",
       label: "Faster Processing",
@@ -65,7 +70,8 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Customer Management",
     description:
       "Maintain detailed customer profiles and interaction history for better relationship management.",
-    icon: UsersIcon,
+    // icon: UsersIcon,
+    iconName: "UsersIcon",
     stats: {
       value: "360°",
       label: "Customer View",
@@ -75,7 +81,8 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Reports & Analytics",
     description:
       "Generate comprehensive reports and insights to make data-driven decisions.",
-    icon: ChartLineIcon,
+    // icon: ChartLineIcon,
+    iconName: "ChartLineIcon",
     stats: {
       value: "24/7",
       label: "Real-time Insights",
@@ -130,7 +137,8 @@ export const AdditionalFeaturesSFA: React.FC<AdditionalFeaturesSFAProps> = ({
             >
               <div className="mb-4">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                  <feature.icon size={24} weight="duotone" />
+                  {/* <feature.icon size={24} weight="duotone" /> */}
+                  <div className="w-6 h-6 bg-current rounded"></div>
                 </div>
               </div>
               <h3 className="mb-3 text-xl font-semibold text-gray-900">
