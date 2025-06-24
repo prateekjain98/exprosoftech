@@ -1,15 +1,15 @@
 import React from "react";
 import {
-  ShoppingCart,
-  MapPin,
-  Package,
-  Book,
-  Users,
-  ChartLineUp,
-  Target,
-  ChatCenteredText,
-  Lightbulb,
-  ChartBar,
+  ShoppingCartIcon,
+  MapPinIcon,
+  PackageIcon,
+  BookIcon,
+  UsersIcon,
+  ChartLineUpIcon,
+  TargetIcon,
+  ChatCenteredTextIcon,
+  LightbulbIcon,
+  ChartBarIcon,
 } from "@phosphor-icons/react";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -28,7 +28,7 @@ const features: Feature[] = [
     title: "Real-Time Order Management",
     description:
       "Equip your sales reps with the ability to manage orders in real-time, directly from their mobile devices. Log orders instantly during customer visits, enabling a quick and seamless order placement process that reduces processing time and minimizes errors.",
-    icon: ShoppingCart,
+    icon: ShoppingCartIcon,
     stats: {
       value: "60%",
       label: "Faster Order Processing",
@@ -38,7 +38,7 @@ const features: Feature[] = [
     title: "Geo-Tracking & Attendance",
     description:
       "GPS-enabled tracking allows sales managers to monitor field activities and attendance in real-time. Sales reps can check in and out of locations, ensuring their activity is documented accurately and enabling better territory management.",
-    icon: MapPin,
+    icon: MapPinIcon,
     stats: {
       value: "95%",
       label: "Field Force Visibility",
@@ -48,7 +48,7 @@ const features: Feature[] = [
     title: "Route Optimization",
     description:
       "Our route optimization functionality helps sales reps plan their daily routes efficiently by analyzing customer locations and traffic patterns. Managers can assign daily schedules to prioritize high-value clients.",
-    icon: Lightbulb,
+    icon: LightbulbIcon,
     stats: {
       value: "40%",
       label: "Increased Visits",
@@ -58,7 +58,7 @@ const features: Feature[] = [
     title: "Inventory Management",
     description:
       "Real-time access to inventory levels, allowing sales reps to check product availability on the go. Stock levels are synced with backend systems, helping avoid out-of-stock situations and enabling alternative product suggestions.",
-    icon: Package,
+    icon: PackageIcon,
     stats: {
       value: "40%",
       label: "Reduced Stockouts",
@@ -68,7 +68,7 @@ const features: Feature[] = [
     title: "Digital Product Catalog",
     description:
       "Access a digital product catalog with detailed descriptions, images, and pricing information. Showcase the complete product range directly to customers, enabling instant product comparisons and recommendations.",
-    icon: Book,
+    icon: BookIcon,
     stats: {
       value: "2x",
       label: "Higher Order Values",
@@ -78,7 +78,7 @@ const features: Feature[] = [
     title: "Customer Insights",
     description:
       "Comprehensive view of customer profiles, including purchase history, preferences, and visit notes. Access these insights before each visit to ensure personalized and informed interactions.",
-    icon: Users,
+    icon: UsersIcon,
     stats: {
       value: "85%",
       label: "Customer Retention",
@@ -88,7 +88,7 @@ const features: Feature[] = [
     title: "Lead Management",
     description:
       "Track leads and monitor their progress through the sales pipeline. The system flags high-priority leads and provides reminders for follow-ups, ensuring consistent engagement.",
-    icon: Target,
+    icon: TargetIcon,
     stats: {
       value: "90%",
       label: "Lead Follow-up Rate",
@@ -98,7 +98,7 @@ const features: Feature[] = [
     title: "Performance Analytics",
     description:
       "Generate automated reports on sales metrics, territory performance, and individual achievements. Track KPIs, analyze sales trends, and make data-driven decisions with accurate, up-to-date information.",
-    icon: ChartBar,
+    icon: ChartBarIcon,
     stats: {
       value: "35%",
       label: "Productivity Boost",

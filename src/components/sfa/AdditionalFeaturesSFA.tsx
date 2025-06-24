@@ -1,12 +1,12 @@
 import React from "react";
 import {
-  WifiHigh,
-  Book,
-  Calendar,
-  Receipt,
-  Users,
-  ChartLine,
-  ArrowRight,
+  WifiHighIcon,
+  BookIcon,
+  CalendarIcon,
+  ReceiptIcon,
+  UsersIcon,
+  ChartLineIcon,
+  ArrowRightIcon,
 } from "@phosphor-icons/react";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -25,7 +25,7 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Offline Capabilities",
     description:
       "Continue working seamlessly even without internet connectivity. All data syncs automatically when back online.",
-    icon: WifiHigh,
+    icon: WifiHighIcon,
     stats: {
       value: "100%",
       label: "Offline Access",
@@ -35,7 +35,7 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Digital Catalog",
     description:
       "Access your complete product catalog with real-time pricing and inventory information.",
-    icon: Book,
+    icon: BookIcon,
     stats: {
       value: "10K+",
       label: "Products Managed",
@@ -45,7 +45,7 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Visit Planning",
     description:
       "Plan and schedule customer visits efficiently with smart scheduling tools.",
-    icon: Calendar,
+    icon: CalendarIcon,
     stats: {
       value: "45%",
       label: "Time Saved",
@@ -55,7 +55,7 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Expense Management",
     description:
       "Track and manage field expenses with digital receipts and automated reporting.",
-    icon: Receipt,
+    icon: ReceiptIcon,
     stats: {
       value: "50%",
       label: "Faster Processing",
@@ -65,7 +65,7 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Customer Management",
     description:
       "Maintain detailed customer profiles and interaction history for better relationship management.",
-    icon: Users,
+    icon: UsersIcon,
     stats: {
       value: "360°",
       label: "Customer View",
@@ -75,7 +75,7 @@ const additionalFeatures: AdditionalFeature[] = [
     title: "Reports & Analytics",
     description:
       "Generate comprehensive reports and insights to make data-driven decisions.",
-    icon: ChartLine,
+    icon: ChartLineIcon,
     stats: {
       value: "24/7",
       label: "Real-time Insights",

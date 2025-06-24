@@ -1,12 +1,28 @@
 import React from "react";
 import {
-  DeviceMobile,
-  ArrowsClockwise,
-  Shield,
-  Users,
-  Stack,
-  ChartLineUp,
-  UserFocus,
+  DeviceMobileIcon,
+  ArrowsClockwiseIcon,
+  ShieldIcon,
+  UsersIcon,
+  StackIcon,
+  ChartLineUpIcon,
+  UserFocusIcon,
+  ShoppingCartIcon,
+  MapPinIcon,
+  PackageIcon,
+  BookIcon,
+  TargetIcon,
+  ChatCenteredTextIcon,
+  LightbulbIcon,
+  ChartBarIcon,
+  QrCodeIcon,
+  ReceiptIcon,
+  CurrencyDollarIcon,
+  RecycleIcon,
+  WalletIcon,
+  RocketIcon,
+  GlobeIcon,
+  GearIcon,
 } from "@phosphor-icons/react";
 
 interface IconMap {
@@ -14,13 +30,54 @@ interface IconMap {
 }
 
 const iconMap: IconMap = {
-  DeviceMobile,
-  ArrowsClockwise,
-  Shield,
-  Users,
-  Stack,
-  ChartLine: ChartLineUp,
-  UserFocus,
+  // Support both old and new naming for backwards compatibility
+  DeviceMobile: DeviceMobileIcon,
+  DeviceMobileIcon,
+  ArrowsClockwise: ArrowsClockwiseIcon,
+  ArrowsClockwiseIcon,
+  Shield: ShieldIcon,
+  ShieldIcon,
+  Users: UsersIcon,
+  UsersIcon,
+  Stack: StackIcon,
+  StackIcon,
+  ChartLine: ChartLineUpIcon,
+  ChartLineUp: ChartLineUpIcon,
+  ChartLineUpIcon,
+  UserFocus: UserFocusIcon,
+  UserFocusIcon,
+  ShoppingCart: ShoppingCartIcon,
+  ShoppingCartIcon,
+  MapPin: MapPinIcon,
+  MapPinIcon,
+  Package: PackageIcon,
+  PackageIcon,
+  Book: BookIcon,
+  BookIcon,
+  Target: TargetIcon,
+  TargetIcon,
+  ChatCenteredText: ChatCenteredTextIcon,
+  ChatCenteredTextIcon,
+  Lightbulb: LightbulbIcon,
+  LightbulbIcon,
+  ChartBar: ChartBarIcon,
+  ChartBarIcon,
+  QrCode: QrCodeIcon,
+  QrCodeIcon,
+  Receipt: ReceiptIcon,
+  ReceiptIcon,
+  CurrencyDollar: CurrencyDollarIcon,
+  CurrencyDollarIcon,
+  Recycle: RecycleIcon,
+  RecycleIcon,
+  Wallet: WalletIcon,
+  WalletIcon,
+  Rocket: RocketIcon,
+  RocketIcon,
+  Globe: GlobeIcon,
+  GlobeIcon,
+  Gear: GearIcon,
+  GearIcon,
 };
 
 interface Feature {
@@ -151,7 +208,7 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
                 {features.map((feature, index) => {
                   const Icon = feature.icon
                     ? iconMap[feature.icon]
-                    : DeviceMobile;
+                    : DeviceMobileIcon;
                   return (
                     <div
                       key={index}
