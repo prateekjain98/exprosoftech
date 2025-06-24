@@ -1,5 +1,23 @@
 import React from "react";
-import * as PhosphorIcons from "@phosphor-icons/react";
+import { 
+  QuestionIcon, 
+  ArrowRightIcon, 
+  ChartLineIcon, 
+  GaugeIcon, 
+  ClockIcon,
+  UsersIcon,
+  TargetIcon,
+  ChartLineUpIcon,
+  BrainIcon,
+  HandshakeIcon,
+  TrophyIcon,
+  TrendUpIcon,
+  CheckCircleIcon,
+  StarIcon,
+  LightbulbIcon,
+  RocketIcon,
+  ShieldIcon
+} from "@phosphor-icons/react";
 import Button from "./common/Button";
 
 interface MetricType {
@@ -23,9 +41,48 @@ interface CTAProps {
   };
 }
 
+// Icon mapping to avoid wildcard imports - using new naming convention
+const iconMap: { [key: string]: React.ComponentType<any> } = {
+  // Support both old and new naming for backwards compatibility
+  Question: QuestionIcon,
+  QuestionIcon,
+  ArrowRight: ArrowRightIcon,
+  ArrowRightIcon,
+  ChartLine: ChartLineIcon,
+  ChartLineIcon,
+  Gauge: GaugeIcon,
+  GaugeIcon,
+  Clock: ClockIcon,
+  ClockIcon,
+  Users: UsersIcon,
+  UsersIcon,
+  Target: TargetIcon,
+  TargetIcon,
+  ChartLineUp: ChartLineUpIcon,
+  ChartLineUpIcon,
+  Brain: BrainIcon,
+  BrainIcon,
+  Handshake: HandshakeIcon,
+  HandshakeIcon,
+  Trophy: TrophyIcon,
+  TrophyIcon,
+  TrendUp: TrendUpIcon,
+  TrendUpIcon,
+  CheckCircle: CheckCircleIcon,
+  CheckCircleIcon,
+  Star: StarIcon,
+  StarIcon,
+  Lightbulb: LightbulbIcon,
+  LightbulbIcon,
+  Rocket: RocketIcon,
+  RocketIcon,
+  Shield: ShieldIcon,
+  ShieldIcon,
+};
+
 export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
   const getIcon = (iconName: string) => {
-    return (PhosphorIcons as any)[iconName] || PhosphorIcons.Question;
+    return iconMap[iconName] || QuestionIcon;
   };
 
   return (
