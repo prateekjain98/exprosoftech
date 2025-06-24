@@ -11,13 +11,13 @@
       "children":[
         {
           "name": "SFA",
-          "url": "/sfa/",
+          "url": "/products/sfa/",
  
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Loyalty Engine",
-          "url": "/loyalty-engine/",
+          "url": "/products/loyalty-engine/",
  
           "description": "Find your ideal buyers and get more meetings booked"
         }
@@ -30,32 +30,32 @@
       "children":[
         {
           "name": "Demand-Driven Business Transformation",
-          "url": "/demand-driven-transformation/",
+          "url": "consulting/demand-driven-transformation/",
           "description": "Transform your business with demand-driven strategies and solutions"
         },
         {
           "name": "TOC Consulting",
-          "url": "/toc-consulting/",
+          "url": "consulting/toc-consulting/",
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Manufacturing Transformation",
-          "url": "/manufacturing-transformation/",
+          "url": "consulting/manufacturing-transformation/",
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Supply Chain Transformation",
-          "url": "/supply-chain-transformation/",
+          "url": "consulting/supply-chain-transformation/",
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Sales Transformation",
-          "url": "/sales-transformation/",
+          "url": "consulting/sales-transformation/",
           "description": "Find your ideal buyers and get more meetings booked"
         },
         { 
           "name": "Digital Transformation",
-          "url": "/digital-transformation/",
+          "url": "consulting/digital-transformation/",
           "description": "Find your ideal buyers and get more meetings booked"
         }
       ]
@@ -67,19 +67,19 @@
       "children":[
         {
           "name": "Loyalty Management",
-          "url": "/loyalty-management/",
+          "url": "services/loyalty-management/",
  
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "Channel Reach Expansion",
-          "url": "/channel-reach-expansion/",
+          "url": "services/channel-reach-expansion/",
  
           "description": "Find your ideal buyers and get more meetings booked"
         },
         {
           "name": "B2B Sales",
-          "url": "/b2b-sales/",
+          "url": "services/b2b-sales/",
  
           "description": "Find your ideal buyers and get more meetings booked"
         }

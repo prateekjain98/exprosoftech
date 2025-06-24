@@ -2,13 +2,11 @@
     "links": [
         {
             "name": "SFA",
-            "link": "/sfa/"
+            "link": "/products/sfa/"
         },
         {
             "name": "Loyalty Engine",
-            "link": "/loyalty-engine/"
+            "link": "/products/loyalty-engine/"
         }
     ]
-      
-        
-  }
+}

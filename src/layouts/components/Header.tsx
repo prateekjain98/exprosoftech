@@ -77,7 +77,7 @@ export const mainMenu: NavigationLink[] = [
       },
       {
         name: "Loyalty Engine",
-        url: "/products/loyalty-engine-test/",
+        url: "/products/loyalty-engine/",
         description:
           "Drive customer retention with personalized rewards, gamification, and engagement analytics",
       },
