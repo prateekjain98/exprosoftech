@@ -190,11 +190,11 @@ if (!page) {
   description={page.metaDescription}
 >
   <DemandDrivenBanner client:load content={page.banner} />
-  <Clients client:load />
-  <DemandDrivenImpact client:load content={page.impact} />
-  <ChallengesWeAddress client:load content={page.challenges} />
+  <Clients client:visible />
+  <DemandDrivenImpact client:visible content={page.impact} />
+  <ChallengesWeAddress client:visible content={page.challenges} />
   <KeyServices 
-    client:load 
+    client:visible 
     heading={{
       title: page.keyServices.title,
       subtitle: page.keyServices.subtitle,
@@ -204,12 +204,12 @@ if (!page) {
   />
   
   <BusinessGuidance 
-    client:load 
+    client:visible 
     businessGuidanceData={page.businessGuidance}
     empowermentData={page.businessGuidance.empowerment}
   />
   <IndustryServicesAndApplications
-    client:load
+    client:visible
     applicationsHeading={{
       title: page.industryApplications?.title || "Demand-Driven Transformation – Industry Applications",
       tagline: page.industryApplications?.tagline,
@@ -222,6 +222,6 @@ if (!page) {
     compatibilityFeatures={page.industryApplications?.compatibility?.features || []}
     timeline={page.industryApplications?.timeline || []}
   />
-  <DynamicCTA client:load ctaContent={page.ctaSection} />
-  <NewFAQ client:load Faq={[page.faq]} />
+  <DynamicCTA client:visible ctaContent={page.ctaSection} />
+  <NewFAQ client:visible Faq={[page.faq]} />
 </Base>

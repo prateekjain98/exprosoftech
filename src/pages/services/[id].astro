@@ -163,30 +163,30 @@ if (!service) {
   <ServicesBanner client:load content={service.banner} />
   <Clients client:load />
   <ServicesFeatures 
-    client:load 
+    client:visible 
     features={service.featuresSection.features} 
     heading={service.featuresSection.heading}
   />
   <ServicesServices 
-    client:load 
+    client:visible 
     services={service.servicesSection.services} 
     heading={service.servicesSection.heading}
   />
   <ServicesBenefits 
-    client:load 
+    client:visible 
     benefits={service.benefitsSection.benefits} 
     heading={service.benefitsSection.heading}
   />
   <ServicesProcess 
-    client:load 
+    client:visible 
     process={service.processSection.steps} 
     heading={service.processSection.heading}
   />
   <ServicesIndustries 
-    client:load 
+    client:visible 
     industries={service.industriesSection.industries} 
     heading={service.industriesSection.heading}
   />
-  <DynamicCTA client:load ctaContent={service.ctaSection} />
-  <NewFAQ client:load Faq={[service.faqSection]} />
+  <DynamicCTA client:visible ctaContent={service.ctaSection} />
+  <NewFAQ client:visible Faq={[service.faqSection]} />
 </Base>

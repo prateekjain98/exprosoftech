@@ -120,12 +120,12 @@ const transformedCaseStudies = caseStudiesData.map((study: CaseStudy) => ({
 
 <Base>
   <HomeBanner client:load data={pageData.heroBanner} />
-  <Clients client:load />
-  <Offerings client:load data={pageData.offeringsSection} />
-  <FeaturesGrid client:load data={pageData.FeaturesSection} />
-  <ScrollableServices client:load data={pageData.ScrollableServicesSection} />
-  <ProductSection client:load data={pageData.productsSection} />
+  <Clients client:visible />
+  <Offerings client:visible data={pageData.offeringsSection} />
+  <FeaturesGrid client:visible data={pageData.FeaturesSection} />
+  <ScrollableServices client:visible data={pageData.ScrollableServicesSection} />
+  <ProductSection client:visible data={pageData.productsSection} />
   <!-- <TestimonialMarquee client:load /> -->
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
-  <NewFAQ client:load Faq={[pageData.faqSection]} />
+  <NewFAQ client:visible Faq={[pageData.faqSection]} />
 </Base>

@@ -100,14 +100,14 @@ if (!product) {
   description={product.metaDescription}
 >
   <ProductHeader {...product.headerContent} client:load />
-  <Clients client:load />
+  <Clients client:visible />
   <FeaturesGrid 
-    client:load 
+    client:visible 
     features={product.featuresGridSection.features} 
     heading={product.featuresGridSection.heading} 
   />
   <MobileFeatures 
-    client:load 
+    client:visible 
     mobileFeatures={product.mobileFeaturesSection} 
   />
   <FeatureShowcase 
@@ -122,5 +122,5 @@ if (!product) {
     }} 
   />
   <NewFAQ client:load Faq={[product.faqSection]} />
-  <DynamicCTA client:load ctaContent={product.ctaSection} />
+  <DynamicCTA client:visible ctaContent={product.ctaSection} />
 </Base>
