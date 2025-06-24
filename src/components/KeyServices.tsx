@@ -1,46 +1,45 @@
 import React, { useState } from "react";
 import {
-  CubeIcon,
-  ChartLineUpIcon,
-  GearIcon,
-  ChartPieSliceIcon,
-  BrainIcon,
-  TruckIcon,
-  PackageIcon,
-  CoinsIcon,
-  ChartBarIcon,
-  MedalIcon,
-  GaugeIcon,
-  RobotIcon,
-  ReceiptIcon,
-  WalletIcon,
-  ChartDonutIcon,
-  ClockIcon,
-  DatabaseIcon,
-  PlugsIcon,
-  LightningIcon,
-} from "@phosphor-icons/react";
+  FiBox,
+  FiTrendingUp,
+  FiSettings,
+  FiPieChart,
+  FiTruck,
+  FiPackage,
+  FiDollarSign,
+  FiBarChart,
+  FiAward,
+  FiCpu,
+  FiFileText,
+  FiCreditCard,
+  FiClock,
+  FiDatabase,
+  FiZap,
+  FiActivity,
+} from "react-icons/fi";
+import { HiOutlineCog } from "react-icons/hi";
 import { sanityClient } from "sanity:client";
 
-const iconMap: { [key: string]: React.ForwardRefExoticComponent<any> } = {
-  Cube:CubeIcon,
-  ChartLineUp:ChartLineUpIcon,
-  Gear:GearIcon,
-  ChartPieSlice:ChartPieSliceIcon,
-  Brain:BrainIcon,
-  Truck:TruckIcon,
-  Package:PackageIcon,
-  Coins:CoinsIcon,
-  ChartBar:ChartBarIcon,
-  Medal:MedalIcon,
-  Gauge:GaugeIcon,
-  Robot:RobotIcon,
-  Receipt:ReceiptIcon,
-  Wallet:WalletIcon,
-  ChartDonut:ChartDonutIcon,
-  Clock:ClockIcon,
-  Plugs:PlugsIcon,
-  Lightning:LightningIcon,
+const iconMap: { [key: string]: React.ComponentType<any> } = {
+  Cube: FiBox,
+  ChartLineUp: FiTrendingUp,
+  Gear: FiSettings,
+  ChartPieSlice: FiPieChart,
+  Brain: FiZap,
+  Truck: FiTruck,
+  Package: FiPackage,
+  Coins: FiDollarSign,
+  ChartBar: FiBarChart,
+  Medal: FiAward,
+  Gauge: FiActivity,
+  Robot: FiCpu,
+  Receipt: FiFileText,
+  Wallet: FiCreditCard,
+  ChartDonut: FiPieChart,
+  Clock: FiClock,
+  Database: FiDatabase,
+  Plugs: HiOutlineCog,
+  Lightning: FiZap,
 };
 
 interface ServicePoint {
@@ -302,12 +301,10 @@ const MetricsCard = ({ keyServicesData }: { keyServicesData: SanityServiceTab })
               {iconMap[highlight.icon] ? (
                 React.createElement(iconMap[highlight.icon], {
                   size: 20,
-                  weight: "duotone",
                 })
               ) : (
                 React.createElement(iconMap.Cube, {
                   size: 20,
-                  weight: "duotone",
                 })
               )}
             </div>
@@ -410,7 +407,7 @@ const KeyServices = ({ heading, keyServicesData = [] }: KeyServicesProps) => {
                           : "bg-gray-700/50 group-hover:bg-gray-700"
                       }`}
                     >
-                      <service.icon size={16} weight="duotone" />
+                      <service.icon size={16} />
                     </div>
                     <span className="text-[11px] leading-tight sm:text-base font-medium text-center sm:text-left">
                       {service.id === "supply-chain"

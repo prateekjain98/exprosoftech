@@ -1,13 +1,11 @@
 import React from "react";
 import {
-  RocketIcon,
-  ChartLineIcon,
-  UsersIcon,
-  GlobeIcon,
-  ShieldIcon,
-  GearIcon,
-  DeviceMobileIcon,
-} from "@phosphor-icons/react";
+  FiShield,
+  FiSettings,
+  FiSmartphone,
+} from "react-icons/fi";
+import { BiRocket } from "react-icons/bi";
+import { FiTrendingUp, FiUsers, FiGlobe } from "react-icons/fi";
 import { sanityClient } from "sanity:client";
 
 interface Feature {
@@ -34,23 +32,23 @@ interface AdditionalFeaturesProps {
 }
 
 interface IconMap {
-  [key: string]: React.ForwardRefExoticComponent<any>;
+  [key: string]: React.ComponentType<any>;
 }
 
 const iconMap: IconMap = {
 //   // Support both old and new naming for backwards compatibility
-  Rocket: RocketIcon,
-  RocketIcon: RocketIcon,
-  ChartLine: ChartLineIcon,
-  ChartLineIcon: ChartLineIcon,
-  Users: UsersIcon,
-  UsersIcon: UsersIcon,
-  Globe: GlobeIcon,
-  GlobeIcon: GlobeIcon,
-  Shield: ShieldIcon,
-  ShieldIcon: ShieldIcon,
-  Gear: GearIcon,
-  GearIcon: GearIcon
+  Rocket: BiRocket,
+  RocketIcon: BiRocket,
+  ChartLine: FiTrendingUp,
+  ChartLineIcon: FiTrendingUp,
+  Users: FiUsers,
+  UsersIcon: FiUsers,
+  Globe: FiGlobe,
+  GlobeIcon: FiGlobe,
+  Shield: FiShield,
+  ShieldIcon: FiShield,
+  Gear: FiSettings,
+  GearIcon: FiSettings
 };
 
 const productAdditionalFeaturesQuery = `
@@ -153,7 +151,7 @@ export const AdditionalFeatures = ({ className, heading, additionalFeatures }: A
             if (feature.icon && !iconMap[feature.icon]) {
               console.warn(`Icon "${feature.icon}" not found in iconMap for feature "${feature.title}". Available icons:`, Object.keys(iconMap));
             }
-            const Icon = (feature.icon && iconMap[feature.icon]) ? iconMap[feature.icon] : DeviceMobileIcon;
+            const Icon = (feature.icon && iconMap[feature.icon]) ? iconMap[feature.icon] : FiSmartphone;
             return (
               <div
                 key={index}
@@ -163,7 +161,7 @@ export const AdditionalFeatures = ({ className, heading, additionalFeatures }: A
               >
                 <div className="mb-6">
                   <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                    <Icon size={32} weight="duotone" />
+                    <Icon size={32} />
                   </div>
                 </div>
                 <h3 className="mb-4 text-xl font-semibold text-gray-900">

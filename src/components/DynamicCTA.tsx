@@ -1,23 +1,21 @@
 import React from "react";
 import { 
-  QuestionIcon, 
-  ArrowRightIcon, 
-  ChartLineIcon, 
-  GaugeIcon, 
-  ClockIcon,
-  UsersIcon,
-  TargetIcon,
-  ChartLineUpIcon,
-  BrainIcon,
-  HandshakeIcon,
-  TrophyIcon,
-  TrendUpIcon,
-  CheckCircleIcon,
-  StarIcon,
-  LightbulbIcon,
-  RocketIcon,
-  ShieldIcon
-} from "@phosphor-icons/react";
+  FiHelpCircle, 
+  FiArrowRight, 
+  FiTrendingUp, 
+  FiActivity, 
+  FiClock,
+  FiUsers,
+  FiTarget,
+  FiZap,
+  FiCheckCircle,
+  FiStar,
+  FiShield,
+} from "react-icons/fi";
+import { HiLightBulb } from "react-icons/hi";
+import { BiRocket } from "react-icons/bi";
+import { RiHandHeartLine } from "react-icons/ri";
+import { HiTrophy } from "react-icons/hi2";
 import Button from "./common/Button";
 
 interface MetricType {
@@ -44,45 +42,45 @@ interface CTAProps {
 // Icon mapping to avoid wildcard imports - using new naming convention
 const iconMap: { [key: string]: React.ComponentType<any> } = {
   // Support both old and new naming for backwards compatibility
-  Question: QuestionIcon,
-  QuestionIcon,
-  ArrowRight: ArrowRightIcon,
-  ArrowRightIcon,
-  ChartLine: ChartLineIcon,
-  ChartLineIcon,
-  Gauge: GaugeIcon,
-  GaugeIcon,
-  Clock: ClockIcon,
-  ClockIcon,
-  Users: UsersIcon,
-  UsersIcon,
-  Target: TargetIcon,
-  TargetIcon,
-  ChartLineUp: ChartLineUpIcon,
-  ChartLineUpIcon,
-  Brain: BrainIcon,
-  BrainIcon,
-  Handshake: HandshakeIcon,
-  HandshakeIcon,
-  Trophy: TrophyIcon,
-  TrophyIcon,
-  TrendUp: TrendUpIcon,
-  TrendUpIcon,
-  CheckCircle: CheckCircleIcon,
-  CheckCircleIcon,
-  Star: StarIcon,
-  StarIcon,
-  Lightbulb: LightbulbIcon,
-  LightbulbIcon,
-  Rocket: RocketIcon,
-  RocketIcon,
-  Shield: ShieldIcon,
-  ShieldIcon,
+  Question: FiHelpCircle,
+  QuestionIcon: FiHelpCircle,
+  ArrowRight: FiArrowRight,
+  ArrowRightIcon: FiArrowRight,
+  ChartLine: FiTrendingUp,
+  ChartLineIcon: FiTrendingUp,
+  Gauge: FiActivity,
+  GaugeIcon: FiActivity,
+  Clock: FiClock,
+  ClockIcon: FiClock,
+  Users: FiUsers,
+  UsersIcon: FiUsers,
+  Target: FiTarget,
+  TargetIcon: FiTarget,
+  ChartLineUp: FiTrendingUp,
+  ChartLineUpIcon: FiTrendingUp,
+  Brain: FiZap,
+  BrainIcon: FiZap,
+  Handshake: RiHandHeartLine,
+  HandshakeIcon: RiHandHeartLine,
+  Trophy: HiTrophy,
+  TrophyIcon: HiTrophy,
+  TrendUp: FiTrendingUp,
+  TrendUpIcon: FiTrendingUp,
+  CheckCircle: FiCheckCircle,
+  CheckCircleIcon: FiCheckCircle,
+  Star: FiStar,
+  StarIcon: FiStar,
+  Lightbulb: HiLightBulb,
+  LightbulbIcon: HiLightBulb,
+  Rocket: BiRocket,
+  RocketIcon: BiRocket,
+  Shield: FiShield,
+  ShieldIcon: FiShield,
 };
 
 export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
   const getIcon = (iconName: string) => {
-    return iconMap[iconName] || QuestionIcon;
+    return iconMap[iconName] || FiHelpCircle;
   };
 
   return (
@@ -121,7 +119,6 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                         <div className="flex items-center justify-center lg:justify-start mb-3">
                           {React.createElement(getIcon(metric.icon), {
                             size: 24,
-                            weight: "duotone",
                             className: "text-blue-400"
                           })}
                           {/* <div className="w-6 h-6 bg-blue-400 rounded"></div> */}

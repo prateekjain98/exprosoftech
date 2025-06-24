@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {
-  GearIcon,
-  ChartLineUpIcon,
-  DatabaseIcon,
-  UsersIcon,
-} from "@phosphor-icons/react";
+  FiSettings,
+  FiTrendingUp,
+  FiDatabase,
+  FiUsers,
+} from "react-icons/fi";
 import SectionHeader from "./SectionHeader";
 
 // Define the heading prop interface
@@ -75,12 +75,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
   // Convert icon string to component
   const getIconComponent = (iconName: string) => {
     const icons = {
-      Gear:GearIcon,
-      ChartLineUp:ChartLineUpIcon,
-      Database:DatabaseIcon,
-      Users:UsersIcon,
+      Gear: FiSettings,
+      ChartLineUp: FiTrendingUp,
+      Database: FiDatabase,
+      Users: FiUsers,
     };
-    return icons[iconName as keyof typeof icons] || GearIcon;
+    return icons[iconName as keyof typeof icons] || FiSettings;
   };
 
   return (
@@ -134,7 +134,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                             : "bg-gray-700/50 group-hover:bg-gray-700"
                         }`}
                       >
-                        <IconComponent size={16} weight="duotone" />
+                        <IconComponent size={16} />
                       </div>
                       <span className="text-[11px] leading-tight sm:text-base font-medium text-center sm:text-left">
                         {feature.title}

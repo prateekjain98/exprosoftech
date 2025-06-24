@@ -1,83 +1,82 @@
 import React from "react";
 import {
-  DeviceMobileIcon,
-  ArrowsClockwiseIcon,
-  ShieldIcon,
-  UsersIcon,
-  StackIcon,
-  ChartLineUpIcon,
-  UserFocusIcon,
-  ShoppingCartIcon,
-  MapPinIcon,
-  PackageIcon,
-  BookIcon,
-  TargetIcon,
-  ChatCenteredTextIcon,
-  LightbulbIcon,
-  ChartBarIcon,
-  QrCodeIcon,
-  ReceiptIcon,
-  CurrencyDollarIcon,
-  RecycleIcon,
-  WalletIcon,
-  RocketIcon,
-  GlobeIcon,
-  GearIcon,
-} from "@phosphor-icons/react";
+  FiSmartphone,
+  FiRefreshCw,
+  FiShield,
+  FiUsers,
+  FiLayers,
+  FiTrendingUp,
+  FiUserCheck,
+  FiShoppingCart,
+  FiMapPin,
+  FiPackage,
+  FiBook,
+  FiTarget,
+  FiMessageCircle,
+  FiBarChart,
+  FiGrid,
+  FiFileText,
+  FiDollarSign,
+  FiCreditCard,
+  FiGlobe,
+  FiSettings,
+} from "react-icons/fi";
+import { HiLightBulb } from "react-icons/hi";
+import { BiRocket } from "react-icons/bi";
 
 interface IconMap {
-  [key: string]: React.ForwardRefExoticComponent<any>;
+  [key: string]: React.ComponentType<any>;
 }
 
 const iconMap: IconMap = {
 //   // Support both old and new naming for backwards compatibility
-  DeviceMobile: DeviceMobileIcon,
-  DeviceMobileIcon,
-  ArrowsClockwise: ArrowsClockwiseIcon,
-  ArrowsClockwiseIcon,
-  Shield: ShieldIcon,
-  ShieldIcon,
-  Users: UsersIcon,
-  UsersIcon,
-  Stack: StackIcon,
-  StackIcon,
-  ChartLine: ChartLineUpIcon,
-  ChartLineUp: ChartLineUpIcon,
-  ChartLineUpIcon,
-  UserFocus: UserFocusIcon,
-  UserFocusIcon,
-  ShoppingCart: ShoppingCartIcon,
-  ShoppingCartIcon,
-  MapPin: MapPinIcon,
-  MapPinIcon,
-  Package: PackageIcon,
-  PackageIcon,
-  Book: BookIcon,
-  BookIcon,
-  Target: TargetIcon,
-  TargetIcon,
-  ChatCenteredText: ChatCenteredTextIcon,
-  ChatCenteredTextIcon,
-  Lightbulb: LightbulbIcon,
-  LightbulbIcon,
-  ChartBar: ChartBarIcon,
-  ChartBarIcon,
-  QrCode: QrCodeIcon,
-  QrCodeIcon,
-  Receipt: ReceiptIcon,
-  ReceiptIcon,
-  CurrencyDollar: CurrencyDollarIcon,
-  CurrencyDollarIcon,
-  Recycle: RecycleIcon,
-  RecycleIcon,
-  Wallet: WalletIcon,
-  WalletIcon,
-  Rocket: RocketIcon,
-  RocketIcon,
-  Globe: GlobeIcon,
-  GlobeIcon,
-  Gear: GearIcon,
-  GearIcon,
+  DeviceMobile: FiSmartphone,
+  DeviceMobileIcon: FiSmartphone,
+  ArrowsClockwise: FiRefreshCw,
+  ArrowsClockwiseIcon: FiRefreshCw,
+  Shield: FiShield,
+  ShieldIcon: FiShield,
+  Users: FiUsers,
+  UsersIcon: FiUsers,
+  Stack: FiLayers,
+  StackIcon: FiLayers,
+  ChartLine: FiTrendingUp,
+  ChartLineUp: FiTrendingUp,
+  ChartLineUpIcon: FiTrendingUp,
+  UserFocus: FiUserCheck,
+  UserFocusIcon: FiUserCheck,
+  ShoppingCart: FiShoppingCart,
+  ShoppingCartIcon: FiShoppingCart,
+  MapPin: FiMapPin,
+  MapPinIcon: FiMapPin,
+  Package: FiPackage,
+  PackageIcon: FiPackage,
+  Book: FiBook,
+  BookIcon: FiBook,
+  Target: FiTarget,
+  TargetIcon: FiTarget,
+  ChatCenteredText: FiMessageCircle,
+  ChatCenteredTextIcon: FiMessageCircle,
+  Lightbulb: HiLightBulb,
+  LightbulbIcon: HiLightBulb,
+  ChartBar: FiBarChart,
+  ChartBarIcon: FiBarChart,
+  QrCode: FiGrid,
+  QrCodeIcon: FiGrid,
+  Receipt: FiFileText,
+  ReceiptIcon: FiFileText,
+  CurrencyDollar: FiDollarSign,
+  CurrencyDollarIcon: FiDollarSign,
+  Recycle: FiRefreshCw,
+  RecycleIcon: FiRefreshCw,
+  Wallet: FiCreditCard,
+  WalletIcon: FiCreditCard,
+  Rocket: BiRocket,
+  RocketIcon: BiRocket,
+  Globe: FiGlobe,
+  GlobeIcon: FiGlobe,
+  Gear: FiSettings,
+  GearIcon: FiSettings,
 };
 
 interface Feature {
@@ -208,7 +207,7 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
                 {features.map((feature, index) => {
                   const Icon = feature.icon
                     ? iconMap[feature.icon]
-                    : DeviceMobileIcon;
+                    : FiSmartphone;
                   return (
                     <div
                       key={index}
@@ -218,7 +217,7 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
                     >
                       <div className="flex-shrink-0">
                         <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                          <Icon size={28} weight="duotone" />
+                          <Icon size={28} />
                         </div>
                       </div>
                       <div>
