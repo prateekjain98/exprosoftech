@@ -41,6 +41,8 @@ const iconMap: IconMap = {
   RocketIcon: BiRocket,
   ChartLine: FiTrendingUp,
   ChartLineIcon: FiTrendingUp,
+  ChartLineUp: FiTrendingUp,
+  ChartLineUpIcon: FiTrendingUp,
   Users: FiUsers,
   UsersIcon: FiUsers,
   Globe: FiGlobe,
