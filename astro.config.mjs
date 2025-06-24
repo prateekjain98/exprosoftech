@@ -64,5 +64,32 @@ export default defineConfig({
   },
 
   output: "server",
-  adapter: vercel()
+  adapter: vercel({
+    functionPerRoute: false,
+    edgeMiddleware: false,
+    webAnalytics: {
+      enabled: false
+    }
+  }),
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'astro-vendor': ['astro'],
+            'utils': ['dayjs', 'github-slugger', 'marked']
+          }
+        }
+      }
+    },
+    server: {
+      fs: {
+        strict: false
+      }
+    },
+    ssr: {
+      noExternal: ['marked']
+    }
+  }
 });
