@@ -1,13 +1,13 @@
 import React from "react";
-// import {
-//   RocketIcon,
-//   ChartLineIcon,
-//   UsersIcon,
-//   GlobeIcon,
-//   ShieldIcon,
-//   GearIcon,
-//   DeviceMobileIcon,
-// } from "@phosphor-icons/react";
+import {
+  RocketIcon,
+  ChartLineIcon,
+  UsersIcon,
+  GlobeIcon,
+  ShieldIcon,
+  GearIcon,
+  DeviceMobileIcon,
+} from "@phosphor-icons/react";
 import { sanityClient } from "sanity:client";
 
 interface Feature {
@@ -37,21 +37,21 @@ interface IconMap {
   [key: string]: React.ForwardRefExoticComponent<any>;
 }
 
-// const iconMap: IconMap = {
+const iconMap: IconMap = {
 //   // Support both old and new naming for backwards compatibility
-//   'Rocket': RocketIcon,
-//   'RocketIcon': RocketIcon,
-//   'ChartLine': ChartLineIcon,
-//   'ChartLineIcon': ChartLineIcon,
-//   'Users': UsersIcon,
-//   'UsersIcon': UsersIcon,
-//   'Globe': GlobeIcon,
-//   'GlobeIcon': GlobeIcon,
-//   'Shield': ShieldIcon,
-//   'ShieldIcon': ShieldIcon,
-//   'Gear': GearIcon,
-//   'GearIcon': GearIcon
-// };
+  Rocket: RocketIcon,
+  RocketIcon: RocketIcon,
+  ChartLine: ChartLineIcon,
+  ChartLineIcon: ChartLineIcon,
+  Users: UsersIcon,
+  UsersIcon: UsersIcon,
+  Globe: GlobeIcon,
+  GlobeIcon: GlobeIcon,
+  Shield: ShieldIcon,
+  ShieldIcon: ShieldIcon,
+  Gear: GearIcon,
+  GearIcon: GearIcon
+};
 
 const productAdditionalFeaturesQuery = `
   *[_type == "productAdditionalFeatures"] {
@@ -101,28 +101,21 @@ const productAdditionalFeaturesQuery = `
 //   },
 // ];
 
-export const AdditionalFeatures = async ({ className, heading, additionalFeatures }: AdditionalFeaturesProps) => {
+export const AdditionalFeatures = ({ className, heading, additionalFeatures }: AdditionalFeaturesProps) => {
   // Use additionalFeatures prop if provided, otherwise fetch from Sanity
   let features: Feature[] = [];
   
   if (additionalFeatures?.features) {
     features = additionalFeatures.features;
-  } else {
-    const featuresArray = await sanityClient.fetch(productAdditionalFeaturesQuery);
-    if (featuresArray?.[0]?.features) {
-      features = featuresArray[0].features;
-    } else {
-      return null; // No features to display
-    }
-  }
+  } 
   
   // Use heading from props or additionalFeatures, or fallback to defaults
   const displaySubtitle = heading?.subtitle || additionalFeatures?.heading?.subtitle || "Additional Benefits";
   const displayTitle = heading?.title || additionalFeatures?.heading?.title || "Everything You Need to Succeed";
-  const displayDescription = heading?.description || additionalFeatures?.heading?.description || 
-    "Beyond core features, our platform offers additional capabilities to enhance your operations";
+  const displayDescription = heading?.description || additionalFeatures?.heading?.description 
+    // "Beyond core features, our platform offers additional capabilities to enhance your operations";
 
-  if (features.length === 0) return null;
+  // if (features.length === 0) return null;
 
   return (
     <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50/30 to-white relative overflow-hidden">
@@ -156,7 +149,11 @@ export const AdditionalFeatures = async ({ className, heading, additionalFeature
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature: Feature, index: number) => {
-            // const Icon = feature.icon ? iconMap[feature.icon] : DeviceMobileIcon;
+            // Debug logging
+            if (feature.icon && !iconMap[feature.icon]) {
+              console.warn(`Icon "${feature.icon}" not found in iconMap for feature "${feature.title}". Available icons:`, Object.keys(iconMap));
+            }
+            const Icon = (feature.icon && iconMap[feature.icon]) ? iconMap[feature.icon] : DeviceMobileIcon;
             return (
               <div
                 key={index}
@@ -166,8 +163,7 @@ export const AdditionalFeatures = async ({ className, heading, additionalFeature
               >
                 <div className="mb-6">
                   <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                    {/* <Icon size={32} weight="duotone" /> */}
-                    <div className="w-8 h-8 bg-current rounded"></div>
+                    <Icon size={32} weight="duotone" />
                   </div>
                 </div>
                 <h3 className="mb-4 text-xl font-semibold text-gray-900">

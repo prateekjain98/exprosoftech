@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { ChartLineUp, Brain, Handshake, Target } from "@phosphor-icons/react";
+import { ChartLineUpIcon, BrainIcon, HandshakeIcon, TargetIcon } from "@phosphor-icons/react";
 
 interface GuidancePoint {
   id: number;
@@ -19,20 +19,19 @@ interface BusinessGuidanceData {
 }
 
 // First, create an IconType for the icons
-// type IconType = typeof ChartLineUp | typeof Brain | typeof Handshake | typeof Target;
+type IconType = typeof ChartLineUpIcon | typeof BrainIcon | typeof HandshakeIcon | typeof TargetIcon;
 
 // Update the iconMap type
-// const iconMap: Record<string, IconType> = {
-//   ChartLineUp,
-//   Brain,
-//   Handshake,
-//   Target
-// };
+const iconMap: Record<string, IconType> = {
+  ChartLineUp:ChartLineUpIcon,
+  Brain:BrainIcon,
+  Handshake:HandshakeIcon,
+  Target:TargetIcon
+};
 
 // Update the EmpowermentPoint interface
 interface EmpowermentPoint {
-  // icon: keyof typeof iconMap;
-  icon: string;
+  icon: keyof typeof iconMap;
   title: string;
   description: string;
 }
@@ -234,14 +233,15 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
                     data-aos-delay={index * 100}
                   >
                     <div className="flex-shrink-0 w-8 sm:w-10 h-8 sm:h-10 rounded-lg bg-[#0066FF]/10 flex items-center justify-center">
-                      {/* {iconMap[point.icon] ? (
+                      {iconMap[point.icon] ? (
                         React.createElement(iconMap[point.icon], {
                           size: 18,
                           weight: "duotone",
                           className: "text-[#0066FF]"
                         })
-                      ) : ( */}
-                      <div className="w-[18px] h-[18px] bg-[#0066FF] rounded-sm"></div>
+                      ) : (
+                        <ChartLineUpIcon size={18} weight="duotone" className="text-[#0066FF]" />
+                      )}
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="text-[15px] sm:text-[16px] font-medium text-gray-900 mb-2">

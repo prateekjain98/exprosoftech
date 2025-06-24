@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { CaretDown } from "@phosphor-icons/react";
+import { CaretDownIcon } from "@phosphor-icons/react";
 import SectionHeader from "./SectionHeader";
 import { motion, AnimatePresence } from "framer-motion";
 import { sanityClient } from "sanity:client"
@@ -79,20 +79,20 @@ interface Headings {
                     <span className="text-base sm:text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors pr-4">
                       {item.title}
                     </span>
-                    {/* <CaretDown
+                    <CaretDownIcon
                       size={20}
                       weight="bold"
                       className={`text-gray-500 transition-transform duration-300 ${
                         activeIndex === index ? "rotate-180" : ""
                       }`}
-                    /> */}
-                    <div className={`w-5 h-5 bg-gray-500 transition-transform duration-300 ${
+                    />
+                    {/* <div className={`w-5 h-5 bg-gray-500 transition-transform duration-300 ${
                       activeIndex === index ? "rotate-180" : ""
                     }`}>
                       <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M7 10l5 5 5-5z"/>
                       </svg>
-                    </div>
+                    </div> */}
                   </button>
                   <AnimatePresence>
                     {activeIndex === index && (
@@ -129,17 +129,21 @@ interface Headings {
                   onClick={() => setShowAllFaqs(!showAllFaqs)}
                   className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-600 hover:text-white transition-colors duration-300 font-medium text-sm"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-blue-600">
-                      {showAllFaqs ? "Show Less" : "View All FAQs"}
-                    </span>
-                    {/* <CaretDown weight="bold" className="ml-2" size={16} /> */}
-                    <div className="w-4 h-4 ml-2">
-                      <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7 10l5 5 5-5z"/>
-                      </svg>
-                    </div>
-                  </div>
+                   {showAllFaqs ? (
+                    <>
+                      Show Less
+                      <CaretDownIcon
+                        weight="bold"
+                        className="ml-2 rotate-180"
+                        size={16}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      Load More FAQs
+                      <CaretDownIcon weight="bold" className="ml-2" size={16} />
+                    </>
+                  )}
                 </button>
               </motion.div>
             )}
