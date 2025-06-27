@@ -177,7 +177,7 @@ if (!service) {
   description={service.metaDescription}
   image={service.image}
 >
-  <!-- <ServicesBanner client:load content={service.banner} /> -->
+  <ServicesBanner client:load content={service.banner} />
   <!-- <Clients client:load /> -->
   <!-- <ServicesFeatures 
     client:visible 
@@ -189,6 +189,11 @@ if (!service) {
     services={service.servicesSection.services} 
     heading={service.servicesSection.heading}
   /> -->
+  <ServicesSteps 
+    client:visible 
+    process={service.stepsSection?.steps || []} 
+    heading={service.stepsSection?.heading}
+  />
   <ServicesBenefits 
     client:visible 
     benefits={service.benefitsSection.benefits} 
@@ -199,11 +204,7 @@ if (!service) {
     process={service.processSection.steps} 
     heading={service.processSection.heading}
   /> -->
-  <ServicesSteps 
-    client:visible 
-    process={service.stepsSection?.steps || []} 
-    heading={service.stepsSection?.heading}
-  />
+  
   <!-- <ServicesIndustries 
     client:visible 
     industries={service.industriesSection.industries} 
