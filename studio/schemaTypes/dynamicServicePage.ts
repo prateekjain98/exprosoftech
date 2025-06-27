@@ -366,7 +366,7 @@ export const dynamicServicePageType = defineType({
     // Benefits Section
     defineField({
       name: 'benefitsSection',
-      title: 'Benefits Section',
+      title: 'Best Practices Section',
       type: 'object',
       fields: [
         defineField({
@@ -393,7 +393,7 @@ export const dynamicServicePageType = defineType({
         }),
         defineField({
           name: 'benefits',
-          title: 'Benefits',
+          title: 'Best Practices',
           type: 'array',
           of: [{
             type: 'object',
@@ -440,8 +440,8 @@ export const dynamicServicePageType = defineType({
                     // Additional icons from previous list
                     { title: 'Chart Pie', value: 'FaChartPie' },
                     { title: 'Chart Area', value: 'FaChartArea' },
-                    { title: 'Analytics', value: 'FaChartSimple' },
-                    { title: 'Gauge', value: 'FaGauge' },
+                    { title: 'Analytics', value: 'FaChartBar' },
+                    // { title: 'Gauge', value: 'FaTachometerAlt' },
                     { title: 'Tachometer', value: 'FaTachometerAlt' },
                     { title: 'Bolt/Lightning', value: 'FaBolt' },
                     { title: 'Rocket', value: 'FaRocket' },
@@ -450,20 +450,31 @@ export const dynamicServicePageType = defineType({
                     { title: 'Percentage', value: 'FaPercent' },
                     { title: 'Piggy Bank', value: 'FaPiggyBank' },
                     { title: 'Arrow Up', value: 'FaArrowUp' },
-                    { title: 'Arrow Trend Up', value: 'FaArrowTrendUp' },
+                    { title: 'Arrow Trend Up', value: 'FaArrowUp' },
                     { title: 'Trophy', value: 'FaTrophy' },
                     { title: 'Medal', value: 'FaMedal' },
                     { title: 'Star', value: 'FaStar' },
                     { title: 'Clock', value: 'FaClock' },
                     { title: 'Hourglass', value: 'FaHourglass' },
                     { title: 'User', value: 'FaUser' },
-                    { title: 'User Group', value: 'FaUserGroup' },
-                    { title: 'Gear', value: 'FaGear' },
+                    { title: 'User Group', value: 'FaUsers' },
+                    { title: 'Gear', value: 'FaCogs' },
                     { title: 'Cogs', value: 'FaCogs' },
                     { title: 'Microchip', value: 'FaMicrochip' },
                     { title: 'Server', value: 'FaServer' },
                     { title: 'Database', value: 'FaDatabase' },
-                    { title: 'Cloud', value: 'FaCloud' }
+                    { title: 'Cloud', value: 'FaCloud' },
+
+                     
+                    // New additions for Salesforce best practices (non-duplicates)
+                    { title: 'Code', value: 'FaCode' }, // Apex Design Patterns
+                    { title: 'Git', value: 'FaGitAlt' }, // Version Controlling
+                    { title: 'Jenkins', value: 'FaJenkins' }, // CI/CD
+                    { title: 'Box Open', value: 'FaBoxOpen' }, // Sandboxes/Scratch Orgs
+                    { title: 'Flask', value: 'FaFlask' }, // Multi-Level Testing
+                    { title: 'Magic', value: 'FaMagic' }, // Low/No Code
+                    { title: 'Comment', value: 'FaCommentAlt' }, // Commented Code
+                    { title: 'Lock', value: 'FaLock' } // Data Masking
                   ]
                 }
               })
@@ -580,6 +591,7 @@ export const dynamicServicePageType = defineType({
                 type: 'string',
                 options:{
                   list:[
+                    // Your existing icons (unchanged)
                     { title: 'Chart Line', value: 'FaChartLine' },
                     { title: 'Handshake', value: 'FaHandshake' },
                     { title: 'Heart', value: 'FaHeart' },
@@ -602,8 +614,6 @@ export const dynamicServicePageType = defineType({
                     { title: 'Recycle', value: 'FaRecycle' },
                     { title: 'Calendar', value: 'FaCalendarAlt' },
                     { title: 'Filter', value: 'FaFilter' },
-                    
-                    // Additional icons from previous list
                     { title: 'Chart Pie', value: 'FaChartPie' },
                     { title: 'Chart Area', value: 'FaChartArea' },
                     { title: 'Analytics', value: 'FaChartSimple' },
@@ -629,9 +639,81 @@ export const dynamicServicePageType = defineType({
                     { title: 'Microchip', value: 'FaMicrochip' },
                     { title: 'Server', value: 'FaServer' },
                     { title: 'Database', value: 'FaDatabase' },
-                    { title: 'Cloud', value: 'FaCloud' }
+                    { title: 'Cloud', value: 'FaCloud' },
+                 
                   ]
                 }
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+
+    // Steps Section (for ServicesSteps component)
+    defineField({
+      name: 'stepsSection',
+      title: 'Steps Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'tagline',
+              title: 'Tagline',
+              type: 'string'
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string'
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text'
+            })
+          ]
+        }),
+        defineField({
+          name: 'steps',
+          title: 'Main Steps',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'title',
+                title: 'Step Title',
+                type: 'string'
+              }),
+              defineField({
+                name: 'description',
+                title: 'Step Description',
+                type: 'text'
+              }),
+              defineField({
+                name: 'containers',
+                title: 'Step Containers',
+                type: 'array',
+                of: [{
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'title',
+                      title: 'Container Title',
+                      type: 'string'
+                    }),
+                    defineField({
+                      name: 'description',
+                      title: 'Container Description',
+                      type: 'text'
+                    })
+                  ]
+                }]
               })
             ]
           }]
@@ -703,25 +785,25 @@ export const dynamicServicePageType = defineType({
           name: 'tagline',
           title: 'Tagline',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'subtitle',
           title: 'Subtitle',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'metrices',
@@ -735,13 +817,13 @@ export const dynamicServicePageType = defineType({
                   name: 'value',
                   title: 'Value',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'label',
                   title: 'Label',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'icon',
@@ -773,18 +855,17 @@ export const dynamicServicePageType = defineType({
                       ]
                     },
                   description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
-                  validation: Rule => Rule.required()
+                  
                 })
               ]
             }
           ],
-          validation: Rule => Rule.required().min(3)
         }),
         defineField({
           name: 'buttonText',
           title: 'Button Text',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'image',
@@ -795,19 +876,19 @@ export const dynamicServicePageType = defineType({
               name: 'src',
               title: 'Image Source',
               type: 'image',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'alt',
               title: 'Alt Text',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             })
           ],
-          validation: Rule => Rule.required()
+          
         })
       ],
-      validation: Rule => Rule.required()
+      
     })
   ]
 })  

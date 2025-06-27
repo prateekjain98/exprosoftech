@@ -37,6 +37,27 @@ export default defineType({
         type: "object",
         fields: [
           defineField({
+            name: "logo",
+            title: "Company Logo",
+            type: "object",
+            fields: [
+              defineField({
+                name: "src",
+                title: "Logo Image",
+                type: "image",
+                options: {
+                  hotspot: true,
+                },
+              }),
+              defineField({
+                name: "alt",
+                title: "Alt Text",
+                type: "string",
+                validation: (Rule) => Rule.required(),
+              }),
+            ],
+          }),
+          defineField({
             name: "title",
             title: "Title",
             type: "string",
@@ -62,7 +83,17 @@ export default defineType({
                   defineField({
                     name: "icon",
                     title: "Icon",
-                    type: "image",
+                    type: "string",
+                    options: {
+                      list: [
+                        { title: "Home", value: "home" },
+                        { title: "Phone", value: "phone" },
+                        { title: "Location Pin", value: "locationPin" },
+                        { title: "Building", value: "building" },
+                        { title: "Email", value: "email" },
+                        { title: "Clock", value: "clock" },
+                      ],
+                    },
                   }),
                   defineField({
                     name: "title",
@@ -89,7 +120,19 @@ export default defineType({
                   defineField({
                     name: "icon",
                     title: "Icon",
-                    type: "image",
+                    type: "string",
+                    options: {
+                      list: [
+                        { title: "Home", value: "home" },
+                        { title: "Phone", value: "phone" },
+                        { title: "Location Pin", value: "locationPin" },
+                        { title: "Building", value: "building" },
+                        { title: "Email", value: "email" },
+                        { title: "Clock", value: "clock" },
+                        { title: "Services", value: "services" },
+                        { title: "Support", value: "support" },
+                      ],
+                    },
                   }),
                   defineField({
                     name: "title",

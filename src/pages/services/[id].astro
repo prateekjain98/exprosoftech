@@ -6,6 +6,7 @@ import { ServicesFeatures } from "@/layouts/components/services/ServicesFeatures
 import { ServicesServices } from "@/layouts/components/services/ServicesServices";
 import { ServicesBenefits } from "@/layouts/components/services/ServicesBenefits";
 import { ServicesProcess } from "@/layouts/components/services/ServicesProcess";
+import { ServicesSteps } from "@/layouts/components/services/ServicesSteps";
 import { ServicesIndustries } from "@/layouts/components/services/ServicesIndustries";
 import ConsultationCTA from "../../components/ConsultationCTA";
 import NewFAQ from "../../components/NewFAQ";
@@ -23,6 +24,7 @@ interface Service {
   servicesSection: any;
   benefitsSection: any;
   processSection: any;
+  stepsSection: any;
   industriesSection: any;
   faqSection: any;
   ctaSection: any;
@@ -107,6 +109,21 @@ const service = await sanityClient.fetch(`
         "image": image.asset->url
       }
     },
+    stepsSection {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      steps[] {
+        title,
+        description,
+        containers[] {
+          title,
+          description
+        }
+      }
+    },
     industriesSection {
       heading {
         tagline,
@@ -160,33 +177,38 @@ if (!service) {
   description={service.metaDescription}
   image={service.image}
 >
-  <ServicesBanner client:load content={service.banner} />
-  <Clients client:load />
-  <ServicesFeatures 
+  <!-- <ServicesBanner client:load content={service.banner} /> -->
+  <!-- <Clients client:load /> -->
+  <!-- <ServicesFeatures 
     client:visible 
     features={service.featuresSection.features} 
     heading={service.featuresSection.heading}
-  />
-  <ServicesServices 
+  /> -->
+  <!-- <ServicesServices 
     client:visible 
     services={service.servicesSection.services} 
     heading={service.servicesSection.heading}
-  />
+  /> -->
   <ServicesBenefits 
     client:visible 
     benefits={service.benefitsSection.benefits} 
     heading={service.benefitsSection.heading}
   />
-  <ServicesProcess 
+  <!-- <ServicesProcess 
     client:visible 
     process={service.processSection.steps} 
     heading={service.processSection.heading}
+  /> -->
+  <ServicesSteps 
+    client:visible 
+    process={service.stepsSection?.steps || []} 
+    heading={service.stepsSection?.heading}
   />
-  <ServicesIndustries 
+  <!-- <ServicesIndustries 
     client:visible 
     industries={service.industriesSection.industries} 
     heading={service.industriesSection.heading}
-  />
-  <DynamicCTA client:visible ctaContent={service.ctaSection} />
-  <NewFAQ client:visible Faq={[service.faqSection]} />
+  /> -->
+  <!-- <DynamicCTA client:visible ctaContent={service.ctaSection} /> -->
+  <!-- <NewFAQ client:visible Faq={[service.faqSection]} /> -->
 </Base>

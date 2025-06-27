@@ -47,7 +47,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
-                {content.map((paragraph: string, index: number) => (
+                {content?.map((paragraph: string, index: number) => (
                   <p key={index} className="text-gray-600 leading-relaxed">
                     {paragraph}
                   </p>

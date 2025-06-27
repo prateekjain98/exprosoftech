@@ -1,5 +1,29 @@
 import React, { useState } from "react";
-import { FiTrendingUp, FiTarget, FiZap, FiUsers } from "react-icons/fi";
+import { 
+  FiTrendingUp, 
+  FiTarget, 
+  FiZap, 
+  FiUsers, 
+  FiBox,
+  FiSettings,
+  FiPieChart,
+  FiTruck,
+  FiPackage,
+  FiDollarSign,
+  FiBarChart,
+  FiAward,
+  FiActivity,
+  FiCpu,
+  FiFileText,
+  FiCreditCard,
+  FiClock,
+  FiDatabase,
+  FiUserCheck
+} from "react-icons/fi";
+import { HiOutlineLightBulb } from "react-icons/hi";
+import { BiPlug } from "react-icons/bi";
+import { FaLayerGroup } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 
 interface GuidancePoint {
   id: number;
@@ -22,11 +46,32 @@ interface BusinessGuidanceData {
 type IconType = typeof FiTrendingUp | typeof FiZap | typeof FiUsers | typeof FiTarget;
 
 // Update the iconMap type
-const iconMap: Record<string, IconType> = {
+const iconMap: Record<string, any> = {
+  Cube: FiBox,
   ChartLineUp: FiTrendingUp,
+  Gear: FiSettings,
+  ChartPieSlice: FiPieChart,
   Brain: FiZap,
+  Truck: FiTruck,
+  Package: FiPackage,
+  Coins: FiDollarSign,
+  ChartBar: FiBarChart,
+  Medal: FiAward,
+  Gauge: FiActivity,
+  Robot: FiCpu,
+  Receipt: FiFileText,
+  Wallet: FiCreditCard,
+  ChartDonut: FiPieChart,
+  Clock: FiClock,
+  Database: FiDatabase,
+  Plugs: BiPlug,
+  Lightning: FiZap,
   Handshake: FiUsers,
-  Target: FiTarget
+  Target: FiTarget,
+  Lightbulb: HiOutlineLightBulb,
+  LayerGroup: FaLayerGroup,
+  CheckCircle: FaCheckCircle,
+  UserGroup: FiUserCheck,
 };
 
 // Update the EmpowermentPoint interface
@@ -128,7 +173,7 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
                 alt={businessGuidanceData.image.alt}
                 width={440}
                 height={480}
-                className="relative w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] object-contain rounded-[20px] sm:rounded-[28px] lg:rounded-[32px] transform transition-transform duration-500 hover:scale-[1.02] z-10"
+                className="relative w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] object-cover rounded-[20px] sm:rounded-[28px] lg:rounded-[32px] transform transition-transform duration-500 hover:scale-[1.02] z-10"
                 data-aos="fade-right"
               />
             </div>
@@ -262,7 +307,7 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
                 <img
                 src={empowermentData.empowermentImage.src}
                 alt={empowermentData.empowermentImage.alt}
-                  className="relative w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] object-contain rounded-[20px] sm:rounded-[28px] lg:rounded-[32px] transform transition-transform duration-500 hover:scale-[1.02] z-10"
+                  className="relative w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[480px] object-cover rounded-[20px] sm:rounded-[28px] lg:rounded-[32px] transform transition-transform duration-500 hover:scale-[1.02] z-10"
                   data-aos="fade-left"
                 />
               )}

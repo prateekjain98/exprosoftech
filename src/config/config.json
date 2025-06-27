@@ -1,14 +1,14 @@
 {
   "site": {
-    "title": "Greymetre",
-    "base_url": "https://Greymetre-astro.vercel.app",
+    "title": "Exporsoftech",
+    "base_url": "https://Exporsoftech-astro.vercel.app",
     "base_path": "/",
     "trailing_slash": true,
     "favicon": "/images/favIconWhite.png",
-    "logo": "/images/logo.png",
-    "logo_width": "100",
-    "logo_height": "40",
-    "logo_text": "Greymetre"
+    "logo": "/images/logo.webp",
+    "logo_width": "120",
+    "logo_height": "48",
+    "logo_text": "Exporsoftech"
   },
 
   "settings": {
@@ -20,7 +20,7 @@
   "params": {
     "contact_form_action": "#",
     "footer_description": "Securing Your Digital World: Your Trusted Partner in Data Protection with Cutting Edge Solutions for Data Security.",
-    "copyright": "Copyright © {year} Greymetre. All Rights Reserved"
+    "copyright": "Copyright © {year} Exporsoftech. All Rights Reserved"
   },
 
   "subscription": {
@@ -45,6 +45,6 @@
   "metadata": {
     "meta_author": "Suprdash",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Greymetre Consultants Pvt Ltd"
+    "meta_description": "Exporsoftech "
   }
 }

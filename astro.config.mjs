@@ -39,7 +39,7 @@ export default defineConfig({
       "@/shortcodes/Tab",
     ],
   }), mdx(), sanity({
-    projectId: "7kxeavu0",
+    projectId: "wc6w49nw",
     dataset: "production",
     useCdn: false,
   })],

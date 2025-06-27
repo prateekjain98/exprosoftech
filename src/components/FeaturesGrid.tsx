@@ -4,7 +4,29 @@ import {
   FiTrendingUp,
   FiDatabase,
   FiUsers,
+  FiArrowRight,
+  FiBriefcase,
+  FiBarChart,
+  FiCloud,
+  FiCode,
+  FiDollarSign,
+  FiMonitor,
+  FiGlobe,
+  FiZap,
+  FiShield,
+  FiTruck,
+  FiUser,
 } from "react-icons/fi";
+import {
+  HiOutlineLightBulb,
+  HiOutlineRocketLaunch,
+  HiOutlineShieldCheck,
+  HiOutlineBuildingStorefront,
+} from "react-icons/hi2";
+import { 
+  TbLock,
+  TbChartBar,
+} from "react-icons/tb";
 import SectionHeader from "./SectionHeader";
 
 // Define the heading prop interface
@@ -72,13 +94,32 @@ interface FeaturesGridProps {
 export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  // Convert icon string to component
+  // Convert icon string to component - Enhanced with more options
   const getIconComponent = (iconName: string) => {
     const icons = {
+      // Current icons (keeping these as they're good choices)
       Gear: FiSettings,
       ChartLineUp: FiTrendingUp,
       Database: FiDatabase,
       Users: FiUsers,
+      
+             // Additional schema icons with better alternatives
+       ArrowRight: FiArrowRight,
+       Briefcase: FiBriefcase,
+       ChartBar: TbChartBar, // Better chart bar icon from Tabler
+       Cloud: FiCloud,
+       Code: FiCode,
+       CurrencyDollar: FiDollarSign,
+       Desktop: FiMonitor,
+       Globe: FiGlobe,
+       LightbulbFilament: HiOutlineLightBulb, // Beautiful lightbulb from Heroicons
+       Lightning: FiZap, // More modern lightning icon
+       Lock: TbLock, // Clean lock icon from Tabler
+       Rocket: HiOutlineRocketLaunch, // Modern rocket from Heroicons v2
+       ShieldCheck: HiOutlineShieldCheck, // Better shield with check from Heroicons
+       Storefront: HiOutlineBuildingStorefront, // Modern storefront icon
+       Truck: FiTruck,
+       UserCircle: FiUser,
     };
     return icons[iconName as keyof typeof icons] || FiSettings;
   };

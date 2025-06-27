@@ -124,7 +124,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
                       <img
                       src={card.icon}
                       alt={`icon related to ${card.title}`}
-                      className="h-full w-full object-contain"
+                      className="h-full w-full object-cover rounded-2xl"
                       />
                     )}
                     </div>

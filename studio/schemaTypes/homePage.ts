@@ -203,6 +203,76 @@ export default defineType({
       ]
     }),
 
+    defineField({
+      name: 'industriesSection',
+      title: 'Industry Applications Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'heading',
+          type: 'object',
+          fields: [
+            defineField({ name: 'title', type: 'string' }),
+            defineField({ name: 'subtitle', type: 'string' }),
+            defineField({ name: 'description', type: 'text' })
+          ]
+        }),
+        defineField({
+          name: 'industries',
+          title: 'Industries',
+          type: 'array',
+          description: 'List of industries where your solutions apply',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'name',
+                title: 'Industry Name',
+                type: 'string',
+                validation: Rule => Rule.required()
+              }),
+              defineField({
+                name: 'description',
+                title: 'Description',
+                type: 'text',
+                description: 'Brief description of how your solution helps this industry'
+              }),
+              defineField({
+                name: 'icon',
+                title: 'Icon',
+                type: 'string',
+                description: 'Icon to represent this industry',
+                options: {
+                  list: [
+                    {title: 'Store', value: 'FaStore'},
+                    {title: 'Hotel', value: 'FaHotel'},
+                    {title: 'Plane', value: 'FaPlane'},
+                    {title: 'Restaurant', value: 'FaUtensils'},
+                    {title: 'Shopping Bag', value: 'FaShoppingBag'},
+                    {title: 'Car', value: 'FaCarAlt'},
+                    {title: 'Game', value: 'FaGamepad'},
+                    {title: 'Education', value: 'FaGraduationCap'},
+                    {title: 'Shopping Cart', value: 'FaShoppingCart'},
+                    {title: 'Industry', value: 'FaIndustry'},
+                    {title: 'Network', value: 'FaNetworkWired'},
+                    {title: 'Finance', value: 'FaMoneyBillWave'},
+                    {title: 'Phone', value: 'FaPhoneAlt'},
+                    {title: 'Boxes', value: 'FaBoxes'},
+                    {title: 'Building', value: 'FaBuilding'},
+                    {title: 'Location', value: 'FaSearchLocation'},
+                    {title: 'Business Person', value: 'FaUserTie'},
+                    {title: 'Technology', value: 'FaLaptopCode'},
+                    {title: 'Healthcare', value: 'FaHospital'},
+                    {title: 'Server', value: 'FaServer'}
+                  ]
+                }
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+
     // Products Section
     defineField({
       name: 'productsSection',

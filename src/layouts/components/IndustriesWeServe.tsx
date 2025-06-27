@@ -109,11 +109,23 @@ interface IndustryApp {
   icon: keyof typeof iconMap;
 }
 
+// Sanity data structure
+interface IndustriesSectionData {
+  heading: {
+    title?: string;
+    subtitle?: string;
+    description?: string;
+  };
+  industries: IndustryApp[];
+}
+
 // Combined component props
 interface IndustryServicesAndApplicationsProps {
   className?: string;
-  // Industry Applications props
-  applicationsHeading: {
+  // Option 1: Accept Sanity data directly
+  data?: IndustriesSectionData;
+  // Option 2: Accept individual props (backwards compatibility)
+  applicationsHeading?: {
     title: string;
     tagline?: string;
     description?: string;
@@ -128,15 +140,13 @@ interface IndustryServicesAndApplicationsProps {
 
 const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsProps> = ({
   className = "",
-  // Industry Applications props
-  applicationsHeading = {
-    title: "Demand-Driven Transformation – Industry Applications",
-    description: "Our solutions work across industries, including:"
-  },
+  // Accept Sanity data or individual props
+  data,
+  applicationsHeading,
   ctaText = "Find Out How It Works for Your Industry →",
   ctaLink = "#contact",
   isCalendly = false,
-  applicationIndustries = [],
+  applicationIndustries,
   // = [
   //   {
   //     name: "Manufacturing",
@@ -186,6 +196,18 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
     // }
   ]
 }) => {
+  // Use data from props if available, otherwise fall back to individual props
+  const heading = data?.heading ? {
+    title: data.heading.title || "",
+    tagline: data.heading.subtitle,
+    description: data.heading.description || "Our solutions work across industries, including:"
+  } : (applicationsHeading || {
+    title: "",
+    description: ""
+  });
+  
+  const industries = data?.industries || applicationIndustries || [];
+
   const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
     const IconComponent = iconMap[iconName];
     if (!IconComponent) {
@@ -199,14 +221,14 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
     <section className={`py-20 ${className}`}>
       <div className="container">
         <SectionHeader
-          tagline={applicationsHeading.tagline}
-          heading={applicationsHeading.title}
-          subheading={applicationsHeading.description}
+          tagline={heading.tagline}
+          heading={heading.title || ""}
+          subheading={heading.description}
         />
         
         {/* Industry Applications Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {applicationIndustries.map((industry, index) => (
+          {industries.map((industry, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -246,9 +268,9 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
         </div>
         
         {/* Two-column layout for Integration & Timeline */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8"> */}
           {/* Integration & Technical Compatibility Section */}
-          <div className="bg-gray-50 rounded-2xl p-8">
+          {/* <div className="bg-gray-50 rounded-2xl p-8">
             <h3 className="text-2xl font-semibold mb-6 text-gray-900">Integration & Technical Compatibility</h3>
             
             <p className="text-gray-600 mb-8">
@@ -278,10 +300,10 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
                 </motion.div>
               ))}
             </div>
-          </div>
+          </div> */}
           
           {/* Timeline Section */}
-          <div className="bg-gray-50 rounded-2xl p-8">
+          {/* <div className="bg-gray-50 rounded-2xl p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-3 bg-blue-100 rounded-full text-blue-600">
                 <FaClock size={24} />
@@ -308,8 +330,8 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
                 </motion.div>
               ))}
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </div>
     </section>
   );

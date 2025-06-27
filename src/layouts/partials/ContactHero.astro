@@ -1,10 +1,15 @@
 ---
 import config from "@/config/config.json";
 import ImageMod from "@/components/ImageMod.astro";
+import DynamicIcon from "@/layouts/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
 
 interface Hero {
+  logo?: {
+    src: string;
+    alt: string;
+  };
   title: string;
   subtitle: string;
   description: string;
@@ -20,8 +25,24 @@ interface Hero {
   }[];
 }
 
+interface Props {
+  hero: Hero;
+}
+
 const { contact_form_action }: { contact_form_action: string } = config.params;
-const { hero }: { hero: Hero } = (await getEntry("contact", "-index")).data;
+const { hero } = Astro.props;
+
+// Icon mapping object to convert schema values to react-icons names
+const iconMap: Record<string, string> = {
+  home: "FaHome",
+  phone: "FaPhone",
+  locationPin: "FaMapMarkerAlt",
+  building: "FaBuilding",
+  email: "FaEnvelope",
+  clock: "FaClock",
+  services: "FaCog",
+  support: "FaHeadset",
+};
 ---
 
 {
@@ -56,10 +77,10 @@ const { hero }: { hero: Hero } = (await getEntry("contact", "-index")).data;
                   <div class="flex items-start space-x-5 rounded-xl border border-border/50 bg-theme-light/50 p-5 hover:bg-theme-light/80 transition-colors">
                     {info.icon && (
                       <div class="flex h-12 w-12 shrink-0 items-center justify-center">
-                        <ImageMod
-                          class="h-7 w-7 object-cover"
-                          src={info.icon}
-                          alt={`icon related to ${info.title}`}
+                        <DynamicIcon
+                          icon={iconMap[info.icon] || "FaQuestionCircle"}
+                          className="h-7 w-7 text-primary"
+                          client:load
                         />
                       </div>
                     )}
@@ -89,10 +110,10 @@ const { hero }: { hero: Hero } = (await getEntry("contact", "-index")).data;
                   <div class="service-card rounded-xl bg-theme-light p-6 hover:shadow-sm transition-shadow">
                     {point.icon && (
                       <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
-                        <ImageMod
-                          class="h-6 w-6 object-cover"
-                          src={point.icon}
-                          alt={`icon related to ${point.title}`}
+                        <DynamicIcon
+                          icon={iconMap[point.icon] || "FaQuestionCircle"}
+                          className="h-6 w-6 text-white"
+                          client:load
                         />
                       </div>
                     )}
@@ -125,8 +146,8 @@ const { hero }: { hero: Hero } = (await getEntry("contact", "-index")).data;
                   <div class="relative bg-white rounded-full p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] backdrop-blur-sm">
                     <ImageMod
                       class="w-20 h-20 object-contain transition-transform duration-300 hover:scale-105"
-                      src={"/images/logo.png"}
-                      alt="hero image"
+                      src={hero.logo?.src || ""}
+                      alt={hero.logo?.alt || "Company logo"}
                       loading="eager"
                     />
                   </div>

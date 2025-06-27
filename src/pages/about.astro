@@ -6,6 +6,9 @@ import LeadershipTeam from "../components/LeadershipTeam";
 import WhyGreymetre from "../components/WhyGreymetre";
 import NewFAQ from "../components/NewFAQ";
 import { sanityClient } from "sanity:client";
+import BusinessGuidance from "../components/BusinessGuidance";
+import Offerings from "../components/Offerings";
+import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
 
 // GROQ query to fetch all about page data
 const aboutQuery = `*[_type == "about"][0] {
@@ -24,6 +27,54 @@ const aboutQuery = `*[_type == "about"][0] {
     content,
     image {
       asset->
+    }
+  },
+  businessGuidance {
+    title,
+    subtitle,
+    description,
+    image {
+      asset-> {
+        url
+      },
+      alt
+    },
+    guidancePoints[] {
+      id,
+      title,
+      description
+    },
+    empowerment {
+      title,
+      subtitle,
+      description,
+      points[] {
+        icon,
+        title,
+        description
+      },
+      empowermentImage {
+        asset-> {
+          url
+        },
+        alt
+      }
+    }
+  },
+  offeringsSection {
+    heading {
+      title,
+      subtitle,
+      description
+    },
+    offerings[] {
+      title,
+      description,
+      icon {
+        asset-> {
+          url
+        }
+      }
     }
   },
   companySection {
@@ -59,6 +110,10 @@ const aboutQuery = `*[_type == "about"][0] {
       icon
     }
   },
+  industriesSection {
+    heading { title, subtitle, description },
+    industries[] { name, description, icon }
+  },
   faqSection {
     title,
     pageTitle,
@@ -75,7 +130,7 @@ const aboutQuery = `*[_type == "about"][0] {
 const pageData = await sanityClient.fetch(aboutQuery);
 
 // Destructure meta data
-const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection } = pageData;
+const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection } = pageData;
 
 // Structure data for each component
 const bannerData = {
@@ -86,20 +141,55 @@ const bannerData = {
   featuredImage: bannerSection.image
 };
 
-const companyData = {
-  subtitle: companySection.subtitle,
-  title: companySection.title,
-  description: companySection.description,
-  content: companySection.content,
-  featuredImage: companySection.image
+const businessGuidanceData = {
+  title: pageData.businessGuidance.title,
+  subtitle: pageData.businessGuidance.subtitle,
+  description: pageData.businessGuidance.description,
+  image: {
+    src: pageData.businessGuidance.image?.asset?.url || '',
+    alt: pageData.businessGuidance.image?.alt || ''
+  },
+  guidancePoints: pageData.businessGuidance.guidancePoints
 };
 
-const leadershipData = {
-  subtitle: leadershipSection.subtitle,
-  title: leadershipSection.title,
-  description: leadershipSection.description,
-  leaders: leadershipSection.leaders
+const empowermentData = {
+  title: pageData.businessGuidance.empowerment.title,
+  subtitle: pageData.businessGuidance.empowerment.subtitle,
+  description: pageData.businessGuidance.empowerment.description,
+  points: pageData.businessGuidance.empowerment.points,
+  empowermentImage: {
+    src: pageData.businessGuidance.empowerment.empowermentImage?.asset?.url || '',
+    alt: pageData.businessGuidance.empowerment.empowermentImage?.alt || ''
+  }
 };
+
+const offeringsData = {
+  heading: {
+    title: pageData.offeringsSection?.heading?.title || '',
+    subtitle: pageData.offeringsSection?.heading?.subtitle || '',
+    description: pageData.offeringsSection?.heading?.description || ''
+  },
+  offerings: pageData.offeringsSection?.offerings?.map((offering: any) => ({
+    title: offering.title,
+    description: offering.description,
+    icon: offering.icon?.asset?.url || ''
+  })) || []
+};
+
+// const companyData = {
+//   subtitle: companySection.subtitle,
+//   title: companySection.title,
+//   description: companySection.description,
+//   content: companySection.content,
+//   featuredImage: companySection.image
+// };
+
+// const leadershipData = {
+//   subtitle: leadershipSection.subtitle,
+//   title: leadershipSection.title,
+//   description: leadershipSection.description,
+//   leaders: leadershipSection.leaders
+// };
 
 const whyGreymetreData = {
   subtitle: whySection.subtitle,
@@ -108,13 +198,13 @@ const whyGreymetreData = {
   features: whySection.features
 };
 
-const faqData = [{
-  title: faqSection.title,
-  pageTitle: faqSection.pageTitle,
-  subtitle: faqSection.subtitle,
-  description: faqSection.description,
-  list: faqSection.list
-}];
+// const faqData = [{
+//   title: faqSection.title,
+//   pageTitle: faqSection.pageTitle,
+//   subtitle: faqSection.subtitle,
+//   description: faqSection.description,
+//   list: faqSection.list
+// }];
 ---
 
 <Base
@@ -124,14 +214,21 @@ const faqData = [{
   image={meta.image}
 >
   <AboutBanner client:load data={bannerData} />
-  <AboutCompany client:load data={companyData} />
-  <LeadershipTeam 
+  <BusinessGuidance 
+    client:visible 
+    businessGuidanceData={businessGuidanceData}
+    empowermentData={empowermentData}
+  />
+  <Offerings client:visible data={offeringsData} />
+  <IndustriesWeServe client:visible data={pageData.industriesSection} />
+  <!-- <AboutCompany client:load data={companyData} /> -->
+  <!-- <LeadershipTeam 
     client:load 
     subtitle={leadershipData.subtitle}
     title={leadershipData.title}
     description={leadershipData.description}
     leadershipTeamData={{ leaders: leadershipData.leaders }} 
-  />
+  /> -->
   <WhyGreymetre client:load data={whyGreymetreData} />
-  <NewFAQ client:load Faq={faqData} />
+  <!-- <NewFAQ client:load Faq={faqData} /> -->
 </Base>

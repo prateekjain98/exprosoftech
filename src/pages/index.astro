@@ -1,15 +1,16 @@
 ---
 import Base from "@/layouts/Base.astro";
-import { Clients } from "../components/Clients";
+// import { Clients } from "../components/Clients";
 import { Offerings } from "../components/Offerings";
-import CaseStudies from "../components/CaseStudies";
+// import CaseStudies from "../components/CaseStudies";
 import NewFAQ from "../components/NewFAQ";
 import { FeaturesGrid } from "../components/FeaturesGrid";
 import { ScrollableServices } from "../components/ScrollableServices";
-import { ProductSection } from "../components/ProductSection";
+// import { ProductSection } from "../components/ProductSection";
 import { HomeBanner } from "../components/HomeBanner";
 import { sanityClient } from "sanity:client";
-import { TestimonialMarquee } from "../components/TestimonialMarqueeNew";
+// import { TestimonialMarquee } from "../components/TestimonialMarqueeNew";
+import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
 
 interface CaseStudy {
   _id: string;
@@ -35,8 +36,10 @@ const pageData = await sanityClient.fetch(`
     heroBanner {
       title,
       description,
-      
-      image[] { src, alt },
+      image[] { 
+        "src": src.asset->url,
+        alt
+      },
       buttons[] { label, link, isCalendly }
     },
     clientsSection { clients[] { name, "logo": logo.asset->url } },
@@ -76,6 +79,10 @@ const pageData = await sanityClient.fetch(`
         features[] { title, description }
       }
     },
+    industriesSection {
+      heading { title, subtitle, description },
+      industries[] { name, description, icon }
+    },
     faqSection {
       title,
       subtitle,
@@ -86,45 +93,46 @@ const pageData = await sanityClient.fetch(`
 `);
 
 // Fetch case studies data
-const caseStudiesData = await sanityClient.fetch(`
-  *[_type == "caseStudy"] | order(order asc) {
-    _id,
-    title,
-    category,
-    description,
-    logo {
-      asset->{
-        url
-      },
-      alt
-    },
-    backgroundImage {
-      asset->{
-        url
-      },
-      alt
-    },
-    order
-  }
-`);
+// const caseStudiesData = await sanityClient.fetch(`
+//   *[_type == "caseStudy"] | order(order asc) {
+//     _id,
+//     title,
+//     category,
+//     description,
+//     logo {
+//       asset->{
+//         url
+//       },
+//       alt
+//     },
+//     backgroundImage {
+//       asset->{
+//         url
+//       },
+//       alt
+//     },
+//     order
+//   }
+// `);
 
 // Transform the data to match the expected format in CaseStudies component
-const transformedCaseStudies = caseStudiesData.map((study: CaseStudy) => ({
-  category: study.category,
-  title: study.title,
-  description: study.description,
-  logo: study.logo.asset.url,
-  src: study.backgroundImage.asset.url
-}));
+// const transformedCaseStudies = caseStudiesData.map((study: CaseStudy) => ({
+//   category: study.category,
+//   title: study.title,
+//   description: study.description,
+//   logo: study.logo.asset.url,
+//   src: study.backgroundImage.asset.url
+// }));
 ---
 
-<Base>
+<Base title="Home" meta_title="Greymetre - Home" description="Welcome to Greymetre">
   <HomeBanner client:load data={pageData.heroBanner} />
-  <Clients client:visible />
+  <!-- <Clients client:visible /> -->
   <Offerings client:visible data={pageData.offeringsSection} />
   <FeaturesGrid client:visible data={pageData.FeaturesSection} />
   <ScrollableServices client:visible data={pageData.ScrollableServicesSection} />
-  <ProductSection client:visible data={pageData.productsSection} />
+  <IndustriesWeServe client:visible data={pageData.industriesSection} />
+  <!-- <ProductSection client:visible data={pageData.productsSection} />  -->
   <!-- <TestimonialMarquee client:load /> -->
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
   <NewFAQ client:visible Faq={[pageData.faqSection]} />

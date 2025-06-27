@@ -5,9 +5,9 @@ import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'greymetre-dev',
+  title: 'exprosoft',
 
-  projectId: '7kxeavu0',
+  projectId: 'wc6w49nw',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

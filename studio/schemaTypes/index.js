@@ -39,9 +39,7 @@ import { productDropdownType } from './productDropwdown'
 import { serviceDropdownType } from './serviceDropdown'
 import { consultingDropdownType } from './consultingDropdown.ts'
 
-export const schemaTypes = [headingType , cardType , featuresType , serviceType , productType ,faqType , demandDrivenFAQType , demandDrivenImpact ,
-    challengesAddressedType , keyServices , businessGuidanceType , empowermentType , consultationCTAType , loyaltyManagementServiceCards , LoayltyManagementkeyIssuesType , 
-    loyaltyManagementProcessSteps , loyaltyIndustries , productFeaturesType , mobileFeaturesTypes , showcaseContentTypes , productAdditionalFeatures , aboutDualData , leadershipTeam , 
-    clientsType , heroBannerSections , faqSection , post , author , blockContent , dynamicProductPageType , dynamicServicePageType , dynamicConsultingsPageType , homePage,      
+export const schemaTypes = [ 
+    clientsType , post , author , blockContent , dynamicProductPageType , dynamicServicePageType , dynamicConsultingsPageType , homePage,      
     about , contact , caseStudyType , testimonialSection , productDropdownType , serviceDropdownType , consultingDropdownType
 ]

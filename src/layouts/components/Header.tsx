@@ -256,7 +256,7 @@ const Header: React.FC<HeaderProps> = ({
       if (caseStudiesSection) {
         caseStudiesSection.scrollIntoView({ behavior: "smooth" });
       }
-    }
+    } 
   };
 
   return (
@@ -270,7 +270,7 @@ const Header: React.FC<HeaderProps> = ({
             <a href="/" className="navbar-brand block">
               <img
                 src={config.site.logo}
-                className="h-auto w-[100px] md:w-[120px]"
+                className="h-auto w-[100px] md:w-[190px]"
                 width={Number(config.site.logo_width.replace("px", "")) * 2}
                 height={Number(config.site.logo_height.replace("px", "")) * 2}
                 alt={config.site.title}

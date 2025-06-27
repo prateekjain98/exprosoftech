@@ -16,16 +16,20 @@ const contactQuery = `*[_type == "contact"][0] {
   meta_title,
   "image": image.asset->url,
   hero {
+    logo {
+      "src": src.asset->url,
+      alt
+    },
     title,
     subtitle,
     description,
     contact_info[] {
-      "icon": icon.asset->url,
+      icon,
       title,
       description
     },
     list[] {
-      "icon": icon.asset->url,
+      icon,
       title,
       description
     }
@@ -82,5 +86,5 @@ const transformedFaq = {
   image={image}>
   <ContactHero hero={hero} />
   <NewFAQ client:load Faq={[transformedFaq]} />
-  <ConsultationCTA client:load />
+  <!-- <ConsultationCTA client:load /> -->
 </Base>

@@ -2,7 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es6",
+    "target": "ES2022",
     "allowJs": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -12,6 +12,8 @@
     "incremental": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
     "paths": {
       "@/components/*": [
         "./src/layouts/components/*"
