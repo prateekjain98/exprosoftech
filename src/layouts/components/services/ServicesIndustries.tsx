@@ -22,6 +22,39 @@ import {
   FaShoppingCart,
   FaGraduationCap,
   FaServer,
+  FaChartLine,
+  FaHandshake,
+  FaHeart,
+  FaLightbulb,
+  FaShieldAlt,
+  FaUsers,
+  FaGlobe,
+  FaChartBar,
+  FaHeadset,
+  FaMapMarkedAlt,
+  FaRecycle,
+  FaCalendarAlt,
+  FaFilter,
+  FaChartPie,
+  FaChartArea,
+  FaTachometerAlt,
+  FaBolt,
+  FaRocket,
+  FaDollarSign,
+  FaCoins,
+  FaPercent,
+  FaPiggyBank,
+  FaArrowUp,
+  FaTrophy,
+  FaMedal,
+  FaStar,
+  FaClock,
+  FaHourglass,
+  FaUser,
+  FaCogs,
+  FaMicrochip,
+  FaDatabase,
+  FaCloud,
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 
@@ -47,6 +80,39 @@ const iconMap: { [key: string]: IconType } = {
   FaLaptopCode,
   FaHospital,
   FaServer,
+  FaChartLine,
+  FaHandshake,
+  FaHeart,
+  FaLightbulb,
+  FaShieldAlt,
+  FaUsers,
+  FaGlobe,
+  FaChartBar,
+  FaHeadset,
+  FaMapMarkedAlt,
+  FaRecycle,
+  FaCalendarAlt,
+  FaFilter,
+  FaChartPie,
+  FaChartArea,
+  FaTachometerAlt,
+  FaBolt,
+  FaRocket,
+  FaDollarSign,
+  FaCoins,
+  FaPercent,
+  FaPiggyBank,
+  FaArrowUp,
+  FaTrophy,
+  FaMedal,
+  FaStar,
+  FaClock,
+  FaHourglass,
+  FaUser,
+  FaCogs,
+  FaMicrochip,
+  FaDatabase,
+  FaCloud,
 };
 
 // Update the Industry interface to be more specific about icon type
@@ -99,7 +165,7 @@ export const ServicesIndustries: React.FC<Props> = ({
             heading="Tailored Solutions for Every Industry"
             subheading="Our loyalty program management services are tailored to meet the unique needs of various industries and business models."
           />
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
           {industries.map((industry, index) => (
             <motion.div
               key={index}

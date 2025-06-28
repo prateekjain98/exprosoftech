@@ -640,7 +640,19 @@ export const dynamicServicePageType = defineType({
                     { title: 'Server', value: 'FaServer' },
                     { title: 'Database', value: 'FaDatabase' },
                     { title: 'Cloud', value: 'FaCloud' },
-                 
+                    
+                    // Additional industry and business icons
+                    { title: 'Store', value: 'FaStore' },
+                    { title: 'Hotel', value: 'FaHotel' },
+                    { title: 'Plane', value: 'FaPlane' },
+                    { title: 'Restaurant', value: 'FaUtensils' },
+                    { title: 'Shopping Bag', value: 'FaShoppingBag' },
+                    { title: 'Car', value: 'FaCarAlt' },
+                    { title: 'Game', value: 'FaGamepad' },
+                    { title: 'Education', value: 'FaGraduationCap' },
+                    { title: 'Business Person', value: 'FaUserTie' },
+                    { title: 'Technology', value: 'FaLaptopCode' },
+                    { title: 'Healthcare', value: 'FaHospital' }
                   ]
                 }
               })

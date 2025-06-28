@@ -11,11 +11,30 @@ import {
   FiCheckCircle,
   FiStar,
   FiShield,
+  FiSettings,
+  FiTruck,
+  FiPackage,
+  FiDollarSign,
+  FiBarChart,
+  FiDatabase,
+  FiZap as FiLightning,
 } from "react-icons/fi";
-import { HiLightBulb } from "react-icons/hi";
-import { BiRocket } from "react-icons/bi";
-import { RiHandHeartLine } from "react-icons/ri";
+import { 
+  HiLightBulb,
+  HiCube,
+  HiCog as HiGear,
+} from "react-icons/hi";
 import { HiTrophy } from "react-icons/hi2";
+import { BiRocket, BiCoin } from "react-icons/bi";
+import { RiHandHeartLine, RiRobot2Line } from "react-icons/ri";
+import { 
+  TbMedal,
+  TbReceipt,
+  TbWallet,
+  TbChartPie,
+  TbChartDonut,
+  TbPlug,
+} from "react-icons/tb";
 import Button from "./common/Button";
 
 interface MetricType {
@@ -76,6 +95,38 @@ const iconMap: { [key: string]: React.ComponentType<any> } = {
   RocketIcon: BiRocket,
   Shield: FiShield,
   ShieldIcon: FiShield,
+  
+  // New icons from Sanity schema
+  Cube: HiCube,
+  CubeIcon: HiCube,
+  Gear: HiGear,
+  GearIcon: HiGear,
+  ChartPieSlice: TbChartPie,
+  ChartPieSliceIcon: TbChartPie,
+  Truck: FiTruck,
+  TruckIcon: FiTruck,
+  Package: FiPackage,
+  PackageIcon: FiPackage,
+  Coins: BiCoin,
+  CoinsIcon: BiCoin,
+  ChartBar: FiBarChart,
+  ChartBarIcon: FiBarChart,
+  Medal: TbMedal,
+  MedalIcon: TbMedal,
+  Robot: RiRobot2Line,
+  RobotIcon: RiRobot2Line,
+  Receipt: TbReceipt,
+  ReceiptIcon: TbReceipt,
+  Wallet: TbWallet,
+  WalletIcon: TbWallet,
+  ChartDonut: TbChartDonut,
+  ChartDonutIcon: TbChartDonut,
+  Database: FiDatabase,
+  DatabaseIcon: FiDatabase,
+  Plugs: TbPlug,
+  PlugsIcon: TbPlug,
+  Lightning: FiLightning,
+  LightningIcon: FiLightning,
 };
 
 export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
