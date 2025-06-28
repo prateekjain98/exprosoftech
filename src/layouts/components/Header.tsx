@@ -33,31 +33,31 @@ export const mainMenu: NavigationLink[] = [
   //     },
   //   ],
   // },
-  {
-    name: "Services",
-    url: "",
-    hasChildren: true,
-    children: [
-      {
-        name: "Channel Loyalty Management",
-        url: "/services/loyalty-managementt/",
-        description:
-          "End to end Channel Loyalty Management to Maximize Channel Reach X Range to Increase Market Share",
-      },
-      {
-        name: "Channel Reach Expansion",
-        url: "/services/channel-reach-expansion/",
-        description:
-          "Expand retail footprint across channels to increase market share",
-      },
-      {
-        name: "B2B Sales",
-        url: "/services/b2b-saless/",
-        description:
-          "Comprehensive B2B sales solutions to accelerate your business growth",
-      },
-    ],
-  },
+  // {
+  //   name: "Services",
+  //   url: "",
+  //   hasChildren: true,
+  //   children: [
+  //     {
+  //       name: "Channel Loyalty Management",
+  //       url: "/services/loyalty-managementt/",
+  //       description:
+  //         "End to end Channel Loyalty Management to Maximize Channel Reach X Range to Increase Market Share",
+  //     },
+  //     {
+  //       name: "Channel Reach Expansion",
+  //       url: "/services/channel-reach-expansion/",
+  //       description:
+  //         "Expand retail footprint across channels to increase market share",
+  //     },
+  //     {
+  //       name: "B2B Sales",
+  //       url: "/services/b2b-saless/",
+  //       description:
+  //         "Comprehensive B2B sales solutions to accelerate your business growth",
+  //     },
+  //   ],
+  // },
   {
     name: "Products",
     url: "",

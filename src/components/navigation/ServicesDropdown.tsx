@@ -18,18 +18,54 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
   // Find the default view service (if any)
   const defaultService = serviceDropdownData.find(service => service.isDefaultView === true);
   
+  // Function to find URL for a service by name
+  const findServiceUrl = (serviceName: string): string => {
+    // Try to find exact match first
+    let matchedChild = children.find(child => 
+      child.name.toLowerCase() === serviceName.toLowerCase()
+    );
+    
+    // If no exact match, try partial matching
+    if (!matchedChild) {
+      matchedChild = children.find(child => 
+        child.name.toLowerCase().includes(serviceName.toLowerCase()) ||
+        serviceName.toLowerCase().includes(child.name.toLowerCase())
+      );
+    }
+    
+    return matchedChild?.url || "#";
+  };
+  
   // For debugging
   useEffect(() => {
+    console.log("=== SERVICES DROPDOWN DEBUG ===");
+    console.log("Navigation children (actual pages):", children);
+    console.log("Service dropdown data:", serviceDropdownData);
     console.log("Default service:", defaultService);
-    console.log("Default service metrics:", defaultService?.dropdownContent?.metrics);
-    console.log("Default service success stories:", defaultService?.dropdownContent?.successStories);
-    console.log("All services:", serviceDropdownData);
-  }, [defaultService, serviceDropdownData]);
+    console.log("=== END DROPDOWN DEBUG ===");
+  }, [children, serviceDropdownData, defaultService]);
 
-  // Non-default services for the left panel
-  const regularServices = serviceDropdownData.filter(service => 
-    service.isDefaultView !== true && service.isActive !== false
-  );
+  // Create a merged list of services that includes all navigation children
+  // and enriches them with dropdown data if available
+  const allServices = children.map(child => {
+    // Try to find matching dropdown data
+    const dropdownData = serviceDropdownData.find(service => 
+      service.name.toLowerCase() === child.name.toLowerCase() ||
+      service.name.toLowerCase().includes(child.name.toLowerCase()) ||
+      child.name.toLowerCase().includes(service.name.toLowerCase())
+    );
+    
+    return {
+      name: child.name,
+      description: child.description,
+      url: child.url,
+      dropdownContent: dropdownData?.dropdownContent || null,
+      isDefaultView: dropdownData?.isDefaultView || false
+    };
+  });
+
+  // Filter out default view services for the left panel
+  const regularServices = allServices.filter(service => !service.isDefaultView);
 
   return (
     <div className="grid grid-cols-12">
@@ -61,7 +97,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
               onMouseLeave={() => setHoveredServiceId(null)}
             >
               <a
-                href={children[index]?.url || "#"}
+                href={service.url || "#"}
                 className="block group"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -106,14 +142,14 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                             />
                           </svg>
                         </div>
-                        <p className="text-sm text-slate-600 mt-1">
-                          {service.dropdownContent?.subtitle || children[index]?.description}
-                        </p>
+                        {/* <p className="text-sm text-slate-600 mt-1">
+                          {service.dropdownContent?.subtitle || service.description}
+                        </p> */}
                       </div>
                     </div>
                   </div>
                   {/* Key Features section */}
-                  <div className="px-4 py-3 bg-slate-50/80 border-t border-slate-100">
+                  {/* <div className="px-4 py-3 bg-slate-50/80 border-t border-slate-100">
                     <h5 className="text-xs font-medium text-slate-900 mb-2">
                       Key Features
                     </h5>
@@ -147,7 +183,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                         Comprehensive business solutions tailored to your needs
                       </p>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </a>
             </div>
@@ -237,17 +273,18 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                     </div>
                   )}
                   <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold mb-3">
-                    {regularServices[hoveredServiceId]?.dropdownContent?.tagline || "Case Study"}
+                    {regularServices[hoveredServiceId]?.dropdownContent?.tagline || "Service Overview"}
                   </span>
                   <h3 className="text-xl font-semibold text-white mb-3">
                     {regularServices[hoveredServiceId]?.dropdownContent?.title || 
-                      `${regularServices[hoveredServiceId]?.name} Success Story`}
+                      `${regularServices[hoveredServiceId]?.name} Solutions`}
                   </h3>
                   <p className="text-slate-300 text-sm leading-relaxed mb-4">
                     {regularServices[hoveredServiceId]?.dropdownContent?.description || 
+                      regularServices[hoveredServiceId]?.description ||
                       "Transforming business through innovative solutions."}
                   </p>
-                  {regularServices[hoveredServiceId]?.dropdownContent?.metrics && regularServices[hoveredServiceId].dropdownContent.metrics.length > 0 && (
+                  {regularServices[hoveredServiceId]?.dropdownContent?.metrics && regularServices[hoveredServiceId].dropdownContent.metrics.length > 0 ? (
                     <div className={
                       regularServices[hoveredServiceId].dropdownContent.metrics.length > 2 
                         ? "space-y-3" 
@@ -280,6 +317,12 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                           </div>
                         </>
                       )}
+                    </div>
+                  ) : (
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                      <p className="text-slate-300 text-sm">
+                        Explore our comprehensive {regularServices[hoveredServiceId]?.name.toLowerCase()} solutions designed to drive business growth and efficiency.
+                      </p>
                     </div>
                   )}
                 </div>
