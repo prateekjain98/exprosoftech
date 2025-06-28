@@ -38,8 +38,9 @@ import testimonialSection from './testimonialSection.ts'
 import { productDropdownType } from './productDropwdown'
 import { serviceDropdownType } from './serviceDropdown'
 import { consultingDropdownType } from './consultingDropdown.ts'
+import industries from './industries'
 
 export const schemaTypes = [ 
     clientsType , post , author , blockContent , dynamicProductPageType , dynamicServicePageType , dynamicConsultingsPageType , homePage,      
-    about , contact , caseStudyType , testimonialSection , productDropdownType , serviceDropdownType , consultingDropdownType
+    about , contact , caseStudyType , testimonialSection , productDropdownType , serviceDropdownType , consultingDropdownType , industries
 ]

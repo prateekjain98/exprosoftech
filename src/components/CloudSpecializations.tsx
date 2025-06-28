@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
-interface CloudSpecialization {
+// Export the interface for use in other components
+export interface CloudSpecialization {
   id: string;
   name: string;
   description: string;
@@ -17,6 +18,7 @@ interface CloudSpecialization {
 
 interface Props {
   className?: string;
+  cloudSpecializations?: CloudSpecialization[];
   heading?: {
     tagline: string;
     title: string;
@@ -24,7 +26,8 @@ interface Props {
   };
 }
 
-const cloudSpecializations: CloudSpecialization[] = [
+// Export the default data for use in other components
+export const defaultCloudSpecializations: CloudSpecialization[] = [
   {
     id: "data-cloud",
     name: "Data Cloud",
@@ -32,9 +35,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "🗃️",
     features: ["Data Integration", "Real-time Analytics", "Customer 360", "AI Insights"],
     color: {
-      primary: "from-blue-500 to-cyan-500",
-      secondary: "from-blue-50 to-cyan-50",
-      accent: "border-blue-200"
+      primary: "from-primary to-primary-light",
+      secondary: "from-secondary-100 to-secondary-200",
+      accent: "border-primary/20"
     }
   },
   {
@@ -44,9 +47,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "📊",
     features: ["Lead Management", "Opportunity Tracking", "Sales Automation", "Forecasting"],
     color: {
-      primary: "from-green-500 to-emerald-500",
-      secondary: "from-green-50 to-emerald-50",
-      accent: "border-green-200"
+      primary: "from-primary-dark to-primary",
+      secondary: "from-blue-50 to-blue-100",
+      accent: "border-primary-dark/20"
     }
   },
   {
@@ -56,9 +59,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "🎧",
     features: ["Case Management", "Omnichannel Support", "Knowledge Base", "Service Analytics"],
     color: {
-      primary: "from-purple-500 to-violet-500",
-      secondary: "from-purple-50 to-violet-50",
-      accent: "border-purple-200"
+      primary: "from-secondary-400 to-secondary-300",
+      secondary: "from-slate-50 to-slate-100",
+      accent: "border-secondary-400/20"
     }
   },
   {
@@ -68,9 +71,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "🌐",
     features: ["Community Building", "Partner Portals", "Customer Portals", "Digital Experiences"],
     color: {
-      primary: "from-pink-500 to-rose-500",
-      secondary: "from-pink-50 to-rose-50",
-      accent: "border-pink-200"
+      primary: "from-primary-light to-secondary",
+      secondary: "from-indigo-50 to-blue-50",
+      accent: "border-primary-light/20"
     }
   },
   {
@@ -80,9 +83,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "⚡",
     features: ["Work Order Management", "Mobile App", "Scheduling Optimization", "IoT Integration"],
     color: {
-      primary: "from-orange-500 to-amber-500",
-      secondary: "from-orange-50 to-amber-50",
-      accent: "border-orange-200"
+      primary: "from-secondary-300 to-secondary-400",
+      secondary: "from-gray-50 to-blue-50",
+      accent: "border-secondary-300/20"
     }
   },
   {
@@ -92,9 +95,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "🏭",
     features: ["Account Planning", "Partner Management", "Supply Chain", "Production Tracking"],
     color: {
-      primary: "from-indigo-500 to-blue-500",
-      secondary: "from-indigo-50 to-blue-50",
-      accent: "border-indigo-200"
+      primary: "from-primary to-secondary-400",
+      secondary: "from-slate-50 to-blue-50",
+      accent: "border-primary/20"
     }
   },
   {
@@ -104,9 +107,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "📈",
     features: ["Advanced Analytics", "AI Predictions", "Interactive Dashboards", "Data Visualization"],
     color: {
-      primary: "from-teal-500 to-cyan-500",
-      secondary: "from-teal-50 to-cyan-50",
-      accent: "border-teal-200"
+      primary: "from-primary-dark to-primary-light",
+      secondary: "from-blue-50 to-secondary-100",
+      accent: "border-primary-dark/20"
     }
   },
   {
@@ -116,9 +119,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "💰",
     features: ["Configure Price Quote", "Contract Management", "Subscription Billing", "Revenue Recognition"],
     color: {
-      primary: "from-yellow-500 to-orange-500",
-      secondary: "from-yellow-50 to-orange-50",
-      accent: "border-yellow-200"
+      primary: "from-secondary to-primary-light",
+      secondary: "from-secondary-100 to-secondary-200",
+      accent: "border-secondary/20"
     }
   },
   {
@@ -128,9 +131,9 @@ const cloudSpecializations: CloudSpecialization[] = [
     icon: "🎓",
     features: ["Student Management", "Recruitment", "Academic Planning", "Alumni Engagement"],
     color: {
-      primary: "from-red-500 to-pink-500",
-      secondary: "from-red-50 to-pink-50",
-      accent: "border-red-200"
+      primary: "from-primary-light to-secondary-300",
+      secondary: "from-indigo-50 to-secondary-100",
+      accent: "border-primary-light/20"
     }
   }
 ];
@@ -138,13 +141,13 @@ const cloudSpecializations: CloudSpecialization[] = [
 const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cloud, index }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
       className="group relative"
     >
       <div className={`relative h-full rounded-2xl border-2 ${cloud.color.accent} bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}>
@@ -205,6 +208,7 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
 
 export const CloudSpecializations: React.FC<Props> = ({
   className = "",
+  cloudSpecializations = defaultCloudSpecializations,
   heading = {
     tagline: "Our Expertise",
     title: "Cloud Specializations",
@@ -229,21 +233,21 @@ export const CloudSpecializations: React.FC<Props> = ({
         >
           <div className="flex items-center gap-8 rounded-2xl bg-white px-8 py-4 shadow-lg">
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+              <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
                 9+
               </div>
               <div className="text-sm text-gray-600">Cloud Platforms</div>
             </div>
             <div className="h-8 w-px bg-gray-200" />
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
+              <div className="text-3xl font-bold bg-gradient-to-r from-primary-dark to-secondary bg-clip-text text-transparent">
                 500+
               </div>
               <div className="text-sm text-gray-600">Projects Delivered</div>
             </div>
             <div className="h-8 w-px bg-gray-200" />
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+              <div className="text-3xl font-bold bg-gradient-to-r from-secondary-400 to-primary-light bg-clip-text text-transparent">
                 98%
               </div>
               <div className="text-sm text-gray-600">Success Rate</div>
@@ -265,7 +269,7 @@ export const CloudSpecializations: React.FC<Props> = ({
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-16 text-center"
         >
-          <div className="rounded-3xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-1">
+          <div className="rounded-3xl bg-gradient-to-r from-primary via-primary-light to-secondary p-1">
             <div className="rounded-3xl bg-white px-8 py-12">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 Ready to Transform Your Business?
@@ -276,7 +280,7 @@ export const CloudSpecializations: React.FC<Props> = ({
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-gradient-to-r from-primary to-primary-light text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Get Started Today
               </motion.button>

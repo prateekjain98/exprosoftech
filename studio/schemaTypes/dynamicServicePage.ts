@@ -728,11 +728,6 @@ export const dynamicServicePageType = defineType({
       type: 'object',
       fields: [
         defineField({
-          name: 'title',
-          title: 'Section Title',
-          type: 'string'
-        }),
-        defineField({
           name: 'pageTitle',
           title: 'Page Title',
           type: 'string'

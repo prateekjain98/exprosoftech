@@ -2,53 +2,78 @@ import React from "react";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons/lib";
 import {
-  FaUserFriends,
-  FaChartLine,
-  FaCogs,
-  FaRocket,
-  FaShieldAlt,
-  FaHeadset,
-  FaUsers,
-  FaMapMarkedAlt,
-  FaStore,
-  FaChartBar,
-  FaPhoneAlt,
-  FaBoxes,
-  FaBuilding,
-  FaSearchLocation,
-  FaGlobe,
-  FaHandshake,
-  FaMoneyBillWave,
-  FaNetworkWired,
+  // Manufacturing
   FaIndustry,
+  FaCogs,
+  FaTools,
+  FaHardHat,
+  
+  // Healthcare & Life Sciences
+  FaHospital,
+  FaUserMd,
+  FaHeartbeat,
+  FaPills,
+  FaMicroscope,
+  FaFirstAid,
+  
+  // Real Estate
+  FaHome,
+  FaBuilding,
+  FaKey,
+  FaMapMarkedAlt,
+  
+  // Education
+  FaGraduationCap,
+  FaSchool,
+  FaBook,
+  FaChalkboardTeacher,
+  
+  // Non-profit
+  FaHeart,
+  FaHandsHelping,
+  FaDonate,
+  FaUsers,
+  
+  // E-Commerce
   FaShoppingCart,
-  FaRecycle,
-  FaUserTie,
-  FaBullseye
+  FaStore,
+  FaShoppingBag,
+  FaCreditCard,
+  
+  // High Tech
+  FaLaptopCode,
+  FaMicrochip,
+  FaRobot,
+  FaDatabase,
+  FaCloud,
+  FaServer,
+  
+  // Fallback icon
+  FaUserFriends
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 import { useState } from "react";
 
-interface Feature {
-  title: string;
-  tagline: string;
-  description: string;
-  icon: any; // Changed from IconType to any to accommodate both component references and JSX elements
-  image: string;
-}
+// interface Feature {
+//   title: string;
+//   tagline: string;
+//   description: string;
+//   icon: any; // Changed from IconType to any to accommodate both component references and JSX elements
+//   image: string;
+// }
 
-interface FeaturesContent {
-  tagline: string;
-  heading: string;
-  subheading: string;
-  features: Feature[];
-}
+// interface FeaturesContent {
+//   tagline: string;
+//   heading: string;
+//   subheading: string;
+//   features: Feature[];
+// }
 
 // Updated Features interface
 interface Features {
   title: string;
   tagline: string;
-  description: string;
+  description: string | string[]; // Now supports both string and array of strings
   icon: string;
   imageUrl: string; // Changed from image to imageUrl to match the query
 }
@@ -61,29 +86,54 @@ interface Features {
 
 // Icon mapping
 const iconMap: Record<string, IconType> = {
-  FaUserFriends,
-  FaChartLine,
-  FaCogs,
-  FaRocket,
-  FaShieldAlt,
-  FaHeadset,
-  FaUsers,
-  FaMapMarkedAlt,
-  FaStore,
-  FaChartBar,
-  FaPhoneAlt,
-  FaBoxes,
-  FaBuilding,
-  FaSearchLocation,
-  FaGlobe,
-  FaHandshake,
-  FaMoneyBillWave,
-  FaNetworkWired,
+  // Manufacturing
   FaIndustry,
+  FaCogs,
+  FaTools,
+  FaHardHat,
+  
+  // Healthcare & Life Sciences
+  FaHospital,
+  FaUserMd,
+  FaHeartbeat,
+  FaPills,
+  FaMicroscope,
+  FaFirstAid,
+  
+  // Real Estate
+  FaHome,
+  FaBuilding,
+  FaKey,
+  FaMapMarkedAlt,
+  
+  // Education
+  FaGraduationCap,
+  FaSchool,
+  FaBook,
+  FaChalkboardTeacher,
+  
+  // Non-profit
+  FaHeart,
+  FaHandsHelping,
+  FaDonate,
+  FaUsers,
+  
+  // E-Commerce
   FaShoppingCart,
-  FaRecycle,
-  FaUserTie,
-  FaBullseye
+  FaStore,
+  FaShoppingBag,
+  FaCreditCard,
+  
+  // High Tech
+  FaLaptopCode,
+  FaMicrochip,
+  FaRobot,
+  FaDatabase,
+  FaCloud,
+  FaServer,
+  
+  // Fallback
+  FaUserFriends
 };
 
 interface HeadingProps {
@@ -124,13 +174,8 @@ export const ServicesFeatures: React.FC<Props> = ({
   }
 
   const getIconComponent = (iconName: string) => {
-    const icons = {
-      FaUserFriends,
-      FaChartLine,
-      FaCogs,
-      FaRocket,
-    };
-    return icons[iconName as keyof typeof icons] || FaUserFriends;
+    // Use the same iconMap that contains all our industry icons
+    return iconMap[iconName] || FaUserFriends;
   };
 
   // Function to safely render icons
@@ -170,7 +215,7 @@ export const ServicesFeatures: React.FC<Props> = ({
         <div className="mt-12">
           {/* Navigation Tabs */}
           <nav
-            className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-3"
+            className="flex flex-wrap justify-center gap-3 max-w-[54rem] mx-auto"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -180,9 +225,9 @@ export const ServicesFeatures: React.FC<Props> = ({
                   key={index}
                   onClick={() => setActiveTab(index)}
                   className={`
-                    group flex flex-col sm:flex-row items-center gap-3 
-                    px-4 sm:px-6 py-3 sm:py-4 rounded-xl 
-                    transition-all duration-300
+                    group flex items-center gap-2 
+                    px-3 py-4 rounded-xl text-center
+                    w-auto sm:w-auto transition-all duration-300
                     ${
                       activeTab === index
                         ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25"
@@ -199,7 +244,7 @@ export const ServicesFeatures: React.FC<Props> = ({
                   >
                     {renderIcon(feature.icon)}
                   </div>
-                  <span className="text-sm sm:text-base font-medium">
+                  <span className="text-xs sm:text-sm font-medium leading-tight">
                     {feature.title}
                   </span>
                 </button>
@@ -209,7 +254,7 @@ export const ServicesFeatures: React.FC<Props> = ({
 
           {/* Feature Cards */}
           <div
-            className="mt-8 min-h-[400px] relative"
+            className="mt-8 min-h-[600px] relative"
             data-aos="fade-up"
             data-aos-delay="200"
           >
@@ -238,9 +283,19 @@ export const ServicesFeatures: React.FC<Props> = ({
                           {feature.title}
                         </h3>
 
-                        <p className="text-gray-500 leading-relaxed text-sm sm:text-base">
-                          {feature.description}
-                        </p>
+                        <div className="text-gray-500 leading-relaxed text-sm sm:text-base">
+                          {Array.isArray(feature.description) ? (
+                            <>
+                              {feature.description.map((paragraph: string, index: number) => (
+                                <p key={index} className="mb-4 last:mb-0">
+                                  {paragraph}
+                                </p>
+                              ))}
+                            </>
+                          ) : (
+                            <p>{feature.description}</p>
+                          )}
+                        </div>
                       </div>
                     </div>
 

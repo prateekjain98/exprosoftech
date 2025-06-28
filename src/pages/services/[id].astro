@@ -12,6 +12,7 @@ import ConsultationCTA from "../../components/ConsultationCTA";
 import NewFAQ from "../../components/NewFAQ";
 import { sanityClient } from "sanity:client";
 import DynamicCTA from "../../components/DynamicCTA";
+import { CloudSpecializations } from "../../components/CloudSpecializations";
 
 interface Service {
   id: string;
@@ -189,6 +190,7 @@ if (!service) {
     services={service.servicesSection.services} 
     heading={service.servicesSection.heading}
   /> -->
+  <CloudSpecializations client:visible />
   <ServicesSteps 
     client:visible 
     process={service.stepsSection?.steps || []} 
@@ -199,6 +201,7 @@ if (!service) {
     benefits={service.benefitsSection.benefits} 
     heading={service.benefitsSection.heading}
   />
+
   <!-- <ServicesProcess 
     client:visible 
     process={service.processSection.steps} 
@@ -210,6 +213,6 @@ if (!service) {
     industries={service.industriesSection.industries} 
     heading={service.industriesSection.heading}
   /> -->
-  <!-- <DynamicCTA client:visible ctaContent={service.ctaSection} /> -->
-  <!-- <NewFAQ client:visible Faq={[service.faqSection]} /> -->
+  <DynamicCTA client:visible ctaContent={service.ctaSection} />
+  <NewFAQ client:visible Faq={[service.faqSection]} />
 </Base>

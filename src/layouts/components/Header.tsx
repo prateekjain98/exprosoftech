@@ -20,19 +20,19 @@ export interface NavigationLink {
 }
 
 export const mainMenu: NavigationLink[] = [
-  {
-    name: "Consulting",
-    url: "",
-    hasChildren: true,
-    children: [
-      {
-        name: "Demand-Driven Business Transformation",
-        url: "/consulting/demand-driven-business-transformation/",
-        description:
-          "Transform your supply chain with DDMRP methodology and cutting-edge tools",
-      },
-    ],
-  },
+  // {
+  //   name: "Consulting",
+  //   url: "",
+  //   hasChildren: true,
+  //   children: [
+  //     {
+  //       name: "Demand-Driven Business Transformation",
+  //       url: "/consulting/demand-driven-business-transformation/",
+  //       description:
+  //         "Transform your supply chain with DDMRP methodology and cutting-edge tools",
+  //     },
+  //   ],
+  // },
   {
     name: "Services",
     url: "",
@@ -82,6 +82,10 @@ export const mainMenu: NavigationLink[] = [
           "Drive customer retention with personalized rewards, gamification, and engagement analytics",
       },
     ],
+  },
+  {
+    name: "Industries",
+    url: "/industries/",
   },
   {
     name: "Blogs",

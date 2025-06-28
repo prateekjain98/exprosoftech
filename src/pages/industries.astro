@@ -1,0 +1,56 @@
+---
+import Base from "../layouts/Base.astro";
+import { ServicesFeatures } from "../layouts/components/services";
+import { sanityClient } from "sanity:client";
+import { HomeBanner } from "../components/HomeBanner";
+
+const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
+    title,
+    metaTitle,
+    metaDescription,
+    hero {
+        title,
+        description,
+        image[] {
+            "src": asset->url,
+            alt
+        },
+        buttons[] {
+            label,
+            link,
+            isCalendly
+        }
+    },
+    industries {
+        heading {
+            tagline,
+            title,
+            description[]
+        },
+        industries[] {
+            title,
+            tagline,
+            description,
+            icon,
+            "imageUrl": image.asset->url
+        }
+    }
+}`)
+
+if (!industriesData) {
+    return Astro.redirect('/404');
+}
+---
+
+<Base 
+    title={industriesData.title || "Industries"} 
+    meta_title={industriesData.metaTitle || "Industries"} 
+    description={industriesData.metaDescription || "Industries"}
+>
+    <HomeBanner client:visible data={industriesData.hero} />
+    <ServicesFeatures 
+        client:visible 
+        features={industriesData.industries.industries}     
+        heading={industriesData.industries.heading}
+    />
+</Base>

@@ -43,7 +43,6 @@ interface HomeBannerProps {
 
 export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps ) => {
 
-  console.log(data.image[0].src);
 
   return (
     <>
