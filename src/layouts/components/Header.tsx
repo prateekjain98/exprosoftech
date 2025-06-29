@@ -361,14 +361,14 @@ const Header: React.FC<HeaderProps> = ({
                         className={`hidden lg:group-hover:block absolute left-1/2 ${
                           menu.name === "Consulting" ? "-translate-x-1/3" : 
                           menu.name === "Services" ? "" : "-translate-x-1/2"
-                        } top-full pt-[12px]`}
+                        } top-full ${menu.name === "Services" ? "" : "pt-[12px]"}`}
                         onMouseEnter={() => handleDropdownVisibility(true)}
                         onMouseLeave={() => handleDropdownVisibility(false)}
                         style={menu.name === "Services" ? { 
                           position: 'fixed',
                           left: '50%', 
                           transform: 'translateX(-50%)',
-                          top: '80px',
+                          top: '64px',
                           maxWidth: 'calc(100vw - 6rem)',
                           width: 'min(900px, calc(100vw - 6rem))',
                           zIndex: 9999

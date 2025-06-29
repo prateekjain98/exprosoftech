@@ -157,6 +157,70 @@ export default defineType({
                 defineField({ name: 'tagline', type: 'string' }),
                 defineField({ name: 'title', type: 'string' }),
                 defineField({ name: 'description', type: 'text' }),
+                defineField({
+                  name: 'metrics',
+                  title: 'Metrics',
+                  type: 'array',
+                  of: [
+                    {
+                      type: 'object',
+                      fields: [
+                        defineField({
+                          name: 'value',
+                          title: 'Value',
+                          type: 'string',
+                          description: 'Metric value (e.g., "85%", "40%", "99%")'
+                        }),
+                        defineField({
+                          name: 'label',
+                          title: 'Label',
+                          type: 'string',
+                          description: 'Metric description (e.g., "Efficiency Gain", "Cost Reduction")'
+                        }),
+                        defineField({
+                          name: 'icon',
+                          title: 'Icon',
+                          type: 'string',
+                          options: {
+                            list: [
+                              'Cube',
+                              'ChartLineUp',
+                              'Gear',
+                              'ChartPieSlice',
+                              'Brain',
+                              'Truck',
+                              'Package',
+                              'Coins',
+                              'ChartBar',
+                              'Medal',
+                              'Gauge',
+                              'Robot',
+                              'Receipt',
+                              'Wallet',
+                              'ChartDonut',
+                              'Clock',
+                              'Database',
+                              'Plugs',
+                              'Lightning',
+                              'Handshake',
+                              'Target',
+                              'Activity',
+                              'CheckCircle',
+                              'Star',
+                              'Trophy',
+                              'DollarSign',
+                              'Settings',
+                              'ChartPie',
+                              'BiRocket'
+                            ]
+                          },
+                          description: 'Icon name for the metric display'
+                        })
+                      ]
+                    }
+                  ],
+                  description: 'Optional metrics to display for this feature'
+                }),
                 defineField({ name: 'image', type: 'image' }),
                 defineField({ 
                   name: 'icon', 

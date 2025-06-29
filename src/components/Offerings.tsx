@@ -12,34 +12,47 @@ import {
   FiCpu,
   FiGlobe,
   FiLayers,
+  FiDatabase,
+  FiCloud,
+  FiCode,
+  FiBriefcase,
+  FiBarChart2,
 } from "react-icons/fi";
 import { HiLightBulb, HiOutlineCog } from "react-icons/hi";
 import { BiRocket } from "react-icons/bi";
+import { GiBrain } from "react-icons/gi";
 
 // Icon mapping for offerings
 const iconMap: { [key: string]: React.ComponentType<any> } = {
   // Consulting related icons
-
   FiLightbulb: HiLightBulb, 
   Users: FiUsers,
   Lightbulb: HiLightBulb,
   TrendingUp: FiTrendingUp,
   Target: FiTarget,
   Shield: FiShield,
+  Brain: GiBrain,
   
   // Services related icons
-
   Settings: FiSettings,
   Cpu: FiCpu,
   Globe: FiGlobe,
   Layers: FiLayers,
   Gear: HiOutlineCog,
+  Database: FiDatabase,
+  Cloud: FiCloud,
+  Code: FiCode,
   
   // Products related icons
   Box: FiBox,
   Zap: FiZap,
   Rocket: BiRocket,
   Lightning: FiZap,
+  Briefcase: FiBriefcase,
+  
+  // Chart related icons
+  ChartLineUp: FiTrendingUp,
+  ChartBar: FiBarChart2,
   
   // Default icons for each category
   consulting: FiUsers,
@@ -159,7 +172,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
     <section className="section">
       <div className="max-w-[85rem] mx-auto px-3">
         <div className="row">
-          <div className="mx-auto lg:col-11">
+          <div className="mx-auto ">
             <SectionHeader
               tagline={data.heading?.subtitle || ''}
               heading={data.heading?.title || ''}

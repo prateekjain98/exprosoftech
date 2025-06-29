@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 import type { IconType } from "react-icons/lib";
 import { Button } from "../../components/common/Button";
 import {
@@ -57,6 +57,40 @@ const iconMap: { [key: string]: IconType } = {
   FaChartLine,
   FaClock
 };
+
+// Define color schemes for industries (similar to CloudSpecializations)
+const industryColorSchemes = [
+  {
+    primary: "from-primary to-primary-light",
+    secondary: "from-secondary-100 to-secondary-200",
+    accent: "border-primary/20"
+  },
+  {
+    primary: "from-primary-dark to-primary",
+    secondary: "from-blue-50 to-blue-100",
+    accent: "border-primary-dark/20"
+  },
+  {
+    primary: "from-secondary-400 to-secondary-300",
+    secondary: "from-slate-50 to-slate-100",
+    accent: "border-secondary-400/20"
+  },
+  {
+    primary: "from-primary-light to-secondary",
+    secondary: "from-indigo-50 to-blue-50",
+    accent: "border-primary-light/20"
+  },
+  {
+    primary: "from-secondary-300 to-secondary-400",
+    secondary: "from-gray-50 to-blue-50",
+    accent: "border-secondary-300/20"
+  },
+  {
+    primary: "from-primary to-secondary-400",
+    secondary: "from-slate-50 to-blue-50",
+    accent: "border-primary/20"
+  }
+];
 
 // Create a React version of SectionHeader
 const SectionHeader: React.FC<{
@@ -119,6 +153,119 @@ interface IndustriesSectionData {
   industries: IndustryApp[];
 }
 
+// Enhanced Industry Card Component
+const IndustryCard: React.FC<{ industry: IndustryApp; index: number }> = ({ industry, index }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Assign color scheme based on index
+  const colorScheme = industryColorSchemes[index % industryColorSchemes.length];
+  
+  const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
+    const IconComponent = iconMap[iconName];
+    if (!IconComponent) {
+      console.warn(`Icon "${iconName}" not found in iconMap`);
+      return React.createElement(iconMap.FaStore, { size: 24 });
+    }
+    return React.createElement(IconComponent, { size: 24 });
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="group relative"
+    >
+      <div className={`relative h-full rounded-2xl border-2 ${colorScheme.accent} bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}>
+        {/* Gradient background on hover */}
+        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${colorScheme.secondary} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
+        
+        {/* Content */}
+        <div className="relative z-10">
+          {/* Icon and Title */}
+          <div className="mb-4 flex items-center gap-3">
+            <motion.div 
+              animate={{ scale: isHovered ? 1.1 : 1, rotate: isHovered ? 5 : 0 }}
+              transition={{ duration: 0.3 }}
+              className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r ${colorScheme.primary} shadow-lg`}
+            >
+              <div className="text-white">
+                {renderIcon(industry.icon)}
+              </div>
+            </motion.div>
+            <h3 className="text-xl font-bold text-gray-900">{industry.name}</h3>
+          </div>
+
+          {/* Description */}
+          <p className="mb-6 text-gray-600 leading-relaxed">
+            {industry.description}
+          </p>
+
+          {/* Learn More Button */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`w-full rounded-lg bg-gradient-to-r ${colorScheme.primary} px-4 py-2.5 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0`}
+          >
+            Learn More
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Animated Counter Component
+const AnimatedCounter: React.FC<{
+  from: number;
+  to: number;
+  duration?: number;
+  suffix?: string;
+  isInView: boolean;
+  gradientClasses?: string;
+}> = ({ from, to, duration = 2000, suffix = "", isInView, gradientClasses = "from-primary to-primary-light" }) => {
+  const [count, setCount] = useState(from);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(from + (to - from) * easeOutQuart);
+      
+      setCount(currentCount);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [from, to, duration, isInView]);
+
+  return (
+    <div className={`text-3xl font-bold bg-gradient-to-r ${gradientClasses} bg-clip-text text-transparent`}>
+      {count}{suffix}
+    </div>
+  );
+};
+
 // Combined component props
 interface IndustryServicesAndApplicationsProps {
   className?: string;
@@ -147,54 +294,8 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
   ctaLink = "#contact",
   isCalendly = false,
   applicationIndustries,
-  // = [
-  //   {
-  //     name: "Manufacturing",
-  //     description: "Improve production flow, optimize material buffers, and reduce WIP inventory.",
-  //     icon: "FaIndustry"
-  //   },
-  //   {
-  //     name: "Retail & Distribution",
-  //     description: "Optimize store replenishment, omnichannel inventory, and demand planning.",
-  //     icon: "FaStore"
-  //   },
-  //   {
-  //     name: "B2B Sales & Supply Chains",
-  //     description: "Increase product availability, accelerate order fulfillment, and minimize stockouts.",
-  //     icon: "FaNetworkWired"
-  //   }
-  // ],
-  compatibilityFeatures = [
-    // {
-    //   title: "ERP/CRM Connectors",
-    //   description: "Standard APIs for seamless data exchange with SAP, Oracle, Microsoft Dynamics, and others.",
-    //   icon: "FaDatabase"
-    // },
-    // {
-    //   title: "Minimal Disruption",
-    //   description: "Phased rollout reduces downtime, ensuring business continuity.",
-    //   icon: "FaCloudDownloadAlt"
-    // },
-    // {
-    //   title: "Real-Time Dashboards",
-    //   description: "Unified KPI views for management and frontline teams.",
-    //   icon: "FaChartLine"
-    // }
-  ],
-  timeline = [
-    // {
-    //   period: "3–6 Months",
-    //   description: "Noticeable reduction in buffer stock and expedite costs."
-    // },
-    // {
-    //   period: "6–9 Months",
-    //   description: "Marked improvements in lead times, higher service levels, and synergy between sales & supply chain."
-    // },
-    // {
-    //   period: "12 Months & Beyond",
-    //   description: "Full ROI on implementation as freed-up capital and stable workflows drive profitable growth."
-    // }
-  ]
+  compatibilityFeatures = [],
+  timeline = []
 }) => {
   // Use data from props if available, otherwise fall back to individual props
   const heading = data?.heading ? {
@@ -207,131 +308,105 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
   });
   
   const industries = data?.industries || applicationIndustries || [];
-
-  const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
-    const IconComponent = iconMap[iconName];
-    if (!IconComponent) {
-      console.warn(`Icon "${iconName}" not found in iconMap`);
-      return React.createElement(iconMap.FaStore, { size: 24 });
-    }
-    return React.createElement(IconComponent, { size: 24 });
-  };
+  
+  // Create a ref for the stats section to detect when it's in view
+  const statsRef = React.useRef(null);
+  const isInView = useInView(statsRef, { once: true });
 
   return (
-    <section className={`py-20 ${className}`}>
+    <section className={`py-20 bg-gray-50/50 ${className}`}>
       <div className="container">
         <SectionHeader
           tagline={heading.tagline}
           heading={heading.title || ""}
           subheading={heading.description}
         />
+
+        {/* Stats */}
+        
         
         {/* Industry Applications Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {industries.map((industry, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all p-6 border border-gray-100"
-            >
-              <div className="p-4 bg-blue-50 rounded-lg inline-block mb-4">
-                <div className="text-blue-600">
-                  {renderIcon(industry.icon)}
-                </div>
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">{industry.name}</h3>
-              <p className="text-gray-600">{industry.description}</p>
-            </motion.div>
+            <IndustryCard key={index} industry={industry} index={index} />
           ))}
         </div>
         
-        {/* CTA Button */}
-        <div className="flex justify-center mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <Button
-              href={ctaLink}
-              variant="primary"
-              isCalendlyButton={isCalendly}
-              showArrow={false}
-            >
-              {ctaText}
-            </Button>
-          </motion.div>
-        </div>
+                 {/* Stats Section */}
+         <motion.div
+           ref={statsRef}
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.6 }}
+           viewport={{ once: true }}
+           className="mt-12 mb-16 flex justify-center"
+         >
+           <div className="flex items-center gap-8 rounded-2xl bg-white px-8 py-4 shadow-lg">
+             <div className="text-center">
+               <AnimatedCounter 
+                 from={0} 
+                 to={9} 
+                 suffix="+" 
+                 isInView={isInView} 
+                 duration={1500}
+                 gradientClasses="from-primary to-primary-light"
+               />
+               <div className="text-sm text-gray-600">Industries</div>
+             </div>
+             <div className="h-8 w-px bg-gray-200" />
+             <div className="text-center">
+               <AnimatedCounter 
+                 from={0} 
+                 to={500} 
+                 suffix="+" 
+                 isInView={isInView} 
+                 duration={2000}
+                 gradientClasses="from-primary-dark to-secondary"
+               />
+               <div className="text-sm text-gray-600">Projects Delivered</div>
+             </div>
+             <div className="h-8 w-px bg-gray-200" />
+             <div className="text-center">
+               <AnimatedCounter 
+                 from={0} 
+                 to={98} 
+                 suffix="%" 
+                 isInView={isInView} 
+                 duration={1800}
+                 gradientClasses="from-secondary-400 to-primary-light"
+               />
+               <div className="text-sm text-gray-600">Success Rate</div>
+             </div>
+           </div>
+         </motion.div>
         
-        {/* Two-column layout for Integration & Timeline */}
-        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8"> */}
-          {/* Integration & Technical Compatibility Section */}
-          {/* <div className="bg-gray-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-semibold mb-6 text-gray-900">Integration & Technical Compatibility</h3>
-            
-            <p className="text-gray-600 mb-8">
-              We understand the importance of aligning new systems with your existing IT infrastructure:
-            </p>
-            
-            <div className="space-y-6">
-              {compatibilityFeatures.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-start gap-4"
-                >
-                  <div className="flex-shrink-0 text-blue-600 mt-1.5">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="8" cy="8" r="7.5" stroke="currentColor" strokeOpacity="0.5" />
-                      <path d="M6 8.5L7.5 10L10.5 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold mb-2 text-gray-900">{feature.title}</h4>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+
+        {/* CTA Section */}
+        {/* <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <div className="rounded-3xl bg-gradient-to-r from-primary via-primary-light to-secondary p-1">
+            <div className="rounded-3xl bg-white px-8 py-12">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Ready to Transform Your Industry?
+              </h3>
+              <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+                Let our industry experts help you navigate digital transformation with tailored solutions that drive growth and efficiency in your specific sector.
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-primary to-primary-light text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Get Started Today
+              </motion.button>
             </div>
-          </div> */}
-          
-          {/* Timeline Section */}
-          {/* <div className="bg-gray-50 rounded-2xl p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 bg-blue-100 rounded-full text-blue-600">
-                <FaClock size={24} />
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-900">ROI Timeline</h3>
-            </div>
-            
-            <div className="space-y-6">
-              {timeline.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white p-6 rounded-xl shadow-sm border border-gray-100"
-                >
-                  <div className="font-bold text-blue-600 text-xl mb-3">
-                    {item.period}
-                  </div>
-                  <p className="text-gray-600">
-                    {item.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div> */}
-        {/* </div> */}
+          </div>
+        </motion.div> */}
       </div>
     </section>
   );

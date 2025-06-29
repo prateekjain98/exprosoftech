@@ -6,7 +6,6 @@ import {
   FiUsers,
   FiArrowRight,
   FiBriefcase,
-  FiBarChart,
   FiCloud,
   FiCode,
   FiDollarSign,
@@ -28,6 +27,13 @@ import {
   TbChartBar,
 } from "react-icons/tb";
 import SectionHeader from "./SectionHeader";
+
+// Define the metric type interface
+interface MetricType {
+  value: string;
+  label: string;
+  icon: string;
+}
 
 // Define the heading prop interface
 export interface HeadingData {
@@ -51,6 +57,7 @@ interface FeaturesGridProps {
       description: string;
       image: string;  // This will be the resolved URL
       icon: string;
+      metrics?: MetricType[]; // Optional metrics array
     }>;
   };
 }
@@ -127,7 +134,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
   return (
     <section className="py-16 lg:py-24">
       <div className="max-w-[86rem] mx-auto px-4 sm:px-6 md:px-8">
-        <div className="relative bg-[#0A0F1E] rounded-2xl sm:rounded-[2.5rem] overflow-hidden">
+        <div className="relative rounded-2xl sm:rounded-[2.5rem] overflow-hidden">
           {/* Checkered Background Pattern */}
           <div 
             className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
@@ -145,14 +152,14 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                 tagline={data.heading.subtitle || ""}
                 heading={data.heading.title || ""}
                 subheading={data.heading.description || ""}
-                theme="dark"
+                // theme="dark"
               />
             </div>
 
             <div className="flex flex-col gap-8 lg:gap-12 ">
               {/* Navigation Tabs */}
               <nav
-                className="grid grid-cols-2 sm:flex sm:flex-wrap justify-evenly gap-2.5 sm:gap-3 rounded-full sm:p-4 bg-gray-800/50"
+                className="grid grid-cols-2 sm:flex sm:flex-wrap justify-evenly gap-2.5 sm:gap-3 rounded-2xl lg:rounded-full sm:p-4 bg-gray-800"
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
@@ -164,12 +171,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                       onClick={() => setActiveTab(index)}
                       className={`
                         group flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 
-                        px-2.5 sm:px-6 py-2.5 sm:py-4 rounded-full sm:rounded-full 
+                        px-2.5 sm:px-6 py-2.5 sm:py-4 rounded-2xl  lg:rounded-full 
                         transition-all duration-300
                         ${
                           activeTab === index
                             ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25"
-                            : " text-gray-300 hover:bg-gray-800 hover:shadow-lg"
+                            : " text-gray-300  hover:shadow-lg"
                         }
                       `}
                     >
@@ -208,7 +215,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                       }
                     `}
                   >
-                    <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-xl h-full border border-gray-700/50">
+                    <div className="bg-gray-800  rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-xl h-full border border-gray-700/50">
                       <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
                         {/* Content Side */}
                         <div className="order-2 lg:order-1 p-5 md:p-8 lg:p-12 flex flex-col justify-center">
@@ -224,6 +231,31 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                             <p className="text-sm sm:text-base text-gray-300/90 leading-relaxed">
                               {feature.description}
                             </p>
+
+                            {/* Metrics Grid - Similar to DynamicCTA */}
+                            {feature.metrics && feature.metrics.length > 0 && (
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
+                                {feature.metrics.map((metric, metricIndex) => (
+                                  <div key={metricIndex} className="relative group">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
+                                    <div className="relative p-3 sm:p-4">
+                                      <div className="flex items-center justify-center sm:justify-start mb-2">
+                                        {React.createElement(getIconComponent(metric.icon), {
+                                          size: 20,
+                                          className: "text-blue-400"
+                                        })}
+                                      </div>
+                                      <div className="text-lg sm:text-xl font-bold text-white mb-1">
+                                        {metric.value}
+                                      </div>
+                                      <div className="text-xs sm:text-sm text-gray-400">
+                                        {metric.label}
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
 

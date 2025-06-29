@@ -66,9 +66,9 @@ const service = await sanityClient.fetch(`
       }
     },
     contentSection {
+      isVisible,
       subtitle,
       title,
-      description,
       content,
       image {
         asset->{
@@ -257,13 +257,23 @@ if (!service) {
     services={service.servicesSection.services} 
     heading={service.servicesSection.heading}
   /> -->
-  <CloudSpecializations client:visible />
+  
 
   <ServicesSteps 
     client:visible 
     process={service.stepsSection?.steps || []} 
     heading={service.stepsSection?.heading}
   />
+
+  
+  {service.processSection?.isVisible && (
+    <ServicesProcess 
+      client:visible 
+        process={service.processSection.steps} 
+        heading={service.processSection.heading}
+      />
+  )}
+  
   {service.bestPracticesSection?.isVisible && (
     <ServicesBestPractices 
       client:visible 
@@ -274,13 +284,8 @@ if (!service) {
   
   <IndustriesWeServe client:visible />
 
-  {service.processSection?.isVisible && (
-    <ServicesProcess 
-      client:visible 
-        process={service.processSection.steps} 
-        heading={service.processSection.heading}
-      />
-  )}
+
+  <CloudSpecializations client:visible />
   
   {service.benefitsSection?.isVisible && (
     <ServicesBenefits 

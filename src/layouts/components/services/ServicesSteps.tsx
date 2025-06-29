@@ -61,7 +61,6 @@ export const ServicesSteps: React.FC<Props> = ({
           heading={heading?.title}
           subheading={heading?.description}
         />
-
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Process Steps - Mobile: Compact numbers, Desktop: Vertical list */}
           <div className="lg:block lg:max-w-lg">
@@ -115,7 +114,7 @@ export const ServicesSteps: React.FC<Props> = ({
                           className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300
                             ${
                               activeStep === index
-                                ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25"
+                                ? "bg-gradient-to-r from-blue-500 to-blue-800 text-white shadow-lg shadow-blue-500/25"
                                 : "bg-white border-2 border-blue-100 text-blue-500 group-hover:border-blue-200"
                             }`}
                         >
@@ -143,49 +142,88 @@ export const ServicesSteps: React.FC<Props> = ({
 
           {/* Right side: Container Display */}
           <div className="relative lg:sticky lg:top-8 w-full">
+            {/* Container Cards */}
             <div className="space-y-6">
               {process[activeStep]?.containers?.map((container, index) => (
                 <motion.div
                   key={`container-${activeStep}-${container.title}-${index}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative rounded-2xl p-6 bg-white shadow-lg"
-                  style={{
-                    background: 'linear-gradient(white, white) padding-box, linear-gradient(45deg, #3b82f6, #8b5cf6, #6366f1) border-box',
-                    border: '2px solid transparent',
-                  }}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  className="group"
                 >
-                  {/* Gradient border */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 p-[2px]">
-                    <div className="rounded-2xl bg-white h-full w-full" />
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="relative z-10">
-                    <h3 className="text-xl font-semibold mb-3 text-gray-900">
-                      {index + 1}. {container.title}
-                    </h3>
-                    <p className="text-gray-700 leading-relaxed">
-                      {container.description}
-                    </p>
+                  <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden border border-gray-700/50 hover:border-blue-500/30 transition-all duration-500 hover:-translate-y-1">
+                    {/* Background Gradients */}
+                    <div className="absolute inset-0">
+                      <div className="absolute top-0 left-1/4 w-32 h-32 bg-blue-500/10 rounded-full filter blur-2xl" />
+                      <div className="absolute bottom-0 right-1/4 w-32 h-32 bg-purple-500/10 rounded-full filter blur-2xl" />
+                    </div>
+
+                    <div className="relative p-8">
+                      {/* Header with number */}
+                      <div className="flex items-start gap-5 mb-6">
+                        <div className="flex-shrink-0">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 text-blue-400 font-bold text-lg group-hover:from-blue-500/20 group-hover:to-purple-500/20 group-hover:border-blue-400/40 transition-all duration-300">
+                            {index + 1}
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                            {container.title}
+                          </h3>
+                          <p className="text-gray-300/90 leading-relaxed text-base">
+                            {container.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Bottom decoration */}
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                        <div className="flex gap-2">
+                          <div className="h-2 w-2 rounded-full bg-blue-500/30 group-hover:bg-blue-400/60 transition-colors duration-300"></div>
+                          <div className="h-2 w-2 rounded-full bg-purple-500/30 group-hover:bg-purple-400/60 transition-colors duration-300"></div>
+                          <div className="h-2 w-2 rounded-full bg-indigo-500/30 group-hover:bg-indigo-400/60 transition-colors duration-300"></div>
+                        </div>
+                        <svg className="w-5 h-5 text-gray-500 group-hover:text-blue-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Hover background effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 transition-all duration-500 pointer-events-none"></div>
                   </div>
                 </motion.div>
               ))}
             </div>
 
             {/* Progress bar */}
-            <div className="relative px-4 mt-8">
-              <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500"
-                  initial={{ width: "0%" }}
-                  animate={{
-                    width: `${((activeStep + 1) / process.length) * 100}%`,
-                  }}
-                  transition={{ duration: 0.5 }}
-                />
+            <div className="relative mt-8">
+              <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-gray-700/50 p-6">
+                {/* Background Gradients */}
+                <div className="absolute inset-0 rounded-2xl">
+                  <div className="absolute top-0 right-1/4 w-24 h-24 bg-blue-500/10 rounded-full filter blur-xl" />
+                  <div className="absolute bottom-0 left-1/4 w-24 h-24 bg-purple-500/10 rounded-full filter blur-xl" />
+                </div>
+                
+                <div className="relative flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-gray-300">
+                    Step {activeStep + 1} of {process.length}
+                  </span>
+                  <span className="text-sm font-medium text-blue-400">
+                    {Math.round(((activeStep + 1) / process.length) * 100)}%
+                  </span>
+                </div>
+                <div className="h-2 bg-gray-700/50 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-white via-blue-500 to-indigo-200 rounded-full"
+                    initial={{ width: "0%" }}
+                    animate={{
+                      width: `${((activeStep + 1) / process.length) * 100}%`,
+                    }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                  />
+                </div>
               </div>
             </div>
           </div>

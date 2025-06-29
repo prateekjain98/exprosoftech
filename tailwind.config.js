@@ -42,6 +42,7 @@ module.exports = {
         body: theme.colors.default.theme_color.body,
         border: theme.colors.default.theme_color.border,
         "theme-light": theme.colors.default.theme_color.theme_light,
+        "theme-dark": theme.colors.default.theme_color.theme_dark,
         "secondary-100": "#F0F7FF",
         "secondary-200": "#BAD6FE",
         "secondary-300": "#60A5FA",

@@ -53,8 +53,9 @@ const pageData = await sanityClient.fetch(`
         tagline,
         title,
         description,
+        metrics[] { value, label, icon },
         "image": image.asset->url,
-        icon
+        icon,
       }
     },
     ScrollableServicesSection {

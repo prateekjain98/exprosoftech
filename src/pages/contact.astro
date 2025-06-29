@@ -16,6 +16,7 @@ const contactQuery = `*[_type == "contact"][0] {
   meta_title,
   "image": image.asset->url,
   hero {
+    "heroImage": heroImage.asset->url,
     logo {
       "src": src.asset->url,
       alt

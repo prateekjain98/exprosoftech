@@ -70,11 +70,7 @@ const aboutQuery = `*[_type == "about"][0] {
     offerings[] {
       title,
       description,
-      icon {
-        asset-> {
-          url
-        }
-      }
+      iconName
     }
   },
   companySection {
@@ -172,7 +168,7 @@ const offeringsData = {
   offerings: pageData.offeringsSection?.offerings?.map((offering: any) => ({
     title: offering.title,
     description: offering.description,
-    icon: offering.icon?.asset?.url || ''
+    iconName: offering.iconName || ''
   })) || []
 };
 

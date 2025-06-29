@@ -57,7 +57,7 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
               <div className="mt-10" data-aos="fade-up" data-aos-delay="300">
                 <ul className="flex flex-wrap justify-center lg:justify-start gap-4">
                   <li>
-                    <Button href="#leadership" size="lg" arrowDown>
+                    <Button href="#leadership" size="lg" >
                       Meet Our Team
                     </Button>
                   </li>

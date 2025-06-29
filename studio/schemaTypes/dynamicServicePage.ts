@@ -215,11 +215,6 @@ export const dynamicServicePageType = defineType({
           type: 'string'
         }),
         defineField({
-          name: 'description',
-          title: 'Description',
-          type: 'text'
-        }),
-        defineField({
           name: 'content',
           title: 'Content Paragraphs',
           type: 'array',
@@ -387,6 +382,7 @@ export const dynamicServicePageType = defineType({
                 type: 'image'
               })
             ]
+
           }]
         })
       ]
