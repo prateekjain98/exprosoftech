@@ -215,7 +215,7 @@ export const ServicesFeatures: React.FC<Props> = ({
         <div className="mt-12">
           {/* Navigation Tabs */}
           <nav
-            className="flex flex-wrap justify-center gap-3 max-w-[54rem] mx-auto"
+            className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto"
             data-aos="fade-up"
             data-aos-delay="100"
           >

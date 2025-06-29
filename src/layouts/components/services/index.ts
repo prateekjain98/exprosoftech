@@ -1,6 +1,6 @@
 export { ServicesBanner } from "./ServicesBanner";
-export { ServicesBenefits } from "./ServicesBenefits";
+export { ServicesBestPractices } from "./ServiceBestPractices";
 export { ServicesFeatures } from "./ServicesFeatures";
-export { ServicesIndustries } from "./ServicesIndustries";
+export { ServicesBenefits } from "./ServicesBenefits";
 export { ServicesServices } from "./ServicesServices";
 export { ServicesProcess } from "./ServicesProcess";

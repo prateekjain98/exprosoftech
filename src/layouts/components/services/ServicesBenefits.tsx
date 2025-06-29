@@ -2,6 +2,26 @@ import React from "react";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons/lib";
 import {
+  FaStore,
+  FaHotel,
+  FaPlane,
+  FaUtensils,
+  FaShoppingBag,
+  FaCarAlt,
+  FaGamepad,
+  FaNetworkWired,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaLaptopCode,
+  FaIndustry,
+  FaUserTie,
+  FaMoneyBillWave,
+  FaHospital,
+  FaShoppingCart,
+  FaGraduationCap,
+  FaServer,
   FaChartLine,
   FaHandshake,
   FaHeart,
@@ -11,16 +31,7 @@ import {
   FaGlobe,
   FaChartBar,
   FaHeadset,
-  FaMoneyBillWave,
-  FaNetworkWired,
-  FaIndustry,
-  FaShoppingCart,
-  FaPhoneAlt,
-  FaBoxes,
-  FaBuilding,
-  FaSearchLocation,
   FaMapMarkedAlt,
-  FaStore,
   FaRecycle,
   FaCalendarAlt,
   FaFilter,
@@ -42,24 +53,81 @@ import {
   FaUser,
   FaCogs,
   FaMicrochip,
-  FaServer,
   FaDatabase,
   FaCloud,
-  FaCode,
-  FaGitAlt,
-  FaBoxOpen,
-  FaFlask,
-  FaMagic,
-  FaCommentAlt,
-  FaLock
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
 
-interface Benefit {
+// Improve icon mapping with better typing
+const iconMap: { [key: string]: IconType } = {
+  FaStore,
+  FaHotel,
+  FaPlane,
+  FaUtensils,
+  FaShoppingBag,
+  FaCarAlt,
+  FaGamepad,
+  FaGraduationCap,
+  FaShoppingCart,
+  FaIndustry,
+  FaNetworkWired,
+  FaMoneyBillWave,
+  FaPhoneAlt,
+  FaBoxes,
+  FaBuilding,
+  FaSearchLocation,
+  FaUserTie,
+  FaLaptopCode,
+  FaHospital,
+  FaServer,
+  FaChartLine,
+  FaHandshake,
+  FaHeart,
+  FaLightbulb,
+  FaShieldAlt,
+  FaUsers,
+  FaGlobe,
+  FaChartBar,
+  FaHeadset,
+  FaMapMarkedAlt,
+  FaRecycle,
+  FaCalendarAlt,
+  FaFilter,
+  FaChartPie,
+  FaChartArea,
+  FaTachometerAlt,
+  FaBolt,
+  FaRocket,
+  FaDollarSign,
+  FaCoins,
+  FaPercent,
+  FaPiggyBank,
+  FaArrowUp,
+  FaTrophy,
+  FaMedal,
+  FaStar,
+  FaClock,
+  FaHourglass,
+  FaUser,
+  FaCogs,
+  FaMicrochip,
+  FaDatabase,
+  FaCloud,
+};
+
+// Update the Industry interface to be more specific about icon type
+interface Benefits {
   title: string;
   description: string;
-  icon: any; // Changed from IconType to any
+  icon: keyof typeof iconMap; // This ensures icon must be a key from iconMap
 }
+
+// Content structure for the section
+// interface BenefitsContent {
+//   tagline: string;
+//   heading: string;
+//   subheading: string;
+// }
 
 interface HeadingProps {
   tagline: string;
@@ -67,113 +135,37 @@ interface HeadingProps {
   description: string;
 }
 
-interface Benefits {
-  title: string;
-  description: string;
-  icon: string;
-}
-
+// Component props
 interface Props {
   className?: string;
-  heading: HeadingProps;
+  heading?: HeadingProps;  // Make heading optional
   benefits: Benefits[];
 }
 
-// Icon mapping
-const iconMap: Record<string, IconType> = {
-  FaChartLine,
-  FaHandshake,
-  FaHeart,
-  FaLightbulb,
-  FaShieldAlt,
-  FaUsers,
-  FaGlobe,
-  FaChartBar,
-  FaHeadset,
-  FaMoneyBillWave,
-  FaNetworkWired,
-  FaIndustry,
-  FaShoppingCart,
-  FaPhoneAlt,
-  FaBoxes,
-  FaBuilding,
-  FaSearchLocation,
-  FaMapMarkedAlt,
-  FaStore,
-  FaRecycle,
-  FaCalendarAlt,
-  FaFilter,
-  FaChartPie,
-  FaChartArea,
-  FaTachometerAlt,
-  FaBolt,
-  FaRocket,
-  FaDollarSign,
-  FaCoins,
-  FaPercent,
-  FaPiggyBank,
-  FaArrowUp,
-  FaTrophy,
-  FaMedal,
-  FaStar,
-  FaClock,
-  FaHourglass,
-  FaUser,
-  FaCogs,
-  FaMicrochip,
-  FaServer,
-  FaDatabase,
-  FaCloud,
-  FaCode,
-  FaGitAlt,
-  FaBoxOpen,
-  FaFlask,
-  FaMagic,
-  FaCommentAlt,
-  FaLock
-};
-
-export const ServicesBenefits: React.FC<Props> = ({ 
-  className = "", 
+export const ServicesBenefits: React.FC<Props> = ({
+  className = "",
   heading,
   benefits = []
-}) => {
-  // Function to safely render icons
-  const renderIcon = (icon: any) => {
-    if (!icon) {
-      return <FaHeart size={32} />;
+}): JSX.Element => {
+  const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
+    const IconComponent = iconMap[iconName];
+    if (!IconComponent) {
+      console.warn(`Icon "${iconName}" not found in iconMap`);
+      return React.createElement(iconMap.FaStore, { size: 28 });
     }
-
-    // If icon is a function (React component)
-    if (typeof icon === "function") {
-      const IconComponent = icon;
-      return <IconComponent size={32} />;
-    }
-
-    // If icon is a string (icon name)
-    if (typeof icon === "string") {
-      // Check if the icon exists in our map
-      if (iconMap[icon]) {
-        const IconComponent = iconMap[icon];
-        return <IconComponent size={32} />;
-      }
-    }
-
-    // Default fallback
-    return <FaHeart size={32} />;
+    return React.createElement(IconComponent, { size: 28 });
   };
 
   return (
-    <section
-      className={`bg-gradient-to-b from-gray-50 to-white py-20 dark:from-darkmode-body dark:to-darkmode-theme-light ${className}`}
-    >
+    <section className={`py-20 ${className}`}>
       <div className="container">
-        <SectionHeader
-          tagline={heading.tagline}
-          heading={heading.title}
-          subheading={heading.description}
-        />
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+       
+          <SectionHeader
+            tagline={heading?.tagline || ""}
+            heading={heading?.title || ""}
+            subheading={heading?.description || ""}
+          />
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
           {benefits.map((benefit, index) => (
             <motion.div
               key={index}
@@ -181,51 +173,15 @@ export const ServicesBenefits: React.FC<Props> = ({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group relative flex flex-col items-center text-center"
+              className="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-darkmode-theme-light"
             >
-              <div className="relative mb-6">
-                <div className="absolute -inset-3 rotate-45 transform rounded-[20%] bg-gradient-to-br from-blue-50 to-purple-50 transition-all duration-300 group-hover:rotate-[135deg]" />
-                <div className="relative flex h-16 w-16 items-center justify-center">
-                  <div className="absolute inset-0 rotate-45 transform rounded-[20%] bg-gradient-to-r from-blue-500/10 to-purple-500/10" />
-                  <div className="relative z-10 text-blue-600 transition-transform duration-300 group-hover:scale-110">
-                    {renderIcon(benefit.icon)}
-                  </div>
-                </div>
+              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-600 transition-colors duration-300 group-hover:from-blue-500 group-hover:to-purple-500 group-hover:text-white dark:text-blue-400">
+                {renderIcon(benefit.icon)}
               </div>
-
-              <div className="relative">
-                <h3 className="mb-3 text-xl font-medium text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
-                  {benefit.title}
-                </h3>
-                <p className="text-gray-500">{benefit.description}</p>
-              </div>
-
-              <div className="absolute -right-4 bottom-0 hidden h-16 w-16 opacity-10 lg:block">
-                <div
-                  className="absolute h-1.5 w-1.5 rounded-full bg-blue-600"
-                  style={{ top: "0%", left: "0%" }}
-                />
-                <div
-                  className="absolute h-1.5 w-1.5 rounded-full bg-blue-600"
-                  style={{ top: "20%", left: "20%" }}
-                />
-                <div
-                  className="absolute h-1.5 w-1.5 rounded-full bg-blue-600"
-                  style={{ top: "40%", left: "40%" }}
-                />
-                <div
-                  className="absolute h-1.5 w-1.5 rounded-full bg-purple-600"
-                  style={{ top: "60%", left: "60%" }}
-                />
-                <div
-                  className="absolute h-1.5 w-1.5 rounded-full bg-purple-600"
-                  style={{ top: "80%", left: "80%" }}
-                />
-                <div
-                  className="absolute h-1.5 w-1.5 rounded-full bg-purple-600"
-                  style={{ top: "100%", left: "100%" }}
-                />
-              </div>
+              <h3 className="mb-3 text-xl font-medium text-gray-900">
+                {benefit.title}
+              </h3>
+              <p className="text-gray-500">{benefit.description}</p>
             </motion.div>
           ))}
         </div>

@@ -62,71 +62,79 @@ interface CTAProps {
 const iconMap: { [key: string]: React.ComponentType<any> } = {
   // Support both old and new naming for backwards compatibility
   Question: FiHelpCircle,
-  QuestionIcon: FiHelpCircle,
+
   ArrowRight: FiArrowRight,
-  ArrowRightIcon: FiArrowRight,
+
   ChartLine: FiTrendingUp,
-  ChartLineIcon: FiTrendingUp,
+
   Gauge: FiActivity,
-  GaugeIcon: FiActivity,
+
   Clock: FiClock,
-  ClockIcon: FiClock,
+
   Users: FiUsers,
-  UsersIcon: FiUsers,
+
   Target: FiTarget,
-  TargetIcon: FiTarget,
+
   ChartLineUp: FiTrendingUp,
-  ChartLineUpIcon: FiTrendingUp,
+
   Brain: FiZap,
-  BrainIcon: FiZap,
+
   Handshake: RiHandHeartLine,
-  HandshakeIcon: RiHandHeartLine,
+  
   Trophy: HiTrophy,
-  TrophyIcon: HiTrophy,
+  
   TrendUp: FiTrendingUp,
-  TrendUpIcon: FiTrendingUp,
+  
   CheckCircle: FiCheckCircle,
-  CheckCircleIcon: FiCheckCircle,
+  
   Star: FiStar,
-  StarIcon: FiStar,
+  
   Lightbulb: HiLightBulb,
-  LightbulbIcon: HiLightBulb,
+  
   Rocket: BiRocket,
-  RocketIcon: BiRocket,
+  
   Shield: FiShield,
-  ShieldIcon: FiShield,
+  
   
   // New icons from Sanity schema
   Cube: HiCube,
-  CubeIcon: HiCube,
+  
   Gear: HiGear,
-  GearIcon: HiGear,
+  
   ChartPieSlice: TbChartPie,
-  ChartPieSliceIcon: TbChartPie,
+  
   Truck: FiTruck,
-  TruckIcon: FiTruck,
+  
   Package: FiPackage,
-  PackageIcon: FiPackage,
+  
   Coins: BiCoin,
-  CoinsIcon: BiCoin,
+  
   ChartBar: FiBarChart,
-  ChartBarIcon: FiBarChart,
+  
   Medal: TbMedal,
-  MedalIcon: TbMedal,
+  
   Robot: RiRobot2Line,
-  RobotIcon: RiRobot2Line,
+  
   Receipt: TbReceipt,
-  ReceiptIcon: TbReceipt,
+  
   Wallet: TbWallet,
-  WalletIcon: TbWallet,
+  
   ChartDonut: TbChartDonut,
-  ChartDonutIcon: TbChartDonut,
+  
   Database: FiDatabase,
-  DatabaseIcon: FiDatabase,
+  
   Plugs: TbPlug,
-  PlugsIcon: TbPlug,
+  
   Lightning: FiLightning,
-  LightningIcon: FiLightning,
+  
+  DollarSign: FiDollarSign,
+  
+  Settings: FiSettings,
+  
+  ChartPie: TbChartPie,
+  
+ 
+  
 };
 
 export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {

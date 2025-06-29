@@ -192,12 +192,98 @@ export const dynamicServicePageType = defineType({
       ]
     }),
 
+    defineField({
+      name: 'contentSection',
+      title: 'Content Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Content Section',
+          type: 'boolean',
+          initialValue: true,
+          description: 'Toggle to show or hide the entire content section'
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'string'
+        }),
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string'
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text'
+        }),
+        defineField({
+          name: 'content',
+          title: 'Content Paragraphs',
+          type: 'array',
+          of: [{ type: 'text' }]
+        }),
+        defineField({
+          name: 'image',
+          title: 'Featured Image',
+          type: 'image',
+          options: { hotspot: true }
+        }),
+        defineField({
+          name: 'imageOverlay',
+          title: 'Image Overlay',
+          type: 'object',
+          description: 'Overlay element that appears on the bottom-right of the image',
+          fields: [
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'string',
+              description: 'Main value to display (e.g., "35+", "100%", "50K+")',
+              validation: Rule => Rule.required()
+            }),
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              description: 'Description text below the value',
+              validation: Rule => Rule.required()
+            }),
+                         defineField({
+               name: 'position',
+               title: 'Position',
+               type: 'string',
+               description: 'Position of the overlay on the image',
+               options: {
+                 list: [
+                   { title: 'Bottom Right', value: 'bottomRight' },
+                   { title: 'Bottom Left', value: 'bottomLeft' },
+                   { title: 'Top Right', value: 'topRight' },
+                   { title: 'Top Left', value: 'topLeft' }
+                 ]
+               },
+               initialValue: 'bottomRight'
+             })
+          ]
+        })
+      ]
+    }),
+
     // Features Section
     defineField({
       name: 'featuresSection',
       title: 'Features Section',
       type: 'object',
       fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Features Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire features section'
+        }),
         defineField({
           name: 'heading',
           title: 'Section Heading',
@@ -366,9 +452,16 @@ export const dynamicServicePageType = defineType({
     // Benefits Section
     defineField({
       name: 'benefitsSection',
-      title: 'Best Practices Section',
+      title: 'Benefits Section',
       type: 'object',
       fields: [
+        defineField({
+          name: 'isVisible',
+        title: 'Show Benefits Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire benefits section'
+        }),
         defineField({
           name: 'heading',
           title: 'Section Heading',
@@ -393,7 +486,7 @@ export const dynamicServicePageType = defineType({
         }),
         defineField({
           name: 'benefits',
-          title: 'Best Practices',
+          title: 'Benefits',
           type: 'array',
           of: [{
             type: 'object',
@@ -436,8 +529,131 @@ export const dynamicServicePageType = defineType({
                     { title: 'Recycle', value: 'FaRecycle' },
                     { title: 'Calendar', value: 'FaCalendarAlt' },
                     { title: 'Filter', value: 'FaFilter' },
-                    
-                    // Additional icons from previous list
+                    { title: 'Chart Pie', value: 'FaChartPie' },
+                    { title: 'Chart Area', value: 'FaChartArea' },
+                    { title: 'Analytics', value: 'FaChartBar' },
+                    // { title: 'Gauge', value: 'FaTachometerAlt' },
+                    { title: 'Tachometer', value: 'FaTachometerAlt' },
+                    { title: 'Bolt/Lightning', value: 'FaBolt' },
+                    { title: 'Rocket', value: 'FaRocket' },
+                    { title: 'Dollar Sign', value: 'FaDollarSign' },
+                    { title: 'Coins', value: 'FaCoins' },
+                    { title: 'Percentage', value: 'FaPercent' },
+                    { title: 'Piggy Bank', value: 'FaPiggyBank' },
+                    { title: 'Arrow Up', value: 'FaArrowUp' },
+                    { title: 'Arrow Trend Up', value: 'FaArrowUp' },
+                    { title: 'Trophy', value: 'FaTrophy' },
+                    { title: 'Medal', value: 'FaMedal' },
+                    { title: 'Star', value: 'FaStar' },
+                    { title: 'Clock', value: 'FaClock' },
+                    { title: 'Hourglass', value: 'FaHourglass' },
+                    { title: 'User', value: 'FaUser' },
+                    { title: 'User Group', value: 'FaUsers' },
+                    { title: 'Gear', value: 'FaCogs' },
+                    { title: 'Cogs', value: 'FaCogs' },
+                    { title: 'Microchip', value: 'FaMicrochip' },
+                    { title: 'Server', value: 'FaServer' },
+                    { title: 'Database', value: 'FaDatabase' },
+                    { title: 'Cloud', value: 'FaCloud' },
+
+                     
+                    // New additions for Salesforce benefits (non-duplicates)
+                    { title: 'Code', value: 'FaCode' }, // Apex Design Patterns
+                    { title: 'Git', value: 'FaGitAlt' }, // Version Controlling
+                    { title: 'Jenkins', value: 'FaJenkins' }, // CI/CD
+                    { title: 'Box Open', value: 'FaBoxOpen' }, // Sandboxes/Scratch Orgs
+                    { title: 'Flask', value: 'FaFlask' }, // Multi-Level Testing
+                    { title: 'Magic', value: 'FaMagic' }, // Low/No Code
+                    { title: 'Comment', value: 'FaCommentAlt' }, // Commented Code
+                    { title: 'Lock', value: 'FaLock' } // Data Masking
+                  ]
+                }
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+
+    defineField({
+      name: 'bestPracticesSection',
+      title: 'Best Practices Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+        title: 'Show Benefits Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire benefits section'
+        }),
+        defineField({
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'tagline',
+              title: 'Tagline',
+              type: 'string'
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string'
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text'
+            })
+          ]
+        }),
+        defineField({
+          name: 'bestPractices',
+          title: 'Best Practices Section',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'title',
+                title: 'Title',
+                type: 'string'
+              }),
+              defineField({
+                name: 'description',
+                title: 'Description',
+                type: 'text'
+              }),
+              defineField({
+                name: 'icon',
+                title: 'Icon',
+                type: 'string',
+                options: {
+                  list:[
+                    { title: 'Chart Line', value: 'FaChartLine' },
+                    { title: 'Handshake', value: 'FaHandshake' },
+                    { title: 'Heart', value: 'FaHeart' },
+                    { title: 'Lightbulb', value: 'FaLightbulb' },
+                    { title: 'Shield', value: 'FaShieldAlt' },
+                    { title: 'Users', value: 'FaUsers' },
+                    { title: 'Globe', value: 'FaGlobe' },
+                    { title: 'Chart Bar', value: 'FaChartBar' },
+                    { title: 'Headset', value: 'FaHeadset' },
+                    { title: 'Money Bill', value: 'FaMoneyBillWave' },
+                    { title: 'Network', value: 'FaNetworkWired' },
+                    { title: 'Industry', value: 'FaIndustry' },
+                    { title: 'Shopping Cart', value: 'FaShoppingCart' },
+                    { title: 'Phone', value: 'FaPhoneAlt' },
+                    { title: 'Boxes', value: 'FaBoxes' },
+                    { title: 'Building', value: 'FaBuilding' },
+                    { title: 'Search Location', value: 'FaSearchLocation' },
+                    { title: 'Map Marker', value: 'FaMapMarkedAlt' },
+                    { title: 'Store', value: 'FaStore' },
+                    { title: 'Recycle', value: 'FaRecycle' },
+                    { title: 'Calendar', value: 'FaCalendarAlt' },
+                    { title: 'Filter', value: 'FaFilter' },
                     { title: 'Chart Pie', value: 'FaChartPie' },
                     { title: 'Chart Area', value: 'FaChartArea' },
                     { title: 'Analytics', value: 'FaChartBar' },
@@ -487,9 +703,16 @@ export const dynamicServicePageType = defineType({
     // Process Section
     defineField({
       name: 'processSection',
-      title: 'Process Section',
+      title: 'Horizontal Navigation Section',
       type: 'object',
       fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Horizontal Navigation Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire Horizontal Navigation Section'
+        }),
         defineField({
           name: 'heading',
           title: 'Section Heading',
@@ -541,128 +764,6 @@ export const dynamicServicePageType = defineType({
     }),
 
     // Industries Section
-    defineField({
-      name: 'industriesSection',
-      title: 'Industries Section',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'heading',
-          title: 'Section Heading',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'tagline',
-              title: 'Tagline',
-              type: 'string'
-            }),
-            defineField({
-              name: 'title',
-              title: 'Title',
-              type: 'string'
-            }),
-            defineField({
-              name: 'description',
-              title: 'Description',
-              type: 'text'
-            })
-          ]
-        }),
-        defineField({
-          name: 'industries',
-          title: 'Industries',
-          type: 'array',
-          of: [{
-            type: 'object',
-            fields: [
-              defineField({
-                name: 'title',
-                title: 'Title',
-                type: 'string'
-              }),
-              defineField({
-                name: 'description',
-                title: 'Description',
-                type: 'text'
-              }),
-              defineField({
-                name: 'icon',
-                title: 'Icon',
-                type: 'string',
-                options:{
-                  list:[
-                    // Your existing icons (unchanged)
-                    { title: 'Chart Line', value: 'FaChartLine' },
-                    { title: 'Handshake', value: 'FaHandshake' },
-                    { title: 'Heart', value: 'FaHeart' },
-                    { title: 'Lightbulb', value: 'FaLightbulb' },
-                    { title: 'Shield', value: 'FaShieldAlt' },
-                    { title: 'Users', value: 'FaUsers' },
-                    { title: 'Globe', value: 'FaGlobe' },
-                    { title: 'Chart Bar', value: 'FaChartBar' },
-                    { title: 'Headset', value: 'FaHeadset' },
-                    { title: 'Money Bill', value: 'FaMoneyBillWave' },
-                    { title: 'Network', value: 'FaNetworkWired' },
-                    { title: 'Industry', value: 'FaIndustry' },
-                    { title: 'Shopping Cart', value: 'FaShoppingCart' },
-                    { title: 'Phone', value: 'FaPhoneAlt' },
-                    { title: 'Boxes', value: 'FaBoxes' },
-                    { title: 'Building', value: 'FaBuilding' },
-                    { title: 'Search Location', value: 'FaSearchLocation' },
-                    { title: 'Map Marker', value: 'FaMapMarkedAlt' },
-                    { title: 'Store', value: 'FaStore' },
-                    { title: 'Recycle', value: 'FaRecycle' },
-                    { title: 'Calendar', value: 'FaCalendarAlt' },
-                    { title: 'Filter', value: 'FaFilter' },
-                    { title: 'Chart Pie', value: 'FaChartPie' },
-                    { title: 'Chart Area', value: 'FaChartArea' },
-                    { title: 'Analytics', value: 'FaChartSimple' },
-                    { title: 'Gauge', value: 'FaGauge' },
-                    { title: 'Tachometer', value: 'FaTachometerAlt' },
-                    { title: 'Bolt/Lightning', value: 'FaBolt' },
-                    { title: 'Rocket', value: 'FaRocket' },
-                    { title: 'Dollar Sign', value: 'FaDollarSign' },
-                    { title: 'Coins', value: 'FaCoins' },
-                    { title: 'Percentage', value: 'FaPercent' },
-                    { title: 'Piggy Bank', value: 'FaPiggyBank' },
-                    { title: 'Arrow Up', value: 'FaArrowUp' },
-                    { title: 'Arrow Trend Up', value: 'FaArrowTrendUp' },
-                    { title: 'Trophy', value: 'FaTrophy' },
-                    { title: 'Medal', value: 'FaMedal' },
-                    { title: 'Star', value: 'FaStar' },
-                    { title: 'Clock', value: 'FaClock' },
-                    { title: 'Hourglass', value: 'FaHourglass' },
-                    { title: 'User', value: 'FaUser' },
-                    { title: 'User Group', value: 'FaUserGroup' },
-                    { title: 'Gear', value: 'FaGear' },
-                    { title: 'Cogs', value: 'FaCogs' },
-                    { title: 'Microchip', value: 'FaMicrochip' },
-                    { title: 'Server', value: 'FaServer' },
-                    { title: 'Database', value: 'FaDatabase' },
-                    { title: 'Cloud', value: 'FaCloud' },
-                    
-                    // Additional industry and business icons
-                    { title: 'Store', value: 'FaStore' },
-                    { title: 'Hotel', value: 'FaHotel' },
-                    { title: 'Plane', value: 'FaPlane' },
-                    { title: 'Restaurant', value: 'FaUtensils' },
-                    { title: 'Shopping Bag', value: 'FaShoppingBag' },
-                    { title: 'Car', value: 'FaCarAlt' },
-                    { title: 'Game', value: 'FaGamepad' },
-                    { title: 'Education', value: 'FaGraduationCap' },
-                    { title: 'Business Person', value: 'FaUserTie' },
-                    { title: 'Technology', value: 'FaLaptopCode' },
-                    { title: 'Healthcare', value: 'FaHospital' }
-                  ]
-                }
-              })
-            ]
-          }]
-        })
-      ]
-    }),
-
-    // Steps Section (for ServicesSteps component)
     defineField({
       name: 'stepsSection',
       title: 'Steps Section',
@@ -723,6 +824,90 @@ export const dynamicServicePageType = defineType({
                       name: 'description',
                       title: 'Container Description',
                       type: 'text'
+                    })
+                  ]
+                }]
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+
+    // Scrollable Logos Section
+    defineField({
+      name: 'integrationTypesSection',
+      title: 'Integration Types Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Integration Types Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire Integration Types Section'
+        }),
+        defineField({
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'tagline',
+              title: 'Tagline',
+              type: 'string'
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string'
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text'
+            })
+          ]
+        }),
+        defineField({
+          name: 'items',
+          title: 'Logo Items',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'number',
+                title: 'Number',
+                type: 'string',
+                description: 'Display number (e.g., "01", "02", etc.)'
+              }),
+              defineField({
+                name: 'title',
+                title: 'Title',
+                type: 'string'
+              }),
+              defineField({
+                name: 'description',
+                title: 'Description',
+                type: 'text'
+              }),
+              defineField({
+                name: 'logos',
+                title: 'Logo Images',
+                type: 'array',
+                of: [{
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'src',
+                      title: 'Logo Source',
+                      type: 'image'
+                    }),
+                    defineField({
+                      name: 'alt',
+                      title: 'Alt Text',
+                      type: 'string'
                     })
                   ]
                 }]

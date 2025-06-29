@@ -145,22 +145,13 @@ try {
   
   const [products, services, consulting, productDropdown, serviceDropdown, consultingDropdown] = await Promise.all([
     sanityClient.fetch(productsQuery),
-    sanityClient.fetch(servicesQuery),
+  sanityClient.fetch(servicesQuery),
     sanityClient.fetch(consultingQuery),
     sanityClient.fetch(productDropdownQuery),
     sanityClient.fetch(serviceDropdownQuery),
     sanityClient.fetch(consultingDropdownQuery)
   ]);
   
-  // Debug logging to see what's being fetched
-  console.log('=== FETCHED DATA DEBUG ===');
-  console.log('Fetched services (actual pages):', services?.length || 0, services);
-  console.log('Fetched products (actual pages):', products?.length || 0, products);
-  console.log('Fetched consulting (actual pages):', consulting?.length || 0, consulting);
-  console.log('Service dropdown data:', serviceDropdownData?.length || 0, serviceDropdownData);
-  console.log('Product dropdown data:', productDropdownData?.length || 0, productDropdownData);
-  console.log('Consulting dropdown data:', consultingDropdownData?.length || 0, consultingDropdownData);
-  console.log('=== END DEBUG ===');
   
   // Store the product dropdown data
   productDropdownData = productDropdown;
@@ -199,6 +190,10 @@ try {
     //     description: item.description
     //   }))
     // },
+    {
+      name: "Case Studies",
+      url: "/case-studies/",
+    },
     {
       name: "Industries",
       url: "/industries/",

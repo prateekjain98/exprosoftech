@@ -41,6 +41,6 @@ import { consultingDropdownType } from './consultingDropdown.ts'
 import industries from './industries'
 
 export const schemaTypes = [ 
-    clientsType , post , author , blockContent , dynamicProductPageType , dynamicServicePageType , dynamicConsultingsPageType , homePage,      
-    about , contact , caseStudyType , testimonialSection , productDropdownType , serviceDropdownType , consultingDropdownType , industries
+    clientsType , post , author , blockContent  , dynamicServicePageType , homePage,      
+    about , contact , caseStudyType , testimonialSection , serviceDropdownType , industries
 ]

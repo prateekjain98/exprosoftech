@@ -4,15 +4,18 @@ import { Clients } from "../../components/Clients";
 import { ServicesBanner } from "@/layouts/components/services/ServicesBanner";
 import { ServicesFeatures } from "@/layouts/components/services/ServicesFeatures";
 import { ServicesServices } from "@/layouts/components/services/ServicesServices";
-import { ServicesBenefits } from "@/layouts/components/services/ServicesBenefits";
+import { ServicesBestPractices } from "@/layouts/components/services/ServiceBestPractices";
 import { ServicesProcess } from "@/layouts/components/services/ServicesProcess";
 import { ServicesSteps } from "@/layouts/components/services/ServicesSteps";
-import { ServicesIndustries } from "@/layouts/components/services/ServicesIndustries";
+import { ServicesBenefits } from "@/components/services/ServicesBenefits";
 import ConsultationCTA from "../../components/ConsultationCTA";
 import NewFAQ from "../../components/NewFAQ";
 import { sanityClient } from "sanity:client";
 import DynamicCTA from "../../components/DynamicCTA";
 import { CloudSpecializations } from "../../components/CloudSpecializations";
+import { IndustriesWeServe } from "../../components/IndustriesWeServe";
+import { ScrollableLogos } from "../../components/ScrollableLogos";
+import ContentSection from "../../components/ContentSection";
 
 interface Service {
   id: string;
@@ -21,12 +24,14 @@ interface Service {
   metaDescription: string;
   image: string;
   banner: any;
+  contentSection: any;
   featuresSection: any;
   servicesSection: any;
+  bestPracticesSection: any;
   benefitsSection: any;
   processSection: any;
   stepsSection: any;
-  industriesSection: any;
+  integrationTypesSection: any;
   faqSection: any;
   ctaSection: any;
 }
@@ -60,7 +65,24 @@ const service = await sanityClient.fetch(`
         position
       }
     },
+    contentSection {
+      subtitle,
+      title,
+      description,
+      content,
+      image {
+        asset->{
+          url
+        }
+      },
+      imageOverlay {
+        value,
+        label,
+        position
+      }
+    },
     featuresSection {
+      isVisible,
       heading {
         tagline,
         title,
@@ -86,7 +108,21 @@ const service = await sanityClient.fetch(`
         features
       }
     },
+    bestPracticesSection {
+      isVisible,
+      heading {
+        tagline,
+        title,
+        description
+      },
+      bestPractices[] {
+        title,
+        description,
+        icon
+      }
+    },
     benefitsSection {
+      isVisible,
       heading {
         tagline,
         title,
@@ -125,16 +161,21 @@ const service = await sanityClient.fetch(`
         }
       }
     },
-    industriesSection {
+    integrationTypesSection {
+      isVisible,
       heading {
         tagline,
         title,
         description
       },
-      industries[] {
+      items[] {
+        number,
         title,
         description,
-        icon
+        logos[] {
+          "src": src.asset->url,
+          alt
+        }
       }
     },
     faqSection {
@@ -179,40 +220,75 @@ if (!service) {
   image={service.image}
 >
   <ServicesBanner client:load content={service.banner} />
+  
   <!-- <Clients client:load /> -->
-  <!-- <ServicesFeatures 
-    client:visible 
-    features={service.featuresSection.features} 
-    heading={service.featuresSection.heading}
-  /> -->
+
+  {service.contentSection?.isVisible && (
+    <ContentSection client:visible data={service.contentSection} />
+  )}
+
+  {service.featuresSection?.isVisible && (
+    <ServicesFeatures 
+      client:visible 
+      features={service.featuresSection.features} 
+      heading={service.featuresSection.heading}
+    />
+  )}
+  {service.integrationTypesSection?.isVisible && (
+    <ScrollableLogos 
+      client:visible 
+      data={{
+        heading: service.integrationTypesSection.heading,
+        items: service.integrationTypesSection.items?.map((item: any) => ({
+          id: item.number,
+          number: item.number,
+          title: item.title,
+          description: item.description,
+          logos: item.logos?.map((logo: any) => ({
+            src: logo.src || '',
+            alt: logo.alt || item.title
+          })) || []
+        })) || []
+      }}
+    />
+  )}
   <!-- <ServicesServices 
     client:visible 
     services={service.servicesSection.services} 
     heading={service.servicesSection.heading}
   /> -->
   <CloudSpecializations client:visible />
+
   <ServicesSteps 
     client:visible 
     process={service.stepsSection?.steps || []} 
     heading={service.stepsSection?.heading}
   />
-  <ServicesBenefits 
-    client:visible 
-    benefits={service.benefitsSection?.benefits} 
-    heading={service.benefitsSection?.heading}
-  />
-
-  <!-- <ServicesProcess 
-    client:visible 
-    process={service.processSection.steps} 
-    heading={service.processSection.heading}
-  /> -->
+  {service.bestPracticesSection?.isVisible && (
+    <ServicesBestPractices 
+      client:visible 
+      benefits={service.bestPracticesSection?.bestPractices} 
+      heading={service.bestPracticesSection?.heading}
+    /> 
+  )}
   
-  <ServicesIndustries 
-    client:visible 
-    industries={service.industriesSection.industries} 
-    heading={service.industriesSection.heading}
-  />
+  <IndustriesWeServe client:visible />
+
+  {service.processSection?.isVisible && (
+    <ServicesProcess 
+      client:visible 
+        process={service.processSection.steps} 
+        heading={service.processSection.heading}
+      />
+  )}
+  
+  {service.benefitsSection?.isVisible && (
+    <ServicesBenefits 
+      client:visible 
+      benefits={service.benefitsSection.benefits} 
+      heading={service.benefitsSection.heading}
+    />
+  )}
   <DynamicCTA client:visible ctaContent={service.ctaSection} />
   <NewFAQ client:visible Faq={[service.faqSection]} />
 </Base>
