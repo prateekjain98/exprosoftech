@@ -1,6 +1,51 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
 import { sanityClient } from "sanity:client";
+import {
+  FiUsers,
+  FiSettings,
+  FiBox,
+  FiTrendingUp,
+  FiTarget,
+  FiShield,
+  FiZap,
+  FiCpu,
+  FiGlobe,
+  FiLayers,
+} from "react-icons/fi";
+import { HiLightBulb, HiOutlineCog } from "react-icons/hi";
+import { BiRocket } from "react-icons/bi";
+
+// Icon mapping for offerings
+const iconMap: { [key: string]: React.ComponentType<any> } = {
+  // Consulting related icons
+
+  FiLightbulb: HiLightBulb, 
+  Users: FiUsers,
+  Lightbulb: HiLightBulb,
+  TrendingUp: FiTrendingUp,
+  Target: FiTarget,
+  Shield: FiShield,
+  
+  // Services related icons
+
+  Settings: FiSettings,
+  Cpu: FiCpu,
+  Globe: FiGlobe,
+  Layers: FiLayers,
+  Gear: HiOutlineCog,
+  
+  // Products related icons
+  Box: FiBox,
+  Zap: FiZap,
+  Rocket: BiRocket,
+  Lightning: FiZap,
+  
+  // Default icons for each category
+  consulting: FiUsers,
+  services: FiSettings,
+  products: FiBox,
+};
 
 // interface OfferingsItem {
 //   icon: string;
@@ -39,7 +84,7 @@ interface OfferingsProps {
     offerings: Array<{
       title: string;
       description: string;
-      icon: string;  // This will be the resolved URL
+      iconName: string;  // Changed from icon to iconName
     }>;
   };
 }
@@ -47,7 +92,7 @@ interface OfferingsProps {
 interface OfferingCard {
   title: string;
   description: string;
-  icon: string;
+  iconName: string;  // Changed from icon to iconName
 }
 
 // const offeringsData: OfferingsData = {
@@ -96,6 +141,20 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
   // const headings = await sanityClient.fetch<Heading[]>(HEADINGS_QUERY, {});
 
   // const heading = headings[0];
+
+  // Function to render icons based on icon name
+  const renderIcon = (iconName: string) => {
+    // Try to find the icon in the iconMap
+    const IconComponent = iconMap[iconName];
+    
+    if (IconComponent) {
+      return <IconComponent size={48} className="text-white" />;
+    }
+    
+    // Default fallback icon
+    return <FiTarget size={48} className="text-primary" />;
+  };
+
   return (
     <section className="section">
       <div className="max-w-[85rem] mx-auto px-3">
@@ -108,8 +167,8 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
               alignment="center"
             />
           </div>
-          <div className="col-12 pt-20">
-            <div className="row g-4 justify-center">
+          <div className="col-12 pt-20 mt-10 bg-gradient-to-b from-primary/50 to-transparent rounded-t-3xl">
+            <div className="row g-4 justify-start">
                 {data.offerings.map((card: OfferingCard, index: number) => (
                 <div
                   key={index}
@@ -117,32 +176,26 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
-                  <div className="min-h-full rounded-3xl bg-white p-4 transition-all shadow-xl">
-                  <div className="mb-3">
-                    <div className="aspect-square w-full rounded-2xl">
-                    {card.icon && (
-                      <img
-                      src={card.icon}
-                      alt={`icon related to ${card.title}`}
-                      className="h-full w-full object-cover rounded-2xl"
-                      />
-                    )}
+                  <div className="min-h-full p-6 ">
+                    <div className="mb-6 flex justify-start">
+                      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary">
+                        {renderIcon(card.iconName)}
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-left mb-4">
-                    {card.title && (
-                    <h3
-                      className="h5 mb-2 md:text-3xl font-medium text-dark tracking-wide"
-                      dangerouslySetInnerHTML={{ __html: card.title }}
-                    />
-                    )}
-                    {card.description && (
-                    <p
-                      className="text-text"
-                      dangerouslySetInnerHTML={{ __html: card.description }}
-                    />
-                    )}
-                  </div>
+                    <div className="text-left">
+                      {card.title && (
+                        <h3
+                          className="h5 mb-3 md:text-3xl font-medium text-dark tracking-wide"
+                          dangerouslySetInnerHTML={{ __html: card.title }}
+                        />
+                      )}
+                      {card.description && (
+                        <p
+                          className="text-text"
+                          dangerouslySetInnerHTML={{ __html: card.description }}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
                 ))}

@@ -5,7 +5,7 @@
     "base_path": "/",
     "trailing_slash": true,
     "favicon": "/images/favIconWhite.png",
-    "logo": "/images/logo.webp",
+    "logo": "/images/white-logo.png",
     "logo_width": "120",
     "logo_height": "48",
     "logo_text": "Exporsoftech"

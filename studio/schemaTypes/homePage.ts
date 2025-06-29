@@ -100,7 +100,31 @@ export default defineType({
               fields: [
                 defineField({ name: 'title', type: 'string' }),
                 defineField({ name: 'description', type: 'text' }),
-                defineField({ name: 'icon', type: 'image' }),
+                defineField({ 
+                  name: 'iconName', 
+                  type: 'string',
+                  title: 'Icon',
+                  options: {
+                    list: [
+                      { title: 'Users', value: 'Users' },
+                      { title: 'Settings', value: 'Settings' },
+                      { title: 'Box', value: 'Box' },
+                      { title: 'Trending Up', value: 'TrendingUp' },
+                      { title: 'Target', value: 'Target' },
+                      { title: 'Shield', value: 'Shield' },
+                      { title: 'Lightning', value: 'Lightning' },
+                      { title: 'CPU', value: 'Cpu' },
+                      { title: 'Globe', value: 'Globe' },
+                      { title: 'Layers', value: 'Layers' },
+                      { title: 'Lightbulb', value: 'Lightbulb' },
+                      { title: 'Rocket', value: 'Rocket' },
+                      { title: 'Gear', value: 'Gear' },
+                      { title: 'Consulting', value: 'consulting' },
+                      { title: 'Services', value: 'services' },
+                      { title: 'Products', value: 'products' }
+                    ]
+                  }
+                }),
               ]
             }
           ]

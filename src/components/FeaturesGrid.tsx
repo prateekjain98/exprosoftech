@@ -126,13 +126,18 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
 
   return (
     <section className="py-16 lg:py-24">
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 md:px-8">
+      <div className="max-w-[86rem] mx-auto px-4 sm:px-6 md:px-8">
         <div className="relative bg-[#0A0F1E] rounded-2xl sm:rounded-[2.5rem] overflow-hidden">
-          {/* Background Gradients */}
-          <div className="absolute inset-0">
-            <div className="absolute top-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-blue-500/20 rounded-full filter blur-3xl" />
-            <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-purple-500/20 rounded-full filter blur-3xl" />
-          </div>
+          {/* Checkered Background Pattern */}
+          <div 
+            className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
+            style={{
+              backgroundImage: 'url(/images/banner-bg.png)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center top',
+              backgroundRepeat: 'no-repeat'
+            }}
+          />
 
           <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
             <div className="mx-auto lg:col-11 mb-10 lg:mb-16">
@@ -144,10 +149,10 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
               />
             </div>
 
-            <div className="flex flex-col gap-8 lg:gap-12">
+            <div className="flex flex-col gap-8 lg:gap-12 ">
               {/* Navigation Tabs */}
               <nav
-                className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2.5 sm:gap-3"
+                className="grid grid-cols-2 sm:flex sm:flex-wrap justify-evenly gap-2.5 sm:gap-3 rounded-full sm:p-4 bg-gray-800/50"
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
@@ -159,12 +164,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                       onClick={() => setActiveTab(index)}
                       className={`
                         group flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 
-                        px-2.5 sm:px-6 py-2.5 sm:py-4 rounded-lg sm:rounded-xl 
+                        px-2.5 sm:px-6 py-2.5 sm:py-4 rounded-full sm:rounded-full 
                         transition-all duration-300
                         ${
                           activeTab === index
                             ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25"
-                            : "bg-gray-800/50 text-gray-300 hover:bg-gray-800 hover:shadow-lg"
+                            : " text-gray-300 hover:bg-gray-800 hover:shadow-lg"
                         }
                       `}
                     >

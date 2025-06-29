@@ -12,16 +12,14 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .header {
-  @apply pb-2 pt-2 fixed top-0 left-0 right-0 w-full z-[999] bg-white;
-
+  @apply fixed top-0 left-0 right-0 w-full z-[999];
+  background: transparent;
+  padding: 1rem 0;
   transform: translateY(0);
-
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.header-sticky {
-    @apply shadow-md backdrop-blur-lg bg-white/90;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding: 0.75rem 0;
   }
 
   &.header-hidden {
@@ -36,6 +34,138 @@ input#nav-toggle:checked ~ #nav-menu {
       @apply px-6;
     }
   }
+}
+
+// Pill-shaped navbar container
+.pill-navbar-container {
+  @apply max-w-[88rem] mx-auto px-3;
+  
+  @media screen and (max-width: 1023px) {
+    @apply px-2;
+  }
+  
+  .pill-navbar {
+    @apply bg-slate-800 rounded-full px-4 py-4 shadow-lg backdrop-blur-md;
+    @apply flex items-center justify-between;
+    @apply transition-all duration-300;
+    background: rgba(30, 41, 59, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 95%;
+    
+    @media screen and (max-width: 1023px) {
+      @apply rounded-full px-4 py-3 mx-2 flex items-center justify-between;
+      min-width: auto;
+      width: calc(100% - 1rem);
+    }
+  }
+}
+
+// Logo section
+.navbar-logo {
+  @apply flex-shrink-0 transition-transform duration-300;
+  
+  @media screen and (max-width: 1023px) {
+    @apply order-1;
+  }
+  
+  &:hover {
+    @apply scale-105;
+  }
+  
+  .navbar-brand {
+    @apply block;
+    
+    img {
+      @apply max-h-full max-w-full;
+    }
+  }
+}
+
+// Mobile menu toggle
+.mobile-menu-toggle {
+  @apply flex cursor-pointer items-center text-white hover:text-gray-300;
+  @apply transition-colors duration-200;
+  @apply p-2 rounded-lg hover:bg-white/10;
+  
+  @media screen and (max-width: 1023px) {
+    @apply order-3;
+  }
+}
+
+// Navigation menu
+.pill-navbar-nav {
+  @apply flex items-center space-x-1;
+  
+  @media screen and (max-width: 1023px) {
+    @apply fixed left-2 right-2 top-[100px] bg-slate-800/95 backdrop-blur-md z-50;
+    @apply px-6 py-8 overflow-y-auto flex-col space-x-0 space-y-4;
+    @apply rounded shadow-xl order-2;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: calc(100vh - 120px);
+    
+    &.mobile-menu-open {
+      @apply flex;
+    }
+  }
+  
+  .nav-item {
+    @apply relative;
+    
+    .pill-nav-link {
+      @apply px-4 py-2 rounded-full text-white/90 hover:text-white;
+      @apply transition-all duration-200 cursor-pointer;
+      @apply hover:bg-white/10 text-sm font-medium;
+      @apply flex items-center gap-1;
+      
+      @media screen and (max-width: 1023px) {
+        @apply w-full justify-between px-4 py-3 rounded-xl text-base;
+      }
+      
+      &.active {
+        @apply text-white bg-white/15;
+        @apply shadow-sm;
+      }
+      
+      &:hover {
+        @apply transform scale-105;
+        
+        @media screen and (max-width: 1023px) {
+          @apply transform-none;
+        }
+      }
+      
+      .arrow-icon {
+        @apply transition-transform duration-200;
+        
+        svg {
+          @apply w-4 h-4 fill-current;
+        }
+      }
+    }
+  }
+}
+
+// CTA Button
+.navbar-cta {
+  @apply flex-shrink-0;
+  
+  @media screen and (max-width: 1023px) {
+    @apply order-4 hidden;
+  }
+}
+
+.pill-cta-button {
+  // The new Button component handles primary button styling
+  // This ensures compatibility with the capsule design
+  
+  &:hover {
+    @apply transform scale-105;
+  }
+}
+
+.pill-cta-button-mobile {
+  // The new Button component handles primary button styling
+  // This ensures compatibility with the capsule design
 }
 
 // Navbar Toggler

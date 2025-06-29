@@ -1,6 +1,6 @@
 ---
 import Base from "@/layouts/Base.astro";
-// import { Clients } from "../components/Clients";
+import { Clients } from "../components/Clients";
 import { Offerings } from "../components/Offerings";
 // import CaseStudies from "../components/CaseStudies";
 import NewFAQ from "../components/NewFAQ";
@@ -45,7 +45,7 @@ const pageData = await sanityClient.fetch(`
     clientsSection { clients[] { name, "logo": logo.asset->url } },
     offeringsSection {
       heading { title, subtitle, description },
-      offerings[] { title, description, "icon": icon.asset->url }
+      offerings[] { title, description, iconName }
     },
     FeaturesSection {
       heading { title, subtitle, description },
@@ -127,7 +127,7 @@ const pageData = await sanityClient.fetch(`
 
 <Base title="Home" meta_title="Greymetre - Home" description="Welcome to Greymetre">
   <HomeBanner client:load data={pageData.heroBanner} />
-  <!-- <Clients client:visible /> -->
+  <Clients client:visible data={pageData.clientsSection} />
   <Offerings client:visible data={pageData.offeringsSection} />
   <FeaturesGrid client:visible data={pageData.FeaturesSection} />
   <ScrollableServices client:visible data={pageData.ScrollableServicesSection} />

@@ -163,13 +163,7 @@ const Header: React.FC<HeaderProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  useEffect(() => {
-    if (isAnyMenuOpen) {
-      document.body.classList.add("menu-open");
-    } else {
-      document.body.classList.remove("menu-open");
-    }
-  }, [isAnyMenuOpen]);
+  // Removed the menu-open class effect to prevent background color changes
 
   const getProductImage = (productName: string): string => {
     switch (productName) {
@@ -266,191 +260,204 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <div className={`header-wrapper ${!errorPage && "pb-0"}`}>
       <header
-        className={`header z-[999] transition-all duration-300 shadow-sm ${isHidden ? "header-hidden" : ""}`}
+        className={`header z-[999] transition-all duration-300 ${isHidden ? "header-hidden" : ""}`}
       >
-        <nav className="navbar relative z-[9999] px-3 py-1 max-w-[85rem] mx-auto">
-          {/* logo */}
-          <div className="order-0 transition-transform duration-300 hover:scale-105">
-            <a href="/" className="navbar-brand block">
-              <img
-                src={config.site.logo}
-                className="h-auto w-[100px] md:w-[190px]"
-                width={Number(config.site.logo_width.replace("px", "")) * 2}
-                height={Number(config.site.logo_height.replace("px", "")) * 2}
-                alt={config.site.title}
-              />
-            </a>
-          </div>
+        {/* Pill-shaped navbar container */}
+        <div className="pill-navbar-container">
+          <nav className="pill-navbar">
+            {/* logo */}
+            <div className="navbar-logo">
+              <a href="/" className="navbar-brand block">
+                <img
+                  src={config.site.logo}
+                  className="h-auto w-[100px] md:w-[160px]"
+                  width={Number(config.site.logo_width.replace("px", "")) * 2}
+                  height={Number(config.site.logo_height.replace("px", "")) * 2}
+                  alt={config.site.title}
+                />
+              </a>
+            </div>
 
-          {/* navbar toggler */}
-          <button
-            id="nav-toggle-label"
-            onClick={toggleMobileMenu}
-            className="order-3 flex cursor-pointer items-center text-slate-700 hover:text-primary transition-colors duration-200 lg:order-1 lg:hidden"
-            aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
-          >
-            <svg
-              className={`h-5 fill-current ${isMobileMenuOpen ? "hidden" : "block"}`}
-              viewBox="0 0 20 20"
+            {/* navbar toggler */}
+            <button
+              id="nav-toggle-label"
+              onClick={toggleMobileMenu}
+              className="mobile-menu-toggle lg:hidden"
+              aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
             >
-              <title>Menu Open</title>
-              <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
-            </svg>
-            <svg
-              className={`h-5 fill-current ${isMobileMenuOpen ? "block" : "hidden"}`}
-              viewBox="0 0 20 20"
+              <svg
+                className={`h-5 fill-current ${isMobileMenuOpen ? "hidden" : "block"}`}
+                viewBox="0 0 20 20"
+              >
+                <title>Menu Open</title>
+                <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+              </svg>
+              <svg
+                className={`h-5 fill-current ${isMobileMenuOpen ? "block" : "hidden"}`}
+                viewBox="0 0 20 20"
+              >
+                <title>Menu Close</title>
+                <polygon
+                  points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+                  transform="rotate(45 10 10)"
+                ></polygon>
+              </svg>
+            </button>
+            
+            {/* navigation menu */}
+            <ul
+              id="nav-menu"
+              className={`pill-navbar-nav ${
+                isMobileMenuOpen
+                  ? "mobile-menu-open"
+                  : "hidden lg:flex"
+              }`}
             >
-              <title>Menu Close</title>
-              <polygon
-                points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-                transform="rotate(45 10 10)"
-              ></polygon>
-            </svg>
-          </button>
-          
-          {/* navigation menu */}
-          <ul
-            id="nav-menu"
-            className={`navbar-nav order-3 ${
-              isMobileMenuOpen
-                ? "fixed inset-0 top-[48px] bg-gradient-to-b from-white to-slate-50/95 backdrop-blur-sm z-50 px-4 py-6 overflow-y-auto"
-                : "hidden"
-            } lg:static lg:flex lg:order-1 lg:w-auto lg:space-x-1 lg:p-0 xl:space-x-6`}
-          >
-            {menuItems.map((menu, index) => (
-              <React.Fragment key={index}>
-                {menu.hasChildren ? (
-                  <li className="nav-item nav-dropdown group relative">
-                    <span
-                      onClick={(e) => toggleDropdown(e, menu.name)}
-                      onMouseEnter={() => handleDropdownVisibility(true)}
-                      onMouseLeave={() => handleDropdownVisibility(false)}
-                      className={`nav-link inline-flex items-center justify-between w-full lg:w-auto cursor-pointer text-slate-600 hover:text-primary transition-colors duration-200 py-1.5 lg:py-0.5 ${
-                        menu.children?.some(
-                          ({ url }) =>
-                            url === pathname || `${url}/` === pathname
-                        )
-                          ? "text-primary font-medium"
-                          : ""
-                      }`}
-                    >
-                      {menu.name}
+              {menuItems.map((menu, index) => (
+                <React.Fragment key={index}>
+                  {menu.hasChildren ? (
+                    <li className="nav-item nav-dropdown group relative">
                       <span
-                        className={`arrow-icon transition-transform duration-200 ml-1 ${openMobileDropdown === menu.name ? "rotate-180" : ""} lg:group-hover:rotate-180`}
+                        onClick={(e) => toggleDropdown(e, menu.name)}
+                        onMouseEnter={() => handleDropdownVisibility(true)}
+                        onMouseLeave={() => handleDropdownVisibility(false)}
+                        className={`pill-nav-link ${
+                          menu.children?.some(
+                            ({ url }) =>
+                              url === pathname || `${url}/` === pathname
+                          )
+                            ? "active"
+                            : ""
+                        }`}
                       >
-                        <svg
-                          className="h-4 w-4 fill-current"
-                          viewBox="0 0 20 20"
+                        {menu.name}
+                        <span
+                          className={`arrow-icon transition-transform duration-200 ml-1 ${openMobileDropdown === menu.name ? "rotate-180" : ""} lg:group-hover:rotate-180`}
                         >
-                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
+                          <svg
+                            className="h-4 w-4 fill-current"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                          </svg>
+                        </span>
                       </span>
-                    </span>
-                    {/* Mobile Menu Dropdown */}
-                    <div
-                      className={`lg:hidden mt-2 space-y-3 px-2 ${closedDropdowns.includes(menu.name) ? 'hidden' : 'block'}`}
-                    >
-                      {menu.children?.map((child, childIndex) => (
-                        <ProductMenuItem
-                          key={childIndex}
-                          child={child}
-                          childIndex={childIndex}
-                          menuName={menu.name}
-                          setIsMobileMenuOpen={setIsMobileMenuOpen}
-                        />
-                      ))}
-                    </div>
-                    {/* Desktop Menu Dropdown */}
-                    <div
-                      className={`hidden lg:group-hover:block absolute left-1/2 ${
-                        menu.name === "Consulting" ? "-translate-x-1/3" : "-translate-x-1/2"
-                      } top-full pt-[12px]`}
-                      onMouseEnter={() => handleDropdownVisibility(true)}
-                      onMouseLeave={() => handleDropdownVisibility(false)}
-                    >
-                      <div className="bg-white rounded-2xl shadow-xl border-0 overflow-hidden w-[1000px] transition-all duration-300">
-                        {menu.name === "Products" && (
-                          <ProductsDropdown
-                            children={menu.children || []}
-                            hoveredProduct={hoveredProduct}
-                            selectedProduct={selectedProduct}
-                            handleProductClick={handleProductClick}
+                      {/* Mobile Menu Dropdown */}
+                      <div
+                        className={`lg:hidden mt-2 space-y-3 px-2 ${closedDropdowns.includes(menu.name) ? 'hidden' : 'block'}`}
+                      >
+                        {menu.children?.map((child, childIndex) => (
+                          <ProductMenuItem
+                            key={childIndex}
+                            child={child}
+                            childIndex={childIndex}
+                            menuName={menu.name}
                             setIsMobileMenuOpen={setIsMobileMenuOpen}
-                            productDropdownData={productDropdownData}
                           />
-                        )}
-                        {menu.name === "Services" && (
-                          <ServicesDropdown
-                            children={menu.children || []}
-                            setIsMobileMenuOpen={setIsMobileMenuOpen}
-                            serviceDropdownData={serviceDropdownData}
-                          />
-                        )}
-                        {menu.name === "Consulting" && (
-                          <ConsultingDropdown
-                            children={menu.children || []}
-                            setIsMobileMenuOpen={setIsMobileMenuOpen}
-                            scrollToCaseStudies={scrollToCaseStudies}
-                            consultingDropdownData={consultingDropdownData}
-                          />
-                        )}
+                        ))}
                       </div>
-                    </div>
-                  </li>
-                ) : (
-                  <li className="nav-item">
-                    <a
-                      href={menu.url}
-                      className={`nav-link block py-1.5 lg:py-0.5 text-slate-600 hover:text-primary transition-colors duration-200 ${
-                        pathname === `${menu.url}/` || pathname === menu.url
-                          ? "text-primary font-medium"
-                          : ""
-                      }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {menu.name}
-                    </a>
-                  </li>
-                )}
-              </React.Fragment>
-            ))}
-            {navigation_button.enable && (
-              <li className="lg:hidden flex justify-center"> 
+                      {/* Desktop Menu Dropdown */}
+                      <div
+                        className={`hidden lg:group-hover:block absolute left-1/2 ${
+                          menu.name === "Consulting" ? "-translate-x-1/3" : 
+                          menu.name === "Services" ? "" : "-translate-x-1/2"
+                        } top-full pt-[12px]`}
+                        onMouseEnter={() => handleDropdownVisibility(true)}
+                        onMouseLeave={() => handleDropdownVisibility(false)}
+                        style={menu.name === "Services" ? { 
+                          position: 'fixed',
+                          left: '50%', 
+                          transform: 'translateX(-50%)',
+                          top: '80px',
+                          maxWidth: 'calc(100vw - 6rem)',
+                          width: 'min(900px, calc(100vw - 6rem))',
+                          zIndex: 9999
+                        } : undefined}
+                      >
+                        <div className="bg-white rounded-2xl shadow-xl border-0 overflow-hidden w-full transition-all duration-300">
+                          {menu.name === "Products" && (
+                            <ProductsDropdown
+                              children={menu.children || []}
+                              hoveredProduct={hoveredProduct}
+                              selectedProduct={selectedProduct}
+                              handleProductClick={handleProductClick}
+                              setIsMobileMenuOpen={setIsMobileMenuOpen}
+                              productDropdownData={productDropdownData}
+                            />
+                          )}
+                          {menu.name === "Services" && (
+                            <ServicesDropdown
+                              children={menu.children || []}
+                              setIsMobileMenuOpen={setIsMobileMenuOpen}
+                              serviceDropdownData={serviceDropdownData}
+                            />
+                          )}
+                          {menu.name === "Consulting" && (
+                            <ConsultingDropdown
+                              children={menu.children || []}
+                              setIsMobileMenuOpen={setIsMobileMenuOpen}
+                              scrollToCaseStudies={scrollToCaseStudies}
+                              consultingDropdownData={consultingDropdownData}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                  ) : (
+                    <li className="nav-item">
+                      <a
+                        href={menu.url}
+                        className={`pill-nav-link ${
+                          pathname === `${menu.url}/` || pathname === menu.url
+                            ? "active"
+                            : ""
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {menu.name}
+                      </a>
+                    </li>
+                  )}
+                </React.Fragment>
+              ))}
+              {navigation_button.enable && (
+                <li className="lg:hidden flex justify-center mt-4"> 
+                  <Button
+                    className="pill-cta-button-mobile"
+                    isCalendlyButton={true}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    height="compact"
+                  >
+                    {navigation_button.label}
+                  </Button>
+                </li>
+              )}
+            </ul>
+
+            {/* right button */}
+            <div className="navbar-cta">
+              {navigation_button.enable && (
                 <Button
-                  className="mt-2"
+                  className="pill-cta-button hidden lg:flex"
                   isCalendlyButton={true}
-                  onClick={() => setIsMobileMenuOpen(false)}
                   height="compact"
                 >
                   {navigation_button.label}
                 </Button>
-              </li>
-            )}
-          </ul>
-
-          {/* right button */}
-          <div className="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
-            {navigation_button.enable && (
-              <Button
-                className="hidden lg:flex items-center gap-2 group"
-                isCalendlyButton={true}
-                height="compact"
-              >
-                {navigation_button.label}
-              </Button>
-            )}
-          </div>
-        </nav>
+              )}
+            </div>
+          </nav>
+        </div>
       </header>
 
       {/* Background Image */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
+      {/* <div aria-hidden="true" className="absolute inset-0 -z-10">
         <img
           className="h-full w-full object-cover object-top"
           src={"/images/page-header.png"}
           alt="header image"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

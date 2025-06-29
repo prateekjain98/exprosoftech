@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { sanityClient } from "sanity:client";
-
 interface ClientsProps {
   data: {
     clients: Array<{
@@ -10,30 +7,12 @@ interface ClientsProps {
   };
 }
 
-export const Clients= async () => {
-  // Define the list of client logos
-  // const clientLogos: string[] = [
-  //   "/images/clients/IMG1.png",
-  //   "/images/clients/IMG2.png",
-  //   "/images/clients/IMG3.png",
-  //   "/images/clients/IMG4.png",
-  //   "/images/clients/IMG5.png",
-  //   "/images/clients/IMG6.png",
-  //   "/images/clients/IMG7.png",
-  //   "/images/clients/IMG8.png",
-  //   "/images/clients/IMG9.png",
-  //   "/images/clients/IMG10.png",
-  //   "/images/clients/IMG11.png",
-  // ];
-
-  const clientsLogosQuery = `*[_type == "clients"][0].clientLogos`
-
-  const clientLogos = await sanityClient.fetch(clientsLogosQuery)
+export const Clients = ({ data }: ClientsProps) => {
+  // Extract client logos from props
+  const clientLogos = data.clients.map(client => client.logo);
 
   return (
-
-
-    <section className="section">
+    <section className="section my-24">
       <div className="max-w-[85rem] mx-auto px-3 overflow-hidden">
         <div className="row">
           <div className="col-12" data-aos="fade-up-sm">

@@ -36,15 +36,6 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
     return matchedChild?.url || "#";
   };
   
-  // For debugging
-  useEffect(() => {
-    console.log("=== SERVICES DROPDOWN DEBUG ===");
-    console.log("Navigation children (actual pages):", children);
-    console.log("Service dropdown data:", serviceDropdownData);
-    console.log("Default service:", defaultService);
-    console.log("=== END DROPDOWN DEBUG ===");
-  }, [children, serviceDropdownData, defaultService]);
-
   // Create a merged list of services that includes all navigation children
   // and enriches them with dropdown data if available
   const allServices = children.map(child => {
@@ -68,9 +59,9 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
   const regularServices = allServices.filter(service => !service.isDefaultView);
 
   return (
-    <div className="grid grid-cols-12">
-      {/* Left Section - Main Services */}
-      <div className="col-span-7 p-6 bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30">
+    <div className="w-full">
+      {/* Services Section - Two Columns */}
+      <div className="p-6 bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30">
         <div className="flex items-center gap-2 mb-4">
           <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
             <svg
@@ -89,7 +80,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
           </div>
           <h3 className="text-sm font-semibold text-primary">Our Services</h3>
         </div>
-        <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
           {regularServices.map((service, index) => (
             <div
               key={index}
@@ -125,7 +116,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                           />
                         </svg>
                       </div>
-                      <div>
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <h4 className="text-base font-medium text-slate-900 group-hover:text-primary transition-colors duration-200">
                             {service.name}
@@ -142,202 +133,29 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                             />
                           </svg>
                         </div>
-                        {/* <p className="text-sm text-slate-600 mt-1">
-                          {service.dropdownContent?.subtitle || service.description}
-                        </p> */}
+                        <p className="text-sm text-slate-600 mt-1 line-clamp-2">
+                          {service.description}
+                        </p>
                       </div>
                     </div>
                   </div>
-                  {/* Key Features section */}
-                  {/* <div className="px-4 py-3 bg-slate-50/80 border-t border-slate-100">
-                    <h5 className="text-xs font-medium text-slate-900 mb-2">
-                      Key Features
-                    </h5>
-                    {service.dropdownContent?.features && service.dropdownContent.features.length > 0 ? (
-                      <div className="grid grid-cols-2 gap-3">
-                        {service.dropdownContent.features.map((feature:any, idx:number) => (
-                          <div key={idx + 1} className="flex items-center gap-2">
-                            <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
-                              <svg
-                                className="w-3 h-3 text-primary"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                              >
-                                <path
-                                  d="M10 3L4.5 8.5L2 6"
-                                  stroke="currentColor"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            </div>
-                            <span className="text-sm text-slate-600">
-                              {feature}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-slate-500">
-                        Comprehensive business solutions tailored to your needs
-                      </p>
-                    )}
-                  </div> */}
                 </div>
               </a>
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Right Section - Case Studies */}
-      <div className="col-span-5">
-        <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
-          <img 
-            src={
-              hoveredServiceId !== null 
-                ? regularServices[hoveredServiceId]?.dropdownContent?.backgroundImage?.asset?.url 
-                : defaultService?.dropdownContent?.backgroundImage?.asset?.url
-            }
-            alt="Background Image"
-            className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay"
-          />
-          <div className="relative flex flex-col h-full">
-            <div className="flex-1 p-6">
-              {hoveredServiceId === null ? (
-                <div>
-                  <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold mb-3">
-                    {defaultService?.dropdownContent?.tagline || "Client Success Stories"}
-                  </span>
-                  <h3 className="text-xl font-semibold text-white mb-3">
-                    {defaultService?.dropdownContent?.title || "Transforming Businesses"}
-                  </h3>
-                  {defaultService?.dropdownContent?.metrics && defaultService.dropdownContent.metrics.length > 0 && (
-                    <div className="grid grid-cols-3 gap-3 mb-4">
-                      {defaultService.dropdownContent.metrics.map((metric:any, idx:number) => (
-                        <div key={idx} className="bg-white/10 backdrop-blur-sm rounded-xl p-3 hover:bg-white/20 transition-all duration-200">
-                          <h4 className="text-xl font-bold text-white">{metric.value}</h4>
-                          <p className="text-xs text-slate-300">{metric.label}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <div className="space-y-3 mb-4">
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {defaultService?.dropdownContent?.description || "Discover how we've helped industry leaders achieve remarkable growth:"}
-                    </p>
-                    {defaultService?.dropdownContent?.successStories && defaultService.dropdownContent.successStories.length > 0 && (
-                      <ul className="space-y-2 text-sm text-slate-300">
-                        {defaultService.dropdownContent.successStories.map((story:any, idx:number) => (
-                          <li key={idx} className="flex items-center gap-2">
-                            <div className="h-5 w-5 rounded-full bg-blue-500/20 flex items-center justify-center">
-                              <svg
-                                className="w-3 h-3 text-blue-300"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                              >
-                                <path
-                                  d="M10 3L4.5 8.5L2 6"
-                                  stroke="currentColor"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            </div>
-                            <span>{story.company}: {story.achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                  <div className="bg-blue-500/10 backdrop-blur-sm rounded-xl p-3 border border-blue-400/20">
-                    <p className="text-blue-200 text-sm">
-                      <span className="font-semibold">
-                        {defaultService?.dropdownContent?.hoverPrompt || "Hover over any service"}
-                      </span>{" "}
-                      to explore the detailed success story and results achieved.
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  {regularServices[hoveredServiceId]?.dropdownContent?.companyLogo && (
-                    <div className="w-16 h-16 bg-white rounded-xl p-3 mb-4">
-                      <img
-                        src={regularServices[hoveredServiceId].dropdownContent.companyLogo.asset.url}
-                        alt={regularServices[hoveredServiceId].dropdownContent.companyLogo.alt || "Company logo"}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  )}
-                  <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold mb-3">
-                    {regularServices[hoveredServiceId]?.dropdownContent?.tagline || "Service Overview"}
-                  </span>
-                  <h3 className="text-xl font-semibold text-white mb-3">
-                    {regularServices[hoveredServiceId]?.dropdownContent?.title || 
-                      `${regularServices[hoveredServiceId]?.name} Solutions`}
-                  </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                    {regularServices[hoveredServiceId]?.dropdownContent?.description || 
-                      regularServices[hoveredServiceId]?.description ||
-                      "Transforming business through innovative solutions."}
-                  </p>
-                  {regularServices[hoveredServiceId]?.dropdownContent?.metrics && regularServices[hoveredServiceId].dropdownContent.metrics.length > 0 ? (
-                    <div className={
-                      regularServices[hoveredServiceId].dropdownContent.metrics.length > 2 
-                        ? "space-y-3" 
-                        : "grid grid-cols-2 gap-3"
-                    }>
-                      {regularServices[hoveredServiceId].dropdownContent.metrics.length <= 2 ? (
-                        regularServices[hoveredServiceId].dropdownContent.metrics.map((metric:any, statIdx:number) => (
-                          <div key={statIdx} className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-                            <h4 className="text-xl font-bold text-white">{metric.value}</h4>
-                            <p className="text-xs text-slate-300">{metric.label}</p>
-                          </div>
-                        ))
-                      ) : (
-                        <>
-                          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-                            <h4 className="text-xl font-bold text-white">
-                              {regularServices[hoveredServiceId].dropdownContent.metrics[0].value}
-                            </h4>
-                            <p className="text-xs text-slate-300">
-                              {regularServices[hoveredServiceId].dropdownContent.metrics[0].label}
-                            </p>
-                          </div>
-                          <div className="grid grid-cols-2 gap-3">
-                            {regularServices[hoveredServiceId].dropdownContent.metrics.slice(1).map((metric:any, statIdx:number) => (
-                              <div key={statIdx} className="bg-white/10 backdrop-blur-sm rounded-xl p-3">
-                                <h4 className="text-lg font-bold text-white">{metric.value}</h4>
-                                <p className="text-xs text-slate-300">{metric.label}</p>
-                              </div>
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                      <p className="text-slate-300 text-sm">
-                        Explore our comprehensive {regularServices[hoveredServiceId]?.name.toLowerCase()} solutions designed to drive business growth and efficiency.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-            <div className="p-6 pt-0">
-              <Button
-                className="w-full flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 text-white"
-                isCalendlyButton={true}
-                onClick={() => setIsMobileMenuOpen(false)}
-                height="compact"
-              >
-                Book a Call
-              </Button>
-            </div>
+        
+        {/* CTA Section */}
+        <div className="mt-6 pt-4 border-t border-slate-200">
+          <div className="text-center">
+            <Button
+              className="inline-flex items-center justify-center gap-2"
+              isCalendlyButton={true}
+              onClick={() => setIsMobileMenuOpen(false)}
+              height="compact"
+            >
+              Book a Consultation
+            </Button>
           </div>
         </div>
       </div>

@@ -28,21 +28,6 @@ try {
     _updatedAt
   }`;
   
-  const testResult = await sanityClient.fetch(testQuery);
-  console.log('=== TEST QUERY RESULTS ===');
-  console.log('All dynamicServicePage documents:', testResult);
-  console.log('Total count:', testResult?.length || 0);
-  
-  // Also check for draft documents
-  const draftQuery = `*[_type == "dynamicServicePage" && _id in path("drafts.**")] {
-    _id,
-    title,
-    "slug": slug.current
-  }`;
-  
-  const draftResult = await sanityClient.fetch(draftQuery);
-  console.log('Draft dynamicServicePage documents:', draftResult);
-  console.log('Draft count:', draftResult?.length || 0);
   
   // Fetch products
   const productsQuery = `*[_type == "dynamicProductPage"] | order(_createdAt asc) {
@@ -212,9 +197,6 @@ try {
     }
   ];
   
-  console.log('=== NAVIGATION DATA ===');
-  console.log('Built navigationData:', navigationData);
-  console.log('Services menu children:', navigationData.find(item => item.name === "Services")?.children);
 } catch (error) {
   console.error("Error fetching data:", error);
   navigationData = [];

@@ -27,7 +27,6 @@
     }
   }
 
-  &-primary,
   &-outline-primary {
     @apply px-6 py-1.5;
   }
@@ -38,11 +37,31 @@
 }
 
 .btn-primary {
-  @apply border-[#195dc1] bg-[#2e78e6] text-white border
-         hover:border-[#4B83FB] hover:bg-[#4B83FB] hover:text-white hover:drop-shadow-[0_6px_4px_rgba(0,0,0,0.36)] hover:scale-[1.06]
-         active:border-[#2251C5] active:bg-[#2251C5]  drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)];
-  @apply [&_svg]:text-white;
-  background: linear-gradient(to top, #387FE7, #5792EB);
+  @apply bg-slate-800 text-white border-0 rounded-full px-6 py-3;
+  @apply hover:bg-slate-700 hover:shadow-lg hover:scale-105;
+  @apply active:bg-slate-900 active:scale-100;
+  @apply transition-all duration-300 ease-in-out;
+  @apply flex items-center justify-between gap-4;
+  min-height: 48px;
+  
+  .btn-text {
+    @apply flex-1 text-left font-medium;
+  }
+  
+  .btn-arrow-circle {
+    @apply w-8 h-8 bg-white rounded-full flex items-center justify-center;
+    @apply transition-all duration-300 ease-in-out;
+    
+    svg {
+      @apply w-4 h-4 text-slate-800;
+    }
+  }
+  
+  &:hover {
+    .btn-arrow-circle {
+      @apply rotate-45 scale-110;
+    }
+  }
 }
 
 .btn-light {
