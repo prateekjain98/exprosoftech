@@ -199,7 +199,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
 
               {/* Feature Cards */}
               <div
-                className="min-h-[550px] md:min-h-[700px] lg:min-h-[500px] relative"
+                className="min-h-[800px] md:min-h-[700px] lg:min-h-[500px] relative"
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
@@ -215,11 +215,11 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                       }
                     `}
                   >
-                    <div className="bg-gray-800  rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-xl h-full border border-gray-700/50">
-                      <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+                    <div className="bg-gray-800 rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-xl min-h-full border border-gray-700/50">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-full">
                         {/* Content Side */}
-                        <div className="order-2 lg:order-1 p-5 md:p-8 lg:p-12 flex flex-col justify-center">
-                          <div className="space-y-3 md:space-y-4 lg:space-y-6">
+                        <div className="order-2 lg:order-1 p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center">
+                          <div className="space-y-4 md:space-y-4 lg:space-y-6">
                             <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs sm:text-sm font-medium shadow-lg">
                               {feature.tagline}
                             </span>
@@ -234,21 +234,21 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
 
                             {/* Metrics Grid - Similar to DynamicCTA */}
                             {feature.metrics && feature.metrics.length > 0 && (
-                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-6">
                                 {feature.metrics.map((metric, metricIndex) => (
                                   <div key={metricIndex} className="relative group">
                                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
-                                    <div className="relative p-3 sm:p-4">
+                                    <div className="relative p-3 sm:p-4 text-center sm:text-left">
                                       <div className="flex items-center justify-center sm:justify-start mb-2">
                                         {React.createElement(getIconComponent(metric.icon), {
-                                          size: 20,
+                                          size: 18,
                                           className: "text-blue-400"
                                         })}
                                       </div>
-                                      <div className="text-lg sm:text-xl font-bold text-white mb-1">
+                                      <div className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1">
                                         {metric.value}
                                       </div>
-                                      <div className="text-xs sm:text-sm text-gray-400">
+                                      <div className="text-xs sm:text-sm text-gray-400 leading-snug">
                                         {metric.label}
                                       </div>
                                     </div>
@@ -260,8 +260,8 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                         </div>
 
                         {/* Image Side */}
-                        <div className="order-1 lg:order-2 p-4 pb-0 md:p-6 lg:p-8 flex items-center justify-center">
-                          <div className="relative w-full aspect-[4/3] max-w-[400px] md:max-w-[450px]">
+                        <div className="order-1 lg:order-2 p-2 pb-0 sm:p-4 md:p-6 lg:p-8 flex items-center justify-center">
+                          <div className="relative w-full aspect-[4/3] max-w-[300px] sm:max-w-[400px] md:max-w-[450px]">
                             <img
                               src={feature.image}
                               alt={feature.title}

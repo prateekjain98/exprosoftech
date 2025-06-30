@@ -187,20 +187,20 @@ const Header: React.FC<HeaderProps> = ({
 
   // Removed the menu-open class effect to prevent background color changes
 
-  const getProductImage = (productName: string): string => {
-    switch (productName) {
-      case "Intuiflow":
-        return "/images/mobile3.png";
-      case "Sales Force Automation":
-        return "/images/loyalty-engine.png";
-      case "Loyalty Engine":
-        return "/images/loyalty-engine.png";
-      case "Demand-Driven Business Transformation":
-        return "/images/consulting/demand-driven-business-transformation/hero.png";
-      default:
-        return "/images/banner-bg.png";
-    }
-  };
+  // const getProductImage = (productName: string): string => {
+  //   switch (productName) {
+  //     case "Intuiflow":
+  //       return "/images/mobile3.png";
+  //     case "Sales Force Automation":
+  //       return "/images/loyalty-engine.png";
+  //     case "Loyalty Engine":
+  //       return "/images/loyalty-engine.png";
+  //     case "Demand-Driven Business Transformation":
+  //       return "/images/consulting/demand-driven-business-transformation/hero.png";
+  //     default:
+  //       return "/images/banner-bg.png";
+  //   }
+  // };
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -292,7 +292,7 @@ const Header: React.FC<HeaderProps> = ({
               <a href="/" className="navbar-brand block">
                 <img
                   src={config.site.logo}
-                  className="h-auto w-[100px] md:w-[160px]"
+                  className="h-auto w-[150px] md:w-[160px]"
                   width={Number(config.site.logo_width.replace("px", "")) * 2}
                   height={Number(config.site.logo_height.replace("px", "")) * 2}
                   alt={config.site.title}
