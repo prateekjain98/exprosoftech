@@ -95,7 +95,7 @@ export const mainMenu: NavigationLink[] = [
       },
       {
         name: "Salesforce Data & AI",
-        url: "/services/salesforce-data-ai/",
+        url: "/services/salesforce-data-and-ai/",
         description:
           "Drive customer retention with personalized rewards, gamification, and engagement analytics",
       },

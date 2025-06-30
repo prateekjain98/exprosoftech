@@ -294,6 +294,9 @@ if (!service) {
       heading={service.benefitsSection.heading}
     />
   )}
-  <DynamicCTA client:visible ctaContent={service.ctaSection} />
+  
+  {service.ctaSection && (
+    <DynamicCTA client:visible ctaContent={service.ctaSection} />
+  )}
   <NewFAQ client:visible Faq={[service.faqSection]} />
 </Base>
