@@ -86,7 +86,7 @@ export const Button: React.FC<ButtonProps> = ({
     e.preventDefault();
     if (typeof window !== "undefined" && window.Calendly) {
       window.Calendly.initPopupWidget({
-        url: "https://calendly.com/greymetre/30min",
+        url: "https://calendly.com/Exprosoftech/30min",
       });
     }
   };

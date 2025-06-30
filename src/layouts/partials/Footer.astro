@@ -43,7 +43,7 @@ const footerLinks = mainMenu.flatMap(
           <div class="space-y-6">
             <a href="/" class="block">
               <ImageMod
-                src="/images/WhiteLogo.png"
+                src="/images/white-logo.png"
                 class="h-auto w-[140px] md:w-[160px]"
                 width={Number(logo_width.replace("px", "")) * 2}
                 height={Number(logo_height.replace("px", "")) * 2}
@@ -145,10 +145,26 @@ const footerLinks = mainMenu.flatMap(
                       Contact
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="/blog/"
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                    >
+                      Blogs
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/industries/"
+                      class="text-light/70 hover:text-primary transition-colors duration-200"
+                    >
+                      Industries
+                    </a>
+                  </li>
                 </ul>
               </div>
 
-              <div class="space-y-6">
+              <!-- <div class="space-y-6">
                 <h3 class="text-light text-lg font-medium">Product</h3>
                 <ul class="space-y-3">
                   {
@@ -165,7 +181,7 @@ const footerLinks = mainMenu.flatMap(
                     ))
                   }
                 </ul>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

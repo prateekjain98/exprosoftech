@@ -40,7 +40,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({ data }) => {
                 {/* <div className="absolute inset-0 -translate-x-4 -translate-y-4 lg:-translate-x-8 lg:-translate-y-8 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-2xl lg:rounded-3xl transform"></div> */}
                 <img
                   src={image.asset.url}
-                  alt="Greymetre Business Transformation Team"
+                  alt="Exprosoftech Business Transformation Team"
                   className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-contain"
                 />
                 <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 bg-blue-600 text-white p-4 lg:p-6 rounded-lg lg:rounded-xl shadow-lg lg:shadow-xl">

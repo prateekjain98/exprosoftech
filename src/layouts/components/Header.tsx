@@ -59,7 +59,7 @@ export const mainMenu: NavigationLink[] = [
   //   ],
   // },
   {
-    name: "Products",
+    name: "Services",
     url: "",
     hasChildren: true,
     children: [
@@ -70,17 +70,39 @@ export const mainMenu: NavigationLink[] = [
       //     "Build an agile supply chain with AI/ML-powered planning software for improved operational stability",
       // },
       {
-        name: "Sales Force Automation",
-        url: "/products/sfa/",
+        name: "Salesforce Development",
+        url: "/services/salesforce-development/",
         description:
           "Empower your field force with real-time tracking, route optimization, and performance analytics",
       },
       {
-        name: "Loyalty Engine",
-        url: "/products/loyalty-engine/",
+        name: "Salesforce Implementation",
+        url: "/services/salesforce-implementation/",
         description:
           "Drive customer retention with personalized rewards, gamification, and engagement analytics",
       },
+      {
+        name: "Salesforce Consulting",
+        url: "/services/salesforce-consulting/",
+        description:
+          "Drive customer retention with personalized rewards, gamification, and engagement analytics",
+      },
+      {
+        name: "Salesforce Integration",
+        url: "/services/salesforce-integration/",
+        description:
+          "Drive customer retention with personalized rewards, gamification, and engagement analytics",
+      },
+      {
+        name: "Salesforce Data & AI",
+        url: "/services/salesforce-data-ai/",
+        description:
+          "Drive customer retention with personalized rewards, gamification, and engagement analytics",
+      },
+      {
+        name: "AppExchange App Development",
+        url: "/services/appexchange-app-development/",
+      }
     ],
   },
   {

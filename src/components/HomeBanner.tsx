@@ -68,7 +68,7 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps )
         }}
       />
 
-      <section className="relative z-[1] pb-16 lg:pt-16 rounded-b-[2rem] lg:rounded-b-[6rem] shadow-xl bg-white/5 backdrop-blur-sm border border-white/10">
+      <section className="relative z-[1] pb-16 lg:pt-16 rounded-b-[2rem] lg:rounded-b-[6rem]  bg-white/5 backdrop-blur-sm border border-white/10">
         <div className="max-w-[85rem] h-fit mx-auto px-3 ">
         <div className="row items-center justify-between flex-col-reverse lg:flex-row">
           {/* Left Column - Content */}

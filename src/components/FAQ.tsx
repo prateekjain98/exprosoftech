@@ -58,12 +58,12 @@ interface FaqData {
 //   title: "Frequently Asked Questions",
 //   subtitle: "FAQ",
 //   description:
-//     "Find answers to common questions about Greymetre's services and solutions",
+//     "Find answers to common questions about Exprosoftech's services and solutions",
 //   list: [
 //     {
-//       title: "What does Greymetre specialize in?",
+//       title: "What does Exprosoftech specialize in?",
 //       description:
-//         "Greymetre provides strategic consulting, turnkey execution, and technology-driven solutions for sales transformation, supply chain excellence, and operational efficiency across B2B and retail businesses.",
+//         "Exprosoftech provides strategic consulting, turnkey execution, and technology-driven solutions for sales transformation, supply chain excellence, and operational efficiency across B2B and retail businesses.",
 //       active: true,
 //     },
 //     {
@@ -72,7 +72,7 @@ interface FaqData {
 //         "Our expertise spans manufacturing, retail, FMCG, automotive, industrial products, and consumer goods, among others.",
 //     },
 //     {
-//       title: "How does Greymetre's consulting approach differ from others?",
+//       title: "How does Exprosoftech's consulting approach differ from others?",
 //       description:
 //         "We focus on execution-driven consulting, ensuring alignment across sales, supply chain, and operations while integrating DDMRP, TOC, and process automation to deliver measurable impact.",
 //     },
@@ -82,7 +82,7 @@ interface FaqData {
 //         "We provide end-to-end execution of channel expansion, sales acceleration, supply chain transformation, and loyalty programs—including strategy design, implementation, training, and performance monitoring.",
 //     },
 //     {
-//       title: "How does Greymetre help with Channel Reach Expansion?",
+//       title: "How does Exprosoftech help with Channel Reach Expansion?",
 //       description:
 //         "We identify and onboard distributors, retailers, and B2B partners, ensuring sustained activation through structured sales programs, training, and loyalty incentives to boost sales.",
 //     },
@@ -97,7 +97,7 @@ interface FaqData {
 //         "Demand-Driven MRP (DDMRP) replaces traditional forecast-based planning with a real-time demand-driven approach, optimizing inventory, reducing supply lead times, and improving product availability.",
 //     },
 //     {
-//       title: "How does Greymetre improve supply chain performance?",
+//       title: "How does Exprosoftech improve supply chain performance?",
 //       description:
 //         "Our solutions focus on reducing lead times through strategic buffer positioning, optimizing inventory to balance availability and cost, improving service levels by ensuring the right stock at the right place, and enhancing supply chain agility to manage demand variability effectively.",
 //     },
@@ -107,7 +107,7 @@ interface FaqData {
 //         "Clients typically achieve 30-60% lead time reduction, higher OTIF (On-Time In-Full) delivery, lower working capital tied in inventory, and increased responsiveness to market demand.",
 //     },
 //     {
-//       title: "What technology solutions does Greymetre offer?",
+//       title: "What technology solutions does Exprosoftech offer?",
 //       description:
 //         "We develop custom sales and supply chain solutions, including CRM & outreach tools for sales teams, Demand-driven inventory management (DDMRP solutions), and live dashboards & analytics for real-time decision-making.",
 //     },
@@ -122,7 +122,7 @@ interface FaqData {
 //         "Our data-driven dashboards provide instant visibility into key performance metrics, allowing leadership teams to optimize sales, inventory, and operations in real time.",
 //     },
 //     {
-//       title: "How do we start working with Greymetre?",
+//       title: "How do we start working with Exprosoftech?",
 //       description:
 //         "We begin with a business evaluation to identify bottlenecks, followed by a customized strategy and execution plan tailored to your business needs.",
 //     },

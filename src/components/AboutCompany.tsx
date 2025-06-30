@@ -36,7 +36,7 @@ const AboutCompany: React.FC<AboutCompanyProps> = ({ data }) => {
                 <div className="absolute inset-0 translate-x-4 translate-y-4 lg:translate-x-8 lg:translate-y-8 bg-gradient-to-tl from-purple-600/20 to-blue-600/20 rounded-2xl lg:rounded-3xl transform"></div>
                 <img
                   src={featuredImage.asset.url}
-                  alt="Greymetre Business Excellence"
+                  alt="Exprosoftech Business Excellence"
                   className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                 />
                 <div className="absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-6 bg-blue-600 text-white p-4 lg:p-6 rounded-lg lg:rounded-xl shadow-lg lg:shadow-xl">

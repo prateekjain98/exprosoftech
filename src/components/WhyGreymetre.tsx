@@ -77,7 +77,7 @@ const WhyGreymetre: React.FC<WhyGreymetreProps> = ({ data }) => {
 
   return (
     <section
-      id="why-greymetre"
+      id="why-Exprosoftech"
       className="py-24 bg-gray-50"
     >
       <div className="container max-w-7xl mx-auto px-4">

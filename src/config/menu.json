@@ -104,28 +104,26 @@
   ],
   "footer_menu": [
     {
-      "name": "Demand-Driven Business Transformation",
-      "url": "/demand-driven-transformation/"
+      "name": "Salesforce Development",
+      "url": "/salesforce-development/"
     },
     {
-      "name": "TOC Consulting",
-      "url": "/toc-consulting/"
+      "name": "Salesforce Consulting",
+      "url": "/salesforce-consulting/"
     },
     {
-      "name": "Manufacturing Transformation",
-      "url": "/manufacturing-transformation/"
+      "name": "Salesforce Integration",
+      "url": "/salesforce-integration/"
     },
     {
-      "name": "Supply Chain Transformation",
-      "url": "/supply-chain-transformation/"
+      "name": "Salesforce Migration",
+      "url": "/salesforce-migration/"
     },
     {
-      "name": "Sales Transformation",
-      "url": "/sales-transformation/"
+      "name": "Salesforce Training",
+      "url": "/salesforce-training/"
     },
-    {
-      "name": "Digital Transformation",
-      "url": "/digital-transformation/"
+    
     }
   ],
   "footer_quick_links": [

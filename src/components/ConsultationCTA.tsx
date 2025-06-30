@@ -40,7 +40,7 @@ interface MetricType {
 //   tagline:"Ready to Transform?",
 //   title:"Elevate Your Business with",
 //   subtitle:"Demand-Driven Excellence",
-//   description:"Discover how Greymetre's Demand-Driven Business Transformation can align your organization with real-time market demands for sustained success.",
+//   description:"Discover how Exprosoftech's Demand-Driven Business Transformation can align your organization with real-time market demands for sustained success.",
 //   metrices: [
 //     {
 //       value: "25%+",

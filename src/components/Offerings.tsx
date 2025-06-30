@@ -112,7 +112,7 @@ interface OfferingCard {
 //   subtitle: "Comprehensive Offerings",
 //   title: "Leverage Our Expertise",
 //   description:
-//     "Partner with Greymetre - From strategy to execution, we empower businesses with expert consulting, hands-on service support, and cutting-edge technology. Whether it's sales acceleration, operations efficiency, supply chain transformation, or digital innovation, our tailored solutions drive sustainable growth and competitive advantage.",
+//     "Partner with Exprosoftech - From strategy to execution, we empower businesses with expert consulting, hands-on service support, and cutting-edge technology. Whether it's sales acceleration, operations efficiency, supply chain transformation, or digital innovation, our tailored solutions drive sustainable growth and competitive advantage.",
 //   list: [
 //     {
 //       icon: "/images/OfferingsOne.png",

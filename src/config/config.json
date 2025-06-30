@@ -4,7 +4,7 @@
     "base_url": "https://Exporsoftech-astro.vercel.app",
     "base_path": "/",
     "trailing_slash": true,
-    "favicon": "/images/favIconWhite.png",
+    "favicon": "/images/white-logo.png",
     "logo": "/images/white-logo.png",
     "logo_width": "120",
     "logo_height": "48",
