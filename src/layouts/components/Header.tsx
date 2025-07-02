@@ -449,7 +449,7 @@ const Header: React.FC<HeaderProps> = ({
                     isCalendlyButton={true}
                     onClick={() => setIsMobileMenuOpen(false)}
                     height="compact"
-                    
+                    variant="glassy"
                   >
                     {navigation_button.label}
                   </Button>

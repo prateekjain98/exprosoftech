@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimatedMetrics } from "./AnimatedMetrics";
 import Button from "./common/Button";
+import { Sparkles } from "./ui-layout/Sparkles";
 
 interface HomeBannerProps {
   data: {
@@ -46,7 +47,7 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps )
 
   return (
     <>
-      <svg className="clipppy absolute -top-[999px] -left-[999px] w-0 h-0">
+      {/* <svg className="clipppy absolute -top-[999px] -left-[999px] w-0 h-0">
         <defs>
           <clipPath id="clip-inverted" clipPathUnits={'objectBoundingBox'}>
             <path
@@ -55,10 +56,10 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps )
             />
           </clipPath>
         </defs>
-      </svg>
+      </svg> */}
 
       {/* Checkered Background Pattern */}
-      <div 
+      {/* <div 
         className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
         style={{
           backgroundImage: 'url(/images/banner-bg.png)',
@@ -66,34 +67,36 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps )
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat'
         }}
-      />
+      /> */}
 
-      <section className="relative z-[1] pb-16 lg:pt-16 rounded-b-[2rem] lg:rounded-b-[6rem]  bg-white/5 backdrop-blur-sm border border-white/10">
-        <div className="max-w-[85rem] h-fit mx-auto px-3 ">
-        <div className="row items-center justify-between flex-col-reverse lg:flex-row">
-          {/* Left Column - Content */}
-          <div className="mb-8 lg:mb-0 text-center lg:text-left lg:col-6">
+      <section className="relative z-[1] pb-16 lg:pt-16 rounded-b-[2rem] lg:rounded-b-[6rem] bg-white/5 backdrop-blur-sm border border-white/10">
+
+        
+        <div className="max-w-[100rem] h-fit mx-auto px-3">
+          {/* Top Row - Content (Centered) */}
+          <div className="text-center mb-16 lg:mb-20">
             {data.title && (
               <h1
                 dangerouslySetInnerHTML={{ __html: data.title }}
                 data-aos="fade-up-sm"
-                className="mb-4 text-h3 lg:text-h1 bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent font-medium"
+                className="mb-6 text-h3 lg:text-h1 text-black font-medium max-w-4xl mx-auto"
               />
             )}
             {data.description && (
               <p
                 dangerouslySetInnerHTML={{ __html: data.description }}
                 data-aos="fade-up-sm"
-                className="mb-8 text-lg/[inherit]"
+                data-aos-delay="100"
+                className="mb-8 text-lg/[inherit] max-w-2xl mx-auto text-gray-600"
               />
             )}
             {data.buttons && (
-              <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
+              <div className="flex flex-wrap justify-center gap-4">
                 {data.buttons.map(({ label, link, isCalendly }: { label: string, link: string, isCalendly: boolean }, index: number) => (
-                  <li
+                  <div
                     key={index}
                     data-aos="fade-up-sm"
-                    data-aos-delay={100 + index * 50}
+                    data-aos-delay={200 + index * 50}
                   >
                     <Button
                       href={link}
@@ -103,55 +106,61 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps )
                     >
                       {label}
                     </Button>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             )}
           </div>
 
-          {/* Right Column - Image */}
-          <div className="lg:col-6 mb-12 lg:mb-0 overflow-hidden scale-[0.8]">
+          {/* Bottom Row - Image/Visualization */}
+          <div className="flex justify-center">
             <div
-              className="relative"
+              className="relative w-[90%] lg:w-[70%]"
               data-aos="fade-up-sm"
-              data-aos-delay="400"
+              data-aos-delay="300"
             >
-              {/* {data.image && data.image.length > 0 && data.image[0].src ? ( */}
-              <div className="w-full h-full p-16 lg:p-0 relative">
-                
-                <div 
-                  className="absolute inset-0 rotate-270"
-                  style={{
-                    backgroundImage: 'url(/images/bg-blur.png)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    filter: 'blur(8px)'
-                  }}
-                ></div>
-                
-                
-                <div className="absolute inset-0 backdrop-blur-md bg-white/10"></div>
-                
-                
-                <figure 
-                  style={{ clipPath: 'url(#clip-inverted)' }} 
-                  className="relative z-10  transform"
-                >
+
+              
+              {data.image && data.image.length > 0 && data.image[0].src ? (
+                <div className="w-full relative z-10">
+                  
+                  <div 
+                    className="absolute inset-0 rotate-270 opacity-20"
+                    style={{
+                      backgroundImage: 'url(/images/bg-blur.png)',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      filter: 'blur(8px)'
+                    }}
+                  ></div>
+                  
                   <img 
                     src={data.image[0].src}
                     alt={data.image[0].alt || "Hero image"}
-                    className="transition-all duration-300 aspect-[3/4] h-[70vh] align-bottom object-cover hover:scale-105 w-full"
+                    className="w-full h-auto object-contain relative z-40"
                   />
-                </figure>
-              </div>
-              {/* ) : (
+                </div>
+              ) : (
                 <AnimatedMetrics />
-              )} */}
+              )}
+            </div>
+            {/* Sparkles Background */}
+            <div className="absolute inset-0 overflow-hidden -z-10">
+              {/* <Sparkles
+                density={400}
+                speed={1.2}
+                size={1.2}
+                direction="top"
+                opacitySpeed={2}
+                color="#32A7FF"
+                className="absolute inset-0 h-full w-full"
+              /> */}
+              {/* Gradient overlay to fade sparkles towards top */}
+              {/* <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/10 to-white/60 md:via-white/20 md:to-white/80 pointer-events-none "></div> */}
             </div>
           </div>
         </div>
-      </div>
     </section>
     </>
   );
