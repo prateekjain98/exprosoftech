@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import type { IconType } from "react-icons/lib";
 import { Button } from "../../components/common/Button";
+import SectionHeader from "../../components/SectionHeader";
 import {
   FaStore,
   FaHotel,
@@ -92,38 +93,7 @@ const industryColorSchemes = [
   }
 ];
 
-// Create a React version of SectionHeader
-const SectionHeader: React.FC<{
-  tagline?: string;
-  heading: string;
-  subheading?: string;
-  className?: string;
-  theme?: "light" | "dark";
-}> = ({ tagline, heading, subheading, className = "", theme = "light" }) => {
-  return (
-    <div className={`text-center mb-10 lg:mb-16 ${className}`}>
-      {tagline && (
-        <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs sm:text-sm font-medium shadow-lg mb-4 sm:mb-5">
-          {tagline}
-        </span>
-      )}
-      <h2 
-        className={`text-3xl sm:text-4xl lg:text-[42px] font-medium mb-4 sm:mb-5 ${
-          theme === "dark" ? "text-white" : "text-gray-900"
-        }`}
-      >
-        {heading}
-      </h2>
-      {subheading && (
-        <p className={`text-sm sm:text-base max-w-2xl sm:max-w-3xl mx-auto leading-relaxed ${
-          theme === "dark" ? "text-gray-300/90" : "text-gray-600"
-        }`}>
-          {subheading}
-        </p>
-      )}
-    </div>
-  );
-};
+
 
 // Industry Applications interfaces
 interface TimelineItem {
@@ -290,12 +260,8 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
   // Accept Sanity data or individual props
   data,
   applicationsHeading,
-  ctaText = "Find Out How It Works for Your Industry →",
-  ctaLink = "#contact",
-  isCalendly = false,
   applicationIndustries,
-  compatibilityFeatures = [],
-  timeline = []
+
 }) => {
   // Use data from props if available, otherwise fall back to individual props
   const heading = data?.heading ? {
@@ -320,19 +286,20 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
           tagline={heading.tagline}
           heading={heading.title || ""}
           subheading={heading.description}
+          alignment="center"
         />
 
         {/* Stats */}
         
         
         {/* Industry Applications Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 my-16">
           {industries.map((industry, index) => (
             <IndustryCard key={index} industry={industry} index={index} />
           ))}
         </div>
         
-                 {/* Stats Section */}
+        {/* Stats Section */}
          <motion.div
            ref={statsRef}
            initial={{ opacity: 0, y: 20 }}

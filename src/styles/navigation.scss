@@ -45,11 +45,11 @@ input#nav-toggle:checked ~ #nav-menu {
   }
   
   .pill-navbar {
-    @apply bg-slate-800 rounded-full px-4 py-4 shadow-lg backdrop-blur-md;
+    @apply bg-white rounded-full px-4 py-4 backdrop-blur-md;
     @apply flex items-center justify-between;
     @apply transition-all duration-300;
-    background: rgba(30, 41, 59, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    color: black;
     min-width: 95%;
     
     @media screen and (max-width: 1023px) {
@@ -112,7 +112,7 @@ input#nav-toggle:checked ~ #nav-menu {
     @apply relative;
     
     .pill-nav-link {
-      @apply px-4 py-2 rounded-full text-white/90 hover:text-white;
+      @apply px-4 py-2 rounded-full text-black/90 hover:text-primary;
       @apply transition-all duration-200 cursor-pointer;
       @apply hover:bg-white/10 text-sm font-medium;
       @apply flex items-center gap-1;
@@ -122,7 +122,7 @@ input#nav-toggle:checked ~ #nav-menu {
       }
       
       &.active {
-        @apply text-white bg-white/15;
+        @apply text-white bg-primary;
         @apply shadow-sm;
       }
       

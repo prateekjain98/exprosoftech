@@ -199,7 +199,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
 
               {/* Feature Cards */}
               <div
-                className="min-h-[800px] md:min-h-[700px] lg:min-h-[500px] relative"
+                className="min-h-[800px] md:min-h-[700px] lg:min-h-[450px] relative"
                 data-aos="fade-up"
                 data-aos-delay="200"
               >
@@ -220,9 +220,9 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                         {/* Content Side */}
                         <div className="order-2 lg:order-1 p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center">
                           <div className="space-y-4 md:space-y-4 lg:space-y-6">
-                            <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs sm:text-sm font-medium shadow-lg">
+                            {/* <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs sm:text-sm font-medium shadow-lg">
                               {feature.tagline}
-                            </span>
+                            </span> */}
 
                             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">
                               {feature.title}

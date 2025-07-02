@@ -132,19 +132,19 @@ interface OfferingCard {
 //   ],
 // };
 
-const CARDS_QUERY = `*[_type == "card"]{
-  _id,
-  title,
-  description,
-  "imageUrl": image.asset->url
-}`;
+// const CARDS_QUERY = `*[_type == "card"]{
+//   _id,
+//   title,
+//   description,
+//   "imageUrl": image.asset->url
+// }`;
 
-const HEADINGS_QUERY = `*[_type == "heading"] | order(_createdAt asc) {
-  _id,
-  subtitle,
-  title,
-  description
-}`;
+// const HEADINGS_QUERY = `*[_type == "heading"] | order(_createdAt asc) {
+//   _id,
+//   subtitle,
+//   title,
+//   description
+// }`;
 
 export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
 
@@ -161,7 +161,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
     const IconComponent = iconMap[iconName];
     
     if (IconComponent) {
-      return <IconComponent size={48} className="text-white" />;
+      return <IconComponent size={30} className="text-blue-900" />;
     }
     
     // Default fallback icon
@@ -169,8 +169,25 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
   };
 
   return (
-    <section className="section">
-      <div className="max-w-[85rem] mx-auto px-3">
+    <section className="section relative overflow-hidden rounded-3xl bg-gray-100">
+      {/* Background gradient circles */}
+      <div className="absolute inset-0 pointer-events-none">
+        
+        
+        {/* Medium gradient circle - top left */}
+        {/* <div className="absolute -top-40 -left-28 w-96 h-96 bg-gradient-to-br from-blue-500/30 via-blue-400 to-transparent rounded-full blur-3xl"></div> */}
+        
+        {/* Medium gradient circle - top right */}
+        {/* <div className="absolute -top-20 -right-32 w-80 h-80 bg-gradient-to-bl from-blue-500/30 via-blue-400 to-transparent rounded-full blur-2xl"></div> */}
+        
+        {/* Large gradient circle - bottom center */}
+        <div className="absolute -top-[40rem] lg:-top-[32rem] left-1/2 transform -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-t from-blue-500 via-blue-400 to-transparent rounded-full blur-3xl"></div>
+        
+        
+        
+      </div>
+      
+      <div className="max-w-[75rem] mx-auto px-3 relative z-10 ">
         <div className="row">
           <div className="mx-auto ">
             <SectionHeader
@@ -180,25 +197,30 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
               alignment="center"
             />
           </div>
-          <div className="col-12 pt-20 mt-10 bg-gradient-to-b from-primary/50 to-transparent rounded-t-3xl">
-            <div className="row g-4 justify-start">
+          <div className="col-12 pt-20 mt-10 ">
+              <div className="flex flex-wrap justify-center gap-4">
                 {data.offerings.map((card: OfferingCard, index: number) => (
-                <div
-                  key={index}
-                  className="md:col-6 lg:col-4"
+                                  <div
+                    key={index}
+                    className="flex-shrink-0 w-80 border-2 rounded-3xl bg-white"
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
                   <div className="min-h-full p-6 ">
                     <div className="mb-6 flex justify-start">
-                      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary">
+                      <div 
+                        className="flex h-14 w-14 items-center justify-center rounded-full backdrop-blur-md border border-blue-700/70"
+                        style={{
+                          background: 'linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(37,99,235,0.4), rgba(96,165,250,0.5))'
+                        }}
+                      >
                         {renderIcon(card.iconName)}
                       </div>
                     </div>
                     <div className="text-left">
                       {card.title && (
                         <h3
-                          className="h5 mb-3 md:text-3xl font-medium text-dark tracking-wide"
+                          className="h5 mb-3 md:text-2xl font-medium text-dark tracking-wide"
                           dangerouslySetInnerHTML={{ __html: card.title }}
                         />
                       )}
