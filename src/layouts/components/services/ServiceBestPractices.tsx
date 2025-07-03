@@ -165,7 +165,7 @@ export const ServicesBestPractices: React.FC<Props> = ({
 
   return (
     <section className={`section ${className}`}>
-      <div className="max-w-[75rem] mx-auto px-3">
+      <div className="max-w-[85rem] mx-auto px-3">
         <div className="row">
           <div className="mx-auto">
             <SectionHeader
@@ -176,7 +176,7 @@ export const ServicesBestPractices: React.FC<Props> = ({
             />
           </div>
           <div className="col-12 pt-20 lg:mt-10">
-            <div className="row g-4 justify-center">
+            <div className="row g-4 justify-center gap-4">
               {benefits.map((benefit, index) => (
                 <motion.div
                   key={index}

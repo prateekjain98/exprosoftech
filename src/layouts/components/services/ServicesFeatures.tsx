@@ -226,11 +226,11 @@ export const ServicesFeatures: React.FC<Props> = ({
                   onClick={() => setActiveTab(index)}
                   className={`
                     group flex items-center gap-2 
-                    px-3 py-4 rounded-xl text-center
+                    px-3 py-4 rounded-full text-center
                     w-auto sm:w-auto transition-all duration-300
                     ${
                       activeTab === index
-                        ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25"
+                        ? "bg-gradient-to-r from-blue-500 to-blue-800 text-white shadow-lg shadow-blue-500/25"
                         : "bg-white text-gray-600 hover:bg-gray-50 hover:shadow-md"
                     }
                   `}
@@ -275,9 +275,11 @@ export const ServicesFeatures: React.FC<Props> = ({
                     {/* Content Side */}
                     <div className="order-2 lg:order-1 p-6 sm:p-8 lg:p-12 flex flex-col justify-center">
                       <div className="space-y-4 sm:space-y-6">
-                        <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-blue-50 to-purple-50 text-blue-600 text-sm font-medium rounded-full">
-                          {feature.tagline}
-                        </span>
+                        {feature.tagline && (
+                          <span className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-blue-50 to-purple-50 text-blue-600 text-sm font-medium rounded-full">
+                            {feature.tagline}
+                          </span>
+                        )}
 
                         <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
                           {feature.title}

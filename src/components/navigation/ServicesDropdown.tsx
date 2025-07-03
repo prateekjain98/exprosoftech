@@ -153,7 +153,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
               isCalendlyButton={true}
               onClick={() => setIsMobileMenuOpen(false)}
               height="compact"
-              variant="glassy"
+              
             >
               Book a Consultation
             </Button>

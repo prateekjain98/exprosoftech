@@ -62,6 +62,7 @@ export const ServicesSteps: React.FC<Props> = ({
           heading={heading?.title}
           subheading={heading?.description}
         />
+
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Process Steps - Mobile: Compact numbers, Desktop: Vertical list */}
           <div className="lg:block lg:max-w-lg">
@@ -110,6 +111,7 @@ export const ServicesSteps: React.FC<Props> = ({
                   >
                     <div className="flex items-center gap-4">
                       {/* Number Circle */}
+                      
                       <div className="relative shrink-0">
                         <div
                           className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300
@@ -122,6 +124,7 @@ export const ServicesSteps: React.FC<Props> = ({
                           <span className="text-lg font-bold">{index + 1}</span>
                         </div>
                       </div>
+                      
 
                       {/* Title */}
                       <h3
@@ -163,11 +166,13 @@ export const ServicesSteps: React.FC<Props> = ({
                     <div className="relative p-8">
                       {/* Header with number */}
                       <div className="flex items-start gap-5 mb-6">
+                        {index > 2 && (
                         <div className="flex-shrink-0">
                           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 text-blue-400 font-bold text-lg group-hover:from-blue-500/20 group-hover:to-purple-500/20 group-hover:border-blue-400/40 transition-all duration-300">
                             {index + 1}
                           </div>
                         </div>
+                        )}
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
                             {container.title}
