@@ -161,16 +161,16 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
     const IconComponent = iconMap[iconName];
     
     if (IconComponent) {
-      return <IconComponent size={48} className="text-white" />;
+      return <IconComponent className="text-white w-10 h-10 md:w-12 md:h-12" />;
     }
     
     // Default fallback icon
-    return <FiTarget size={48} className="text-primary" />;
+    return <FiTarget className="text-primary w-10 h-10 md:w-12 md:h-12" />;
   };
 
   return (
     <section className="section">
-      <div className="max-w-[85rem] mx-auto px-3">
+      <div className="max-w-[75rem] mx-auto px-3">
         <div className="row">
           <div className="mx-auto ">
             <SectionHeader
@@ -180,18 +180,18 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
               alignment="center"
             />
           </div>
-          <div className="col-12 pt-20 mt-10 bg-gradient-to-b from-primary/50 to-transparent rounded-t-3xl">
+          <div className="col-12 pt-20 mt-10 ">
             <div className="row g-4 justify-start">
                 {data.offerings.map((card: OfferingCard, index: number) => (
                 <div
                   key={index}
-                  className="md:col-6 lg:col-4"
+                  className="md:col-6 lg:col-4 flex justify-center"
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
-                  <div className="min-h-full p-6 ">
+                <div className="min-h-full p-6 shadow-lg rounded-3xl border-2 border-[#c7c7c7] w-[90%] lg:w-full">
                     <div className="mb-6 flex justify-start">
-                      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary">
+                      <div className="flex h-16 w-16 lg:h-20 lg:w-20 items-center justify-center rounded-full bg-primary">
                         {renderIcon(card.iconName)}
                       </div>
                     </div>

@@ -59,6 +59,7 @@ import {
   FaHome,
 } from "react-icons/fa";
 import SectionHeader from "./SectionHeader";
+import { Button } from "./common/Button";
 
 // Icon mapping with better typing
 const iconMap: { [key: string]: IconType } = {
@@ -250,15 +251,9 @@ const IndustryCard: React.FC<{ industry: Industry; index: number }> = ({ industr
             {industry.description}
           </p>
 
-          {/* Learn More Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className={`w-full rounded-lg bg-gradient-to-r ${colorScheme.primary} px-4 py-2.5 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0`}
-          >
-            Learn More
-          </motion.button>
         </div>
+
+        
       </div>
     </motion.div>
   );
@@ -343,8 +338,26 @@ export const IndustriesWeServe: React.FC<Props> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {industries.map((industry, index) => (
             <IndustryCard key={index} industry={industry} index={index} />
+            
           ))}
         </div>
+        <div className="flex justify-center mt-20 mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <Button
+              href="#contact"
+              variant="primary"
+              isCalendlyButton={false}
+              showArrow={true}
+            >
+              Find Out How It Works for Your Industry
+            </Button>
+          </motion.div>
+        </div>  
 
         {/* CTA Section */}
         {/* <motion.div

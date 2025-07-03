@@ -204,14 +204,7 @@ const IndustryCard: React.FC<{ industry: IndustryApp; index: number }> = ({ indu
             {industry.description}
           </p>
 
-          {/* Learn More Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className={`w-full rounded-lg bg-gradient-to-r ${colorScheme.primary} px-4 py-2.5 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0`}
-          >
-            Learn More
-          </motion.button>
+      
         </div>
       </div>
     </motion.div>
@@ -290,7 +283,7 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
   // Accept Sanity data or individual props
   data,
   applicationsHeading,
-  ctaText = "Find Out How It Works for Your Industry →",
+  ctaText = "Find Out How It Works for Your Industry ",
   ctaLink = "#contact",
   isCalendly = false,
   applicationIndustries,
@@ -332,81 +325,27 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
           ))}
         </div>
         
-                 {/* Stats Section */}
-         <motion.div
-           ref={statsRef}
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.6 }}
-           viewport={{ once: true }}
-           className="mt-12 mb-16 flex justify-center"
-         >
-           <div className="flex items-center gap-8 rounded-2xl bg-white px-8 py-4 shadow-lg">
-             <div className="text-center">
-               <AnimatedCounter 
-                 from={0} 
-                 to={9} 
-                 suffix="+" 
-                 isInView={isInView} 
-                 duration={1500}
-                 gradientClasses="from-primary to-primary-light"
-               />
-               <div className="text-sm text-gray-600">Industries</div>
-             </div>
-             <div className="h-8 w-px bg-gray-200" />
-             <div className="text-center">
-               <AnimatedCounter 
-                 from={0} 
-                 to={500} 
-                 suffix="+" 
-                 isInView={isInView} 
-                 duration={2000}
-                 gradientClasses="from-primary-dark to-secondary"
-               />
-               <div className="text-sm text-gray-600">Projects Delivered</div>
-             </div>
-             <div className="h-8 w-px bg-gray-200" />
-             <div className="text-center">
-               <AnimatedCounter 
-                 from={0} 
-                 to={98} 
-                 suffix="%" 
-                 isInView={isInView} 
-                 duration={1800}
-                 gradientClasses="from-secondary-400 to-primary-light"
-               />
-               <div className="text-sm text-gray-600">Success Rate</div>
-             </div>
-           </div>
-         </motion.div>
+        {/* CTA Button */}
+        <div className="flex justify-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <Button
+              href={ctaLink}
+              variant="primary"
+              isCalendlyButton={isCalendly}
+              showArrow={true}
+            >
+              {ctaText}
+            </Button>
+          </motion.div>
+        </div>
+        
         
 
-        {/* CTA Section */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <div className="rounded-3xl bg-gradient-to-r from-primary via-primary-light to-secondary p-1">
-            <div className="rounded-3xl bg-white px-8 py-12">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Ready to Transform Your Industry?
-              </h3>
-              <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                Let our industry experts help you navigate digital transformation with tailored solutions that drive growth and efficiency in your specific sector.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-primary to-primary-light text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Get Started Today
-              </motion.button>
-            </div>
-          </div>
-        </motion.div> */}
       </div>
     </section>
   );

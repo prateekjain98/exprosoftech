@@ -41,8 +41,8 @@ export const  ServicesBanner: React.FC<Props> = ({ className, content }) => {
     : { label: "Get Started", link: "#", isCalendly: false };
 
   return (
-    <section className="relative z-[1] pt-16 pb-24 lg:pt-12 lg:pb-32">
-      <div className="container mx-auto px-4 md:px-8">
+    <section className="relative z-[1] pt-16 pb-24 lg:pt-[7rem] lg:pb-32">
+      <div className="container mx-auto px-4 md:px-8 ">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="text-center lg:text-left order-2 lg:order-1">
             <h1

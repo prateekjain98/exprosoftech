@@ -192,14 +192,7 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
             </div>
           </div>
 
-          {/* Learn More Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className={`mt-6 w-full rounded-lg bg-gradient-to-r ${cloud.color.primary} px-4 py-2.5 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0`}
-          >
-            Learn More
-          </motion.button>
+          
         </div>
       </div>
     </motion.div>

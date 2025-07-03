@@ -141,13 +141,13 @@ export const ServicesBestPractices: React.FC<Props> = ({
   // Function to safely render icons
   const renderIcon = (icon: any) => {
     if (!icon) {
-      return <FaHeart size={48} />;
+      return <FaHeart size={32} className="text-white" />;
     }
 
     // If icon is a function (React component)
     if (typeof icon === "function") {
       const IconComponent = icon;
-      return <IconComponent size={48} />;
+      return <IconComponent size={32} className="text-white" />;
     }
 
     // If icon is a string (icon name)
@@ -155,17 +155,17 @@ export const ServicesBestPractices: React.FC<Props> = ({
       // Check if the icon exists in our map
       if (iconMap[icon]) {
         const IconComponent = iconMap[icon];
-        return <IconComponent size={48} />;
+        return <IconComponent size={32} className="text-white" />;
       }
     }
 
     // Default fallback
-    return <FaHeart size={48} />;
+    return <FaHeart size={32} className="text-white" />;
   };
 
   return (
     <section className={`section ${className}`}>
-      <div className="max-w-[85rem] mx-auto px-3">
+      <div className="max-w-[75rem] mx-auto px-3">
         <div className="row">
           <div className="mx-auto">
             <SectionHeader
@@ -175,7 +175,7 @@ export const ServicesBestPractices: React.FC<Props> = ({
               alignment="center"
             />
           </div>
-          <div className="col-12 pt-20 mt-10 bg-gradient-to-b from-primary/50 to-transparent rounded-t-3xl">
+          <div className="col-12 pt-20 mt-10">
             <div className="row g-4 justify-start">
               {benefits.map((benefit, index) => (
                 <div
@@ -189,22 +189,26 @@ export const ServicesBestPractices: React.FC<Props> = ({
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="min-h-full p-6"
+                    className="min-h-full p-6 shadow-lg rounded-3xl border-2 border-[#c7c7c7]"
                   >
                     <div className="mb-6 flex justify-start">
-                      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary transition-transform duration-300 hover:scale-110">
-                        <div className="text-white">
-                          {renderIcon(benefit.icon)}
-                        </div>
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary">
+                        {renderIcon(benefit.icon)}
                       </div>
                     </div>
                     <div className="text-left">
-                      <h3 className="h5 mb-3 md:text-3xl font-medium text-dark tracking-wide transition-colors duration-300 hover:text-primary">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-text leading-relaxed">
-                        {benefit.description}
-                      </p>
+                      {benefit.title && (
+                        <h3
+                          className="h5 mb-3 md:text-3xl font-medium text-dark tracking-wide h-16"
+                          dangerouslySetInnerHTML={{ __html: benefit.title }}
+                        />
+                      )}
+                      {benefit.description && (
+                        <p
+                          className="text-text"
+                          dangerouslySetInnerHTML={{ __html: benefit.description }}
+                        />
+                      )}
                     </div>
                   </motion.div>
                 </div>

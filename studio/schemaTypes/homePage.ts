@@ -17,6 +17,12 @@ export default defineType({
           type: 'string',
         }),
         defineField({
+          name: 'blueTitle',
+          title: 'Blue Title Words',
+          type: 'string',
+          description: 'Words that should appear in blue color (usually the last two words of the title)',
+        }),
+        defineField({
           name: 'description',
           title: 'Description',
           type: 'text',

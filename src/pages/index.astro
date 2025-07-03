@@ -35,6 +35,7 @@ const pageData = await sanityClient.fetch(`
   *[_type == "homepage"][0] {
     heroBanner {
       title,
+      blueTitle,
       description,
       image[] { 
         "src": src.asset->url,

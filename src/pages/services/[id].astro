@@ -295,8 +295,10 @@ if (!service) {
     />
   )}
   
+  <NewFAQ client:visible Faq={[service.faqSection]} />
+  
   {service.ctaSection && (
     <DynamicCTA client:visible ctaContent={service.ctaSection} />
   )}
-  <NewFAQ client:visible Faq={[service.faqSection]} />
+
 </Base>

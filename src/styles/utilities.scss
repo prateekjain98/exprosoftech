@@ -17,3 +17,27 @@
 .shadow-sm {
   box-shadow: 0 4px 8px #0000000d;
 }
+
+/* Particle Animation */
+@keyframes particle {
+  0% {
+    transform: translateY(0px) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-20px) scale(1) rotate(90deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-80px) scale(1) rotate(270deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.animate-particle {
+  animation: particle 6s infinite ease-in-out;
+}

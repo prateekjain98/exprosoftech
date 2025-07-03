@@ -7,7 +7,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "isolatedModules": true,
     "incremental": true,
     "allowSyntheticDefaultImports": true,
@@ -30,8 +30,7 @@
       "@/*": [
         "./src/*"
       ]
-    },
-    "jsxImportSource": "react"
+    }
   },
   "include": [
     "**/*.ts",
