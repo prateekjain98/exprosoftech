@@ -178,9 +178,13 @@ export const ServicesBestPractices: React.FC<Props> = ({
           <div className="col-12 pt-20 mt-10">
             <div className="row g-4 justify-start">
               {benefits.map((benefit, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="md:col-6 lg:col-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex-shrink-0 w-80 border-2 rounded-3xl bg-white"
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
@@ -210,8 +214,8 @@ export const ServicesBestPractices: React.FC<Props> = ({
                         />
                       )}
                     </div>
-                  </motion.div>
-                </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>

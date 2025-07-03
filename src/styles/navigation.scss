@@ -41,15 +41,16 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply max-w-[88rem] mx-auto px-3;
   
   @media screen and (max-width: 1023px) {
-    @apply px-2;
+    @apply px-2 shadow-lg;
+
   }
   
   .pill-navbar {
-    @apply bg-slate-800 rounded-full px-4 py-4 shadow-lg backdrop-blur-md;
+    @apply bg-white px-4 py-4 rounded-full shadow-lg;
     @apply flex items-center justify-between;
     @apply transition-all duration-300;
-    background: rgba(30, 41, 59, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    color: black;
     min-width: 95%;
     
     @media screen and (max-width: 1023px) {
@@ -90,6 +91,11 @@ input#nav-toggle:checked ~ #nav-menu {
   @media screen and (max-width: 1023px) {
     @apply order-3;
   }
+  
+  // Black fill for small screens
+  @media screen and (max-width: 640px) {
+    @apply text-black hover:text-gray-700;
+  }
 }
 
 // Navigation menu
@@ -97,11 +103,17 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply flex items-center space-x-1;
   
   @media screen and (max-width: 1023px) {
-    @apply fixed left-2 right-2 top-[100px] bg-slate-800/95 backdrop-blur-md z-50;
-    @apply px-6 py-8 overflow-y-auto flex-col space-x-0 space-y-4;
-    @apply rounded shadow-xl order-2;
+    @apply fixed left-2 right-2 top-[70px] bg-slate-800 backdrop-blur-md z-50;
+    @apply px-6 py-8 overflow-y-auto flex-col space-x-0 space-y-4 shadow-xl;
+    @apply rounded-2xl order-2;
     border: 1px solid rgba(255, 255, 255, 0.1);
     max-height: calc(100vh - 120px);
+    
+    // Enhanced shadow for all mobile screens
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.25),
+      0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
     
     &.mobile-menu-open {
       @apply flex;
@@ -112,17 +124,17 @@ input#nav-toggle:checked ~ #nav-menu {
     @apply relative;
     
     .pill-nav-link {
-      @apply px-4 py-2 rounded-full text-white/90 hover:text-white;
+      @apply px-4 py-2 rounded-full text-black/90 hover:text-primary;
       @apply transition-all duration-200 cursor-pointer;
       @apply hover:bg-white/10 text-sm font-medium;
       @apply flex items-center gap-1;
       
       @media screen and (max-width: 1023px) {
-        @apply w-full justify-between px-4 py-3 rounded-xl text-base;
+        @apply w-full justify-between px-4 py-3 rounded-xl text-base text-white/90;
       }
       
       &.active {
-        @apply text-white bg-white/15;
+        @apply text-white bg-primary;
         @apply shadow-sm;
       }
       

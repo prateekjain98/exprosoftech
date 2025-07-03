@@ -132,19 +132,19 @@ interface OfferingCard {
 //   ],
 // };
 
-const CARDS_QUERY = `*[_type == "card"]{
-  _id,
-  title,
-  description,
-  "imageUrl": image.asset->url
-}`;
+// const CARDS_QUERY = `*[_type == "card"]{
+//   _id,
+//   title,
+//   description,
+//   "imageUrl": image.asset->url
+// }`;
 
-const HEADINGS_QUERY = `*[_type == "heading"] | order(_createdAt asc) {
-  _id,
-  subtitle,
-  title,
-  description
-}`;
+// const HEADINGS_QUERY = `*[_type == "heading"] | order(_createdAt asc) {
+//   _id,
+//   subtitle,
+//   title,
+//   description
+// }`;
 
 export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
 
@@ -198,7 +198,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
                     <div className="text-left">
                       {card.title && (
                         <h3
-                          className="h5 mb-3 md:text-3xl font-medium text-dark tracking-wide"
+                          className="h5 mb-3 md:text-2xl font-medium text-dark tracking-wide"
                           dangerouslySetInnerHTML={{ __html: card.title }}
                         />
                       )}

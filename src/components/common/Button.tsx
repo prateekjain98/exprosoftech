@@ -6,7 +6,8 @@ type ButtonVariant =
   | "outline-primary"
   | "secondary"
   | "outline-secondary"
-  | "white";
+  | "white"
+  | "glassy";
 type ButtonSize = "sm" | "md" | "lg";
 type ButtonHeight = "normal" | "compact";
 
@@ -33,6 +34,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   "outline-secondary":
     "btn-outline-secondary hover:bg-secondary hover:text-white",
   white: "btn-white",
+  glassy: "backdrop-blur-md border border-blue-700/70 text-black hover:shadow-lg hover:shadow-blue-500/20",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -74,11 +76,15 @@ export const Button: React.FC<ButtonProps> = ({
   
   // Special styling for primary buttons with capsule design
   const isPrimary = variant === "primary";
+  const isGlassy = variant === "glassy";
+  
   const capsuleStyles = isPrimary 
     ? "border-[#195dc1] bg-[#2e78e6] text-white border hover:border-[#4B83FB] hover:bg-[#4B83FB] hover:text-white hover:drop-shadow-[0_6px_4px_rgba(0,0,0,0.36)] hover:scale-[1.06] active:border-[#2251C5] active:bg-[#2251C5] drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] rounded-full pl-6 pr-2 py-2 flex items-center justify-between gap-2 min-h-[52px] group transition-all duration-300"
+    : isGlassy
+    ? "rounded-full pl-6 pr-2 py-2 flex items-center justify-between gap-2 min-h-[52px] group transition-all duration-300 backdrop-blur-md border border-blue-700/70 text-black hover:shadow-lg hover:shadow-blue-500/20 hover:scale-[1.02]"
     : `${variantStyles[variant]} ${sizeStyles[size]} ${heightStyles[height]}`;
   
-  const styles = isPrimary 
+  const styles = (isPrimary || isGlassy)
     ? `${baseStyles} ${capsuleStyles} ${className}`
     : `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${heightStyles[height]} ${className}`;
 
@@ -95,12 +101,14 @@ export const Button: React.FC<ButtonProps> = ({
 
   // Render function for button content
   const renderContent = () => {
-    if (isPrimary && showArrow) {
+    if ((isPrimary || isGlassy) && showArrow) {
       return (
         <>
           <span className="flex-1 text-left font-medium">{children}</span>
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center transition-all duration-300 ease-in-out group-hover:rotate-45 group-hover:scale-110">
-            <ArrowIcon className="w-4 h-4 text-[#2e78e6]" />
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-in-out group-hover:rotate-45 group-hover:scale-110 ${
+            isGlassy ? 'bg-blue-400/30 backdrop-blur-sm border border-blue-600/40' : 'bg-white'
+          }`}>
+            <ArrowIcon className={`w-4 h-4 ${isGlassy ? 'text-black' : 'text-[#2e78e6]'}`} />
           </div>
         </>
       );
@@ -127,7 +135,11 @@ export const Button: React.FC<ButtonProps> = ({
         onClick={handleCalendlyClick}
         type={type}
         disabled={disabled}
-        style={isPrimary ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } : undefined}
+        style={isPrimary 
+          ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } 
+          : isGlassy 
+          ? { background: 'linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(37,99,235,0.4), rgba(96,165,250,0.5))' }
+          : undefined}
       >
         {renderContent()}
       </button>
@@ -141,7 +153,11 @@ export const Button: React.FC<ButtonProps> = ({
         className={styles}
         target={target}
         rel={target === "_blank" ? "noopener noreferrer" : undefined}
-        style={isPrimary ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } : undefined}
+        style={isPrimary 
+          ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } 
+          : isGlassy 
+          ? { background: 'linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(37,99,235,0.4), rgba(96,165,250,0.5))' }
+          : undefined}
       >
         {renderContent()}
       </a>
@@ -154,7 +170,11 @@ export const Button: React.FC<ButtonProps> = ({
       className={styles}
       onClick={onClick}
       disabled={disabled}
-      style={isPrimary ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } : undefined}
+      style={isPrimary 
+        ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } 
+        : isGlassy 
+        ? { background: 'linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(37,99,235,0.4), rgba(96,165,250,0.5))' }
+        : undefined}
     >
       {renderContent()}
     </button>

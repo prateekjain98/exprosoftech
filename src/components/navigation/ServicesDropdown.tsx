@@ -61,7 +61,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
   return (
     <div className="w-full">
       {/* Services Section - Two Columns */}
-      <div className="p-6 bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30">
+      <div className="p-6 bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30 border-2">
         <div className="flex items-center gap-2 mb-4">
           <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
             <svg
@@ -153,6 +153,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
               isCalendlyButton={true}
               onClick={() => setIsMobileMenuOpen(false)}
               height="compact"
+              variant="glassy"
             >
               Book a Consultation
             </Button>

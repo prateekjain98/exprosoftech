@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimatedMetrics } from "./AnimatedMetrics";
 import Button from "./common/Button";
+import { Sparkles } from "./ui-layout/Sparkles";
 
 interface HomeBannerProps {
   data: {

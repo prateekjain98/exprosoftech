@@ -292,7 +292,7 @@ const Header: React.FC<HeaderProps> = ({
               <a href="/" className="navbar-brand block">
                 <img
                   src={config.site.logo}
-                  className="h-auto w-[150px] md:w-[160px]"
+                  className="h-auto w-[150px] md:w-[180px]"
                   width={Number(config.site.logo_width.replace("px", "")) * 2}
                   height={Number(config.site.logo_height.replace("px", "")) * 2}
                   alt={config.site.title}
@@ -449,6 +449,7 @@ const Header: React.FC<HeaderProps> = ({
                     isCalendlyButton={true}
                     onClick={() => setIsMobileMenuOpen(false)}
                     height="compact"
+                    variant="glassy"
                   >
                     {navigation_button.label}
                   </Button>
@@ -463,6 +464,7 @@ const Header: React.FC<HeaderProps> = ({
                   className="pill-cta-button hidden lg:flex"
                   isCalendlyButton={true}
                   height="compact"
+                  variant="glassy"
                 >
                   {navigation_button.label}
                 </Button>
