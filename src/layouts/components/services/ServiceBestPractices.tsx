@@ -175,8 +175,8 @@ export const ServicesBestPractices: React.FC<Props> = ({
               alignment="center"
             />
           </div>
-          <div className="col-12 pt-20 mt-10">
-            <div className="row g-4 justify-start">
+          <div className="col-12 pt-20 lg:mt-10">
+            <div className="row g-4 justify-center">
               {benefits.map((benefit, index) => (
                 <motion.div
                   key={index}
@@ -188,13 +188,7 @@ export const ServicesBestPractices: React.FC<Props> = ({
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="min-h-full p-6 shadow-lg rounded-3xl border-2 border-[#c7c7c7]"
-                  >
+                  <div className="p-6">
                     <div className="mb-6 flex justify-start">
                       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary">
                         {renderIcon(benefit.icon)}
@@ -203,7 +197,7 @@ export const ServicesBestPractices: React.FC<Props> = ({
                     <div className="text-left">
                       {benefit.title && (
                         <h3
-                          className="h5 mb-3 md:text-3xl font-medium text-dark tracking-wide h-16"
+                          className="h5 mb-3 md:text-3xl font-medium text-dark tracking-wide h-20 lg:h-16"
                           dangerouslySetInnerHTML={{ __html: benefit.title }}
                         />
                       )}
@@ -214,7 +208,7 @@ export const ServicesBestPractices: React.FC<Props> = ({
                         />
                       )}
                     </div>
-                  </motion.div>
+                    </div>
                 </motion.div>
               ))}
             </div>

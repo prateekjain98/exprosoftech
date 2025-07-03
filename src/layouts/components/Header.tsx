@@ -281,6 +281,14 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <div className={`header-wrapper ${!errorPage && "pb-0"}`}>
+      {/* Mobile menu backdrop */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[990] lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+      
       <header
         className={`header z-[999] transition-all duration-300 ${isHidden ? "header-hidden" : ""}`}
       >
@@ -292,7 +300,7 @@ const Header: React.FC<HeaderProps> = ({
               <a href="/" className="navbar-brand block">
                 <img
                   src={config.site.logo}
-                  className="h-auto w-[150px] md:w-[180px]"
+                  className="h-auto w-[150px] md:w-[160px]"
                   width={Number(config.site.logo_width.replace("px", "")) * 2}
                   height={Number(config.site.logo_height.replace("px", "")) * 2}
                   alt={config.site.title}
@@ -449,7 +457,6 @@ const Header: React.FC<HeaderProps> = ({
                     isCalendlyButton={true}
                     onClick={() => setIsMobileMenuOpen(false)}
                     height="compact"
-                    variant="glassy"
                   >
                     {navigation_button.label}
                   </Button>
@@ -464,7 +471,6 @@ const Header: React.FC<HeaderProps> = ({
                   className="pill-cta-button hidden lg:flex"
                   isCalendlyButton={true}
                   height="compact"
-                  variant="glassy"
                 >
                   {navigation_button.label}
                 </Button>

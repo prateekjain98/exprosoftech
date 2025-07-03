@@ -33,14 +33,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           <span
             className={`
             inline-block px-3 py-1.5 sm:px-4 sm:py-2 
-            backdrop-blur-md 
-            border border-blue-700/20 rounded-full 
+            bg-gradient-to-r from-blue-500/10 to-purple-500/10 
+            border border-blue-500/20 rounded-full 
             text-xs sm:text-sm font-medium shadow-lg
-            ${theme === "dark" ? "text-blue-400" : "text-white"}
+            ${theme === "dark" ? "text-blue-400" : "text-blue-600"}
           `}
-            style={{
-              background: 'linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(37,99,235,0.4), rgba(96,165,250,0.5))'
-            }}
           >
             {tagline}
           </span>
