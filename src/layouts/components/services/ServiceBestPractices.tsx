@@ -214,7 +214,7 @@ export const ServicesBestPractices: React.FC<Props> = ({
                         />
                       )}
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
             </div>
