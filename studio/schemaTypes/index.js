@@ -34,6 +34,7 @@ import homePage from './homePage'
 import about from './about'
 import contact from './contact'
 import { caseStudyType } from './caseStudy.ts'
+import { solutionType } from './solution.ts'
 import testimonialSection from './testimonialSection.ts'
 import { productDropdownType } from './productDropwdown'
 import { serviceDropdownType } from './serviceDropdown'
@@ -42,5 +43,5 @@ import industries from './industries'
 
 export const schemaTypes = [ 
     clientsType , post , author , blockContent  , dynamicServicePageType , homePage,      
-    about , contact , caseStudyType , serviceDropdownType , industries
+    about , contact , caseStudyType , solutionType , serviceDropdownType , industries
 ]

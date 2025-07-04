@@ -1,0 +1,135 @@
+---
+import Base from "@/layouts/Base.astro";
+import SolutionCard from "@/layouts/components/SolutionCard.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import { sanityClient } from "sanity:client";
+
+// Interface for solution data from Sanity
+interface SolutionData {
+  _id: string;
+  title: string;
+  category: string;
+  description: string;
+  excerpt: string;
+  industry: string;
+  complexity: string;
+  slug: string;
+  publishedAt: string;
+  logo: {
+    asset: {
+      url: string;
+    };
+    alt: string;
+  };
+  featuredImage: {
+    asset: {
+      url: string;
+    };
+    alt: string;
+  };
+}
+
+// Fetch solutions data from Sanity
+const solutionsData = await sanityClient.fetch(`
+  *[_type == "solution"] | order(publishedAt desc) {
+    _id,
+    title,
+    tagline,
+    heading,
+    subheading,
+    metaTitle,
+    metaDescription,
+    category,
+    description,
+    excerpt,
+    industry,
+    complexity,
+    "slug": slug.current,
+    publishedAt,
+    logo {
+      asset->{
+        url
+      },
+      alt
+    },
+    featuredImage {
+      asset->{
+        url
+      },
+      alt
+    }
+  }
+`);
+
+// Get header content from the first solution (if available)
+const headerContent = solutionsData.length > 0 ? solutionsData[0] : null;
+
+// Page metadata
+const pageTitle = headerContent?.metaTitle || "Solutions";
+const pageDescription = headerContent?.metaDescription || "Discover our comprehensive solutions designed to address your business challenges and drive digital transformation across industries.";
+---
+
+<Base 
+  title={headerContent?.title || "Solutions"} 
+  meta_title={`${pageTitle} - Exprosoftech`} 
+  description={pageDescription}
+>
+  <main>
+    <!-- Hero Section -->
+    <section class="section overflow-hidden">
+      <div class="container">
+        <div class="row">
+          <div class="mx-auto text-center lg:col-10" data-aos="fade-up-sm">
+            <SectionHeader
+              tagline={headerContent?.tagline || "Our Solutions"}
+              heading={headerContent?.heading || "Comprehensive Solutions for Business Transformation"}
+              subheading={headerContent?.subheading || "Explore our portfolio of innovative solutions designed to tackle complex business challenges and accelerate your digital journey across various industries."}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solutions Grid -->
+    {solutionsData.length > 0 ? (
+      <section class="section overflow-hidden">
+        <div class="container">
+          <div class="row">
+            <div class="col-12" data-aos="fade-up-sm" data-aos-delay="200">
+              <div class="row gx-4 gy-5 justify-center md:gx-5">
+                {solutionsData.map((solution: SolutionData) => (
+                  <div class="md:col-6 lg:col-4">
+                    <SolutionCard content={solution} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    ) : (
+      
+      <section class="section">
+        <div class="container">
+          <div class="row justify-center">
+            <div class="col-12 lg:col-8 text-center">
+              <div class="bg-theme-light rounded-2xl p-12">
+                <div class="w-24 h-24 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
+                  <svg class="w-12 h-12 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <h2 class="h3 mb-4">Solutions Coming Soon</h2>
+                <p class="text-light">
+                  We're currently preparing our comprehensive solutions portfolio to showcase 
+                  the innovative approaches we've developed. Check back soon to 
+                  see detailed solutions for your business challenges.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+</Base> 

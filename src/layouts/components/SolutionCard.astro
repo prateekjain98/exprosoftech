@@ -1,0 +1,70 @@
+---
+import dateFormat from "@/lib/utils/dateFormat";
+import ImageMod from "./ImageMod.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+const { cardLayout, content } = Astro.props;
+const { title, slug, category, excerpt, description, featuredImage, logo, publishedAt, industry, complexity } = content;
+
+---
+<div class="bg-body">
+  {
+    featuredImage && (
+      <div class="relative flex items-center justify-center">
+        <img
+          class={`${cardLayout === "creative" ? "absolute h-[80%] w-[90%] md:h-[70%] md:w-[82%]" : "h-[300px]"} mb-6 rounded-3xl object-cover`}
+          src={featuredImage.asset.url}
+          alt={featuredImage.alt || title}
+        />
+        {logo && (
+          <div class="absolute top-4 left-4 z-10">
+            <img
+              src={logo.asset.url}
+              alt={logo.alt || `${title} logo`}
+              class="h-8 w-auto object-contain bg-white/80 rounded px-2 py-1"
+            />
+          </div>
+        )}
+      </div>
+    )
+  }
+  {
+    category && (
+      <div class="mb-4 flex items-center gap-x-2">
+        <span class="inline-block rounded-full bg-[#0066FF]/10 px-3 py-1 text-xs font-medium text-[#0066FF]">
+          {category}
+        </span>
+      </div>
+    )
+  }
+  {
+    title && (
+      <h3 class="h5 mb-3">
+        <a href={`/solutions/${slug}/`}>{title}</a>
+      </h3>
+    )
+  }
+  {
+    excerpt ? (
+      <p class="mb-6">{excerpt}</p>
+    ) : description ? (
+      <p class="mb-6">{description}</p>
+    ) : null
+  }
+  {
+    (industry || complexity) && (
+      <div class="mb-4 flex items-center gap-x-4 text-sm text-gray-500">
+        {industry && <span>{industry}</span>}
+        {complexity && <span>{complexity}</span>}
+      </div>
+    )
+  }
+  <a class="btn btn-text border-none" href={`/solutions/${slug}/`}>
+    View Solution
+    <div class="icon-wrapper">
+      <span class="icon" aria-hidden="true">
+        <DynamicIcon className="w-4" icon={"FaArrowRight"} />
+      </span>
+    </div>
+  </a>
+</div> 

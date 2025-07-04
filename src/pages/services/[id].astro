@@ -16,6 +16,9 @@ import { CloudSpecializations } from "../../components/CloudSpecializations";
 import { IndustriesWeServe } from "../../components/IndustriesWeServe";
 import { ScrollableLogos } from "../../components/ScrollableLogos";
 import ContentSection from "../../components/ContentSection";
+import { Offerings } from "../../components/Offerings";
+import AccordionSection from "../../components/AccordionSection";
+import { DualGridScroller } from "../../components/DualGridScroller";
 
 interface Service {
   id: string;
@@ -32,7 +35,9 @@ interface Service {
   processSection: any;
   stepsSection: any;
   integrationTypesSection: any;
+  dualGridScrollerSection: any;
   faqSection: any;
+  accordionSection: any;
   ctaSection: any;
 }
 
@@ -79,6 +84,48 @@ const service = await sanityClient.fetch(`
         value,
         label,
         position
+      }
+    },
+    offeringsSection {
+      isVisible,
+      heading {
+        title,
+        subtitle,
+        description
+      },
+      offerings[] {
+        title,
+        description,
+        iconName
+      }
+    },
+    
+    accordionSection {
+      isVisible,
+      heading,
+      subheading,
+      description,
+      items[] {
+        title,
+        content[] {
+          ...,
+          _type,
+          style,
+          list,
+          markDefs[] {
+            ...,
+            _type,
+            href
+          }
+        },
+        icon
+      }
+    },
+    dualGridScrollerSection {
+      isVisible,
+      heading,
+      items[] {
+        description
       }
     },
     featuresSection {
@@ -178,6 +225,7 @@ const service = await sanityClient.fetch(`
         }
       }
     },
+    
     faqSection {
       title,
       pageTitle,
@@ -189,6 +237,7 @@ const service = await sanityClient.fetch(`
         active
       }
     },
+    
     ctaSection {
       tagline,
       title,
@@ -225,6 +274,30 @@ if (!service) {
 
   {service.contentSection?.isVisible && (
     <ContentSection client:visible data={service.contentSection} />
+  )}
+
+  {service.offeringsSection?.isVisible && (
+    <Offerings 
+      client:visible 
+      data={service.offeringsSection} 
+    />
+  )}
+
+  {service.accordionSection?.isVisible && (
+    <AccordionSection 
+      client:visible 
+      heading={service.accordionSection.heading}
+      subheading={service.accordionSection.subheading}
+      description={service.accordionSection.description}
+      items={service.accordionSection.items}
+    />
+  )}
+
+  {service.dualGridScrollerSection?.isVisible && (
+    <DualGridScroller 
+      client:visible 
+      data={service.dualGridScrollerSection} 
+    />
   )}
 
   {service.featuresSection?.isVisible && (
@@ -295,7 +368,10 @@ if (!service) {
     />
   )}
   
-  <NewFAQ client:visible Faq={[service.faqSection]} />
+  {service.faqSection && (
+    <NewFAQ client:visible Faq={[service.faqSection]} />
+  )}
+
   
   {service.ctaSection && (
     <DynamicCTA client:visible ctaContent={service.ctaSection} />

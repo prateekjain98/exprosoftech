@@ -106,6 +106,10 @@ export const mainMenu: NavigationLink[] = [
     ],
   },
   {
+    name: "Solutions",
+    url: "/solutions/",
+  },
+  {
     name: "Industries",
     url: "/industries/",
   },

@@ -132,9 +132,7 @@ const iconMap: { [key: string]: React.ComponentType<any> } = {
   Settings: FiSettings,
   
   ChartPie: TbChartPie,
-  
- 
-  
+   
 };
 
 export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {

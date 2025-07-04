@@ -1,0 +1,53 @@
+---
+import Base from "@/layouts/Base.astro";
+import SolutionSingle from "@/layouts/SolutionSingle.astro";
+import { sanityClient } from "sanity:client";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const solutions = await sanityClient.fetch(`
+    *[_type == "solution"] {
+      "slug": slug.current,
+      title,
+      category,
+      excerpt,
+      challenge,
+      approach,
+      benefits,
+      features,
+      industry,
+      complexity,
+      technologies,
+      publishedAt,
+      "logo": logo {
+        asset->{
+          url
+        },
+        alt
+      },
+      "featuredImage": featuredImage {
+        asset->{
+          url
+        },
+        alt
+      }
+    }
+  `);
+
+  return solutions.map((solution: { slug: string }) => ({
+    params: { single: solution.slug },
+    props: { solution },
+  }));
+}
+
+const { solution } = Astro.props as { solution: any };
+---
+
+<Base
+  title={solution.title}
+  meta_title={`${solution.title} - Solution - Exprosoftech`}
+  description={solution.excerpt || ""}
+  image={solution.featuredImage?.asset?.url}>
+  <SolutionSingle solution={solution} />
+</Base> 

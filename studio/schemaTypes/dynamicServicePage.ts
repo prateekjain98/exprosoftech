@@ -237,16 +237,14 @@ export const dynamicServicePageType = defineType({
               title: 'Value',
               type: 'string',
               description: 'Main value to display (e.g., "35+", "100%", "50K+")',
-              validation: Rule => Rule.required()
             }),
             defineField({
               name: 'label',
               title: 'Label',
               type: 'string',
               description: 'Description text below the value',
-              validation: Rule => Rule.required()
             }),
-                         defineField({
+            defineField({
                name: 'position',
                title: 'Position',
                type: 'string',
@@ -262,6 +260,169 @@ export const dynamicServicePageType = defineType({
                initialValue: 'bottomRight'
              })
           ]
+        })
+      ]
+    }),
+
+    defineField({
+      name: 'offeringsSection',
+      title: 'Managed Services Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Managed Services Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire managed services section'
+        }),
+        defineField({
+          name: 'heading',
+          type: 'object',
+          fields: [
+            { name: 'title', type: 'string' },
+            { name: 'subtitle', type: 'string' },
+            { name: 'description', type: 'text' }
+          ]
+        }),
+        defineField({
+          name: 'offerings',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'title', type: 'string' }),
+                defineField({ name: 'description', type: 'text' }),
+                defineField({ 
+                  name: 'iconName', 
+                  type: 'string',
+                  title: 'Icon',
+                  options: {
+                    list: [
+                      { title: 'Users', value: 'Users' },
+                      { title: 'Settings', value: 'Settings' },
+                      { title: 'Box', value: 'Box' },
+                      { title: 'Trending Up', value: 'TrendingUp' },
+                      { title: 'Target', value: 'Target' },
+                      { title: 'Shield', value: 'Shield' },
+                      { title: 'Lightning', value: 'Lightning' },
+                      { title: 'CPU', value: 'Cpu' },
+                      { title: 'Globe', value: 'Globe' },
+                      { title: 'Layers', value: 'Layers' },
+                      { title: 'Lightbulb', value: 'Lightbulb' },
+                      { title: 'Rocket', value: 'Rocket' },
+                      { title: 'Gear', value: 'Gear' },
+                      { title: 'Consulting', value: 'consulting' },
+                      { title: 'Services', value: 'services' },
+                      { title: 'Products', value: 'products' }
+                    ]
+                  }
+                }),
+              ]
+            }
+          ]
+        })
+      ]
+    }),
+
+    // Accordion Section
+    defineField({
+      name: 'accordionSection',
+      title: 'Managed Services Accordion Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Accordion Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire accordion section'
+        }),
+        defineField({
+          name: 'heading',
+          title: 'Heading',
+          type: 'string',
+          description: 'Main heading for the accordion section (HTML supported)'
+        }),
+        defineField({
+          name: 'subheading',
+          title: 'Subheading',
+          type: 'string',
+          description: 'Optional description text below the heading'
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          description: 'Description text for the accordion section'
+        }),
+        
+        defineField({
+          name: 'items',
+          title: 'Accordion Items',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'title',
+                title: 'Title',
+                type: 'string',
+                description: 'The accordion item title/header'
+              }),
+              defineField({
+                name: 'content',
+                title: 'Content',
+                type: 'array',
+                of: [{type: 'block'}],
+                description: 'The accordion item content (rich text supported)'
+              }),
+              defineField({
+                name: 'icon',
+                title: 'Icon',
+                type: 'string',
+                description: 'Optional icon or number to display (e.g., "01", "02", "★", etc.)'
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+
+    // Dual Grid Scroller Section
+    defineField({
+      name: 'dualGridScrollerSection',
+      title: 'Managed Services Grid Scroller',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Dual Grid Scroller Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire dual grid scroller section'
+        }),
+        defineField({
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'string'
+        }),
+        defineField({
+          name: 'items',
+          title: 'Grid Items',
+          type: 'array',
+          description: 'Simple text items that will be automatically divided between left and right grids',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'description',
+                title: 'Item Description',
+                type: 'string'
+              })
+            ]
+          }]
         })
       ]
     }),
