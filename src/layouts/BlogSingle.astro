@@ -11,32 +11,8 @@ import { PortableText } from "astro-portabletext";
 const { post } = Astro.props;
 const { title, author, image, date, body, slug } = post;
 
-interface SanityImage {
-  asset: {
-    url: string;
-  };
-  alt?: string;
-}
-
 // Define components for PortableText
-const components = {
-  types: {
-    image: ({ value }: { value: SanityImage }) => {
-      if (!value?.asset?.url) {
-        return null;
-      }
-      return {
-        Component: 'img',
-        props: {
-          src: value.asset.url,
-          alt: value.alt || ' ',
-          loading: "lazy",
-          class: "rounded-lg my-6"
-        }
-      };
-    }
-  }
-};
+const components = {};
 
 // Fetch related posts
 const relatedPosts = await sanityClient.fetch(`

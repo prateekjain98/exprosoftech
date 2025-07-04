@@ -1,0 +1,209 @@
+---
+import dateFormat from "@/lib/utils/dateFormat";
+import { humanize } from "@/lib/utils/textConverter";
+import ImageMod from "./components/ImageMod.astro";
+import CallToAction from "./partials/CallToAction.astro";
+import { sanityClient } from "sanity:client";
+import { PortableText } from "astro-portabletext";
+
+const { caseStudy } = Astro.props;
+const { 
+  title, 
+  category, 
+  industry, 
+  duration, 
+  services, 
+  challenge, 
+  solution, 
+  results, 
+  metrics, 
+  featuredImage, 
+  logo, 
+  publishedAt,
+  slug 
+} = caseStudy;
+
+// Define components for PortableText
+const components = {};
+
+// Fetch related case studies
+const relatedCaseStudies = await sanityClient.fetch(`
+  *[_type == "caseStudy" && slug.current != $slug] | order(publishedAt desc)[0...3] {
+    title,
+    "slug": slug.current,
+    category,
+    excerpt,
+    "logo": logo.asset->url,
+    "featuredImage": featuredImage.asset->url,
+    publishedAt
+  }
+`, { slug });
+---
+
+<section class="section">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="text-center lg:col-9" data-aos="fade-up-sm">
+        {title && <h1 class="h2 mb-4">{title}</h1>}
+        {category && <p class="mb-2 text-lg font-medium text-primary">{category}</p>}
+        {caseStudy.excerpt && <p class="mb-6 text-lg text-light">{caseStudy.excerpt}</p>}
+        
+        <ul class="mb-4 flex items-center justify-center gap-4 flex-wrap">
+          {industry && (
+            <li class="text-lg/[inherit]">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-tertiary">Industry:</span>
+                <span class="text-sm font-medium text-dark">{industry}</span>
+              </div>
+            </li>
+          )}
+          {duration && (
+            <li class="text-lg/[inherit]">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-tertiary">Duration:</span>
+                <span class="text-sm font-medium text-dark">{duration}</span>
+              </div>
+            </li>
+          )}
+          {publishedAt && (
+            <li class="flex items-center gap-x-2">
+              <ImageMod
+                class="h-8 w-8"
+                src="/images/icons/png/date.png"
+                alt="date icon"
+              />
+              <p class="inline-block font-medium text-tertiary">
+                {dateFormat(publishedAt, "iiii, MMM dd, yyyy")}
+              </p>
+            </li>
+          )}
+        </ul>
+      </div>
+      
+      <div class="col-12 pt-20 md:pt-32" data-aos="fade-up-sm" data-aos-delay="200">
+        {featuredImage && (
+          <div class="mb-10">
+            <img
+              src={featuredImage.asset.url}
+              height={500}
+              width={1200}
+              alt={featuredImage.alt || title}
+              class="h-auto w-full rounded-3xl object-cover md:h-[700px]"
+            />
+          </div>
+        )}
+      </div>
+      
+      <article class="pb-10 lg:col-8" data-aos="fade-up-sm">
+        <div class="content">
+          <!-- Services Section -->
+          {services && services.length > 0 && (
+            <div class="mb-12">
+              <h2 class="h3 mb-4">Services Provided</h2>
+              <div class="flex flex-wrap gap-2">
+                {services.map((service: string) => (
+                  <span class="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+                    {service}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Challenge Section -->
+          {challenge && (
+            <div class="mb-12">
+              <h2 class="h3 mb-4">The Challenge</h2>
+              <p class="text-lg leading-relaxed text-light">{challenge}</p>
+            </div>
+          )}
+
+          <!-- Solution Section -->
+          {solution && (
+            <div class="mb-12">
+              <h2 class="h3 mb-4">Our Solution</h2>
+              <div class="content">
+                <PortableText value={solution} components={components} />
+              </div>
+            </div>
+          )}
+
+          <!-- Results Section -->
+          {results && (
+            <div class="mb-12">
+              <h2 class="h3 mb-4">Results & Impact</h2>
+              <div class="content">
+                <PortableText value={results} components={components} />
+              </div>
+            </div>
+          )}
+
+          <!-- Metrics Section -->
+          {metrics && metrics.length > 0 && (
+            <div class="mb-12">
+              <h2 class="h3 mb-6">Key Performance Metrics</h2>
+              <div class="row gx-4 gy-4">
+                {metrics.map((metric: any) => (
+                  <div class="col-12 md:col-6 lg:col-4">
+                    <div class="rounded-xl border border-border bg-body p-6 shadow-sm">
+                      <h3 class="h5 mb-2">{metric.metric}</h3>
+                      <p class="mb-1 text-3xl font-bold text-primary">{metric.value}</p>
+                      <p class="text-sm text-tertiary">{metric.improvement}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Company Logo Section -->
+          {logo && (
+            <div class="mt-12 text-center">
+              <img
+                src={logo.asset.url}
+                alt={logo.alt || `${title} logo`}
+                class="mx-auto h-16 w-auto object-contain"
+              />
+            </div>
+          )}
+        </div>
+      </article>
+    </div>
+  </div>
+  
+  <!-- Related Case Studies -->
+  {relatedCaseStudies && relatedCaseStudies.length > 0 && (
+    <div class="section bg-theme-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="h3 mb-12 text-center">Related Case Studies</h2>
+            <div class="row gx-4 gy-4">
+              {relatedCaseStudies.map((related: any) => (
+                <div class="col-12 md:col-6 lg:col-4">
+                  <a href={`/case-studies/${related.slug}`} class="group block">
+                    <div class="relative overflow-hidden rounded-xl bg-body">
+                      <img
+                        src={related.featuredImage}
+                        alt={related.title}
+                        class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                      <div class="absolute inset-0 flex flex-col justify-end p-6">
+                        <p class="mb-2 text-sm font-medium text-primary">{related.category}</p>
+                        <h3 class="text-xl font-bold text-white">{related.title}</h3>
+                        <p class="mt-2 text-sm text-gray-300">{related.excerpt}</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+  
+  <CallToAction />
+</section> 

@@ -1,0 +1,54 @@
+---
+import Base from "@/layouts/Base.astro";
+import CaseStudySingle from "@/layouts/CaseStudySingle.astro";
+import { sanityClient } from "sanity:client";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const caseStudies = await sanityClient.fetch(`
+    *[_type == "caseStudy"] {
+      "slug": slug.current,
+      title,
+      category,
+      excerpt,
+      challenge,
+      solution,
+      results,
+      metrics,
+      industry,
+      duration,
+      services,
+      publishedAt,
+      "logo": logo {
+        asset->{
+          url
+        },
+        alt
+      },
+
+      "featuredImage": featuredImage {
+        asset->{
+          url
+        },
+        alt
+      }
+    }
+  `);
+
+  return caseStudies.map((caseStudy: { slug: string }) => ({
+    params: { single: caseStudy.slug },
+    props: { caseStudy },
+  }));
+}
+
+const { caseStudy } = Astro.props as { caseStudy: any };
+---
+
+<Base
+  title={caseStudy.title}
+  meta_title={`${caseStudy.title} - Case Study - Exprosoftech`}
+  description={caseStudy.excerpt || ""}
+  image={caseStudy.featuredImage?.asset?.url}>
+  <CaseStudySingle caseStudy={caseStudy} />
+</Base> 
