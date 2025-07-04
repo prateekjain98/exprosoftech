@@ -140,7 +140,7 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps )
                       <Button
                         href={link}
                         variant={index === 0 ? "primary" : "outline-primary"}
-                        target={link.startsWith("http") ? "_blank" : "_self"}
+                        target={link && link.startsWith("http") ? "_blank" : "_self"}
                         isCalendlyButton={isCalendly}
                       >
                         {label}
@@ -185,7 +185,7 @@ export const HomeBanner:React.FC<HomeBannerProps> = ({ data }: HomeBannerProps )
                       <Button
                         href={link}
                         variant={index === 0 ? "primary" : "outline-primary"}
-                        target={link.startsWith("http") ? "_blank" : "_self"}
+                        target={link && link.startsWith("http") ? "_blank" : "_self"}
                         isCalendlyButton={isCalendly}
                       >
                         {label}

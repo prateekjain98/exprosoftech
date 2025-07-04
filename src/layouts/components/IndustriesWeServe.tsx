@@ -296,7 +296,7 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
         </div>
         
         {/* CTA Button */}
-        <div className="flex justify-center mb-20">
+        <div className="flex justify-center">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}

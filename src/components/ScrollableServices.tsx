@@ -231,7 +231,7 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) 
                 >
                   <div className="space-y-12">
                     <div className="flex items-center gap-6">
-                      <span className="text-[100px] font-light text-gray-700 leading-none select-none">
+                      <span className="text-[100px] font-light text-white leading-none select-none">
                         {index + 1}
                       </span>
                     </div>

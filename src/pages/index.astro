@@ -43,7 +43,7 @@ const pageData = await sanityClient.fetch(`
       },
       buttons[] { label, link, isCalendly }
     },
-    clientsSection { clients[] { name, "logo": logo.asset->url } },
+    clientsSection { isVisible, clients[] { name, "logo": logo.asset->url } },
     offeringsSection {
       heading { title, subtitle, description },
       offerings[] { title, description, iconName }
@@ -129,7 +129,9 @@ const pageData = await sanityClient.fetch(`
 
 <Base title="Home" meta_title="Exprosoftech" description="Welcome to Exprosoftech">
   <HomeBanner client:load data={pageData.heroBanner} />
-  <Clients client:visible data={pageData.clientsSection} />
+  {pageData.clientsSection?.isVisible && (
+    <Clients client:visible data={pageData.clientsSection} />
+  )}
   <Offerings client:visible data={pageData.offeringsSection} />
   <FeaturesGrid client:visible data={pageData.FeaturesSection} />
   <ScrollableServices client:visible data={pageData.ScrollableServicesSection} />

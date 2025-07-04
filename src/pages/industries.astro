@@ -1,8 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
-import { ServicesFeatures } from "../layouts/components/services";
 import { sanityClient } from "sanity:client";
 import { HomeBanner } from "../components/HomeBanner";
+import { AlternatingIndustries } from "../components/AlternatingIndustries";
 
 const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
     title,
@@ -48,7 +48,7 @@ if (!industriesData) {
     description={industriesData.metaDescription || "Industries"}
 >
     <HomeBanner client:visible data={industriesData.hero} />
-    <ServicesFeatures 
+    <AlternatingIndustries 
         client:visible 
         features={industriesData.industries.industries}     
         heading={industriesData.industries.heading}

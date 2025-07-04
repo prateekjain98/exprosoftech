@@ -237,18 +237,18 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mt-6">
                                 {feature.metrics.map((metric, metricIndex) => (
                                   <div key={metricIndex} className="relative group">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
+                                    <div className="absolute inset-0 bg-gray-100 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
                                     <div className="relative p-3 sm:p-4 text-center sm:text-left">
                                       <div className="flex items-center justify-center sm:justify-start mb-2">
                                         {React.createElement(getIconComponent(metric.icon), {
                                           size: 18,
-                                          className: "text-blue-400"
+                                          className: "text-[#2E1CFF]"
                                         })}
                                       </div>
-                                      <div className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1">
+                                      <div className="text-base sm:text-lg lg:text-xl font-bold text-Black mb-1">
                                         {metric.value}
                                       </div>
-                                      <div className="text-xs sm:text-sm text-gray-400 leading-snug">
+                                      <div className="text-xs sm:text-sm text-black leading-snug">
                                         {metric.label}
                                       </div>
                                     </div>

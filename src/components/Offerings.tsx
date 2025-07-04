@@ -161,7 +161,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
     const IconComponent = iconMap[iconName];
     
     if (IconComponent) {
-      return <IconComponent className="text-white w-10 h-10 md:w-12 md:h-12" />;
+      return <IconComponent className="text-white w-10 h-10 md:w-12 md:h-12 lg:w-10 lg:h-10" />;
     }
     
     // Default fallback icon
@@ -191,7 +191,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
                 >
                 <div className="min-h-full p-6 shadow-lg rounded-3xl border-2 border-[#c7c7c7] w-[90%] lg:w-full">
                     <div className="mb-6 flex justify-start">
-                      <div className="flex h-16 w-16 lg:h-20 lg:w-20 items-center justify-center rounded-full bg-primary">
+                      <div className="flex h-16 w-16 lg:h-16 lg:w-16 items-center justify-center rounded-full bg-primary">
                         {renderIcon(card.iconName)}
                       </div>
                     </div>

@@ -66,6 +66,12 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({
+          name: 'isVisible',
+          title: 'Is Visible',
+          type: 'boolean',
+          initialValue: true
+        }),
+        defineField({
           name: 'clients',
           title: 'Clients',
           type: 'array',
