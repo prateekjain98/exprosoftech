@@ -42,5 +42,5 @@ import industries from './industries'
 
 export const schemaTypes = [ 
     clientsType , post , author , blockContent  , dynamicServicePageType , homePage,      
-    about , contact , caseStudyType , testimonialSection , serviceDropdownType , industries
+    about , contact , caseStudyType , serviceDropdownType , industries
 ]
