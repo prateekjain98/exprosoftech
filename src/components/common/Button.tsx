@@ -79,9 +79,9 @@ export const Button: React.FC<ButtonProps> = ({
   const isGlassy = variant === "glassy";
   
   const capsuleStyles = isPrimary 
-    ? "border-[#195dc1] bg-[#2e78e6] text-white border hover:border-[#4B83FB] hover:bg-[#4B83FB] hover:text-white hover:drop-shadow-[0_6px_4px_rgba(0,0,0,0.36)] hover:scale-[1.06] active:border-[#2251C5] active:bg-[#2251C5] drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] rounded-full pl-6 pr-2 py-2 flex items-center justify-between gap-2 min-h-[52px] group transition-all duration-300"
+    ? "border-[#195dc1] bg-[#2e78e6] text-white border hover:border-[#4B83FB] hover:bg-[#4B83FB] hover:text-white hover:drop-shadow-[0_6px_4px_rgba(0,0,0,0.36)] hover:scale-[1.06] active:border-[#2251C5] active:bg-[#2251C5] drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] rounded-full pl-6 pr-2 py-2 flex items-center justify-between gap-2 min-h-[42px] lg:min-h-[46px] xl:min-h-[52px] group transition-all duration-300"
     : isGlassy
-    ? "rounded-full pl-6 pr-2 py-2 flex items-center justify-between gap-2 min-h-[52px] group transition-all duration-300 backdrop-blur-md border border-blue-700/70 text-black hover:shadow-lg hover:shadow-blue-500/20 hover:scale-[1.02]"
+    ? "rounded-full pl-6 pr-2 py-2 flex items-center justify-between gap-2 min-h-[42px] lg:min-h-[46px] xl:min-h-[52px] group transition-all duration-300 backdrop-blur-md border border-blue-700/70 text-black hover:shadow-lg hover:shadow-blue-500/20 hover:scale-[1.02]"
     : `${variantStyles[variant]} ${sizeStyles[size]} ${heightStyles[height]}`;
   
   const styles = (isPrimary || isGlassy)

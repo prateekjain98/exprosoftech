@@ -344,7 +344,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
               animate={{ opacity: 1, x: 0, rotate: 6 }}
               exit={{ opacity: 0, x: -100, rotate: 6 }}
               transition={{ duration: 0.6 }}
-              className="absolute left-8 top-[25%] z-30"
+              className="absolute left-8 top-[25%] lg:top-[15%] xl:top-[25%] z-30"
             >
               <MetricCard {...sampleMetrics[leftCardIndex]} index={0} />
             </motion.div>
@@ -358,7 +358,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
               animate={{ opacity: 1, x: 0, rotate: -6 }}
               exit={{ opacity: 0, x: 100, rotate: -6 }}
               transition={{ duration: 0.6 }}
-              className="absolute right-8 top-[25%] z-30"
+              className="absolute right-8 top-[25%] lg:top-[15%] xl:top-[25%] z-30"
             >
               <MetricCard {...sampleMetrics[rightCardIndex]} index={1} />
             </motion.div>
@@ -395,7 +395,9 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
                       }}
                     >
                       {[...Array(24)].map((_, i) => {
-                        const size = Math.random() > 0.5 ? 'w-1.5 h-1.5' : 'w-1 h-1';
+                        const size = Math.random() > 0.5 
+                          ? 'w-[0.7px] h-[0.7px] lg:w-1.5 lg:h-1.5' 
+                          : 'w-[0.4px] h-[0.4px] lg:w-1 lg:h-1';
                         return (
                           <div
                             key={i}
@@ -469,14 +471,14 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
           {/* Desktop Layout - Content First (Original) */}
           <div className="hidden lg:block">
             {/* Content for Desktop */}
-            <div className="text-center mb-16 lg:mb-20">
+            <div className="text-center mb-16 lg:mb-12 xl:mb-20">
               {data.title && (
-                <div data-aos="fade-up-sm" className="mb-10 max-w-4xl mx-auto h-fit">
-                  <h1 className="text-black mb-2 text-h3 lg:text-h1 lg:font-medium">
+                <div data-aos="fade-up-sm" className="mb-10 lg:mb-6 xl:mb-10 max-w-4xl mx-auto h-fit">
+                  <h1 className="text-black mb-2 text-h2 lg:text-h3 xl:text-h1 lg:font-medium">
                     {data.title}
                   </h1>
                   {data.blueTitle && (
-                    <span className="bg-gradient-to-r to-[#111b57] from-primary bg-clip-text text-transparent text-h3 lg:text-h1 font-semibold lg:font-medium">{data.blueTitle}</span>
+                    <span className="bg-gradient-to-r to-[#111b57] from-primary bg-clip-text text-transparent text-h2 lg:text-h3 xl:text-h1 font-semibold lg:font-medium">{data.blueTitle}</span>
                   )}
                 </div>
               )}
@@ -485,11 +487,12 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
                   dangerouslySetInnerHTML={{ __html: data.description }}
                   data-aos="fade-up-sm"
                   data-aos-delay="100"
-                  className="mb-8 text-lg/6 max-w-2xl mx-auto text-gray-600"
+                  className="mb-8 text-lg/6 lg:text-sm xl:text-lg lg:max-w-lg xl:max-w-4xl mx-auto text-gray-600"
                 />
               )}
+              {/* Buttons - Show only on xl and above screens */}
               {data.buttons && (
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="hidden xl:flex flex-wrap justify-center gap-4">
                   {data.buttons.map(({ label, link, isCalendly }: { label: string, link: string, isCalendly: boolean }, index: number) => (
                     <div
                       key={index}
@@ -537,7 +540,9 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
                       }}
                     >
                       {[...Array(24)].map((_, i) => {
-                        const size = Math.random() > 0.5 ? 'w-1.5 h-1.5' : 'w-1 h-1';
+                        const size = Math.random() > 0.5 
+                          ? 'w-0.5 h-0.5 lg:w-1.5 lg:h-1.5' 
+                          : 'w-[0.4px] h-[0.4px] lg:w-1 lg:h-1';
                         return (
                           <div
                             key={i}
@@ -564,6 +569,28 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
                 )}
               </div>
             </div>
+
+            {/* Buttons - Show only on lg screens */}
+            {data.buttons && (
+              <div className="lg:flex xl:hidden flex-wrap justify-center gap-4 mt-8">
+                {data.buttons.map(({ label, link, isCalendly }: { label: string, link: string, isCalendly: boolean }, index: number) => (
+                  <div
+                    key={index}
+                    data-aos="fade-up-sm"
+                    data-aos-delay={200 + index * 50}
+                  >
+                    <Button
+                      href={link}
+                      variant={index === 0 ? "primary" : "outline-primary"}
+                      target={link && link.startsWith("http") ? "_blank" : "_self"}
+                      isCalendlyButton={isCalendly}
+                    >
+                      {label}
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>

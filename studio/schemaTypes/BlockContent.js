@@ -38,8 +38,12 @@ export default {
       }
     },
     {
+      name: 'image',
+      title: 'Image',
       type: 'image',
-      options: {hotspot: true}
+      options: {
+        hotspot: true
+      }
     }
   ]
 }

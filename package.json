@@ -25,6 +25,7 @@
     "@portabletext/react": "^3.2.1",
     "@sanity/astro": "^3.2.6",
     "@sanity/client": "^7.6.0",
+    "@sanity/image-url": "^1.1.0",
     "@tabler/icons-react": "^3.34.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",

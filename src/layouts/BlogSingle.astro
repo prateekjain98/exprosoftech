@@ -7,12 +7,55 @@ import BlogSection from "./partials/BlogSection.astro";
 import CallToAction from "./partials/CallToAction.astro";
 import { sanityClient } from "sanity:client";
 import { PortableText } from "astro-portabletext";
+import { urlForImage } from "@/lib/utils/sanityImage";
 
 const { post } = Astro.props;
 const { title, author, image, date, body, slug } = post;
 
+// Debug logs
+console.log('Full body content:', JSON.stringify(body, null, 2));
+const imageBlocks = body.filter((block: any) => block._type === 'image');
+console.log('Image blocks in body:', imageBlocks);
+
 // Define components for PortableText
-const components = {};
+const components = {
+  type: {
+    image: ({ value }: { value: any }) => {
+      // Get the direct URL from the asset
+      const imageUrl = value?.asset?.url;
+      
+      if (!imageUrl) {
+        console.error('No image URL found for:', value);
+        return null;
+      }
+
+      return {
+        Component: 'figure',
+        props: {
+          class: 'my-8',
+          children: [
+            {
+              Component: 'img',
+              props: {
+                src: imageUrl,
+                alt: value.alt || ' ',
+                loading: 'lazy',
+                class: 'rounded-lg w-full h-auto'
+              }
+            },
+            value.caption && {
+              Component: 'figcaption',
+              props: {
+                class: 'mt-2 text-center text-sm text-gray-500',
+                children: value.caption
+              }
+            }
+          ].filter(Boolean)
+        }
+      };
+    }
+  }
+};
 
 // Fetch related posts
 const relatedPosts = await sanityClient.fetch(`
@@ -84,7 +127,7 @@ const relatedPosts = await sanityClient.fetch(`
         <div class="content">
           <PortableText value={body} components={components} />
         </div>
-        <Disqus className="mt-20" client:load />
+        <!-- <Disqus className="mt-20" client:load /> -->
       </article>
     </div>
   </div>

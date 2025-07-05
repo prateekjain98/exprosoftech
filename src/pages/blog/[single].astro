@@ -12,7 +12,16 @@ export async function getStaticPaths() {
       title,
       date,
       "image": image.asset->url,
-      body,
+      "body": body[] {
+        ...,
+        _type == "image" => {
+          ...,
+          "asset": {
+            ...,
+            "url": asset->url
+          }
+        }
+      },
       excerpt,
       "author": author->{
         name,

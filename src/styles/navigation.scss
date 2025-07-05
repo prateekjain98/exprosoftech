@@ -9,6 +9,14 @@ input#nav-toggle:checked + label #hide-button {
 
 input#nav-toggle:checked ~ #nav-menu {
   @apply max-lg:block;
+  transform: translateX(0);
+}
+
+#nav-menu {
+  @media screen and (max-width: 1023px) {
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
 }
 
 .header {
@@ -18,8 +26,16 @@ input#nav-toggle:checked ~ #nav-menu {
   transform: translateY(0);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
+  @media screen and (max-width: 1023px) {
+    padding: 0;
+  }
+
   &.header-sticky {
     padding: 0.75rem 0;
+
+    @media screen and (max-width: 1023px) {
+      padding: 0;
+    }
   }
 
   &.header-hidden {
@@ -41,21 +57,22 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply max-w-[88rem] mx-auto px-3;
   
   @media screen and (max-width: 1023px) {
-    @apply px-2;
+    @apply px-0 ;
   }
   
   .pill-navbar {
-    @apply bg-slate-800 rounded-full px-4 py-4 shadow-lg backdrop-blur-md;
+    @apply bg-dark rounded-full px-4 py-4 shadow-lg backdrop-blur-md;
     @apply flex items-center justify-between;
     @apply transition-all duration-300;
-    background: rgba(30, 41, 59, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.1);
     min-width: 95%;
     
     @media screen and (max-width: 1023px) {
-      @apply rounded-full px-4 py-3 mx-2 flex items-center justify-between;
-      min-width: auto;
-      width: calc(100% - 1rem);
+      @apply rounded-none px-4 py-4 mx-0;
+      min-width: 100%;
+      width: 100%;
+      border-left: none;
+      border-right: none;
     }
   }
 }
@@ -97,14 +114,20 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply flex items-center space-x-1;
   
   @media screen and (max-width: 1023px) {
-    @apply fixed left-2 right-2 top-[100px] bg-slate-800  z-50;
+    @apply fixed right-0 top-[60px] bg-dark z-50;
     @apply px-6 py-8 overflow-y-auto flex-col space-x-0 space-y-4;
-    @apply rounded shadow-xl order-2;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    max-height: calc(100vh - 150px);
+    @apply shadow-xl order-2;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: calc(100vh - 55px);
+    max-height: none;
+    display: none;
+    width: 100%;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
     
     &.mobile-menu-open {
       @apply flex;
+      transform: translateX(0);
     }
   }
   

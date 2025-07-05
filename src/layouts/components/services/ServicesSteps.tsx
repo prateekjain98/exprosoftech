@@ -184,7 +184,6 @@ export const ServicesSteps: React.FC<Props> = ({
                       </div>
 
                       {/* Bottom decoration */}
-                      
                     </div>
 
                     {/* Hover background effect */}
@@ -193,36 +192,7 @@ export const ServicesSteps: React.FC<Props> = ({
                 </motion.div>
               ))}
             </div>
-
-            {/* Progress bar */}
-            <div className="relative mt-8">
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-gray-700/50 p-6">
-                {/* Background Gradients */}
-                <div className="absolute inset-0 rounded-2xl">
-                  <div className="absolute top-0 right-1/4 w-24 h-24 bg-blue-500/10 rounded-full filter blur-xl" />
-                  <div className="absolute bottom-0 left-1/4 w-24 h-24 bg-purple-500/10 rounded-full filter blur-xl" />
-                </div>
-                
-                <div className="relative flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-gray-300">
-                    Step {activeStep + 1} of {process.length}
-                  </span>
-                  <span className="text-sm font-medium text-blue-400">
-                    {Math.round(((activeStep + 1) / process.length) * 100)}%
-                  </span>
-                </div>
-                <div className="h-2 bg-gray-700/50 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-white via-blue-500 to-indigo-200 rounded-full"
-                    initial={{ width: "0%" }}
-                    animate={{
-                      width: `${((activeStep + 1) / process.length) * 100}%`,
-                    }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                  />
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>

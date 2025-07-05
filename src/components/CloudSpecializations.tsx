@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, useAnimationControls } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
 // Export the interface for use in other components
@@ -141,61 +141,129 @@ export const defaultCloudSpecializations: CloudSpecialization[] = [
 const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cloud, index }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-      return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-      className="group relative"
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="group relative shrink-0 w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px]"
     >
-      <div className={`relative h-full rounded-2xl border-2 ${cloud.color.accent} bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}>
-        {/* Gradient background on hover */}
-        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${cloud.color.secondary} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
+      <div 
+        className={`relative overflow-hidden rounded-3xl backdrop-blur-lg bg-blue-100 transition-all duration-500 h-full
+          ${isHovered ? 'shadow-2xl scale-[1.02]' : 'shadow-lg'}`}
+      >
+        {/* Animated gradient background */}
+        <div 
+          className={`absolute inset-0 bg-gradient-to-br bg-blue-200 opacity-[0.03] 
+            group-hover:opacity-[0.08] transition-opacity duration-500`}
+        />
         
-        {/* Content */}
-        <div className="relative z-10">
-          {/* Icon and Title */}
-          <div className="mb-4 flex items-center gap-3">
+        {/* Content container */}
+        <div className="relative z-10 p-6 sm:p-8">
+          {/* Icon and Title section */}
+          <div className="flex items-start gap-4 mb-6">
             <motion.div 
-              animate={{ scale: isHovered ? 1.1 : 1, rotate: isHovered ? 5 : 0 }}
+              animate={{ 
+                scale: isHovered ? 1.1 : 1,
+                rotate: isHovered ? 5 : 0,
+              }}
               transition={{ duration: 0.3 }}
-              className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r ${cloud.color.primary} shadow-lg`}
+              className={`flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-gradient-to-r ${cloud.color.primary}
+                shadow-lg transform-gpu`}
             >
-              <span className="text-2xl">{cloud.icon}</span>
+              <span className="text-xl sm:text-2xl">{cloud.icon}</span>
             </motion.div>
-            <h3 className="text-xl font-bold text-gray-900">{cloud.name}</h3>
-          </div>
-
-          {/* Description */}
-          <p className="mb-6 text-gray-600 leading-relaxed">
-            {cloud.description}
-          </p>
-
-          {/* Features */}
-          <div className="space-y-2">
-            <h4 className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Key Features</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {cloud.features.map((feature, featureIndex) => (
-                <motion.div
-                  key={feature}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: (index * 0.1) + (featureIndex * 0.05) }}
-                  className="flex items-center gap-2 text-sm text-gray-600"
-                >
-                  <div className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${cloud.color.primary}`} />
-                  <span>{feature}</span>
-                </motion.div>
-              ))}
+            <div>
+              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                {cloud.name}
+              </h3>
             </div>
           </div>
 
-          
+          {/* Description with gradient underline */}
+          <div className="relative mb-6 sm:mb-8">
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              {cloud.description}
+            </p>
+            <div className={`absolute bottom-0 left-0 h-px w-16 bg-gradient-to-r ${cloud.color.primary}`} />
+          </div>
+
+          {/* Features grid */}
+          <div className="space-y-3 sm:space-y-4">
+            <h4 className="font-medium text-gray-900 text-xs sm:text-sm uppercase tracking-wider">
+              Key Features
+            </h4>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              {cloud.features.map((feature, featureIndex) => (
+                <div
+                  key={feature}
+                  className="flex items-center gap-2 sm:gap-3 group/feature"
+                >
+                  <div className={`h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-gradient-to-r ${cloud.color.primary}
+                    group-hover/feature:scale-125 transition-transform duration-300`} />
+                  <span className="text-xs sm:text-sm text-gray-600 group-hover/feature:text-gray-900 transition-colors duration-300">
+                    {feature}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
+  );
+};
+
+const MarqueeCards: React.FC<{ cards: CloudSpecialization[] }> = ({ cards }) => {
+  const [isPaused, setIsPaused] = useState(false);
+  const controls = useAnimationControls();
+  const duplicatedCards = [...cards, ...cards];
+
+  useEffect(() => {
+    if (isPaused) {
+      controls.stop();
+    } else {
+      controls.start({
+        x: "-50%",
+        transition: {
+          duration: 30,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop"
+        }
+      });
+    }
+  }, [isPaused, controls]);
+
+  return (
+    <div 
+      className="relative overflow-hidden w-full py-4 sm:py-6 lg:py-8"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Left blur effect */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 lg:w-32 z-10 bg-gradient-to-r from-white to-transparent" />
+      
+      {/* Right blur effect */}
+      <div className="absolute right-0 top-0 bottom-0 w-16 lg:w-32 z-10 bg-gradient-to-l from-white to-transparent" />
+      
+      {/* Marquee container */}
+      <motion.div
+        className="flex gap-4 sm:gap-6 lg:gap-8"
+        initial={{ x: 0 }}
+        animate={controls}
+      >
+        {duplicatedCards.map((card, idx) => (
+          <CloudCard 
+            key={`${card.id}-${idx}`} 
+            cloud={card} 
+            index={idx} 
+          />
+        ))}
+      </motion.div>
+    </div>
   );
 };
 
@@ -209,77 +277,18 @@ export const CloudSpecializations: React.FC<Props> = ({
   }
 }) => {
   return (
-    <section className={`py-20 bg-gray-50/50 ${className}`}>
-      <div className="container">
+    <section className={`py-24 relative overflow-hidden ${className}`}>
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 bg-white" />
+      <div className="max-w-7xl mx-auto  relative">
         <SectionHeader
           tagline={heading.tagline}
           heading={heading.title}
           subheading={heading.description}
         />
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mt-12 mb-16 flex justify-center"
-        >
-          <div className="flex items-center gap-8 rounded-2xl bg-white px-8 py-4 shadow-lg">
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-                9+
-              </div>
-              <div className="text-sm text-gray-600">Cloud Platforms</div>
-            </div>
-            <div className="h-8 w-px bg-gray-200" />
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-primary-dark to-secondary bg-clip-text text-transparent">
-                500+
-              </div>
-              <div className="text-sm text-gray-600">Projects Delivered</div>
-            </div>
-            <div className="h-8 w-px bg-gray-200" />
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-secondary-400 to-primary-light bg-clip-text text-transparent">
-                98%
-              </div>
-              <div className="text-sm text-gray-600">Success Rate</div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Cloud Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {cloudSpecializations.map((cloud, index) => (
-            <CloudCard key={cloud.id} cloud={cloud} index={index} />
-          ))}
-        </div>
-
-        {/* CTA Section */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-16 text-center"
-        >
-          <div className="rounded-3xl bg-gradient-to-r from-primary via-primary-light to-secondary p-1">
-            <div className="rounded-3xl bg-white px-8 py-12">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Ready to Transform Your Business?
-              </h3>
-              <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-                Let our cloud experts help you choose the right Salesforce solutions and implement them successfully for your unique business needs.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-primary to-primary-light text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Get Started Today
-              </motion.button>
-            </div>
-          </div>
-        </motion.div> */}
+        {/* Marquee Cards */}
+        <MarqueeCards cards={cloudSpecializations} />
       </div>
     </section>
   );
