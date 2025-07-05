@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import type { IconType } from "react-icons/lib";
 import {
   FaChartLine,
@@ -138,79 +138,93 @@ export const ServicesBestPractices: React.FC<Props> = ({
   heading,
   benefits = []
 }) => {
-  // Function to safely render icons
-  const renderIcon = (icon: any) => {
-    if (!icon) {
-      return <FaHeart size={32} className="text-white" />;
-    }
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-    // If icon is a function (React component)
-    if (typeof icon === "function") {
-      const IconComponent = icon;
-      return <IconComponent size={32} className="text-white" />;
-    }
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
-    // If icon is a string (icon name)
-    if (typeof icon === "string") {
-      // Check if the icon exists in our map
-      if (iconMap[icon]) {
-        const IconComponent = iconMap[icon];
-        return <IconComponent size={32} className="text-white" />;
-      }
-    }
+  useEffect(() => {
+    if (!scrollRef.current) return;
+    
+    const scrollWidth = scrollRef.current.scrollWidth;
+    const viewportWidth = window.innerWidth;
+    const scrollDistance = scrollWidth - viewportWidth+200;
 
-    // Default fallback
-    return <FaHeart size={32} className="text-white" />;
-  };
+    const handleScroll = () => {
+      if (!scrollRef.current || !containerRef.current) return;
+      const progress = scrollYProgress.get();
+      scrollRef.current.scrollLeft = progress * scrollDistance;
+    };
+
+    scrollYProgress.on("change", handleScroll);
+    return () => {
+      scrollYProgress.clearListeners();
+    };
+  }, [scrollYProgress]);
 
   return (
-    <section className={`section ${className}`}>
-      <div className="max-w-[85rem] mx-auto px-3">
-        <div className="row">
-          <div className="mx-auto">
-            <SectionHeader
-              tagline={heading?.tagline || ''}
-              heading={heading?.title || ''}
-              subheading={heading?.description || ''}
-              alignment="center"
-            />
-          </div>
-          <div className="col-12 pt-20 lg:mt-10">
-            <div className="row g-4 justify-center gap-4">
-              {benefits.map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex-shrink-0 w-80 border-2 rounded-3xl bg-white"
-                  data-aos="fade-up"
-                  data-aos-delay={index * 100}
-                >
-                  <div className="p-6">
-                    <div className="mb-6 flex justify-start">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary">
-                        {renderIcon(benefit.icon)}
-                      </div>
+    <section 
+      ref={containerRef}
+      className={`section min-h-[200vh] ${className} bg-dark`}
+    >
+      <div className="sticky top-0 overflow-hidden ">
+        <div className="max-w-[8
+        5rem] mx-auto px-3 py-20 relative">
+          <div className="row">
+            <div className="mx-auto mb-12">
+              <SectionHeader
+                tagline={heading?.tagline || ''}
+                heading={heading?.title || ''}
+                subheading={heading?.description || ''}
+                alignment="center"
+                theme="dark"
+              />
+            </div>
+            <div className="col-12 ">
+              <div 
+                ref={scrollRef}
+                className="flex gap-6 overflow-x-hidden w-full overflow-y-hidden"
+                style={{
+                  paddingLeft: "calc((100vw - 1280px) / 2)",
+                  paddingRight: "calc((100vw - 1280px) / 2)"
+                }}
+              >
+                <div className="absolute left-0 top-0 bottom-0 w-12 lg:w-24 bg-gradient-to-r from-dark to-transparent z-10"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-12 lg:w-24 bg-gradient-to-l from-dark to-transparent z-10"></div>
+                {benefits.map((benefit, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="flex-shrink-0 w-[300px] min-h-[350px] rounded-2xl bg-white text-white p-8 relative shadow-lg flex flex-col z-0"
+                  >
+                    <div className="h-fit flex items-center">
+                      <span className="text-[72px] leading-none text-blue-950">
+                        {index + 1}
+                      </span>
                     </div>
-                    <div className="text-left">
+                    <div className="flex flex-col flex-1 justify-start mt-6">
                       {benefit.title && (
                         <h3
-                          className="h5 mb-3 md:text-3xl font-medium text-dark tracking-wide h-20 lg:h-16"
+                          className="text-xl font-medium text-blue-950 min-h-[50px] mb-6"
                           dangerouslySetInnerHTML={{ __html: benefit.title }}
                         />
                       )}
                       {benefit.description && (
                         <p
-                          className="text-text"
+                          className="text-sm text-blue-950 line-clamp-4"
                           dangerouslySetInnerHTML={{ __html: benefit.description }}
                         />
                       )}
                     </div>
-                    </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
