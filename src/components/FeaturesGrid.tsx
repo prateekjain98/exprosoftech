@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FiSettings,
   FiTrendingUp,
@@ -100,6 +100,30 @@ interface FeaturesGridProps {
 // Use props in the component definition
 export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
+  const [isAutoPlay, setIsAutoPlay] = useState<boolean>(true);
+
+  // Auto-switching functionality
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (isAutoPlay) {
+      interval = setInterval(() => {
+        setActiveTab((prev) => (prev + 1) % data.features.length);
+      }, 5000); // Switch every 5 seconds
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isAutoPlay, data.features.length]);
+
+  // Handle manual tab click
+  const handleTabClick = (index: number) => {
+    setActiveTab(index);
+    setIsAutoPlay(false); // Stop auto-switching when user clicks
+  };
 
   // Convert icon string to component - Enhanced with more options
   const getIconComponent = (iconName: string) => {
@@ -162,13 +186,15 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                 className="grid grid-cols-2 sm:flex sm:flex-wrap justify-evenly gap-2.5 sm:gap-3 rounded-2xl lg:rounded-full sm:p-4 bg-gray-800"
                 data-aos="fade-up"
                 data-aos-delay="100"
+                onMouseEnter={() => setIsAutoPlay(false)}
+                onMouseLeave={() => setIsAutoPlay(true)}
               >
                 {data.features.map((feature, index) => {
                   const IconComponent = getIconComponent(feature.icon);
                   return (
                     <button
                       key={index}
-                      onClick={() => setActiveTab(index)}
+                      onClick={() => handleTabClick(index)}
                       className={`
                         group flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 
                         px-2.5 sm:px-6 py-2.5 sm:py-4 rounded-2xl  lg:rounded-full 

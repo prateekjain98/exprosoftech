@@ -76,11 +76,7 @@ input#nav-toggle:checked ~ #nav-menu {
     @apply block;
     
     img {
-      @apply max-w-[70px] h-auto;
-    }
-
-    @media screen and (max-width: 1023px) {
-      @apply max-w-[40px] h-auto;
+      @apply max-w-[50px] lg:max-w-[70px] h-auto;
     }
   }
 }
