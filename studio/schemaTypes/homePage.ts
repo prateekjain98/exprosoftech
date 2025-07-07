@@ -482,6 +482,121 @@ export default defineType({
       ]
     }),
 
+    defineField({
+      name: 'ctaSection',
+      title: 'CTA Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'tagline',
+          title: 'Tagline',
+          type: 'string',
+          
+        }),
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'string',
+          
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          
+        }),
+        defineField({
+          name: 'metrices',
+          title: 'Metrics',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                  
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                  
+                }),
+                defineField({
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'string',
+                  options:{
+                      list: [
+                        'Cube',
+                        'ChartLineUp',
+                        'Gear',
+                        'ChartPieSlice',
+                        'Brain',
+                        'Truck',
+                        'Package',
+                        'Coins',
+                        'ChartBar',
+                        'Medal',
+                        'Gauge',
+                        'Robot',
+                        'Receipt',
+                        'Wallet',
+                        'ChartDonut',
+                        'Clock',
+                        'Database',
+                        'Plugs',
+                        'Lightning',
+                        'Handshake',
+                        'Target'
+                      ]
+                    },
+                  description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
+                  
+                })
+              ]
+            }
+          ],
+        }),
+        defineField({
+          name: 'buttonText',
+          title: 'Button Text',
+          type: 'string',
+          
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'src',
+              title: 'Image Source',
+              type: 'image',
+              
+            }),
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              
+            })
+          ],
+          
+        })
+      ],
+      
+    }),
+    
     // FAQ Section
     defineField({
       name: 'faqSection',

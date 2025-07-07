@@ -13,6 +13,7 @@ import { sanityClient } from "sanity:client";
 import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
 import WhyGreymetre from "../components/WhyGreymetre";
 import HomeBlogSection from "../components/HomeBlogSection.astro";
+import DynamicCTA from "../components/DynamicCTA";
 
 interface CaseStudy {
   _id: string;
@@ -58,7 +59,7 @@ const pageData = await sanityClient.fetch(`
         description,
         metrics[] { value, label, icon },
         "image": image.asset->url,
-        icon,
+        icon
       }
     },
     ScrollableServicesSection {
@@ -97,6 +98,22 @@ const pageData = await sanityClient.fetch(`
       heading { title, subtitle, description },
       industries[] { name, description, icon }
     },
+    ctaSection {
+      tagline,
+      title,
+      subtitle,
+      description,
+      metrices[] {
+        value,
+        label,
+        icon
+      },
+      buttonText,
+      image {
+        "src": src.asset->url,
+        alt
+      }
+    },
     faqSection {
       title,
       subtitle,
@@ -106,37 +123,7 @@ const pageData = await sanityClient.fetch(`
   }
 `);
 
-// Fetch case studies data
-// const caseStudiesData = await sanityClient.fetch(`
-//   *[_type == "caseStudy"] | order(order asc) {
-//     _id,
-//     title,
-//     category,
-//     description,
-//     logo {
-//       asset->{
-//         url
-//       },
-//       alt
-//     },
-//     backgroundImage {
-//       asset->{
-//         url
-//       },
-//       alt
-//     },
-//     order
-//   }
-// `);
 
-// Transform the data to match the expected format in CaseStudies component
-// const transformedCaseStudies = caseStudiesData.map((study: CaseStudy) => ({
-//   category: study.category,
-//   title: study.title,
-//   description: study.description,
-//   logo: study.logo.asset.url,
-//   src: study.backgroundImage.asset.url
-// }));
 console.log(pageData.whySection);
 ---
 
@@ -156,5 +143,7 @@ console.log(pageData.whySection);
   <!-- <ProductSection client:visible data={pageData.productsSection} />  -->
   <!-- <TestimonialMarquee client:load /> -->
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
+   
+  <DynamicCTA client:visible ctaContent={pageData.ctaSection} />
   <NewFAQ client:visible Faq={[pageData.faqSection]} />
 </Base>
