@@ -104,7 +104,8 @@ input#nav-toggle:checked ~ #nav-menu {
     @apply fixed left-0 right-0 top-[60px] bg-dark z-50;
     @apply px-6 py-8 overflow-y-auto flex-col space-x-0;
     @apply rounded shadow-xl order-2 items-center;
-    min-height: calc(100vh - 30px);
+    max-height: calc(100vh - 60px);
+    min-height: auto;
     
     &.mobile-menu-open {
       @apply flex;
