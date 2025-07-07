@@ -156,21 +156,13 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
   };
 
   return (
-    <section className="py-16 lg:py-24">
+    <section className="py-16 ">
       <div className="max-w-[86rem] mx-auto px-4 sm:px-6 md:px-8">
         <div className="relative rounded-2xl sm:rounded-[2.5rem] overflow-hidden">
           {/* Checkered Background Pattern */}
-          <div 
-            className="absolute inset-0 -z-10 w-full h-full pointer-events-none"
-            style={{
-              backgroundImage: 'url(/images/banner-bg.png)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center top',
-              backgroundRepeat: 'no-repeat'
-            }}
-          />
+          
 
-          <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-24">
+          <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-0">
             <div className="mx-auto lg:col-11 mb-10 lg:mb-16">
               <SectionHeader
                 tagline={data.heading.subtitle || ""}

@@ -234,10 +234,52 @@ const Header: React.FC<HeaderProps> = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Close mobile menu and restore scroll on escape key
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => document.removeEventListener("keydown", handleEscapeKey);
+  }, [isMobileMenuOpen]);
+
   // Handle mobile menu toggle
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+    } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
+    }
+
+    // Cleanup function
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+    };
+  }, [isMobileMenuOpen]);
 
   // Handle dropdown toggle for mobile
   // Update the toggle function
@@ -299,6 +341,8 @@ const Header: React.FC<HeaderProps> = ({
         <div 
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[990] lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
+          onTouchMove={(e) => e.preventDefault()}
+          style={{ touchAction: 'none' }}
         />
       )}
       
@@ -355,6 +399,7 @@ const Header: React.FC<HeaderProps> = ({
                   ? "block opacity-100"
                   : "hidden lg:flex"
               }`}
+              style={isMobileMenuOpen ? { touchAction: 'pan-y' } : {}}
             >
               {menuItems.map((menu, index) => (
                 <React.Fragment key={index}>
@@ -464,7 +509,7 @@ const Header: React.FC<HeaderProps> = ({
                 </React.Fragment>
               ))}
               {navigation_button.enable && (
-                <li className="lg:hidden flex justify-center mt-4"> 
+                <li className="lg:hidden flex justify-start mt-4"> 
                   <Button
                     className="pill-cta-button-mobile"
                     isCalendlyButton={true}
@@ -628,10 +673,10 @@ const ProductMenuItem: React.FC<{
     <a
       href={child.url}
       onClick={() => setIsMobileMenuOpen(false)}
-      className="group block relative overflow-hidden rounded-xl bg-white hover:bg-gradient-to-br hover:from-slate-50 hover:to-white transition-all duration-300"
+      className="group block relative overflow-hidden rounded-xl lg:bg-white lg:hover:bg-gradient-to-br lg:hover:from-slate-50 lg:hover:to-white transition-all duration-300"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] to-blue-500/[0.01]" />
-      <div className="relative p-4">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] to-blue-500/[0.01] hidden lg:block" />
+      <div className="relative pl-12 pr-4 py-2 lg:p-4">
         <div className="flex items-start gap-4">
           <div className="relative shrink-0 hidden lg:block">
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -650,10 +695,10 @@ const ProductMenuItem: React.FC<{
             </div>
           </div>
           <div className="flex-1 min-w-0 text-left">
-            <h4 className="text-[15px] font-medium text-slate-800 mb-1 group-hover:text-primary transition-colors duration-200">
+            <h4 className="text-base font-medium text-white lg:text-slate-800 lg:text-[15px] lg:group-hover:text-primary transition-colors duration-200">
               {child.name}
             </h4>
-            <p className="text-sm text-slate-500 line-clamp-2 group-hover:text-slate-600 transition-colors duration-200">
+            <p className="text-sm text-slate-500 line-clamp-2 group-hover:text-slate-600 transition-colors duration-200 hidden lg:block">
               {child.description}
             </p>
           </div>

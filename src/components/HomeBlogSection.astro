@@ -1,0 +1,63 @@
+---
+import BlogsCard from "./BlogsCard.astro";
+import SectionHeader from "../components/SectionHeader";
+import { Button } from "./common/Button";
+import { sanityClient } from "sanity:client";
+
+// Fetch the top 3 blog posts
+const postsQuery = `*[_type == "post"] | order(date desc)[0..2] {
+  title,
+  "slug": slug.current,
+  date,
+  excerpt,
+  "image": image.asset->url,
+  "body": body,
+  "author": author->name
+}`;
+
+const posts = await sanityClient.fetch(postsQuery);
+
+// Define the blog section content
+const blogSectionContent = {
+  subtitle: "Latest Insights",
+  title: "Our Blog",
+  description: "Stay updated with our latest thoughts, insights, and industry trends"
+};
+---
+
+<section class="section overflow-hidden">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto text-center lg:col-10" data-aos="fade-up-sm">
+        <SectionHeader
+          tagline={blogSectionContent.subtitle}
+          heading={blogSectionContent.title}
+          subheading={blogSectionContent.description}
+        />
+      </div>
+      <div class="col-12 mt-12" data-aos="fade-up-sm" data-aos-delay="200">
+        <div class="row gx-4 gy-5 justify-center md:gx-5">
+          {posts?.map((blog: {
+            _id: string;
+            title: string;
+            slug: string;
+            date: string;
+            excerpt: string;
+            image: string;
+            body: string;
+            author: string;
+          }) => (
+            <div class="md:col-6 lg:col-4">
+              <BlogsCard content={blog} />
+            </div>
+          ))}
+        </div>
+              </div>
+        <div class="col-12 mt-12 flex justify-center" data-aos="fade-up-sm" data-aos-delay="400">
+          <Button href="/blog/" variant="primary" showArrow={true}>
+            See More Blogs
+          </Button>
+        </div>
+      </div>
+    </div>
+</section> 

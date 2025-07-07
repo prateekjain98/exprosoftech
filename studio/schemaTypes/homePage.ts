@@ -373,6 +373,75 @@ export default defineType({
       ]
     }),
 
+    defineField({
+      name: 'whySection',
+      title: 'Why Choose Us Section',
+      type: 'object',
+    fields: [
+      defineField({
+        name: 'subtitle',
+        title: 'Subtitle',
+        type: 'string'
+      }),
+      defineField({
+        name: 'title',
+        title: 'Title',
+        type: 'string'
+      }),
+      defineField({
+        name: 'description',
+        title: 'Description',
+        type: 'text'
+      }),
+      defineField({
+        name: 'features',
+        title: 'Features List',
+        type: 'array',
+        of: [{
+          type: 'object',
+          fields: [
+            defineField({ name: 'title', type: 'string', title: 'Feature Title' }),
+            defineField({ name: 'description', type: 'text', title: 'Feature Description' }),
+            defineField({ 
+              name: 'icon', 
+              type: 'string', 
+              title: 'Feature Icon',
+              options: {
+                list: [
+                  'Cube',
+                  'ChartLineUp',
+                  'Gear',
+                  'ChartPieSlice',
+                  'Brain',
+                  'Truck',
+                  'Package',
+                  'Coins',
+                  'ChartBar',
+                  'Medal',
+                  'Gauge',
+                  'Robot',
+                  'Receipt',
+                  'Wallet',
+                  'ChartDonut',
+                  'Clock',
+                  'Database',
+                  'Plugs',
+                  'Lightning',
+                  'Handshake',
+                  'Target',
+                  'Lightbulb',
+                  'LayerGroup',
+                  'CheckCircle',
+                  'UserGroup'
+                ]
+              }
+            })
+          ]
+        }]
+      })
+    ]
+  }),
+
     // Products Section
     defineField({
       name: 'productsSection',

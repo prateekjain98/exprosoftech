@@ -11,6 +11,8 @@ import { HomeBanner } from "../components/HomeBanner";
 import { sanityClient } from "sanity:client";
 // import { TestimonialMarquee } from "../components/TestimonialMarqueeNew";
 import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
+import WhyGreymetre from "../components/WhyGreymetre";
+import HomeBlogSection from "../components/HomeBlogSection.astro";
 
 interface CaseStudy {
   _id: string;
@@ -69,6 +71,16 @@ const pageData = await sanityClient.fetch(`
         "image": image.asset->url
       }
     },
+    whySection {
+    subtitle,
+    title,
+    description,
+    features[] {
+      title,
+      description,
+      icon
+    }
+  },
     productsSection {
       products[] {
         title,
@@ -125,6 +137,7 @@ const pageData = await sanityClient.fetch(`
 //   logo: study.logo.asset.url,
 //   src: study.backgroundImage.asset.url
 // }));
+console.log(pageData.whySection);
 ---
 
 <Base title="Home" meta_title="Exprosoftech" description="Welcome to Exprosoftech">
@@ -136,6 +149,10 @@ const pageData = await sanityClient.fetch(`
   <FeaturesGrid client:visible data={pageData.FeaturesSection} />
   <ScrollableServices client:visible data={pageData.ScrollableServicesSection} />
   <IndustriesWeServe client:visible data={pageData.industriesSection} />
+  <WhyGreymetre client:visible data={pageData.whySection} />
+  <HomeBlogSection />
+
+  
   <!-- <ProductSection client:visible data={pageData.productsSection} />  -->
   <!-- <TestimonialMarquee client:load /> -->
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->

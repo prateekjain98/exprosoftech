@@ -1,4 +1,5 @@
 import React from "react";
+import { useId } from "react";
 import SectionHeader from "./SectionHeader";
 import { sanityClient } from "sanity:client";
 import {
@@ -146,6 +147,77 @@ interface OfferingCard {
 //   description
 // }`;
 
+export const Grid = ({
+  pattern,
+  size,
+}: {
+  pattern?: number[][];
+  size?: number;
+}) => {
+  const p = pattern ?? [
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+  ];
+  return (
+    <div className="pointer-events-none absolute left-1/2 top-0  -ml-20 -mt-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
+      <div className="absolute inset-0 bg-gradient-to-r  [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] from-zinc-50/20 to-zinc-100/20 opacity-100">
+        <GridPattern
+          width={size ?? 20}
+          height={size ?? 20}
+          x="-12"
+          y="4"
+          squares={p}
+          className="absolute inset-0 h-full w-full  mix-blend-overlay stroke-primary/5 fill-primary/20"
+        />
+      </div>
+    </div>
+  );
+};
+
+export function GridPattern({ width, height, x, y, squares, ...props }: any) {
+  const patternId = useId();
+
+  return (
+    <svg aria-hidden="true" {...props}>
+      <defs>
+        <pattern
+          id={patternId}
+          width={width}
+          height={height}
+          patternUnits="userSpaceOnUse"
+          x={x}
+          y={y}
+        >
+          <path d={`M.5 ${height}V.5H${width}`} fill="none" />
+        </pattern>
+      </defs>
+      <rect
+        width="100%"
+        height="100%"
+        strokeWidth={0}
+        fill={`url(#${patternId})`}
+      />
+      {squares && (
+        <svg x={x} y={y} className="overflow-visible">
+          {squares.map(([x, y]: any) => (
+            <rect
+              strokeWidth="0"
+              key={`${x}-${y}`}
+              width={width + 1}
+              height={height + 1}
+              x={x * width}
+              y={y * height}
+            />
+          ))}
+        </svg>
+      )}
+    </svg>
+  );
+}
+
 export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
 
   // Fetch cards with revalidation
@@ -169,8 +241,9 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
   };
 
   return (
-    <section className="section">
-      <div className="max-w-[75rem] mx-auto px-3">
+    <section className="section ">
+      <div className="max-w-[90vw] lg:max-w-[85rem] mx-auto px-3 py-16 rounded-[3rem]">
+      <div className="max-w-[100%] lg:max-w-[80%] mx-auto px-3 ">
         <div className="row">
           <div className="mx-auto ">
             <SectionHeader
@@ -189,13 +262,14 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
-                <div className="min-h-full p-6 shadow-lg rounded-3xl border-2 border-[#c7c7c7] w-[90%] lg:w-full">
-                    <div className="mb-6 flex justify-start">
+                  <div className="relative min-h-full p-6 shadow-lg rounded-3xl border-2 w-[90%] lg:w-full bg-white backdrop-blur-sm overflow-hidden">
+                    <Grid size={20} />
+                    <div className="mb-6 flex justify-start relative z-20">
                       <div className="flex h-16 w-16 lg:h-16 lg:w-16 items-center justify-center rounded-full bg-primary">
                         {renderIcon(card.iconName)}
                       </div>
                     </div>
-                    <div className="text-left">
+                    <div className="text-left relative z-20">
                       {card.title && (
                         <h3
                           className="h5 mb-3 md:text-2xl font-medium text-dark tracking-wide"
@@ -212,6 +286,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
                   </div>
                 </div>
                 ))}
+            </div>
             </div>
           </div>
         </div>
