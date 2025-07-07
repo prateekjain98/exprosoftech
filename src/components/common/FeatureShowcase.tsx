@@ -8,6 +8,7 @@ interface Feature {
 
 interface FeatureShowcaseProps {
   showcaseContent: {
+    tagline: string;
     title: string;
     description: string;
     features: Array<{
@@ -17,6 +18,10 @@ interface FeatureShowcaseProps {
     image: {
       src: string;
       alt: string;
+    };
+    button: {
+      text: string;
+      link: string;
     };
   };
 }
@@ -62,7 +67,7 @@ export const FeatureShowcase = ({
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full mb-8">
               <span className="w-2 h-2 rounded-full bg-primary"></span>
               <span className="text-sm font-medium text-primary">
-                Transform Your Business
+                {showcaseContent.tagline}
               </span>
             </div>
 
@@ -75,7 +80,7 @@ export const FeatureShowcase = ({
             </p>
 
             <div className="space-y-8 mb-12">
-              {showcaseContent.features.map((feature, index) => (
+              {showcaseContent?.features && showcaseContent?.features.map((feature, index) => (
                 <div key={index} className="flex gap-6">
                   <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                     <span className="text-lg font-semibold text-primary">
@@ -95,12 +100,12 @@ export const FeatureShowcase = ({
             </div>
 
             <Button
-              href="/demo"
+              href={showcaseContent.button.link}
               variant="primary"
               size="lg"
               isCalendlyButton={true}
             >
-              Schedule A Demo
+              {showcaseContent.button.text}
             </Button>
           </div>
         </div>

@@ -169,7 +169,7 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
 
                 {/* Metrics Grid */}
                 <div className="grid grid-cols-3 gap-6 mb-10">
-                  {ctaContent.metrices.map((metric, index) => (
+                  {ctaContent?.metrices && ctaContent.metrices.map((metric, index) => (
                     <div key={index} className="relative group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
                       <div className="relative p-4">

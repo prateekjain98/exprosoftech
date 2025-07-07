@@ -9,14 +9,6 @@ input#nav-toggle:checked + label #hide-button {
 
 input#nav-toggle:checked ~ #nav-menu {
   @apply max-lg:block;
-  transform: translateX(0);
-}
-
-#nav-menu {
-  @media screen and (max-width: 1023px) {
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-  }
 }
 
 .header {
@@ -27,15 +19,11 @@ input#nav-toggle:checked ~ #nav-menu {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   @media screen and (max-width: 1023px) {
-    padding: 0;
+    padding: 0 0;
   }
 
   &.header-sticky {
     padding: 0.75rem 0;
-
-    @media screen and (max-width: 1023px) {
-      padding: 0;
-    }
   }
 
   &.header-hidden {
@@ -57,7 +45,7 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply max-w-[88rem] mx-auto px-3;
   
   @media screen and (max-width: 1023px) {
-    @apply px-0 ;
+    @apply px-0;
   }
   
   .pill-navbar {
@@ -68,11 +56,10 @@ input#nav-toggle:checked ~ #nav-menu {
     min-width: 95%;
     
     @media screen and (max-width: 1023px) {
-      @apply rounded-none px-4 py-4 mx-0;
-      min-width: 100%;
+      @apply rounded-none px-4 py-4
+      mx-0 flex items-center justify-between;
+      min-width: auto;
       width: 100%;
-      border-left: none;
-      border-right: none;
     }
   }
 }
@@ -114,20 +101,13 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply flex items-center space-x-1;
   
   @media screen and (max-width: 1023px) {
-    @apply fixed right-0 top-[60px] bg-dark z-50;
-    @apply px-6 py-8 overflow-y-auto flex-col space-x-0 space-y-4;
-    @apply shadow-xl order-2;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    min-height: calc(100vh - 55px);
-    max-height: none;
-    display: none;
-    width: 100%;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
+    @apply fixed left-0 right-0 top-[60px] bg-dark z-50;
+    @apply px-6 py-8 overflow-y-auto flex-col space-x-0;
+    @apply rounded shadow-xl order-2 items-center;
+    min-height: calc(100vh - 30px);
     
     &.mobile-menu-open {
       @apply flex;
-      transform: translateX(0);
     }
   }
   
@@ -135,13 +115,13 @@ input#nav-toggle:checked ~ #nav-menu {
     @apply relative;
     
     .pill-nav-link {
-      @apply px-4 py-2 rounded-full text-white/90 hover:text-white;
+      @apply px-4 py-2 my-2 rounded-full text-white/90 hover:text-white;
       @apply transition-all duration-200 cursor-pointer;
       @apply hover:bg-white/10 text-sm font-medium;
       @apply flex items-center gap-1;
       
       @media screen and (max-width: 1023px) {
-        @apply w-full justify-between px-4 py-3 rounded-xl text-base;
+        @apply w-full justify-center px-4 py-3 rounded-xl text-base;
       }
       
       &.active {

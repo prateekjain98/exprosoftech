@@ -19,9 +19,14 @@ import {
   FiUserCheck,
   FiGlobe,
   FiSettings,
+  FiFilter,
+  FiMousePointer,
+  FiCodepen
 } from "react-icons/fi";
 import { HiLightBulb } from "react-icons/hi";
 import { BiRocket } from "react-icons/bi";
+import { FaThumbtack } from "react-icons/fa6";
+import SectionHeader from "../../components/SectionHeader";
 
 interface IconMap {
   [key: string]: React.ComponentType<any>;
@@ -72,6 +77,10 @@ const iconMap: IconMap = {
   Gear: FiSettings,
   GearIcon: FiSettings,
   ChartLine: FiTrendingUp, // Alias for consistency
+  Filter: FiFilter,
+  MousePointer: FiMousePointer,
+  Thumbtack: FaThumbtack,
+  CodePen: FiCodepen
 };
 
 interface Feature {
@@ -120,31 +129,18 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 xl:px-16 max-w-[1440px] relative">
+      <div className="w-[85vw] xl:w-[85rem] mx-auto px-4 lg:px-8 xl:px-16 max-w-[1440px] relative">
         <div className="mb-16 text-center">
-          <span
-            className="inline-block px-4 py-2 mb-4 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full"
-            data-aos="fade-up-sm"
-          >
-            {displayBadge}
-          </span>
-          <h2
-            className="mb-6 text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent"
-            data-aos="fade-up-sm"
-          >
-            {displayTitle}
-          </h2>
-          <p
-            className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed"
-            data-aos="fade-up-sm"
-          >
-            {displayDescription}
-          </p>
+          <SectionHeader
+            tagline={heading?.subtitle ?? ""}
+            heading={heading?.title ?? ""}
+            subheading={heading?.description ?? ""}
+          />
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => {
-            const Icon = iconMap[feature.icon];
+            const Icon = iconMap[feature.icon] || FiShoppingCart;
             return (
               <div
                 key={index}

@@ -1,11 +1,15 @@
 ---
 import Base from "@/layouts/Base.astro";
 import SolutionCard from "@/layouts/components/SolutionCard.astro";
-import SectionHeader from "@/components/SectionHeader.astro";
+import { ServicesBanner } from "@/layouts/components/services/ServicesBanner";
+import { FeaturesGrid } from "../components/FeaturesGrid";
+import WhyGreymetre from "../components/WhyGreymetre";
+import { ServicesBenefits } from "../layouts/components/services/ServicesBenefits";
+import NewFAQ from "../components/NewFAQ";
 import { sanityClient } from "sanity:client";
 
-// Interface for solution data from Sanity
-interface SolutionData {
+// Interface for solution card data
+interface SolutionCardData {
   _id: string;
   title: string;
   category: string;
@@ -29,16 +33,92 @@ interface SolutionData {
   };
 }
 
-// Fetch solutions data from Sanity
-const solutionsData = await sanityClient.fetch(`
+// Fetch solutions page data
+const pageData = await sanityClient.fetch(`
+  *[_type == "solutionsPage"][0] {
+    title,
+    metaTitle,
+    metaDescription,
+    banner {
+      title,
+      description,
+      buttons[] {
+        label,
+        link,
+        isCalendly
+      },
+      image {
+        "src": src.asset->url,
+        alt
+      },
+      floatingElements[] {
+        icon,
+        title,
+        value,
+        color,
+        position
+      }
+    },
+    features {
+      heading {
+        title,
+        subtitle,
+        description
+      },
+      features[] {
+        tagline,
+        title,
+        description,
+        "image": image.asset->url,
+        icon,
+        metrics[] {
+          value,
+          label,
+          icon
+        }
+      }
+    },
+    whyChoose {
+      subtitle,
+      title,
+      description,
+      features[] {
+        title,
+        description,
+        icon
+      }
+    },
+    benefits {
+      heading {
+        tagline,
+        title,
+        description
+      },
+      benefits[] {
+        title,
+        description,
+        icon
+      }
+    },
+    faq {
+      title,
+      pageTitle,
+      subtitle,
+      description,
+      list[] {
+        title,
+        description,
+        active
+      }
+    }
+  }
+`);
+
+// Fetch solution cards data separately
+const solutionsData = await sanityClient.fetch<SolutionCardData[]>(`
   *[_type == "solution"] | order(publishedAt desc) {
     _id,
     title,
-    tagline,
-    heading,
-    subheading,
-    metaTitle,
-    metaDescription,
     category,
     description,
     excerpt,
@@ -61,43 +141,37 @@ const solutionsData = await sanityClient.fetch(`
   }
 `);
 
-// Get header content from the first solution (if available)
-const headerContent = solutionsData.length > 0 ? solutionsData[0] : null;
-
-// Page metadata
-const pageTitle = headerContent?.metaTitle || "Solutions";
-const pageDescription = headerContent?.metaDescription || "Discover our comprehensive solutions designed to address your business challenges and drive digital transformation across industries.";
 ---
 
 <Base 
-  title={headerContent?.title || "Solutions"} 
-  meta_title={`${pageTitle} - Exprosoftech`} 
-  description={pageDescription}
+  title={pageData?.title || "Solutions"} 
+  meta_title={pageData?.metaTitle || "Solutions - Exprosoftech"} 
+  description={pageData?.metaDescription || "Discover our comprehensive solutions designed to address your business challenges and drive digital transformation across industries."}
 >
   <main>
-    <!-- Hero Section -->
-    <section class="section overflow-hidden">
-      <div class="container">
-        <div class="row">
-          <div class="mx-auto text-center lg:col-10" data-aos="fade-up-sm">
-            <SectionHeader
-              tagline={headerContent?.tagline || "Our Solutions"}
-              heading={headerContent?.heading || "Comprehensive Solutions for Business Transformation"}
-              subheading={headerContent?.subheading || "Explore our portfolio of innovative solutions designed to tackle complex business challenges and accelerate your digital journey across various industries."}
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Hero Banner Section -->
+    {pageData?.banner && (
+      <ServicesBanner client:load content={pageData.banner} />
+    )}
+
+    <!-- Features Section -->
+    {pageData?.features && (
+      <FeaturesGrid client:load data={pageData.features} />
+    )}
+
+    <!-- Why Choose Section -->
+    {pageData?.whyChoose && (
+      <WhyGreymetre client:load data={pageData.whyChoose} />
+    )}
 
     <!-- Solutions Grid -->
     {solutionsData.length > 0 ? (
-      <section class="section overflow-hidden">
+      <section class="section overflow-hidden py-20">
         <div class="container">
           <div class="row">
             <div class="col-12" data-aos="fade-up-sm" data-aos-delay="200">
               <div class="row gx-4 gy-5 justify-center md:gx-5">
-                {solutionsData.map((solution: SolutionData) => (
+                {solutionsData.map((solution: SolutionCardData) => (
                   <div class="md:col-6 lg:col-4">
                     <SolutionCard content={solution} />
                   </div>
@@ -108,7 +182,6 @@ const pageDescription = headerContent?.metaDescription || "Discover our comprehe
         </div>
       </section>
     ) : (
-      
       <section class="section">
         <div class="container">
           <div class="row justify-center">
@@ -130,6 +203,20 @@ const pageDescription = headerContent?.metaDescription || "Discover our comprehe
           </div>
         </div>
       </section>
+    )}
+
+    <!-- Additional Features/Benefits Section -->
+    {pageData?.benefits && (
+      <ServicesBenefits 
+        client:load 
+        heading={pageData.benefits.heading}
+        benefits={pageData.benefits.benefits}
+      />
+    )}
+
+    <!-- FAQ Section -->
+    {pageData?.faq && (
+      <NewFAQ client:load Faq={[pageData.faq]} />
     )}
   </main>
 </Base> 

@@ -20,6 +20,8 @@ import {
   FiCreditCard,
   FiGlobe,
   FiSettings,
+  FiDatabase,
+  FiBell,
 } from "react-icons/fi";
 import { HiLightBulb } from "react-icons/hi";
 import { BiRocket } from "react-icons/bi";
@@ -32,8 +34,8 @@ const iconMap: IconMap = {
 //   // Support both old and new naming for backwards compatibility
   DeviceMobile: FiSmartphone,
   DeviceMobileIcon: FiSmartphone,
-  ArrowsClockwise: FiRefreshCw,
-  ArrowsClockwiseIcon: FiRefreshCw,
+  RefreshCw: FiRefreshCw,
+  RefreshCwIcon: FiRefreshCw,
   Shield: FiShield,
   ShieldIcon: FiShield,
   Users: FiUsers,
@@ -77,6 +79,11 @@ const iconMap: IconMap = {
   GlobeIcon: FiGlobe,
   Gear: FiSettings,
   GearIcon: FiSettings,
+  Database: FiDatabase,
+  Bell: FiBell,
+  BellIcon: FiBell,
+  Layers: FiLayers,
+  LayersIcon: FiLayers,
 };
 
 interface Feature {
@@ -104,6 +111,10 @@ interface MobileFeaturesProps {
       src: string;
       alt: string;
     };
+    metricValues: {
+      value: string;
+      label: string;
+    }[];
   };
   className?: string;
   heading?: HeadingProps;
@@ -118,7 +129,7 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
     return null; // or return a loading state/error message
   }
 
-  const { features, image } = mobileFeatures;
+  const { features, image, metricValues } = mobileFeatures;
   
   // Use heading prop values if available, otherwise fall back to mobileFeatures
   const displayTitle = heading?.title || mobileFeatures.title || "";
@@ -127,9 +138,9 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
   
   return (
     <section
-      className={`w-full h-auto py-16 px-4 lg:px-32 bg-white ${className}`}
+      className={`w-full h-auto py-16 px-4 lg:px-10 xl:px-32 bg-white ${className}`}
     >
-      <div className="w-full h-fit bg-[#E9F2FF] rounded-[2rem] px-6 py-12 relative md:px-24 md:py-16 overflow-hidden">
+      <div className="w-full h-fit bg-dark rounded-[2rem] px-6 py-12 relative md:px-24 md:py-16 lg:py-10 lg:px-10 xl:px-16 overflow-hidden">
         {/* SVG Background */}
         <svg
           className="absolute top-0 left-0 w-full h-full z-0"
@@ -185,91 +196,89 @@ export const MobileFeatures: React.FC<MobileFeaturesProps> = ({
           </defs>
         </svg>
 
-        <div className="relative z-10 flex items-center">
-          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 w-full">
-            <div className="order-2 lg:order-1">
-              <span
-                className="inline-block px-4 py-2 mb-6 text-xs font-medium tracking-wide text-primary bg-primary/10 rounded-full"
-                data-aos="fade-up-sm"
-              >
-                {displaySubtitle}
-              </span>
+        <div className="relative z-10 flex flex-col gap-12">
+          {/* Header Row: Title/Description + Image/Metrics */}
+          <div className="flex flex-col lg:flex-row gap-10 items-center w-full">
+            {/* Title/Description Section */}
+            <div className="flex-1 w-full">
               <h2
-                className="mb-8 text-3xl font-bold md:text-4xl lg:text-5xl bg-gradient-to-r from-[#111b57] to-primary bg-clip-text text-transparent"
+                className="mb-8 text-4xl font-bold md:text-4xl lg:text-5xl xl:text-6xl bg-gradient-to-r xl:mt-4 from-white to-primary bg-clip-text text-transparent text-wrap"
                 data-aos="fade-up-sm"
               >
                 {displayTitle}
               </h2>
-              <p className="mb-8 text-lg text-gray-600 leading-relaxed">
+              <p className="text-lg text-gray-200 leading-relaxed">
                 {displayDescription}
               </p>
-              <div className="space-y-8">
-                {features.map((feature, index) => {
-                  const Icon = feature.icon
-                    ? iconMap[feature.icon]
-                    : FiSmartphone;
-                  return (
-                    <div
-                      key={index}
-                      className="flex gap-6 group"
-                      data-aos="fade-up-sm"
-                      data-aos-delay={index * 100}
-                    >
-                      <div className="flex-shrink-0">
-                        <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                          <Icon size={28} />
-                        </div>
-                      </div>
-                      <div>
-                        <h3 className="mb-3 text-xl font-semibold text-gray-900">
-                          {feature.title}
-                        </h3>
-                        <p className="text-base text-gray-600 leading-relaxed">
-                          {feature.description}
-                        </p>
-                      </div>
+            </div>
+            {/* Image + Metrics Section */}
+            <div className="flex-1 w-full flex flex-col items-center">
+              <div className="flex items-center justify-center h-auto">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="object-contain w-auto h-auto max-h-full max-w-[65%] translate-y-12"
+                />
+              </div>
+              {/* Metrics */}
+              {/* Mobile & LG layout (shown up to lg) */}
+              <div className="mt-6 bg-white/90 backdrop-blur rounded-xl p-6 shadow-lg max-w-[90%] mx-auto block xl:hidden">
+                <div className="grid grid-cols-3 sm:grid-cols-3 gap-6">
+                  {metricValues && metricValues.map((metric, idx) => (
+                    <div key={idx} className="text-center">
+                      <div className="text-xl font-bold text-primary">{metric.value}</div>
+                      <div className="text-sm text-gray-600">{metric.label}</div>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
+              </div>
+              {/* XL+ layout (shown at xl and above) */}
+              <div className="mt-6 bg-white/90 backdrop-blur rounded-xl p-6 shadow-lg max-w-[90%] mx-auto hidden xl:block">
+                <div className="grid grid-cols-3 gap-8">
+                  {metricValues && metricValues.map((metric, idx) => (
+                    <div key={idx} className="text-center">
+                      <div className="text-2xl font-extrabold text-primary">{metric.value}</div>
+                      <div className="text-base leading-none mt-2 text-gray-700">{metric.label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="order-1 lg:order-2">
-              <div className="relative" data-aos="fade-left">
-                {/* Image Container */}
-                <div className="flex items-end justify-center h-auto max-h-[400px]">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="object-contain w-auto h-auto max-h-full max-w-[65%] translate-y-12"
-                  />
-                </div>
-
-                {/* Floating Stats */}
-                <div className="mt-6 bg-white/90 backdrop-blur rounded-xl p-6 shadow-lg max-w-[90%] mx-auto">
-                  <div className="grid grid-cols-3 gap-6">
-                    <div>
-                      <div className="text-xl font-bold text-primary">40%</div>
-                      <div className="text-sm text-gray-600">
-                        Increased Productivity
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xl font-bold text-primary">3x</div>
-                      <div className="text-sm text-gray-600">
-                        Faster Time-to-Market
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xl font-bold text-primary">85%</div>
-                      <div className="text-sm text-gray-600">
-                        Customer Retention
-                      </div>
-                    </div>
+          {/* Features List (always below, full width) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-12 w-full xl:mt-6">
+            {features.map((feature, index) => {
+              const Icon = feature.icon
+                ? iconMap[feature.icon]
+                : FiSmartphone;
+              return (
+                <div
+                  key={index}
+                  className="grid grid-cols-6 group"
+                  data-aos="fade-up-sm"
+                  data-aos-delay={index * 100}
+                >
+                  <div className="flex-shrink-0 col-span-1 flex items-start">
+                    {/* Responsive icon size: 20 for mobile, 26 for lg+ */}
+                    <span className="block lg:hidden rounded-xl bg-primary text-white transition-all duration-300 group-hover:bg-primary group-hover:text-white flex items-center justify-center w-10 h-10">
+                      <Icon size={20} />
+                    </span>
+                    <span className="hidden lg:flex rounded-xl bg-primary text-white transition-all duration-300 group-hover:bg-primary group-hover:text-white items-center justify-center w-14 h-14">
+                      <Icon size={26} />
+                    </span>
+                  </div>
+                  <div className="col-span-5">
+                    <h3 className="mb-3 text-base lg:text-xl font-semibold text-white">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm lg:text-base text-gray-100 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>

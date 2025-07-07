@@ -1,0 +1,52 @@
+---
+import Base from "@/layouts/Base.astro";
+import BlogSingle from "@/layouts/BlogSingle.astro";
+import { sanityClient } from "sanity:client";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await sanityClient.fetch(`
+    *[_type == "productBlog"] {
+      "slug": slug.current,
+      seoTitle,
+      seoDescription,
+      title,
+      date,
+      "image": image.asset->url,
+      "body": body[] {
+        ...,
+        _type == "image" => {
+          ...,
+          "asset": {
+            ...,
+            "url": asset->url
+          }
+        }
+      },
+      excerpt,
+      "author": author->{
+        name,
+        "slug": slug.current,
+        "image": image.asset->url
+      }
+    }
+  `);
+
+  return posts.map((post: { slug: string }) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { title, excerpt, image, seoTitle, seoDescription } = post;
+---
+
+<Base
+  title={seoTitle || title}
+  meta_title={seoTitle || title}
+  description={seoDescription || excerpt || ""}
+  image={image}>
+  <BlogSingle post={post} />
+</Base> 

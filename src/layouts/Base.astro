@@ -165,20 +165,20 @@ try {
         description: item.description
       }))
     },
-    // {
-    //   name: "Products",
-    //   url: "",
-    //   hasChildren: products.length > 0,
-    //   children: products.map((item: {name: string; slug: string; description?: string}) => ({
-    //     name: item.name,
-    //     url: `/products/${item.slug}/`,
-    //     description: item.description
-    //   }))
-    // },
     {
-      name: "Solutions",
-      url: "/solutions/",
+      name: "Products",
+      url: "",
+      hasChildren: products.length > 0,
+      children: products.map((item: {name: string; slug: string; description?: string}) => ({
+        name: item.name,
+        url: `/products/${item.slug}/`,
+        description: item.description
+      }))
     },
+    // {
+    //   name: "Solutions",
+    //   url: "/solutions/",
+    // },
     {
       name: "Case Studies",
       url: "/case-studies/",

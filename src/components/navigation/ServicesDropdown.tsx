@@ -103,7 +103,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                     <div className="flex items-start gap-3">
                       <div className="shrink-0 h-10 w-10 rounded-lg bg-gradient-to-br from-[#111b57]/5 to-primary/5 flex items-center justify-center group-hover:from-[#111b57]/10 group-hover:to-primary/10">
                         <svg
-                          className="w-6 h-6 text-primary"
+                          className="w-6 h-6 text-primary hidden lg:block"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"

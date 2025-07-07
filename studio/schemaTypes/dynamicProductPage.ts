@@ -9,7 +9,7 @@ export const dynamicProductPageType = defineType({
       name: 'title',
       title: 'Product Title',
       type: 'string',
-      validation: Rule => Rule.required()
+      
     }),
     defineField({
       name: 'slug',
@@ -20,23 +20,23 @@ export const dynamicProductPageType = defineType({
         source: 'title',
         maxLength: 96
       },
-      validation: Rule => Rule.required()
+      
     }),
     defineField({
       name: 'metaTitle',
       title: 'Meta Title',
       type: 'string',
       description: 'Title used for SEO purposes',
-      validation: Rule => Rule.required()
+      
     }),
     defineField({
       name: 'metaDescription',
       title: 'Meta Description',
       type: 'text',
       description: 'Description used for SEO purposes',
-      validation: Rule => Rule.required()
+      
     }),
-    
+        
     // Header Content Section
     defineField({
       name: 'headerContent',
@@ -53,7 +53,7 @@ export const dynamicProductPageType = defineType({
           name: 'title',
           title: 'Header Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'subtitle',
@@ -64,7 +64,7 @@ export const dynamicProductPageType = defineType({
           name: 'description',
           title: 'Description',
           type: 'text',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'image',
@@ -75,16 +75,16 @@ export const dynamicProductPageType = defineType({
               name: 'src',
               title: 'Image Source',
               type: 'image',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'alt',
               title: 'Alt Text',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             })
           ],
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'buttons',
@@ -98,13 +98,13 @@ export const dynamicProductPageType = defineType({
                   name: 'label',
                   title: 'Button Label',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'link',
                   title: 'Button Link',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'variant',
@@ -127,10 +127,37 @@ export const dynamicProductPageType = defineType({
               ]
             }
           ],
-          validation: Rule => Rule.required().min(1)
         })
       ],
-      validation: Rule => Rule.required()
+    }),
+
+    // Clients Section
+    defineField({
+      name: 'clientsSection',
+      title: 'Clients Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Is Visible',
+          type: 'boolean',
+          initialValue: true
+        }),
+        defineField({
+          name: 'clients',
+          title: 'Clients',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'name', type: 'string' }),
+                defineField({ name: 'logo', type: 'image' })
+              ]
+            }
+          ]
+        })
+      ]
     }),
     
     // Features Grid Section
@@ -148,22 +175,22 @@ export const dynamicProductPageType = defineType({
               name: 'subtitle',
               title: 'Subtitle',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'title',
               title: 'Title',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'description',
               title: 'Description',
               type: 'text',
-              validation: Rule => Rule.required()
+              
             }),
           ],
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'features',
@@ -177,13 +204,13 @@ export const dynamicProductPageType = defineType({
                   name: 'title',
                   title: 'Feature Title',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'description',
                   title: 'Feature Description',
                   type: 'text',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'icon',
@@ -214,10 +241,14 @@ export const dynamicProductPageType = defineType({
                       "Gear",
                       "DeviceMobile",
                       "ArrowsClockwise",
+                      "MessageCircle",
+                      "Filter",
+                      "MousePointer",
+                      "CodePen"
                     ]
                   },
                   description: 'Icon name from Phosphor Icons (e.g., ShoppingCart, MapPin, etc.)'
-                  // validation: Rule => Rule.required() // Temporarily commented out
+                  //  // Temporarily commented out
                 }),
                 defineField({
                   name: 'stats',
@@ -241,10 +272,10 @@ export const dynamicProductPageType = defineType({
               ]
             }
           ],
-          validation: Rule => Rule.required().min(4)
+
         })
       ],
-      validation: Rule => Rule.required()
+      
     }),
     
     // Mobile Features Section
@@ -257,13 +288,13 @@ export const dynamicProductPageType = defineType({
           name: 'title',
           title: 'Section Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'description',
           title: 'Section Description',
           type: 'text',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'features',
@@ -277,13 +308,13 @@ export const dynamicProductPageType = defineType({
                   name: 'title',
                   title: 'Feature Title',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'description',
                   title: 'Feature Description',
                   type: 'text',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'icon',
@@ -314,14 +345,18 @@ export const dynamicProductPageType = defineType({
                       "Gear",
                       "DeviceMobile",
                       "ArrowsClockwise",
+                      "RefreshCw",
+                      "Database",
+                      "Bell",
+                      "Layers"
                     ]
                   },
-                  validation: Rule => Rule.required()
+                  
                 })
               ]
             }
           ],
-          validation: Rule => Rule.required().min(3)
+
         }),
         defineField({
           name: 'image',
@@ -332,19 +367,166 @@ export const dynamicProductPageType = defineType({
               name: 'src',
               title: 'Image Source',
               type: 'image',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'alt',
               title: 'Alt Text',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             })
           ],
-          validation: Rule => Rule.required()
+          
+        }),
+        defineField({
+          name:'metricValues',
+          title:'Metric Values',
+          type:'array',
+          of:[
+            {
+              type:'object',
+              fields:[
+                defineField({
+                  name:'value',
+                  title:'Value',
+                  type:'string',
+                }),
+                defineField({
+                  name:'label',
+                  title:'Label',
+                  type:'string',
+                })
+              ]
+            }
+          ]
         })
       ],
-      validation: Rule => Rule.required()
+      
+    }),
+
+    defineField({
+      name: 'bestPracticesSection',
+      title: 'Best Practices Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+        title: 'Show Benefits Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire benefits section'
+        }),
+        defineField({
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'tagline',
+              title: 'Tagline',
+              type: 'string'
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string'
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text'
+            })
+          ]
+        }),
+        defineField({
+          name: 'bestPractices',
+          title: 'Benefits Section',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'title',
+                title: 'Title',
+                type: 'string'
+              }),
+              defineField({
+                name: 'description',
+                title: 'Description',
+                type: 'text'
+              }),
+              // defineField({
+              //   name: 'icon',
+              //   title: 'Icon',
+              //   type: 'string',
+              //   options: {
+              //     list:[
+              //       { title: 'Chart Line', value: 'FaChartLine' },
+              //       { title: 'Handshake', value: 'FaHandshake' },
+              //       { title: 'Heart', value: 'FaHeart' },
+              //       { title: 'Lightbulb', value: 'FaLightbulb' },
+              //       { title: 'Shield', value: 'FaShieldAlt' },
+              //       { title: 'Users', value: 'FaUsers' },
+              //       { title: 'Globe', value: 'FaGlobe' },
+              //       { title: 'Chart Bar', value: 'FaChartBar' },
+              //       { title: 'Headset', value: 'FaHeadset' },
+              //       { title: 'Money Bill', value: 'FaMoneyBillWave' },
+              //       { title: 'Network', value: 'FaNetworkWired' },
+              //       { title: 'Industry', value: 'FaIndustry' },
+              //       { title: 'Shopping Cart', value: 'FaShoppingCart' },
+              //       { title: 'Phone', value: 'FaPhoneAlt' },
+              //       { title: 'Boxes', value: 'FaBoxes' },
+              //       { title: 'Building', value: 'FaBuilding' },
+              //       { title: 'Search Location', value: 'FaSearchLocation' },
+              //       { title: 'Map Marker', value: 'FaMapMarkedAlt' },
+              //       { title: 'Store', value: 'FaStore' },
+              //       { title: 'Recycle', value: 'FaRecycle' },
+              //       { title: 'Calendar', value: 'FaCalendarAlt' },
+              //       { title: 'Filter', value: 'FaFilter' },
+              //       { title: 'Chart Pie', value: 'FaChartPie' },
+              //       { title: 'Chart Area', value: 'FaChartArea' },
+              //       { title: 'Analytics', value: 'FaChartBar' },
+              //       // { title: 'Gauge', value: 'FaTachometerAlt' },
+              //       { title: 'Tachometer', value: 'FaTachometerAlt' },
+              //       { title: 'Bolt/Lightning', value: 'FaBolt' },
+              //       { title: 'Rocket', value: 'FaRocket' },
+              //       { title: 'Dollar Sign', value: 'FaDollarSign' },
+              //       { title: 'Coins', value: 'FaCoins' },
+              //       { title: 'Percentage', value: 'FaPercent' },
+              //       { title: 'Piggy Bank', value: 'FaPiggyBank' },
+              //       { title: 'Arrow Up', value: 'FaArrowUp' },
+              //       { title: 'Arrow Trend Up', value: 'FaArrowUp' },
+              //       { title: 'Trophy', value: 'FaTrophy' },
+              //       { title: 'Medal', value: 'FaMedal' },
+              //       { title: 'Star', value: 'FaStar' },
+              //       { title: 'Clock', value: 'FaClock' },
+              //       { title: 'Hourglass', value: 'FaHourglass' },
+              //       { title: 'User', value: 'FaUser' },
+              //       { title: 'User Group', value: 'FaUsers' },
+              //       { title: 'Gear', value: 'FaCogs' },
+              //       { title: 'Cogs', value: 'FaCogs' },
+              //       { title: 'Microchip', value: 'FaMicrochip' },
+              //       { title: 'Server', value: 'FaServer' },
+              //       { title: 'Database', value: 'FaDatabase' },
+              //       { title: 'Cloud', value: 'FaCloud' },
+
+                     
+              //       // New additions for Salesforce best practices (non-duplicates)
+              //       { title: 'Code', value: 'FaCode' }, // Apex Design Patterns
+              //       { title: 'Git', value: 'FaGitAlt' }, // Version Controlling
+              //       { title: 'Jenkins', value: 'FaJenkins' }, // CI/CD
+              //       { title: 'Box Open', value: 'FaBoxOpen' }, // Sandboxes/Scratch Orgs
+              //       { title: 'Flask', value: 'FaFlask' }, // Multi-Level Testing
+              //       { title: 'Magic', value: 'FaMagic' }, // Low/No Code
+              //       { title: 'Comment', value: 'FaCommentAlt' }, // Commented Code
+              //       { title: 'Lock', value: 'FaLock' } // Data Masking
+              //     ]
+              //   }
+              // })
+            ]
+          }]
+        })
+      ]
     }),
     
     // Feature Showcase Section
@@ -354,16 +536,21 @@ export const dynamicProductPageType = defineType({
       type: 'object',
       fields: [
         defineField({
+          name: 'tagline',
+          title: 'Tagline',
+          type: 'string',
+        }),
+        defineField({
           name: 'title',
           title: 'Section Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'description',
           title: 'Section Description',
           type: 'text',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'features',
@@ -373,22 +560,22 @@ export const dynamicProductPageType = defineType({
             {
               type: 'object',
               fields: [
+                
                 defineField({
                   name: 'title',
                   title: 'Feature Title',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'description',
                   title: 'Feature Description',
                   type: 'text',
-                  validation: Rule => Rule.required()
+                  
                 })
               ]
             }
           ],
-          validation: Rule => Rule.required().min(2)
         }),
         defineField({
           name: 'image',
@@ -399,21 +586,96 @@ export const dynamicProductPageType = defineType({
               name: 'src',
               title: 'Image Source',
               type: 'image',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'alt',
               title: 'Alt Text',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             })
           ],
-          validation: Rule => Rule.required()
+          
+        }),
+        defineField({
+          name: 'button',
+          title: 'Button',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'text',
+              title: 'Button Text',
+              type: 'string',
+            }),
+            defineField({
+              name: 'link',
+              title: 'Button Link',
+              type: 'string',
+            })
+          ]
         })
       ],
-      validation: Rule => Rule.required()
+      
     }),
     
+    //Additional Features / Benefits Section 
+    defineField({
+      name:'benfitsSection',
+      title:'Benefits Section',
+      type:'object',
+      fields:[
+        defineField({
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'subtitle',
+              title: 'Subtitle',
+              type: 'string',
+              
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+              
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+
+            })
+          ],
+        }),
+
+        defineField({
+          name: 'benefits',
+          title: 'Benefits Section / Additional Features',
+          type: 'array',
+          of: [
+              {
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'title',
+                    title: 'Benefit Title',
+                    type: 'string',
+                    
+                  }),
+                  defineField({
+                    name: 'description',
+                    title: 'Benefit Description',
+                    type: 'text',
+                  }),
+                ]
+              } 
+          ]
+        })
+      ]
+    }),
+
     // Additional Features Section
     defineField({
       name: 'additionalFeaturesSection',
@@ -429,22 +691,22 @@ export const dynamicProductPageType = defineType({
               name: 'subtitle',
               title: 'Subtitle',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'title',
               title: 'Title',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'description',
               title: 'Description',
               type: 'text',
-              validation: Rule => Rule.required()
+              
             })
           ],
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'features',
@@ -458,13 +720,13 @@ export const dynamicProductPageType = defineType({
                   name: 'title',
                   title: 'Feature Title',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'description',
                   title: 'Feature Description',
                   type: 'text',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'icon',
@@ -497,15 +759,15 @@ export const dynamicProductPageType = defineType({
                       "ArrowsClockwise",
                     ]
                   },
-                  validation: Rule => Rule.required()
+                  
                 })
               ]
             }
           ],
-          validation: Rule => Rule.required().min(3)
+
         })
       ],
-      validation: Rule => Rule.required()
+      
     }),
     
     // FAQ Section
@@ -518,13 +780,13 @@ export const dynamicProductPageType = defineType({
           name: 'title',
           title: 'Section Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'pageTitle',
           title: 'Page Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'subtitle',
@@ -548,13 +810,13 @@ export const dynamicProductPageType = defineType({
                   name: 'title',
                   title: 'Question',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'description',
                   title: 'Answer',
                   type: 'text',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'active',
@@ -565,10 +827,10 @@ export const dynamicProductPageType = defineType({
               ]
             }
           ],
-          validation: Rule => Rule.required().min(3)
+
         })
       ],
-      validation: Rule => Rule.required()
+      
     }),
     
     // CTA Section
@@ -581,25 +843,25 @@ export const dynamicProductPageType = defineType({
           name: 'tagline',
           title: 'Tagline',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'title',
           title: 'Title',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'subtitle',
           title: 'Subtitle',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'description',
           title: 'Description',
           type: 'text',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'metrices',
@@ -613,13 +875,13 @@ export const dynamicProductPageType = defineType({
                   name: 'value',
                   title: 'Value',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'label',
                   title: 'Label',
                   type: 'string',
-                  validation: Rule => Rule.required()
+                  
                 }),
                 defineField({
                   name: 'icon',
@@ -651,18 +913,18 @@ export const dynamicProductPageType = defineType({
                       ]
                   },
                   description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
-                  validation: Rule => Rule.required()
+                  
                 })
               ]
             }
           ],
-          validation: Rule => Rule.required().min(3)
+
         }),
         defineField({
           name: 'buttonText',
           title: 'Button Text',
           type: 'string',
-          validation: Rule => Rule.required()
+          
         }),
         defineField({
           name: 'image',
@@ -673,19 +935,19 @@ export const dynamicProductPageType = defineType({
               name: 'src',
               title: 'Image Source',
               type: 'image',
-              validation: Rule => Rule.required()
+              
             }),
             defineField({
               name: 'alt',
               title: 'Alt Text',
               type: 'string',
-              validation: Rule => Rule.required()
+              
             })
           ],
-          validation: Rule => Rule.required()
+          
         })
       ],
-      validation: Rule => Rule.required()
+      
     })
     
   ],

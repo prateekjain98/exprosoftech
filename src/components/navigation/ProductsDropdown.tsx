@@ -30,17 +30,14 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
     return acc;
   }, {});
 
-  // Check if we have data for the active product
-  const hasActiveProductData = activeProduct && productDetailsMap[activeProduct];
-
-  return (
-    <div className="grid grid-cols-12">
-      {/* Left Section - Main Products */}
-      <div className="col-span-7 p-8 bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30">
-        <div className="flex items-center gap-2 mb-6">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
+  return (  
+    <div className="w-full min-w-[600px] max-w-2xl">
+      {/* Products Section - Two Columns */}
+      <div className="p-6 bg-gradient-to-br from-white via-slate-50/50 to-blue-50/30 border-2">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
             <svg
-              className="w-4 h-4 text-white"
+              className="w-3.5 h-3.5 text-white"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -53,368 +50,36 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
               />
             </svg>
           </div>
-          <h3 className="text-base font-semibold text-primary">Products</h3>
+          <h3 className="text-sm font-semibold text-primary">Our Products</h3>
         </div>
-        <div className="space-y-4">
-          {children.map((child, childIndex) => (
-            <a
-              key={childIndex}
+        <div className="grid gap-4">
+          {children.map((child, index) => (
+            <div
+              key={index}
+              className="w-full"
+              onMouseEnter={() => setHoveredProductId(child.name)}
+              onMouseLeave={() => setHoveredProductId(null)}
+            >
+              <a
               href={child.url}
-              className="block"
+                className="block group w-full"
               onClick={() => {
                 handleProductClick(child.name);
                 setIsMobileMenuOpen(false);
               }}
             >
-              <ProductCard
-                child={child}
-                childIndex={childIndex}
-                isSelected={activeProduct === child.name}
-                onMouseEnter={() => setHoveredProductId(child.name)}
-                onMouseLeave={() => setHoveredProductId(null)}
-                productDetailsMap={productDetailsMap}
-              />
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Right Section - Product Previews */}
-      <div className="col-span-5">
-        <div className="h-full">
-          {hasActiveProductData ? (
-            // Render dynamic content if we have data for the active product
-            <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
-              {productDetailsMap[activeProduct].dropdownContent?.backgroundImage?.asset?.url && (
-                <img
-                  src={productDetailsMap[activeProduct].dropdownContent.backgroundImage.asset.url}
-                  alt={productDetailsMap[activeProduct].dropdownContent.backgroundImage.alt || `${activeProduct} Background`}
-                  className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay"
-                />
-              )}
-              <div className="relative p-8 flex flex-col h-full">
-                <div className="mb-auto">
-                  <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold mb-4">
-                    {productDetailsMap[activeProduct].dropdownContent?.tagline || "Product"}
-                  </span>
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    {productDetailsMap[activeProduct].dropdownContent?.title || activeProduct}
-                  </h3>
-                  <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                    {productDetailsMap[activeProduct].dropdownContent?.description}
-                  </p>
-                  
-                  {/* {productDetailsMap[activeProduct].dropdownContent?.features && 
-                   productDetailsMap[activeProduct].dropdownContent.features.length > 0 && (
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      {productDetailsMap[activeProduct].dropdownContent.features.slice(0, 4).map((feature: string, idx: number) => (
-                        <div key={idx} className="flex items-center gap-2">
-                          <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center">
-                            <svg
-                              className="w-3 h-3 text-blue-300"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                d="M10 3L4.5 8.5L2 6"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <span className="text-sm text-slate-300">
-                            {feature}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )} */}
-                  
-                  <div className="w-full">
-                    {productDetailsMap[activeProduct].dropdownContent?.productImages && 
-                     productDetailsMap[activeProduct].dropdownContent.productImages.length > 0 ? (
-                      <div className="grid grid-cols-2 gap-4">
-                        {productDetailsMap[activeProduct].dropdownContent.productImages.slice(0, 2).map((img: any, idx: number) => (
-                          <img
-                            key={idx}
-                            src={img.asset.url}
-                            alt={img.alt || `${activeProduct} Image ${idx + 1}`}
-                            className={`w-full h-48 object-contain transform ${
-                              idx === 0 ? "-rotate-12" : "rotate-12"
-                            } hover:rotate-0 transition-transform duration-500`}
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="w-full h-48 flex items-center justify-center">
-                        <span className="text-slate-400">No product images available</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <Button
-                    className="w-full flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 text-white"
-                    isCalendlyButton={true}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    height="compact"
-                  >
-                    Book a Call
-                  </Button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            // Fallback to hardcoded content if no data is available
-            activeProduct === "Intuiflow" ? (
-              <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
-                <div className="relative p-8 flex flex-col h-full">
-                  <div className="mb-auto">
-                    <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold mb-4">
-                      Supply Chain Solution
-                    </span>
-                    <h3 className="text-2xl font-semibold text-white mb-4">
-                      Build an Agile Supply Chain
-                    </h3>
-                    <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                      Get actionable insights and improve operational stability
-                      with our AI/ML-powered planning software, from strategy to
-                      shop floor.
-                    </p>
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2">
-                          <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center">
-                            <svg
-                              className="w-3 h-3 text-blue-300"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                d="M10 3L4.5 8.5L2 6"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <span className="text-sm text-slate-300">
-                            Materials Planning
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center">
-                            <svg
-                              className="w-3 h-3 text-blue-300"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                d="M10 3L4.5 8.5L2 6"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <span className="text-sm text-slate-300">
-                            Demand Planning
-                          </span>
-                        </div>
-                      </div>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2">
-                          <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center">
-                            <svg
-                              className="w-3 h-3 text-blue-300"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                d="M10 3L4.5 8.5L2 6"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <span className="text-sm text-slate-300">
-                            S&OP Planning
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center">
-                            <svg
-                              className="w-3 h-3 text-blue-300"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                            >
-                              <path
-                                d="M10 3L4.5 8.5L2 6"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <span className="text-sm text-slate-300">
-                            Auto Pilot
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full">
-                      <img
-                        src="https://demanddriventech.com/wp-content/uploads/2024/07/intuiflow-screen-1.png"
-                        alt="Intuiflow Dashboard"
-                        className="w-full h-48 object-contain rounded-lg"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-6">
-                    <Button
-                      className="w-full flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 text-white"
-                      isCalendlyButton={true}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      height="compact"
-                    >
-                      Book a Call
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : activeProduct === "Loyalty Engine" ? (
-              <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
-                <img
-                  src="/images/loyalty-engine.png"
-                  alt="Loyalty Engine Background"
-                  className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay"
-                />
-                <div className="relative p-8 flex flex-col h-full">
-                  <div className="mb-auto">
-                    <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold mb-4">
-                      Customer Engagement
-                    </span>
-                    <h3 className="text-2xl font-semibold text-white mb-4">
-                      Drive Customer Loyalty
-                    </h3>
-                    <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                      Build lasting customer relationships with personalized
-                      rewards, gamification, and engagement analytics.
-                    </p>
-                    <div className="grid grid-cols-2 gap-4">
-                      <img
-                        src="/images/mobile-blue-bg.png"
-                        alt="Loyalty App"
-                        className="w-full h-48 object-contain transform -rotate-12 hover:rotate-0 transition-transform duration-500"
-                      />
-                      <img
-                        src="/images/mobile-blue-bg2.png"
-                        alt="Rewards Dashboard"
-                        className="w-full h-48 object-contain transform rotate-12 hover:rotate-0 transition-transform duration-500"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-6">
-                    <Button
-                      className="w-full flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 text-white"
-                      isCalendlyButton={true}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      height="compact"
-                    >
-                      Book a Call
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : activeProduct === "Sales Force Automation" ? (
-              <div className="relative h-full bg-gradient-to-br from-slate-900 to-slate-800 rounded-r-2xl overflow-hidden">
-                <img
-                  src="/images/field-konnect.png"
-                  alt="Field Konnect Background"
-                  className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay"
-                />
-                <div className="relative p-8 flex flex-col h-full">
-                  <div className="mb-auto">
-                    <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 text-blue-300 text-xs font-semibold mb-4">
-                      Field Force Management
-                    </span>
-                    <h3 className="text-2xl font-semibold text-white mb-4">
-                      Empower Your Field Force
-                    </h3>
-                    <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                      Transform your field operations with real-time tracking,
-                      route optimization, and performance analytics.
-                    </p>
-                    <div className="grid grid-cols-2 gap-4">
-                      <img
-                        src="/images/mobile-hand.png"
-                        alt="Mobile App"
-                        className="w-full h-48 object-contain transform -rotate-12 hover:rotate-0 transition-transform duration-500"
-                      />
-                      <img
-                        src="/images/mobile-hand-2.png"
-                        alt="Dashboard"
-                        className="w-full h-48 object-contain transform rotate-12 hover:rotate-0 transition-transform duration-500"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-6">
-                    <Button
-                      className="w-full flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 text-white"
-                      isCalendlyButton={true}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      height="compact"
-                    >
-                      Book a Call
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : null
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Helper component for product cards
-const ProductCard: React.FC<{
-  child: ChildNavigationLink;
-  childIndex: number;
-  isSelected: boolean;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
-  productDetailsMap: any;
-}> = ({ child, childIndex, isSelected, onMouseEnter, onMouseLeave, productDetailsMap }) => {
-  // Check if we have data for this product and if it has features
-  const hasProductData = productDetailsMap && productDetailsMap[child.name];
-  const hasFeatures = hasProductData && 
-                      productDetailsMap[child.name].dropdownContent?.features && 
-                      productDetailsMap[child.name].dropdownContent.features.length > 0;
-
-  return (
-    <div
-      className={`group cursor-pointer rounded-xl border border-slate-200 hover:border-primary/30 transition-all duration-200 ${
-        isSelected
-          ? "bg-white shadow-lg shadow-blue-500/5 border-primary/30"
-          : "hover:bg-white hover:shadow-lg hover:shadow-blue-500/5"
-      }`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <div className="p-5">
-        <div className="flex items-start gap-4">
-          <div className="shrink-0 h-12 w-12 rounded-lg bg-gradient-to-br from-[#111b57]/5 to-primary/5 flex items-center justify-center group-hover:from-[#111b57]/10 group-hover:to-primary/10">
-            <svg
-              className="w-6 h-6 text-primary"
+                <div
+                  className={`w-full rounded-xl border transition-all duration-200 ${
+                    activeProduct === child.name
+                      ? "border-primary/30 bg-white shadow-lg shadow-blue-500/5"
+                      : "border-slate-200 hover:border-primary/30 hover:bg-white hover:shadow-lg hover:shadow-blue-500/5"
+                  }`}
+                >
+                  <div className="p-4 w-full">
+                    <div className="flex items-start gap-3 w-full">
+                      <div className="shrink-0 h-10 w-10 rounded-lg bg-gradient-to-br from-[#111b57]/5 to-primary/5 flex items-center justify-center group-hover:from-[#111b57]/10 group-hover:to-primary/10">
+                        <svg
+                          className="w-6 h-6 text-primary hidden lg:block"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -424,20 +89,20 @@ const ProductCard: React.FC<{
                 strokeLinejoin="round"
                 strokeWidth={1.5}
                 d={
-                  childIndex === 0
+                              index === 0
                     ? "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
                     : "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 }
               />
             </svg>
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h4 className="text-base font-medium text-slate-900 group-hover:text-primary transition-colors duration-200">
+                      <div className="flex-1 min-w-0 w-full">
+            <div className="flex items-center gap-2 w-full">
+              <h4 className="text-base font-medium text-slate-900 group-hover:text-primary transition-colors duration-200 flex-1">
                 {child.name}
               </h4>
               <svg
-                className="w-4 h-4 text-slate-400 group-hover:text-primary transition-colors duration-200"
+                className="w-4 h-4 text-slate-400 group-hover:text-primary transition-colors duration-200 shrink-0"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -448,40 +113,30 @@ const ProductCard: React.FC<{
                 />
               </svg>
             </div>
-            <p className="text-sm text-slate-600 mt-1">{child.description}</p>
-          </div>
-        </div>
-      </div>
-      <div className="px-5 py-4 bg-slate-50/80 border-t border-slate-100">
-        <div className="grid grid-cols-2 gap-4">
-          {hasFeatures ? (
-            // Display features from CMS data
-            productDetailsMap[child.name].dropdownContent.features.slice(0, 4).map((feature: string, idx: number) => (
-              <div key={idx} className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center">
-                  <svg
-                    className="w-3 h-3 text-primary"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                  >
-                    <path
-                      d="M10 3L4.5 8.5L2 6"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+              <p className="text-sm text-slate-600 mt-1 line-clamp-2 w-full">
+                {child.description}
+              </p>
+                    </div>
+                  </div>
                 </div>
-                <span className="text-sm text-slate-600">{feature}</span>
-              </div>
-            ))
-          ) : (
-            // Fallback to empty state when no features are available
-            <div className="col-span-2 text-center text-sm text-slate-400 py-2">
-              No features available
+                </div>
+              </a>
             </div>
-          )}
+          ))}
+        </div>
+        
+        {/* CTA Section */}
+        <div className="mt-6 pt-4 border-t border-slate-200 w-full">
+          <div className="text-center w-full">
+            <Button
+              className="inline-flex items-center justify-center gap-2"
+              isCalendlyButton={true}
+              onClick={() => setIsMobileMenuOpen(false)}
+              height="compact"
+            >
+              Book a Demo
+            </Button>
+          </div>
         </div>
       </div>
     </div>

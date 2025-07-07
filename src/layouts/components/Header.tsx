@@ -343,7 +343,7 @@ const Header: React.FC<HeaderProps> = ({
               id="nav-menu"
               className={`pill-navbar-nav ${
                 isMobileMenuOpen
-                  ? "mobile-menu-open"
+                  ? "block opacity-100"
                   : "hidden lg:flex"
               }`}
             >
@@ -624,7 +624,7 @@ const ProductMenuItem: React.FC<{
       <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.01] to-blue-500/[0.01]" />
       <div className="relative p-4">
         <div className="flex items-start gap-4">
-          <div className="relative shrink-0">
+          <div className="relative shrink-0 hidden lg:block">
             <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/10 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative h-12 w-12 rounded-xl bg-gradient-to-br from-slate-50 to-white shadow-sm ring-1 ring-slate-100/80 flex items-center justify-center overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.05] to-blue-500/[0.05]" />

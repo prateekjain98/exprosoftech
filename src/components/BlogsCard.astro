@@ -1,0 +1,68 @@
+---
+import config from "@/config/config.json";
+import dateFormat from "@/lib/utils/dateFormat";
+import { plainify } from "@/lib/utils/textConverter";
+import ImageMod from "@/layouts/components/ImageMod.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+const {
+  summary_length,
+}: { summary_length: number } = config.settings;
+
+const {
+  cardLayout,
+  content
+} = Astro.props;
+
+const { title, slug, image, date, excerpt, body } = content;
+---
+
+<div class="bg-body">
+  {
+    image && (
+      <div class="relative flex items-center justify-center">
+        <img
+          class={`${cardLayout === "creative" ? "absolute h-[80%] w-[90%] md:h-[70%] md:w-[82%]" : "h-[300px]"} mb-6 rounded-3xl object-cover`}
+          src={image}
+          alt={title}
+        />
+      </div>
+    )
+  }
+  {
+    date && (
+      <div class="mb-4 flex items-center gap-x-2">
+        <ImageMod
+          class="w-5"
+          src="/images/icons/png/date.png"
+          alt="date icon"
+        />
+        <p class="inline-block font-medium text-tertiary">
+          {dateFormat(date, "iiii, MMM dd, yyyy")}
+        </p>
+      </div>
+    )
+  }
+  {
+    title && (
+      <h3 class="h5 mb-3">
+        <a href={`/products/blogs/${slug}/`}>{title}</a>
+      </h3>
+    )
+  }
+  {
+    excerpt ? (
+      <p class="mb-6">{excerpt}</p>
+    ) : body ? (
+      <p class="mb-6">{typeof body === 'string' ? body.slice(0, Number(summary_length)) : 'Read more...'}</p>
+    ) : null
+  }
+  <a class="btn btn-text border-none" href={`/products/blogs/${slug}/`}>
+    Read More
+    <div class="icon-wrapper">
+      <span class="icon" aria-hidden="true">
+        <DynamicIcon className="w-4" icon={"FaArrowRight"} />
+      </span>
+    </div>
+  </a>
+</div> 

@@ -9,6 +9,9 @@ import { MobileFeatures } from "../../components/common/MobileFeatures";
 import { ProductHeader } from "../../components/common/ProductHeader";
 import { sanityClient } from "sanity:client";
 import { DynamicCTA } from "../../components/DynamicCTA";
+import { ServicesBestPractices } from "@/components/services";
+import { DynamicCloudSpecialization } from "../../components/DynamicCloudSpecializations";
+import BlogCarousel from "../../components/BlogCarousel";
 //ssr
 
 interface Product {
@@ -17,7 +20,9 @@ interface Product {
   metaTitle: string;
   metaDescription: string;
   headerContent: any;
+  clients: any;
   featuresGridSection: any;
+  bestPracticesSection: any;
   mobileFeaturesSection: any;
   featureShowcaseSection: any;
   additionalFeaturesSection: any;
@@ -45,6 +50,7 @@ const product = await sanityClient.fetch(`
       },
       buttons
     },
+    clients,
     featuresGridSection,
     mobileFeaturesSection {
       title,
@@ -57,9 +63,14 @@ const product = await sanityClient.fetch(`
       image {
         "src": src.asset->url,
         alt
+      },
+      metricValues[] {
+        value,
+        label
       }
     },
     featureShowcaseSection {
+      tagline,
       title,
       description,
       features[] {
@@ -69,6 +80,21 @@ const product = await sanityClient.fetch(`
       image {
         "src": src.asset->url,
         alt
+      },
+      button {
+        text,
+        link
+      }
+    },
+    benfitsSection {
+      heading {
+        subtitle,
+        title,
+        description
+      },
+      benefits[] {
+        title,
+        description
       }
     },
     additionalFeaturesSection,
@@ -88,6 +114,38 @@ const product = await sanityClient.fetch(`
   }
 `, { id });
 
+// Fetch product blogs for carousel
+const productBlogsQuery = `*[_type == "productBlog"] | order(date desc)[0...5] {
+  seoTitle,
+  seoDescription,
+  title,
+  "slug": slug.current,
+  date,
+  excerpt,
+  "image": image.asset->url,
+  "author": author->{
+    name,
+    "image": image.asset->url
+  },
+  tags,
+  
+}`;
+
+const productBlogs = await sanityClient.fetch(productBlogsQuery);
+
+// Debug: Log the fetched data
+console.log('Fetched product blogs:', productBlogs);
+
+// Transform data for carousel component
+const carouselPosts = productBlogs.map((blog: any) => ({
+  title: blog.title,
+  slug: blog.slug,
+  excerpt: blog.excerpt || '',
+  image: blog.image || '',
+  date: blog.date,
+  author: blog.author?.name || ''
+}));
+
 if (!product) {
   return Astro.redirect('/404');
 }
@@ -100,27 +158,48 @@ if (!product) {
   description={product.metaDescription}
 >
   <ProductHeader {...product.headerContent} client:load />
-  <Clients client:visible />
+  <!-- <Clients client:visible data={product.clients} /> -->
+  
+  
+  <MobileFeatures 
+    client:visible 
+    mobileFeatures={product.mobileFeaturesSection} 
+  />
+
+  <FeatureShowcase 
+    showcaseContent={product.featureShowcaseSection} 
+    client:load 
+  />
+
   <FeaturesGrid 
     client:visible 
     features={product.featuresGridSection.features} 
     heading={product.featuresGridSection.heading} 
   />
-  <MobileFeatures 
+
+
+  <!-- <ServicesBestPractices
     client:visible 
-    mobileFeatures={product.mobileFeaturesSection} 
+    benefits={product.bestPracticesSection?.bestPractices} 
+    heading={product.bestPracticesSection?.heading}
+  />  -->
+
+  <DynamicCloudSpecialization
+    client:visible
+    cloudSpecializations={product.benfitsSection?.benefits}
+    heading={product.benfitsSection?.heading}
   />
-  <FeatureShowcase 
-    showcaseContent={product.featureShowcaseSection} 
-    client:load 
-  />
-  <AdditionalFeatures 
+  
+  <BlogCarousel posts={carouselPosts} client:visible />
+
+  
+  <!-- <AdditionalFeatures 
     client:load 
     additionalFeatures={{
       heading: product.additionalFeaturesSection.heading,
       features: product.additionalFeaturesSection.features
     }} 
-  />
-  <NewFAQ client:load Faq={[product.faqSection]} />
-  <DynamicCTA client:visible ctaContent={product.ctaSection} />
+  /> -->
+  <!-- <NewFAQ client:load Faq={[product.faqSection]} /> -->
+  <DynamicCTA client:visible ctaContent={product.ctaSection} /> 
 </Base>
