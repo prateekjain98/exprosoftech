@@ -1,12 +1,8 @@
 {
     "links": [
         {
-            "name": "SFA",
-            "link": "/products/sfa/"
-        },
-        {
-            "name": "Loyalty Engine",
-            "link": "/products/loyalty-engine/"
+            "name": "FlexiToast",
+            "link": "/products/flexi-toast/"
         }
     ]
 }

@@ -143,7 +143,7 @@ const BlogCarousel: React.FC<BlogCarouselProps> = ({
             <>
               <button
                 onClick={goToPrevious}
-                className="absolute left-[75%] bottom-2 lg:-left-16 lg:top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-primary text-gray-800 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-400 flex items-center justify-center"
+                className="absolute left-[75%] bottom-2 lg:left-[85%] xl:-left-16 xl:top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-primary text-gray-800 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-400 flex items-center justify-center"
                 aria-label="Previous slide"
               >
                 <FaChevronLeft className="w-5 h-5" />
@@ -151,7 +151,7 @@ const BlogCarousel: React.FC<BlogCarouselProps> = ({
               
               <button
                 onClick={goToNext}
-                className="absolute right-4 bottom-2 lg:-right-16 lg:top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-primary text-gray-800 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-400 flex items-center justify-center"
+                className="absolute right-4 bottom-2 xl:-right-16 xl:top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-primary text-gray-800 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-400 flex items-center justify-center"
                 aria-label="Next slide"
               >
                 <FaChevronRight className="w-5 h-5" />

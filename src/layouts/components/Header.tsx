@@ -106,8 +106,17 @@ export const mainMenu: NavigationLink[] = [
     ],
   },
   {
-    name: "Solutions",
-    url: "/solutions/",
+    name: "Products",
+    url: "",
+    hasChildren: true,
+    children: [
+      {
+        name: "FlexiToast",
+        url: "/products/flexi-toast/",
+      },
+      
+      
+    ],
   },
   {
     name: "Industries",

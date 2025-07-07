@@ -41,16 +41,19 @@ const footerLinks = mainMenu.flatMap(
         <!-- Left Section: Logo & Description -->
         <div class="lg:w-1/3">
           <div class="space-y-6">
-            <a href="/" class="block">
-              <ImageMod
-                src="/images/new-logo.png"
-                class="h-auto w-[140px] md:w-[160px]"
-                width={Number(logo_width.replace("px", "")) * 2}
-                height={Number(logo_height.replace("px", "")) * 2}
-                alt={title}
-                format="webp"
-              />
-            </a>
+            <div class="flex items-end justify-start gap-4">
+              <a href="/" class="block">
+                <ImageMod
+                  src="/images/new-logo.png"
+                  class="h-auto w-[80px] md:w-[90px]"
+                  width={Number(logo_width.replace("px", "")) * 2}
+                  height={Number(logo_height.replace("px", "")) * 2}
+                  alt={title}
+                  format="webp"
+                />
+              </a>
+              <p class="text-white text-3xl font-bold">Exporsoftech Pvt. Ltd.</p>
+            </div>
             <p class="text-light/70 max-w-md">
               Streamline operations with cutting-edge solutions that
               future-proof your business.
@@ -104,7 +107,7 @@ const footerLinks = mainMenu.flatMap(
 
         <!-- Right Section: Links Grid -->
         <div class="lg:w-1/2">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
             <!-- Services Links -->
             <div class="space-y-6">
               <h3 class="text-light text-lg font-medium">Services</h3>
@@ -124,64 +127,62 @@ const footerLinks = mainMenu.flatMap(
               </ul>
             </div>
 
-            <!-- Company & Product Links Combined -->
-            <div class="space-y-8">
-              <div class="space-y-6">
-                <h3 class="text-light text-lg font-medium">Company</h3>
-                <ul class="space-y-3">
-                  <li>
-                    <a
-                      href="/about/"
-                      class="text-light/70 hover:text-primary transition-colors duration-200"
-                    >
-                      About Us
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/contact/"
-                      class="text-light/70 hover:text-primary transition-colors duration-200"
-                    >
-                      Contact
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/blog/"
-                      class="text-light/70 hover:text-primary transition-colors duration-200"
-                    >
-                      Blogs
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/industries/"
-                      class="text-light/70 hover:text-primary transition-colors duration-200"
-                    >
-                      Industries
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <!-- Products Links -->
+            <div class="space-y-6">
+              <h3 class="text-light text-lg font-medium">Products</h3>
+              <ul class="space-y-3">
+                {
+                  product.links.map((link) => (
+                    <li>
+                      <a
+                        href={link.link}
+                        class="text-light/70 hover:text-primary transition-colors duration-200"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
 
-              <!-- <div class="space-y-6">
-                <h3 class="text-light text-lg font-medium">Product</h3>
-                <ul class="space-y-3">
-                  {
-                    product.links.map((link) => (
-                      <li>
-                        <a
-                          href={link.link}
-                          class="text-light/70 hover:text-primary transition-colors duration-200"
-                          rel="noopener noreferrer"
-                        >
-                          {link.name}
-                        </a>
-                      </li>
-                    ))
-                  }
-                </ul>
-              </div> -->
+            <!-- Company Links -->
+            <div class="space-y-6">
+              <h3 class="text-light text-lg font-medium">Company</h3>
+              <ul class="space-y-3">
+                <li>
+                  <a
+                    href="/about/"
+                    class="text-light/70 hover:text-primary transition-colors duration-200"
+                  >
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/contact/"
+                    class="text-light/70 hover:text-primary transition-colors duration-200"
+                  >
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/blog/"
+                    class="text-light/70 hover:text-primary transition-colors duration-200"
+                  >
+                    Blogs
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/industries/"
+                    class="text-light/70 hover:text-primary transition-colors duration-200"
+                  >
+                    Industries
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
