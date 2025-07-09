@@ -194,7 +194,7 @@ export default defineType({
               type: 'object',
               fields: [
                 defineField({ name: 'title', type: 'string' }),
-                defineField({ name: 'description', type: 'text' }),
+                defineField({ name: 'description', type: 'array', of: [{ type: 'text' }] }),
                 defineField({ 
                   name: 'iconName', 
                   type: 'string',

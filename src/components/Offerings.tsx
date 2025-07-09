@@ -97,7 +97,7 @@ interface OfferingsProps {
     };
     offerings: Array<{
       title: string;
-      description: string;
+      description: string[];
       iconName: string;  // Changed from icon to iconName
     }>;
   };
@@ -105,7 +105,7 @@ interface OfferingsProps {
 
 interface OfferingCard {
   title: string;
-  description: string;
+  description: string[];
   iconName: string;  // Changed from icon to iconName
 }
 
@@ -276,12 +276,13 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
                           dangerouslySetInnerHTML={{ __html: card.title }}
                         />
                       )}
-                      {card.description && (
+                      {card.description.map((description: string, index: number) => (
                         <p
+                          key={index}
                           className="text-text"
-                          dangerouslySetInnerHTML={{ __html: card.description }}
+                          dangerouslySetInnerHTML={{ __html: description }}
                         />
-                      )}
+                      ))}
                     </div>
                   </div>
                 </div>

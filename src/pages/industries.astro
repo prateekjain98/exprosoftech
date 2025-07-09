@@ -1,8 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
 import { sanityClient } from "sanity:client";
-import { HomeBanner } from "../components/HomeBanner";
 import { AlternatingIndustries } from "../components/AlternatingIndustries";
+import IndustriesHero from "../components/IndustriesHero";
 
 const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
     title,
@@ -12,7 +12,7 @@ const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
         title,
         description,
         image[] {
-            "src": asset->url,
+            asset->,
             alt
         },
         buttons[] {
@@ -40,6 +40,11 @@ const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
 if (!industriesData) {
     return Astro.redirect('/404');
 }
+
+// Use hero data directly for IndustriesHero component
+const heroData = industriesData.hero;
+console.log('Hero data:', heroData);
+console.log('First image URL:', heroData.image[0]?.asset.url);
 ---
 
 <Base 
@@ -47,7 +52,7 @@ if (!industriesData) {
     meta_title={industriesData.metaTitle || "Industries"} 
     description={industriesData.metaDescription || "Industries"}
 >
-    <HomeBanner client:visible data={industriesData.hero} />
+    <IndustriesHero client:load data={heroData} />
     <AlternatingIndustries 
         client:visible 
         features={industriesData.industries.industries}     

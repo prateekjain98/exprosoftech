@@ -157,12 +157,12 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
 
   return (
     <section className="py-16 ">
-      <div className="max-w-[86rem] mx-auto px-4 sm:px-6 md:px-8">
+      <div className="max-w-[86rem] lg:max-w-[90rem] xl:max-w-[80rem] mx-auto px-4 sm:px-6 md:px-8">
         <div className="relative rounded-2xl sm:rounded-[2.5rem] overflow-hidden">
           {/* Checkered Background Pattern */}
           
 
-          <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-16 lg:py-0">
+          <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-0 lg:py-0">
             <div className="mx-auto lg:col-11 mb-10 lg:mb-16">
               <SectionHeader
                 tagline={data.heading.subtitle || ""}
@@ -175,7 +175,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
             <div className="flex flex-col gap-8 lg:gap-12 ">
               {/* Navigation Tabs */}
               <nav
-                className="grid grid-cols-2 sm:flex sm:flex-wrap justify-evenly gap-2.5 sm:gap-3 rounded-2xl lg:rounded-full sm:p-4 bg-gray-800"
+                className="grid grid-cols-2 lg:grid-cols-4 sm:flex sm:flex-wrap justify-evenly gap-2.5 sm:gap-3 rounded-2xl lg:rounded-full sm:p-4 bg-gray-800"
                 data-aos="fade-up"
                 data-aos-delay="100"
                 onMouseEnter={() => setIsAutoPlay(false)}

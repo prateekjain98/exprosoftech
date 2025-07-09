@@ -164,7 +164,7 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) 
           >
             {/* Sticky Image Container */}
             <div className="hidden lg:block lg:w-[55%]">
-              <div className="sticky top-32">
+              <div className="sticky top-8">
                 <div className="relative min-h-[700px] flex items-center">
                   {/* Images */}
                   {data.services.map((service, index) => (

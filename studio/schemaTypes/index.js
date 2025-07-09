@@ -44,5 +44,5 @@ import { productBlogType } from './productBlog'
 
 export const schemaTypes = [ 
     clientsType , post , author , blockContent  , dynamicServicePageType , dynamicProductPageType , homePage,      
-    about , contact , caseStudyType , solutionType , serviceDropdownType , industries, productBlogType
+    about , contact , caseStudyType , solutionType , serviceDropdownType , industries, productBlogType , testimonialSection
 ]
