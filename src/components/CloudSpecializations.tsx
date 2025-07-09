@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion, useAnimationControls } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { motion, useScroll } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
 // Export the interface for use in other components
@@ -139,24 +139,21 @@ export const defaultCloudSpecializations: CloudSpecialization[] = [
 ];
 
 const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cloud, index }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      className="group relative shrink-0 w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px]"
+      viewport={{ once: true }}
+      className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] group"
     >
       <div 
-        className={`relative overflow-hidden rounded-3xl backdrop-blur-lg bg-blue-100 transition-all duration-500 h-full
-          ${isHovered ? 'shadow-2xl scale-[1.02]' : 'shadow-lg'}`}
+        className={`relative overflow-hidden rounded-3xl backdrop-blur-lg bg-gray-900 border border-gray-700 transition-all duration-500 h-full shadow-lg
+          hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-[1.02] hover:border-blue-500/50`}
       >
         {/* Animated gradient background */}
         <div 
-          className={`absolute inset-0 bg-gradient-to-br bg-blue-200 opacity-[0.03] 
+          className={`absolute inset-0 bg-gradient-to-br bg-blue-500 opacity-[0.03] 
             group-hover:opacity-[0.08] transition-opacity duration-500`}
         />
         
@@ -165,9 +162,9 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
           {/* Icon and Title section */}
           <div className="flex items-start gap-4 mb-6">
             <motion.div 
-              animate={{ 
-                scale: isHovered ? 1.1 : 1,
-                rotate: isHovered ? 5 : 0,
+              whileHover={{ 
+                scale: 1.1,
+                rotate: 5,
               }}
               transition={{ duration: 0.3 }}
               className={`flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-gradient-to-r ${cloud.color.primary}
@@ -176,7 +173,7 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
               <span className="text-xl sm:text-2xl">{cloud.icon}</span>
             </motion.div>
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent">
                 {cloud.name}
               </h3>
             </div>
@@ -184,7 +181,7 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
 
           {/* Description with gradient underline */}
           <div className="relative mb-6 sm:mb-8">
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
               {cloud.description}
             </p>
             <div className={`absolute bottom-0 left-0 h-px w-16 bg-gradient-to-r ${cloud.color.primary}`} />
@@ -192,7 +189,7 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
 
           {/* Features grid */}
           <div className="space-y-3 sm:space-y-4">
-            <h4 className="font-medium text-gray-900 text-xs sm:text-sm uppercase tracking-wider">
+            <h4 className="font-medium text-gray-100 text-xs sm:text-sm uppercase tracking-wider">
               Key Features
             </h4>
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
@@ -203,7 +200,7 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
                 >
                   <div className={`h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-gradient-to-r ${cloud.color.primary}
                     group-hover/feature:scale-125 transition-transform duration-300`} />
-                  <span className="text-xs sm:text-sm text-gray-600 group-hover/feature:text-gray-900 transition-colors duration-300">
+                  <span className="text-xs sm:text-sm text-gray-400 group-hover/feature:text-gray-100 transition-colors duration-300">
                     {feature}
                   </span>
                 </div>
@@ -216,57 +213,6 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
   );
 };
 
-const MarqueeCards: React.FC<{ cards: CloudSpecialization[] }> = ({ cards }) => {
-  const [isPaused, setIsPaused] = useState(false);
-  const controls = useAnimationControls();
-  const duplicatedCards = [...cards, ...cards];
-
-  useEffect(() => {
-    if (isPaused) {
-      controls.stop();
-    } else {
-      controls.start({
-        x: "-50%",
-        transition: {
-          duration: 30,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "loop"
-        }
-      });
-    }
-  }, [isPaused, controls]);
-
-  return (
-    <div 
-      className="relative overflow-hidden w-full py-4 sm:py-6 lg:py-8"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
-      {/* Left blur effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 lg:w-32 z-10 bg-gradient-to-r from-white to-transparent" />
-      
-      {/* Right blur effect */}
-      <div className="absolute right-0 top-0 bottom-0 w-16 lg:w-32 z-10 bg-gradient-to-l from-white to-transparent" />
-      
-      {/* Marquee container */}
-      <motion.div
-        className="flex gap-4 sm:gap-6 lg:gap-8"
-        initial={{ x: 0 }}
-        animate={controls}
-      >
-        {duplicatedCards.map((card, idx) => (
-          <CloudCard 
-            key={`${card.id}-${idx}`} 
-            cloud={card} 
-            index={idx} 
-          />
-        ))}
-      </motion.div>
-    </div>
-  );
-};
-
 export const CloudSpecializations: React.FC<Props> = ({
   className = "",
   cloudSpecializations = defaultCloudSpecializations,
@@ -276,19 +222,71 @@ export const CloudSpecializations: React.FC<Props> = ({
     description: "We help businesses transform with comprehensive cloud solutions across the entire Salesforce ecosystem"
   }
 }) => {
-  return (
-    <section className={`py-24 relative overflow-hidden ${className}`}>
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 bg-white" />
-      <div className="max-w-7xl mx-auto  relative">
-        <SectionHeader
-          tagline={heading.tagline}
-          heading={heading.title}
-          subheading={heading.description}
-        />
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-        {/* Marquee Cards */}
-        <MarqueeCards cards={cloudSpecializations} />
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  useEffect(() => {
+    if (!scrollRef.current) return;
+    
+    const scrollWidth = scrollRef.current.scrollWidth;
+    const viewportWidth = window.innerWidth;
+    const scrollDistance = scrollWidth - viewportWidth + 200;
+
+    const handleScroll = () => {
+      if (!scrollRef.current || !containerRef.current) return;
+      const progress = scrollYProgress.get();
+      scrollRef.current.scrollLeft = progress * scrollDistance;
+    };
+
+    scrollYProgress.on("change", handleScroll);
+    return () => {
+      scrollYProgress.clearListeners();
+    };
+  }, [scrollYProgress]);
+
+  return (
+    <section 
+      ref={containerRef}
+      className={`section min-h-[200vh] ${className} bg-white`}
+    >
+      <div className="sticky top-0 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-3 py-20 relative">
+          <div className="row">
+            <div className="mx-auto mb-12">
+              <SectionHeader
+                tagline={heading.tagline}
+                heading={heading.title}
+                subheading={heading.description}
+                alignment="center"
+              />
+            </div>
+            <div className="col-12">
+              <div 
+                ref={scrollRef}
+                className="flex gap-4 sm:gap-6 lg:gap-8 overflow-x-hidden w-full overflow-y-hidden lg:pt-12"
+                style={{
+                  paddingLeft: "calc((100vw - 1280px) / 2)",
+                  paddingRight: "calc((100vw - 1280px) / 2)"
+                }}
+              >
+                <div className="absolute left-0 top-0 bottom-0 w-16 lg:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-16 lg:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+                {cloudSpecializations.map((cloud, index) => (
+                  <CloudCard 
+                    key={cloud.id} 
+                    cloud={cloud} 
+                    index={index} 
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

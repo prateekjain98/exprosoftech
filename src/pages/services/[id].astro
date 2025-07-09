@@ -19,6 +19,7 @@ import ContentSection from "../../components/ContentSection";
 import { Offerings } from "../../components/Offerings";
 import AccordionSection from "../../components/AccordionSection";
 import { DualGridScroller } from "../../components/DualGridScroller";
+import HomeBlogSection from "../../components/HomeBlogSection.astro";
 
 interface Service {
   id: string;
@@ -356,9 +357,6 @@ if (!service) {
   )}
   
   <IndustriesWeServe client:visible />
-
-
-  <CloudSpecializations client:visible />
   
   {service.benefitsSection?.isVisible && (
     <ServicesBenefits 
@@ -367,6 +365,8 @@ if (!service) {
       heading={service.benefitsSection.heading}
     />
   )}
+
+<HomeBlogSection />
   
   {service.faqSection && (
     <NewFAQ client:visible Faq={[service.faqSection]} />

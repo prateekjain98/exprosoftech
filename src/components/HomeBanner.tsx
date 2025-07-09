@@ -335,9 +335,9 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
     <>
       <section className="relative z-[1] pb-16 lg:pt-16 rounded-b-[2rem] lg:rounded-b-[6rem] bg-white/5 backdrop-blur-sm border border-white/10">
         {/* Metric Cards */}
-        <div className="hidden lg:block absolute inset-0 overflow-hidden pointer-events-none">
+        {/* <div className="hidden lg:block absolute inset-0 overflow-hidden pointer-events-none"> */}
           {/* Left side card */}
-          <AnimatePresence mode="wait">
+          {/* <AnimatePresence mode="wait">
             <motion.div
               key={`left-${leftCardIndex}`}
               initial={{ opacity: 0, x: -100, rotate: 6 }}
@@ -348,10 +348,10 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
             >
               <MetricCard {...sampleMetrics[leftCardIndex]} index={0} />
             </motion.div>
-          </AnimatePresence>
+          </AnimatePresence> */}
 
           {/* Right side card */}
-          <AnimatePresence mode="wait">
+          {/* <AnimatePresence mode="wait">
             <motion.div
               key={`right-${rightCardIndex}`}
               initial={{ opacity: 0, x: 100, rotate: -6 }}
@@ -362,8 +362,8 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
             >
               <MetricCard {...sampleMetrics[rightCardIndex]} index={1} />
             </motion.div>
-          </AnimatePresence>
-        </div>
+          </AnimatePresence> */}
+        {/* </div> */}
 
         <div className="max-w-[100rem] h-fit mx-auto px-3 pt-20 lg:pt-0">
           {/* Mobile Layout - Image First */}

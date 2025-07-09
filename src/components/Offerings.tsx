@@ -243,7 +243,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
   return (
     <section className="section ">
       <div className="max-w-[90vw] lg:max-w-[85rem] mx-auto px-3 py-16 rounded-[3rem]">
-      <div className="max-w-[100%] lg:max-w-[80%] mx-auto px-3 ">
+      <div className="max-w-[100%] lg:max-w-[85%] mx-auto px-3 ">
         <div className="row">
           <div className="mx-auto ">
             <SectionHeader

@@ -9,11 +9,12 @@ import { ScrollableServices } from "../components/ScrollableServices";
 // import { ProductSection } from "../components/ProductSection";
 import { HomeBanner } from "../components/HomeBanner";
 import { sanityClient } from "sanity:client";
-// import { TestimonialMarquee } from "../components/TestimonialMarqueeNew";
+import { TestimonialMarquee } from "../components/TestimonialMarqueeNew";
 import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
 import WhyGreymetre from "../components/WhyGreymetre";
 import HomeBlogSection from "../components/HomeBlogSection.astro";
 import DynamicCTA from "../components/DynamicCTA";
+import { CloudSpecializations } from "../components/CloudSpecializations";
 
 interface CaseStudy {
   _id: string;
@@ -132,16 +133,19 @@ console.log(pageData.whySection);
   {pageData.clientsSection?.isVisible && (
     <Clients client:visible data={pageData.clientsSection} />
   )}
-  <Offerings client:visible data={pageData.offeringsSection} />
+  <!-- <Offerings client:visible data={pageData.offeringsSection} /> -->
   <FeaturesGrid client:visible data={pageData.FeaturesSection} />
   <ScrollableServices client:visible data={pageData.ScrollableServicesSection} />
   <IndustriesWeServe client:visible data={pageData.industriesSection} />
+  
+
   <WhyGreymetre client:visible data={pageData.whySection} />
+  <CloudSpecializations client:visible />
   <HomeBlogSection />
 
   
   <!-- <ProductSection client:visible data={pageData.productsSection} />  -->
-  <!-- <TestimonialMarquee client:load /> -->
+  <TestimonialMarquee client:load />
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
    
   <DynamicCTA client:visible ctaContent={pageData.ctaSection} />

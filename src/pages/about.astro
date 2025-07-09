@@ -112,7 +112,6 @@ const aboutQuery = `*[_type == "about"][0] {
   },
   faqSection {
     title,
-    pageTitle,
     subtitle,
     description,
     list[] {
@@ -180,12 +179,12 @@ const offeringsData = {
 //   featuredImage: companySection.image
 // };
 
-// const leadershipData = {
-//   subtitle: leadershipSection.subtitle,
-//   title: leadershipSection.title,
-//   description: leadershipSection.description,
-//   leaders: leadershipSection.leaders
-// };
+const leadershipData = {
+  subtitle: leadershipSection.subtitle,
+  title: leadershipSection.title,
+  description: leadershipSection.description,
+  leaders: leadershipSection.leaders
+};
 
 const whyGreymetreData = {
   subtitle: whySection.subtitle,
@@ -194,13 +193,12 @@ const whyGreymetreData = {
   features: whySection.features
 };
 
-// const faqData = [{
-//   title: faqSection.title,
-//   pageTitle: faqSection.pageTitle,
-//   subtitle: faqSection.subtitle,
-//   description: faqSection.description,
-//   list: faqSection.list
-// }];
+const faqData = [{
+  title: faqSection.title,
+  subtitle: faqSection.subtitle,
+  description: faqSection.description,
+  list: faqSection.list
+}];
 ---
 
 <Base
@@ -210,11 +208,11 @@ const whyGreymetreData = {
   image={meta.image}
 >
   <AboutBanner client:load data={bannerData} />
-  <BusinessGuidance 
+  <!-- <BusinessGuidance 
     client:visible 
     businessGuidanceData={businessGuidanceData}
     empowermentData={empowermentData}
-  />
+  /> -->
   <Offerings client:visible data={offeringsData} />
   <IndustriesWeServe client:visible data={pageData.industriesSection} />
   <!-- <AboutCompany client:load data={companyData} /> -->
@@ -226,5 +224,5 @@ const whyGreymetreData = {
     leadershipTeamData={{ leaders: leadershipData.leaders }} 
   /> -->
   <WhyGreymetre client:load data={whyGreymetreData} />
-  <!-- <NewFAQ client:load Faq={faqData} /> -->
+  <NewFAQ client:load Faq={faqData} />
 </Base>

@@ -467,11 +467,6 @@ export default defineType({
           type: 'string'
         }),
         defineField({
-          name: 'pageTitle',
-          title: 'Page Title',
-          type: 'string'
-        }),
-        defineField({
           name: 'subtitle',
           title: 'Subtitle',
           type: 'string'
