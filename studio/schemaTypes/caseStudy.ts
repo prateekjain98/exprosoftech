@@ -35,14 +35,12 @@ export const caseStudyType = defineType({
       title: 'Results Description',
       type: 'text',
       description: 'Brief description of results/outcomes (keep concise)',
-      validation: Rule => Rule.required().max(120)
     }),
     defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
       description: 'Longer description for case study listing and meta description',
-      validation: Rule => Rule.max(300)
     }),
     defineField({
       name: 'challenge',

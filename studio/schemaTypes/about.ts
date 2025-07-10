@@ -237,7 +237,7 @@ export default defineType({
     // Company Section
     defineField({
       name: 'companySection',
-      title: 'Company Section',
+      title: 'Community Section',
       type: 'object',
       fields: [
         defineField({

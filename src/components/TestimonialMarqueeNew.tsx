@@ -129,7 +129,7 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-7xl xl:max-w-[90rem] mx-auto px-4">
+      <div className="max-w-7xl xl:max-w-[100vw] mx-auto px-4 xl:px-0">
         <SectionHeader
           tagline={testimonialData?.subtitle || data?.subtitle || "Testimonials"}
           heading={testimonialData?.title || data?.title || "See What People Are Saying About Us"}
@@ -138,8 +138,8 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
 
         <div className="mt-16 relative group">
           {/* Gradient overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10"></div>
+          {/* <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10"></div> */}
           
           {/* First row */}
           <div className="overflow-hidden">

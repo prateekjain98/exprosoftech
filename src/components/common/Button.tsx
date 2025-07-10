@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { FaArrowRight, FaArrowDown } from "react-icons/fa";
+import { Overlay } from "./Overlay";
 
 type ButtonVariant =
   | "primary"
@@ -24,7 +25,10 @@ interface ButtonProps {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
-  isCalendlyButton?: boolean;
+  // Overlay props
+  hasOverlay?: boolean;
+  overlayIframeSrc?: string;
+  overlayTitle?: string;
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
@@ -48,14 +52,6 @@ const heightStyles: Record<ButtonHeight, string> = {
   compact: "py-1.5",
 };
 
-declare global {
-  interface Window {
-    Calendly: {
-      initPopupWidget: (options: { url: string }) => void;
-    };
-  }
-}
-
 export const Button: React.FC<ButtonProps> = ({
   children,
   variant = "primary",
@@ -69,8 +65,12 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   type = "button",
   disabled = false,
-  isCalendlyButton = false,
+  hasOverlay = false,
+  overlayIframeSrc = "",
+  overlayTitle = "Content",
 }) => {
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+
   const baseStyles =
     "btn flex items-center gap-2 font-medium transition-all duration-300";
   
@@ -88,12 +88,22 @@ export const Button: React.FC<ButtonProps> = ({
     ? `${baseStyles} ${capsuleStyles} ${className}`
     : `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${heightStyles[height]} ${className}`;
 
-  const handleCalendlyClick = (e: React.MouseEvent) => {
+  const handleOverlayClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (typeof window !== "undefined" && window.Calendly) {
-      window.Calendly.initPopupWidget({
-        url: "https://calendly.com/Exprosoftech/30min",
-      });
+    if (hasOverlay && overlayIframeSrc) {
+      setIsOverlayOpen(true);
+    }
+  };
+
+  const handleCloseOverlay = () => {
+    setIsOverlayOpen(false);
+  };
+
+  const handleButtonClick = (e: React.MouseEvent) => {
+    if (hasOverlay && overlayIframeSrc) {
+      handleOverlayClick(e);
+    } else if (onClick) {
+      onClick();
     }
   };
 
@@ -128,21 +138,30 @@ export const Button: React.FC<ButtonProps> = ({
     );
   };
 
-  if (isCalendlyButton) {
+  // If has overlay, always render as button
+  if (hasOverlay && overlayIframeSrc) {
     return (
-      <button
-        className={styles}
-        onClick={handleCalendlyClick}
-        type={type}
-        disabled={disabled}
-        style={isPrimary 
-          ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } 
-          : isGlassy 
-          ? { background: 'linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(37,99,235,0.4), rgba(96,165,250,0.5))' }
-          : undefined}
-      >
-        {renderContent()}
-      </button>
+      <>
+        <button
+          type={type}
+          className={styles}
+          onClick={handleButtonClick}
+          disabled={disabled}
+          style={isPrimary 
+            ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } 
+            : isGlassy 
+            ? { background: 'linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(37,99,235,0.4), rgba(96,165,250,0.5))' }
+            : undefined}
+        >
+          {renderContent()}
+        </button>
+        <Overlay
+          isOpen={isOverlayOpen}
+          onClose={handleCloseOverlay}
+          iframeSrc={overlayIframeSrc}
+          title={overlayTitle}
+        />
+      </>
     );
   }
 
@@ -168,7 +187,7 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       className={styles}
-      onClick={onClick}
+      onClick={handleButtonClick}
       disabled={disabled}
       style={isPrimary 
         ? { background: 'linear-gradient(to top, #387FE7, #5792EB)' } 

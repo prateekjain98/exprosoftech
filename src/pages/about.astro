@@ -171,13 +171,13 @@ const offeringsData = {
   })) || []
 };
 
-// const companyData = {
-//   subtitle: companySection.subtitle,
-//   title: companySection.title,
-//   description: companySection.description,
-//   content: companySection.content,
-//   featuredImage: companySection.image
-// };
+const companyData = {
+  subtitle: companySection.subtitle,
+  title: companySection.title,
+  description: companySection.description,
+  content: companySection.content,
+  featuredImage: companySection.image
+};
 
 const leadershipData = {
   subtitle: leadershipSection.subtitle,
@@ -213,9 +213,10 @@ const faqData = [{
     businessGuidanceData={businessGuidanceData}
     empowermentData={empowermentData}
   /> -->
+  <AboutCompany client:load data={companyData} />
   <Offerings client:visible data={offeringsData} />
-  <IndustriesWeServe client:visible data={pageData.industriesSection} />
-  <!-- <AboutCompany client:load data={companyData} /> -->
+  <!-- <IndustriesWeServe client:visible data={pageData.industriesSection} /> -->
+  
   <!-- <LeadershipTeam 
     client:load 
     subtitle={leadershipData.subtitle}
