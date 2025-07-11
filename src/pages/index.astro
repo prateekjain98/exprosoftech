@@ -75,15 +75,15 @@ const pageData = await sanityClient.fetch(`
       }
     },
     whySection {
-    subtitle,
-    title,
-    description,
-    features[] {
+      subtitle,
       title,
       description,
-      icon
-    }
-  },
+      features[] {
+        title,
+        description,
+        icon
+      }
+    },
     productsSection {
       products[] {
         title,
@@ -135,6 +135,24 @@ const pageData = await sanityClient.fetch(`
   }
 `);
 
+// Fetch testimonial section data separately
+const testimonialData = await sanityClient.fetch(`
+  *[_type == "testimonialSection"][0] {
+    title,
+    subtitle,
+    description,
+    testimonials[] {
+      name,
+      role,
+      company,
+      content,
+      stars,
+      "avatar": avatar.asset->url,
+      "companyLogo": companyLogo.asset->url
+    }
+  }
+`);
+
 // Fetch top 3 case studies for carousel
 const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...3] {
   title,
@@ -174,7 +192,7 @@ const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
 
   
   <!-- <ProductSection client:visible data={pageData.productsSection} />  -->
-  <TestimonialMarquee client:load />
+  <TestimonialMarquee client:load data={testimonialData} />
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
    
   <DynamicCTA client:visible ctaContent={pageData.ctaSection} />

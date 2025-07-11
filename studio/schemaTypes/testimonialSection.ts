@@ -64,6 +64,14 @@ export default defineType({
               validation: Rule => Rule.required().min(20).max(300)
             }),
             defineField({
+              name: 'stars',
+              title: 'Star Rating',
+              type: 'number',
+              description: 'Rating out of 5 stars',
+              validation: Rule => Rule.required().min(1).max(5),
+              initialValue: 5
+            }),
+            defineField({
               name: 'avatar',
               title: 'Avatar',
               type: 'image',
@@ -86,7 +94,15 @@ export default defineType({
             select: {
               title: 'name',
               subtitle: 'company',
-              media: 'avatar'
+              media: 'avatar',
+              stars: 'stars'
+            },
+            prepare({ title, subtitle, media, stars }) {
+              return {
+                title: `${title} (${stars}★)`,
+                subtitle,
+                media
+              }
             }
           }
         }

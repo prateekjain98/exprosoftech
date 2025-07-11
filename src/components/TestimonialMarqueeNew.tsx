@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SectionHeader from "./SectionHeader";
-import { sanityClient } from "sanity:client"; // Assuming you have a sanity client setup
 
 interface Testimonial {
   name: string;
   role: string;
   company: string;
   content: string;
+  stars?: number;
   avatar?: string;
   companyLogo?: string;
 }
@@ -20,107 +20,59 @@ interface TestimonialMarqueeProps {
   };
 }
 
-// Default testimonials as fallback if data fetch fails
+// Default testimonials as fallback if no data is provided
 const testimonialsObject: Testimonial[] = [
   {
     name: "John Smith",
     role: "CTO",
     company: "TechCorp Inc.",
-    content: "The loyalty engine has transformed how we engage with our customers. The ROI has been exceptional."
+    content: "The loyalty engine has transformed how we engage with our customers. The ROI has been exceptional.",
+    stars: 5
   },
   {
     name: "Sarah Johnson",
     role: "Head of Marketing",
     company: "Retail Giants",
-    content: "Implementation was smooth, and our customer retention has improved by 40% since using this solution."
+    content: "Implementation was smooth, and our customer retention has improved by 40% since using this solution.",
+    stars: 5
   },
   {
     name: "Mike Chen",
     role: "Product Manager",
     company: "E-commerce Plus",
-    content: "The analytics and insights have been game-changing for our loyalty program strategy."
+    content: "The analytics and insights have been game-changing for our loyalty program strategy.",
+    stars: 5
   },
   {
     name: "Emma Wilson",
     role: "Customer Success Manager",
     company: "RetailTech Solutions",
-    content: "The customization options are incredible. We've been able to create unique reward programs that perfectly align with our brand."
+    content: "The customization options are incredible. We've been able to create unique reward programs that perfectly align with our brand.",
+    stars: 5
   },
   {
     name: "David Kumar",
     role: "Operations Director",
     company: "Global Retail Chain",
-    content: "The platform's analytics have helped us understand our customers better and make data-driven decisions."
+    content: "The platform's analytics have helped us understand our customers better and make data-driven decisions.",
+    stars: 5
   },
   {
     name: "Lisa Zhang",
     role: "Digital Marketing Head",
     company: "Fashion Forward",
-    content: "Our customer engagement metrics have shown remarkable improvement since implementing this loyalty engine."
+    content: "Our customer engagement metrics have shown remarkable improvement since implementing this loyalty engine.",
+    stars: 5
   }
 ];
 
 export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) => {
-  const [testimonialData, setTestimonialData] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-        
-        // GROQ query to fetch testimonial section data
-        const query = `*[_type == "testimonialSection"][0]{
-          title,
-          subtitle,
-          description,
-          testimonials[]{
-            name,
-            role,
-            company,
-            content,
-            "avatar": avatar.asset->url,
-            "companyLogo": companyLogo.asset->url
-          }
-        }`;
-        
-        const fetchedData = await sanityClient.fetch(query);
-        setTestimonialData(fetchedData);
-      } catch (err) {
-        console.error('Error fetching testimonials:', err);
-        setError('Failed to fetch testimonials');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchTestimonials();
-  }, []);
-
-  // Use fetched data, props data, or fallback to default testimonials
-  const testimonials = testimonialData?.testimonials || 
-                      data?.testimonials || 
-                      testimonialsObject;
+  // Use provided data or fallback to default testimonials
+  const testimonials = data?.testimonials || testimonialsObject;
 
   // Split testimonials for two rows
   const firstRowTestimonials = testimonials.slice(0, Math.ceil(testimonials.length / 2));
   const secondRowTestimonials = testimonials.slice(Math.ceil(testimonials.length / 2));
-
-  // Show loading state
-  if (isLoading) {
-    return (
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded w-96 mx-auto"></div>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   // If no testimonials are available after all fallbacks, show a message
   if (testimonials.length === 0) {
@@ -129,20 +81,16 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-7xl xl:max-w-[100vw] mx-auto px-4 xl:px-0">
+      <div className="max-w-7xl xl:max-w-[100vw] mx-auto  xl:px-0">
         <SectionHeader
-          tagline={testimonialData?.subtitle || data?.subtitle || "Testimonials"}
-          heading={testimonialData?.title || data?.title || "See What People Are Saying About Us"}
-          subheading={testimonialData?.description || data?.description || ""}
+          tagline={data?.subtitle || "Testimonials"}
+          heading={data?.title || "See What People Are Saying About Us"}
+          subheading={data?.description || ""}
         />
 
         <div className="mt-16 relative group">
-          {/* Gradient overlays */}
-          {/* <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10"></div> */}
-          
           {/* First row */}
-          <div className="overflow-hidden">
+          <div className="overflow-x-hidden">
             <div className="flex animate-marquee gap-6 w-max">
               {[...firstRowTestimonials, ...firstRowTestimonials, ...firstRowTestimonials].map((testimonial, idx) => (
                 <TestimonialCard key={`row1-${idx}`} testimonial={testimonial} />
@@ -151,13 +99,13 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
           </div>
           
           {/* Second row */}
-          <div className="overflow-hidden mt-4">
+          {/* <div className="overflow-hidden mt-4">
             <div className="flex animate-marquee-reverse gap-6 w-max">
               {[...secondRowTestimonials, ...secondRowTestimonials, ...secondRowTestimonials].map((testimonial, idx) => (
                 <TestimonialCard key={`row2-${idx}`} testimonial={testimonial} />
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       
@@ -202,58 +150,52 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
 };
 
 const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => {
+  // Generate 5 stars with filled or unfilled state
+  const renderStars = () => {
+    return Array(5).fill(0).map((_, index) => (
+      <svg 
+        key={index}
+        className={`w-6 h-6 ${index < (testimonial.stars || 5) ? 'text-yellow-400' : 'text-gray-300'}`}
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+    ));
+  };
+
   return (
     <div className="flex-shrink-0 w-[350px] group">
-      <div className="relative overflow-hidden rounded-2xl backdrop-blur-lg bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700/50 transition-all duration-500 h-full 
-        hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-[1.02] hover:border-blue-500/30">
-        
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        
-        {/* Content container */}
-        <div className="relative z-10 p-8">
-          {/* Quote icon */}
-          <div className="absolute top-6 right-6 text-blue-500/20 group-hover:text-blue-500/30 transition-colors duration-500">
-            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 32 32">
-              <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z"/>
-            </svg>
+      <div className="relative rounded-2xl bg-gray-100 p-8 transition-all duration-500 h-full hover:shadow-xl flex flex-col justify-between">
+        {/* Stars and content container */}
+        <div>
+          {/* Star Rating */}
+          <div className="flex gap-1 mb-6">
+            {renderStars()}
           </div>
 
-          {/* Testimonial content at the top */}
-          <p className="text-gray-300 text-lg leading-relaxed mb-8 font-medium">
-            "{testimonial.content}"
+          {/* Testimonial content */}
+          <p className="text-gray-900 text-xl font-semibold">
+            {testimonial.content}
           </p>
-          
-          {/* Author info at the bottom */}
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              {/* Avatar background glow */}
-              <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-lg transform scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              {/* Avatar */}
-              <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-semibold border-2 border-blue-400/20 shadow-lg">
-                {testimonial.avatar ? (
-                  <img 
-                    src={testimonial.avatar} 
-                    alt={testimonial.name} 
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                ) : (
-                  testimonial.name.charAt(0)
-                )}
-              </div>
-            </div>
-            
-            <div className="flex-1 min-w-0">
-              <p className="font-semibold text-white truncate transition-colors duration-300">
-                {testimonial.name}
-              </p>
-              <div className="flex items-center gap-2 text-sm text-gray-400">
-                <span className="truncate">{testimonial.role}</span>
-                <span className="text-gray-600">•</span>
-                <span className="truncate text-gray-400">{testimonial.company}</span>
-              </div>
-            </div>
+        </div>
+
+        {/* Author info container */}
+        <div className="flex items-center gap-4 mt-8">
+          {/* Avatar with initials */}
+          <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
+            <span className="text-gray-600 font-semibold text-lg">
+              {testimonial.name.charAt(0)}
+            </span>
+          </div>
+
+          <div>
+            <p className="font-semibold text-gray-900">
+              {testimonial.name}
+            </p>
+            <p className="text-gray-600 leading-5">
+              {testimonial.role} at {testimonial.company}
+            </p>
           </div>
         </div>
       </div>
