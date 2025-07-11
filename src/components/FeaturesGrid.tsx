@@ -217,7 +217,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
 
               {/* Feature Cards */}
               <div
-                className="min-h-[800px] md:min-h-[700px] lg:min-h-[450px] relative"
+                className="min-h-[700px] md:min-h-[700px] lg:min-h-[450px] relative"
                 data-aos="fade-up"
                 data-aos-delay="200"
               >

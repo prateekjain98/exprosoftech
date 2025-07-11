@@ -51,14 +51,14 @@ const { title, slug, category, excerpt, description, featuredImage, logo, publis
       <p class="mb-6">{description}</p>
     ) : null
   }
-  {
+  <!-- {
     (industry || duration) && (
       <div class="mb-4 flex items-center gap-x-4 text-sm text-gray-500">
         {industry && <span>{industry}</span>}
         {duration && <span>{duration}</span>}
       </div>
     )
-  }
+  } -->
   <a class="btn btn-text border-none" href={`/case-studies/${slug}/`}>
     View Case Study
     <div class="icon-wrapper">

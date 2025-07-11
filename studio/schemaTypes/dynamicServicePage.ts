@@ -320,6 +320,79 @@ export const dynamicServicePageType = defineType({
       ]
     }),
 
+    // Dynamic Service Showcase Section
+    defineField({
+      name: 'dynamicServiceShowcaseSection',
+      title: 'Salesforce Development Expertise',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Dynamic Service Showcase Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire Dynamic Service Showcase Section'
+        }),
+        defineField({
+          name: 'heading',
+          title: 'Section Heading',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'tagline',
+              title: 'Tagline',
+              type: 'string'
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string'
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text'
+            })
+          ]
+        }),
+
+        defineField({
+          name: 'services',
+          title: 'Services',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'id',
+                title: 'Service ID',
+                type: 'string',
+                description: 'Unique identifier for the service'
+              }),
+              defineField({
+                name: 'title',
+                title: 'Service Title',
+                type: 'string'
+              }),
+              defineField({
+                name: 'content',
+                title: 'Service Content',
+                type: 'blockContent',
+                description: 'Rich content for the service including description, features, and other details'
+              }),
+              defineField({
+                name: 'image',
+                title: 'Service Image',
+                type: 'image',
+                description: 'Main image for the service'
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+
+
     defineField({
       name: 'offeringsSection',
       title: 'Managed Services Section',
@@ -913,6 +986,7 @@ export const dynamicServicePageType = defineType({
       ]
     }),
 
+    
     // Process Section
     defineField({
       name: 'processSection',

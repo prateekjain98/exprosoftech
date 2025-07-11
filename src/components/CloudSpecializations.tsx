@@ -240,7 +240,18 @@ export const CloudSpecializations: React.FC<Props> = ({
     const handleScroll = () => {
       if (!scrollRef.current || !containerRef.current) return;
       const progress = scrollYProgress.get();
-      scrollRef.current.scrollLeft = progress * scrollDistance;
+      
+      // Apply easing function for smoother scrolling on smaller screens
+      let easedProgress = progress;
+      if (viewportWidth < 640) {
+        // Slower start and end, but still reaches full distance
+        easedProgress = progress * progress * (3 - 2 * progress); // Smooth step function
+      } else if (viewportWidth < 1024) {
+        // Moderate easing for tablets
+        easedProgress = progress * progress * (2 - progress); // Quadratic easing
+      }
+      
+      scrollRef.current.scrollLeft = easedProgress * scrollDistance;
     };
 
     scrollYProgress.on("change", handleScroll);
@@ -252,10 +263,10 @@ export const CloudSpecializations: React.FC<Props> = ({
   return (
     <section 
       ref={containerRef}
-      className={`section min-h-[200vh] ${className} bg-white`}
+      className={`section min-h-[300vh] sm:min-h-[250vh] lg:min-h-[200vh] ${className} bg-white`}
     >
       <div className="sticky top-0 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-3 py-20 relative">
+        <div className="max-w-[100vw] mx-auto px-3 py-20 relative">
           <div className="row">
             <div className="mx-auto mb-12">
               <SectionHeader
@@ -274,8 +285,8 @@ export const CloudSpecializations: React.FC<Props> = ({
                   paddingRight: "calc((100vw - 1280px) / 2)"
                 }}
               >
-                <div className="absolute left-0 top-0 bottom-0 w-16 lg:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
-                <div className="absolute right-0 top-0 bottom-0 w-16 lg:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
+                <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-16 lg:w-32 bg-gradient-to-r from-white to-transparent z-10"></div>
+                <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-16 lg:w-32 bg-gradient-to-l from-white to-transparent z-10"></div>
                 {cloudSpecializations.map((cloud, index) => (
                   <CloudCard 
                     key={cloud.id} 

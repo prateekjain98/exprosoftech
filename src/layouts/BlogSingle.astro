@@ -13,9 +13,9 @@ const { post } = Astro.props;
 const { title, author, image, date, body, slug } = post;
 
 // Debug logs
-console.log('Full body content:', JSON.stringify(body, null, 2));
+
 const imageBlocks = body.filter((block: any) => block._type === 'image');
-console.log('Image blocks in body:', imageBlocks);
+
 
 // Define components for PortableText
 const components = {

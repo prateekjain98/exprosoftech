@@ -15,6 +15,7 @@ import WhyGreymetre from "../components/WhyGreymetre";
 import HomeBlogSection from "../components/HomeBlogSection.astro";
 import DynamicCTA from "../components/DynamicCTA";
 import { CloudSpecializations } from "../components/CloudSpecializations";
+import CaseStudyCarousel from "../components/CaseStudyCarousel";
 
 interface CaseStudy {
   _id: string;
@@ -124,8 +125,22 @@ const pageData = await sanityClient.fetch(`
   }
 `);
 
+// Fetch top 3 case studies for carousel
+const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...3] {
+  title,
+  "slug": slug.current,
+  category,
+  description,
+  excerpt,
+  industry,
+  duration,
+  services,
+  "featuredImage": featuredImage.asset->url,
+  publishedAt
+}`;
 
-console.log(pageData.whySection);
+const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
+
 ---
 
 <Base title="Home" meta_title="Exprosoftech" description="Welcome to Exprosoftech">
@@ -141,7 +156,11 @@ console.log(pageData.whySection);
 
   <WhyGreymetre client:visible data={pageData.whySection} />
   <CloudSpecializations client:visible />
+
+  <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
+  
   <HomeBlogSection />
+
 
   
   <!-- <ProductSection client:visible data={pageData.productsSection} />  -->

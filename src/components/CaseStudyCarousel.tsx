@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import Button from './common/Button';
 
 interface CaseStudy {
   title: string;
@@ -9,7 +10,6 @@ interface CaseStudy {
   excerpt: string;
   industry: string;
   duration: string;
-  logo: string;
   featuredImage: string;
   publishedAt: string;
   services: string[];
@@ -23,7 +23,7 @@ interface CaseStudyCarouselProps {
 
 const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({ 
   caseStudies, 
-  autoplayInterval = 5000,
+  autoplayInterval = 6000,
   className = ''
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -64,20 +64,16 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
   };
 
   if (!caseStudies || caseStudies.length === 0) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-gray-600">No case studies available.</p>
-      </div>
-    );
+    return <div className="text-white">No case studies available.</div>;
   }
 
   return (
-    <section className={`py-20 ${className}`}>
+    <section className={`py-20 bg-gray-900 ${className}`}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Success Stories</h2>
-          <p className="text-lg text-gray-600">
-            Discover how we've helped businesses transform and achieve remarkable results
+          <h2 className="text-4xl font-bold mb-4 text-white">Success Stories</h2>
+          <p className="text-lg text-gray-300">
+            Discover how we've transformed businesses across industries
           </p>
         </div>
         
@@ -87,7 +83,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Carousel Container */}
-          <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg">
+          <div className="relative overflow-hidden rounded-2xl bg-gray-800 shadow-2xl border border-gray-700">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -99,42 +95,66 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
                     onClick={() => handleCaseStudyClick(caseStudy.slug)}
                   >
                     {/* Left Section - Image */}
-                    <div className="w-full lg:w-1/2 h-80 md:h-96 lg:h-full overflow-hidden">
+                    <div className="w-full lg:w-1/2 h-80 md:h-96 lg:h-full overflow-hidden relative">
                       <img 
-                        src={caseStudy.featuredImage || caseStudy.logo}
+                        src={caseStudy.featuredImage}
                         alt={caseStudy.title}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-r from-gray-900/20 to-transparent"></div>
                     </div>
                     
                     {/* Right Section - Content */}
-                    <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-12 bg-white">
+                    <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-12 bg-gray-800">
                       <div className="max-w-lg">
-                        <div className="mb-4">
-                          <span className="text-sm font-medium text-blue-600">
-                            {caseStudy.category}
-                          </span>
+                        <div className="mb-4 flex flex-wrap gap-2">
                           {caseStudy.industry && (
-                            <span className="text-sm text-gray-500 ml-4">
+                            <span className="text-sm font-medium text-blue-400 border-2 border-blue-300 px-3 py-1 rounded-full">
                               {caseStudy.industry}
                             </span>
                           )}
                         </div>
                         
-                        <h3 className="text-2xl md:text-3xl font-bold mb-4 leading-tight text-gray-900">
+                        <h3 className="text-2xl md:text-3xl font-bold mb-4 leading-tight text-white">
                           {caseStudy.title}
                         </h3>
                         
-                        {caseStudy.description && (
-                          <p className="text-lg text-gray-600 mb-6 line-clamp-3">
-                            {caseStudy.description}
+                        {(caseStudy.description || caseStudy.excerpt) && (
+                          <p className="text-lg text-gray-300 mb-6 line-clamp-3">
+                            {caseStudy.description || caseStudy.excerpt}
                           </p>
                         )}
-                        
-                        <button className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                          Read Case Study
-                          <FaChevronRight className="ml-2 w-4 h-4" />
-                        </button>
+
+                        {caseStudy.services && caseStudy.services.length > 0 && (
+                          <div className="mb-6">
+                            <p className="text-sm text-gray-400 mb-2">Services:</p>
+                            <div className="flex flex-wrap gap-2">
+                              {caseStudy.services.slice(0, 3).map((service, idx) => (
+                                <span key={idx} className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">
+                                  {service}
+                                </span>
+                              ))}
+                              {caseStudy.services.length > 3 && (
+                                <span className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded">
+                                  +{caseStudy.services.length - 3} more
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="flex items-center justify-between">
+                          <button className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200">
+                            View Case Study
+                            <FaChevronRight className="ml-2 w-4 h-4" />
+                          </button>
+                          
+                          {caseStudy.duration && (
+                            <span className="text-sm text-gray-400">
+                              {caseStudy.duration}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -148,16 +168,16 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
             <>
               <button
                 onClick={goToPrevious}
-                className="absolute left-[75%] bottom-2 lg:left-[85%] xl:-left-16 xl:top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-primary text-gray-800 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-400 flex items-center justify-center"
-                aria-label="Previous slide"
+                className="absolute left-[75%] bottom-2 lg:left-[85%] xl:-left-16 xl:top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
+                aria-label="Previous case study"
               >
                 <FaChevronLeft className="w-5 h-5" />
               </button>
               
               <button
                 onClick={goToNext}
-                className="absolute right-4 bottom-2 xl:-right-16 xl:top-1/2 -translate-y-1/2 bg-gray-200 hover:bg-primary text-gray-800 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-400 flex items-center justify-center"
-                aria-label="Next slide"
+                className="absolute right-4 bottom-2 xl:-right-16 xl:top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
+                aria-label="Next case study"
               >
                 <FaChevronRight className="w-5 h-5" />
               </button>
@@ -171,15 +191,22 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                    index === currentIndex ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                    index === currentIndex 
+                      ? 'bg-blue-600 scale-110' 
+                      : 'bg-gray-600 hover:bg-gray-500'
                   }`}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Go to case study ${index + 1}`}
                 />
               ))}
             </div>
           )}
         </div>
+      </div>
+      <div className="mt-12 flex justify-center" data-aos="fade-up-sm" data-aos-delay="400">
+          <Button href="/case-studies/" variant="primary" showArrow={true}>
+            See More Case Studies
+          </Button>
       </div>
     </section>
   );

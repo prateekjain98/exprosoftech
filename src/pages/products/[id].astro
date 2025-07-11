@@ -12,6 +12,7 @@ import { DynamicCTA } from "../../components/DynamicCTA";
 import { ServicesBestPractices } from "@/components/services";
 import { DynamicCloudSpecialization } from "../../components/DynamicCloudSpecializations";
 import BlogCarousel from "../../components/BlogCarousel";
+
 //ssr
 
 interface Product {
@@ -133,8 +134,7 @@ const productBlogsQuery = `*[_type == "productBlog"] | order(date desc)[0...5] {
 
 const productBlogs = await sanityClient.fetch(productBlogsQuery);
 
-// Debug: Log the fetched data
-console.log('Fetched product blogs:', productBlogs);
+
 
 // Transform data for carousel component
 const carouselPosts = productBlogs.map((blog: any) => ({
@@ -145,10 +145,6 @@ const carouselPosts = productBlogs.map((blog: any) => ({
   date: blog.date,
   author: blog.author?.name || ''
 }));
-
-if (!product) {
-  return Astro.redirect('/404');
-}
 
 ---
 

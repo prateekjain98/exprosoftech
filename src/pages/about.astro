@@ -136,27 +136,27 @@ const bannerData = {
   featuredImage: bannerSection.image
 };
 
-const businessGuidanceData = {
-  title: pageData.businessGuidance.title,
-  subtitle: pageData.businessGuidance.subtitle,
-  description: pageData.businessGuidance.description,
-  image: {
-    src: pageData.businessGuidance.image?.asset?.url || '',
-    alt: pageData.businessGuidance.image?.alt || ''
-  },
-  guidancePoints: pageData.businessGuidance.guidancePoints
-};
+// const businessGuidanceData = {
+//   title: pageData.businessGuidance.title,
+//   subtitle: pageData.businessGuidance.subtitle,
+//   description: pageData.businessGuidance.description,
+//   image: {
+//     src: pageData.businessGuidance.image?.asset?.url || '',
+//     alt: pageData.businessGuidance.image?.alt || ''
+//   },
+//   guidancePoints: pageData.businessGuidance.guidancePoints
+// };
 
-const empowermentData = {
-  title: pageData.businessGuidance.empowerment.title,
-  subtitle: pageData.businessGuidance.empowerment.subtitle,
-  description: pageData.businessGuidance.empowerment.description,
-  points: pageData.businessGuidance.empowerment.points,
-  empowermentImage: {
-    src: pageData.businessGuidance.empowerment.empowermentImage?.asset?.url || '',
-    alt: pageData.businessGuidance.empowerment.empowermentImage?.alt || ''
-  }
-};
+// const empowermentData = {
+//   title: pageData.businessGuidance.empowerment.title,
+//   subtitle: pageData.businessGuidance.empowerment.subtitle,
+//   description: pageData.businessGuidance.empowerment.description,
+//   points: pageData.businessGuidance.empowerment.points,
+//   empowermentImage: {
+//     src: pageData.businessGuidance.empowerment.empowermentImage?.asset?.url || '',
+//     alt: pageData.businessGuidance.empowerment.empowermentImage?.alt || ''
+//   }
+// };
 
 const offeringsData = {
   heading: {
@@ -172,11 +172,11 @@ const offeringsData = {
 };
 
 const companyData = {
-  subtitle: companySection.subtitle,
-  title: companySection.title,
-  description: companySection.description,
-  content: companySection.content,
-  featuredImage: companySection.image
+  subtitle: companySection?.subtitle,
+  title: companySection?.title,
+  description: companySection?.description,
+  content: companySection?.content,
+  featuredImage: companySection?.image
 };
 
 const leadershipData = {
@@ -213,17 +213,19 @@ const faqData = [{
     businessGuidanceData={businessGuidanceData}
     empowermentData={empowermentData}
   /> -->
-  <AboutCompany client:load data={companyData} />
+  {companySection && (
+    <AboutCompany client:load data={companyData} />
+  )}
   <Offerings client:visible data={offeringsData} />
   <!-- <IndustriesWeServe client:visible data={pageData.industriesSection} /> -->
   
-  <!-- <LeadershipTeam 
+  <LeadershipTeam 
     client:load 
     subtitle={leadershipData.subtitle}
     title={leadershipData.title}
     description={leadershipData.description}
     leadershipTeamData={{ leaders: leadershipData.leaders }} 
-  /> -->
+  />
   <WhyGreymetre client:load data={whyGreymetreData} />
   <NewFAQ client:load Faq={faqData} />
 </Base>

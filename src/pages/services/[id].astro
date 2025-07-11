@@ -21,6 +21,8 @@ import AccordionSection from "../../components/AccordionSection";
 import { DualGridScroller } from "../../components/DualGridScroller";
 import HomeBlogSection from "../../components/HomeBlogSection.astro";
 import { PartnerLogos } from "../../components/PartnerLogos";
+import CaseStudyCarousel from "../../components/CaseStudyCarousel";
+import DynamicServiceShowcase from "../../components/DynamicServiceShowcase";
 
 interface Service {
   id: string;
@@ -34,6 +36,7 @@ interface Service {
   servicesSection: any;
   bestPracticesSection: any;
   benefitsSection: any;
+  dynamicServiceShowcaseSection: any;
   processSection: any;
   stepsSection: any;
   integrationTypesSection: any;
@@ -205,6 +208,30 @@ const service = await sanityClient.fetch(`
         icon
       }
     },
+    dynamicServiceShowcaseSection {
+      isVisible,
+      heading {
+        tagline,
+        title,
+        description
+      },
+      services[] {
+        id,
+        title,
+        content[]{
+          ...,
+          _type,
+          style,
+          list,
+          markDefs[] {
+            ...,
+            _type,
+            href
+          }
+        },
+        "image": image.asset->url
+      }
+    },
     processSection {
       heading {
         tagline,
@@ -281,6 +308,21 @@ const service = await sanityClient.fetch(`
   }
 `, { id });
 
+const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...3] {
+  title,
+  "slug": slug.current,
+  category,
+  description,
+  excerpt,
+  industry,
+  duration,
+  services,
+  "featuredImage": featuredImage.asset->url,
+  publishedAt
+}`;
+
+const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
+
 if (!service) {
   return Astro.redirect('/404');
 }
@@ -302,6 +344,13 @@ if (!service) {
   {service.contentSection?.isVisible && (
     <ContentSection client:visible data={service.contentSection} />
   )}
+
+{service.dynamicServiceShowcaseSection?.isVisible && (
+  <DynamicServiceShowcase 
+    client:visible 
+    services={service.dynamicServiceShowcaseSection.services}
+  />
+)}
 
   {service.offeringsSection?.isVisible && (
     <Offerings 
@@ -393,7 +442,11 @@ if (!service) {
     />
   )}
 
-<HomeBlogSection />
+ 
+
+  <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
+
+  <HomeBlogSection />
   
   {service.faqSection && (
     <NewFAQ client:visible Faq={[service.faqSection]} />
