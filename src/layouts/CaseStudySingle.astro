@@ -36,26 +36,26 @@ const relatedCaseStudies = await sanityClient.fetch(`
     excerpt,
     "logo": logo.asset->url,
     "featuredImage": featuredImage.asset->url,
-    ctaSection?: {
-    tagline?: string;
-    title?: string;
-    subtitle?: string;
-    description?: string;
-    metrices?: Array<{
-      value: string;
-      label: string;
-      icon: string;
-    }>;
-    buttonText?: string;
-    image?: {
-      src: {
-        asset: {
-          url: string;
-        };
-      };
-      alt: string;
-    };
-  };
+    ctaSection {
+      tagline,
+      title,
+      subtitle,
+      description,
+      metrices[] {
+        value,
+        label,
+        icon
+      },
+      buttonText,
+      image {
+        src {
+          asset->{
+            url
+          }
+        },
+        alt
+      }
+    },
     publishedAt
   }
 `, { slug });
@@ -228,6 +228,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
       </div>
     </div>
   )}
-  
-  <DynamicCTA  ctaContent={caseStudy.ctaSection} />
+  {caseStudy.ctaSection && (
+    <DynamicCTA  ctaContent={caseStudy.ctaSection} />
+  )}
 </section> 
