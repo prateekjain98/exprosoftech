@@ -30,9 +30,19 @@ const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
         industries[] {
             title,
             tagline,
-            description,
+            description[]{
+                ...,
+                _type == "image" => {
+                    ...,
+                    asset->
+                }
+            },
             icon,
-            "imageUrl": image.asset->url
+            "imageUrl": image.asset->url,
+            caseStudy->{
+                "slug": slug.current,
+                title
+            }
         }
     }
 }`)

@@ -20,6 +20,7 @@ import { Offerings } from "../../components/Offerings";
 import AccordionSection from "../../components/AccordionSection";
 import { DualGridScroller } from "../../components/DualGridScroller";
 import HomeBlogSection from "../../components/HomeBlogSection.astro";
+import { PartnerLogos } from "../../components/PartnerLogos";
 
 interface Service {
   id: string;
@@ -69,6 +70,16 @@ const service = await sanityClient.fetch(`
         value,
         color,
         position
+      }
+    },
+    partnerLogosSection {
+      isVisible,
+      title,
+      subtitle,
+      logos[] {
+        "src": src.asset->url,
+        alt,
+        name
       }
     },
     contentSection {
@@ -139,7 +150,13 @@ const service = await sanityClient.fetch(`
       features[] {
         title,
         tagline,
-        description,
+        description[]{
+          ...,
+          _type == "image" => {
+            ...,
+            asset->
+          }
+        },
         icon,
         "imageUrl": image.asset->url
       }
@@ -153,7 +170,13 @@ const service = await sanityClient.fetch(`
       services[] {
         title,
         description,
-        features
+        features[]{
+          ...,
+          _type == "image" => {
+            ...,
+            asset->
+          }
+        }
       }
     },
     bestPracticesSection {
@@ -272,7 +295,10 @@ if (!service) {
   <ServicesBanner client:load content={service.banner} />
   
   <!-- <Clients client:load /> -->
-
+  {service.partnerLogosSection?.isVisible && (
+    <PartnerLogos client:visible data={service.partnerLogosSection} />
+  )}
+  
   {service.contentSection?.isVisible && (
     <ContentSection client:visible data={service.contentSection} />
   )}
@@ -300,7 +326,6 @@ if (!service) {
       data={service.dualGridScrollerSection} 
     />
   )}
-
   {service.featuresSection?.isVisible && (
     <ServicesFeatures 
       client:visible 
@@ -326,11 +351,13 @@ if (!service) {
       }}
     />
   )}
-  <!-- <ServicesServices 
-    client:visible 
-    services={service.servicesSection.services} 
-    heading={service.servicesSection.heading}
-  /> -->
+  {service.servicesSection?.services && (
+    <ServicesServices 
+      client:visible 
+      services={service.servicesSection.services} 
+      heading={service.servicesSection.heading}
+    />
+  )}
   
 
   <ServicesSteps 

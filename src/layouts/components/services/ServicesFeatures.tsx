@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { PortableText } from "@portabletext/react";
 import type { IconType } from "react-icons/lib";
 import {
   // Manufacturing
@@ -52,7 +53,7 @@ import {
   FaUserFriends
 } from "react-icons/fa";
 import SectionHeader from "../../../components/SectionHeader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // interface Feature {
 //   title: string;
@@ -73,7 +74,7 @@ import { useState } from "react";
 interface Features {
   title: string;
   tagline: string;
-  description: string | string[]; // Now supports both string and array of strings
+  description: any[]; // BlockContent array
   icon: string;
   imageUrl: string; // Changed from image to imageUrl to match the query
 }
@@ -154,6 +155,30 @@ export const ServicesFeatures: React.FC<Props> = ({
   features = [] // Add default empty array
 }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
+  const [isAutoPlay, setIsAutoPlay] = useState<boolean>(true);
+
+  // Auto-switching functionality
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (isAutoPlay && features.length > 0) {
+      interval = setInterval(() => {
+        setActiveTab((prev) => (prev + 1) % features.length);
+      }, 5000); // Switch every 5 seconds
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isAutoPlay, features.length]);
+
+  // Handle manual tab click
+  const handleTabClick = (index: number) => {
+    setActiveTab(index);
+    setIsAutoPlay(false); // Stop auto-switching when user clicks
+  };
 
   // Add error handling for missing features
   if (!features || features.length === 0) {
@@ -181,7 +206,7 @@ export const ServicesFeatures: React.FC<Props> = ({
   // Function to safely render icons
   const renderIcon = (icon: any) => {
     if (!icon) {
-      return <FaUserFriends size={20} />;
+      return null; // Return null when icon is not provided
     }
 
     // If icon is a function (React component)
@@ -199,8 +224,8 @@ export const ServicesFeatures: React.FC<Props> = ({
       }
     }
 
-    // Default fallback
-    return <FaUserFriends size={20} />;
+    // Default fallback - return null instead of fallback icon
+    return null;
   };
 
   return (
@@ -218,12 +243,14 @@ export const ServicesFeatures: React.FC<Props> = ({
             className="flex flex-wrap justify-center gap-3 max-w-5xl mx-auto"
             data-aos="fade-up"
             data-aos-delay="100"
+            onMouseEnter={() => setIsAutoPlay(false)}
+            onMouseLeave={() => setIsAutoPlay(true)}
           >
             {features.map((feature: Features, index: number) => {
               return (
                 <button
                   key={index}
-                  onClick={() => setActiveTab(index)}
+                  onClick={() => handleTabClick(index)}
                   className={`
                     group flex items-center gap-2 
                     px-3 py-4 rounded-full text-center
@@ -235,6 +262,7 @@ export const ServicesFeatures: React.FC<Props> = ({
                     }
                   `}
                 >
+                  {feature.icon && (
                   <div
                     className={`p-2 rounded-lg ${
                       activeTab === index
@@ -244,6 +272,7 @@ export const ServicesFeatures: React.FC<Props> = ({
                   >
                     {renderIcon(feature.icon)}
                   </div>
+                  )}
                   <span className="text-xs sm:text-sm font-medium leading-tight">
                     {feature.title}
                   </span>
@@ -254,7 +283,7 @@ export const ServicesFeatures: React.FC<Props> = ({
 
           {/* Feature Cards */}
           <div
-            className="mt-8 min-h-[600px] relative"
+            className="mt-8 min-h-[400px] relative"
             data-aos="fade-up"
             data-aos-delay="200"
           >
@@ -285,18 +314,8 @@ export const ServicesFeatures: React.FC<Props> = ({
                           {feature.title}
                         </h3>
 
-                        <div className="text-gray-500 leading-relaxed text-sm sm:text-base">
-                          {Array.isArray(feature.description) ? (
-                            <>
-                              {feature.description.map((paragraph: string, index: number) => (
-                                <p key={index} className="mb-4 last:mb-0">
-                                  {paragraph}
-                                </p>
-                              ))}
-                            </>
-                          ) : (
-                            <p>{feature.description}</p>
-                          )}
+                        <div className="text-gray-500 leading-relaxed text-sm sm:text-base prose prose-sm max-w-none">
+                          <PortableText value={feature.description} />
                         </div>
                       </div>
                     </div>

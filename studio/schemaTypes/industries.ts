@@ -141,9 +141,15 @@ export default defineType({
                 defineField({
                   name: 'description',
                   title: 'Description',
-                  type: 'array',
-                  of: [{ type: 'text' }],
-                  description: 'Multiple paragraphs for the description. Each item will be a separate paragraph.'
+                  type: 'blockContent',
+                  description: 'Rich text content for the description.'
+                }),
+                defineField({
+                  name: 'caseStudy',
+                  title: 'Related Case Study',
+                  type: 'reference',
+                  to: [{ type: 'caseStudy' }],
+                  description: 'Optional case study to link to for this industry'
                 }),
                 defineField({
                   name: 'icon',

@@ -191,7 +191,7 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                 </div>
 
                 <Button
-                  isCalendlyButton={true}
+                
                   variant="primary"
                 >
                   {ctaContent.buttonText}
@@ -199,6 +199,7 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
               </div>
 
               {/* Image Side */}
+              {ctaContent.image && (
               <div className="lg:col-span-2 relative hidden lg:block">
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                   <img
@@ -210,6 +211,7 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                   <div className="absolute inset-0 bg-gradient-to-br from-gray-900/10 via-gray-900/5 to-gray-900/20" />
                 </div>
               </div>
+              )}
             </div>
           </div>
         </div>

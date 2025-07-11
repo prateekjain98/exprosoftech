@@ -1,5 +1,6 @@
 import { type FC } from "react";
 import { motion } from "framer-motion";
+import { PortableText } from "@portabletext/react";
 import {
   // Manufacturing
   FaIndustry,
@@ -55,9 +56,13 @@ import type { IconType } from "react-icons/lib";
 interface Industry {
   title: string;
   tagline: string;
-  description: string;
+  description: any[]; // BlockContent array
   icon: string;
   imageUrl: string;
+  caseStudy?: {
+    slug: string;
+    title: string;
+  };
 }
 
 interface HeadingProps {
@@ -222,7 +227,33 @@ export const AlternatingIndustries: FC<AlternatingIndustriesProps> = ({
                     <h3 className="h4">{industry.title}</h3>
                   </div>
                   <p className="text-primary font-medium">{industry.tagline}</p>
-                  <p className="text-gray-600">{industry.description}</p>
+                  <div className="text-gray-600">
+                    <PortableText value={industry.description} />
+                  </div>
+                  {industry.caseStudy && (
+                    <div className="mt-4">
+                      <a
+                        href={`/case-studies/${industry.caseStudy.slug}/`}
+                        className="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-colors"
+                      >
+                        View Case Study: {industry.caseStudy.title}
+                        <svg
+                          className="ml-2 h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             </div>

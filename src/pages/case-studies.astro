@@ -52,6 +52,26 @@ const caseStudiesData = await sanityClient.fetch(`
         url
       },
       alt
+    },
+    ctaSection {
+      tagline,
+      title,
+      subtitle,
+      description,
+      metrices[] {
+        value,
+        label,
+        icon
+      },
+      buttonText,
+      image {
+        src {
+          asset->{
+            url
+          }
+        },
+        alt
+      }
     }
   }
 `);

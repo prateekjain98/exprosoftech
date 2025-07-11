@@ -5,6 +5,7 @@ import ImageMod from "./components/ImageMod.astro";
 import CallToAction from "./partials/CallToAction.astro";
 import { sanityClient } from "sanity:client";
 import { PortableText } from "astro-portabletext";
+import DynamicCTA from "../components/DynamicCTA";
 
 const { caseStudy } = Astro.props;
 const { 
@@ -35,6 +36,26 @@ const relatedCaseStudies = await sanityClient.fetch(`
     excerpt,
     "logo": logo.asset->url,
     "featuredImage": featuredImage.asset->url,
+    ctaSection?: {
+    tagline?: string;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    metrices?: Array<{
+      value: string;
+      label: string;
+      icon: string;
+    }>;
+    buttonText?: string;
+    image?: {
+      src: {
+        asset: {
+          url: string;
+        };
+      };
+      alt: string;
+    };
+  };
     publishedAt
   }
 `, { slug });
@@ -46,7 +67,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
       <div class="text-center lg:col-9" data-aos="fade-up-sm">
         {title && <h1 class="h2 mb-4">{title}</h1>}
         {category && <p class="mb-2 text-lg font-medium text-primary">{category}</p>}
-        {caseStudy.excerpt && <p class="mb-6 text-lg text-light">{caseStudy.excerpt}</p>}
+        {caseStudy.excerpt && <p class="mb-6 text-lg text-dark">{caseStudy.excerpt}</p>}
         
         <ul class="mb-4 flex items-center justify-center gap-4 flex-wrap">
           {industry && (
@@ -95,7 +116,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
       </div>
       
       <article class="pb-10 lg:col-8" data-aos="fade-up-sm">
-        <div class="content">
+        <div >
           <!-- Services Section -->
           {services && services.length > 0 && (
             <div class="mb-12">
@@ -114,7 +135,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
           {challenge && (
             <div class="mb-12">
               <h2 class="h3 mb-4">The Challenge</h2>
-              <p class="text-lg leading-relaxed text-light">{challenge}</p>
+              <p class="text-lg leading-relaxed text-dark">{challenge}</p>
             </div>
           )}
 
@@ -145,10 +166,13 @@ const relatedCaseStudies = await sanityClient.fetch(`
               <div class="row gx-4 gy-4">
                 {metrics.map((metric: any) => (
                   <div class="col-12 md:col-6 lg:col-4">
-                    <div class="rounded-xl border border-border bg-body p-6 shadow-sm">
-                      <h3 class="h5 mb-2">{metric.metric}</h3>
-                      <p class="mb-1 text-3xl font-bold text-primary">{metric.value}</p>
+                    <div class="h-full min-h-[200px] flex flex-col justify-center items-start rounded-xl border border-border bg-body p-6 shadow-sm text-center">
+                      <p class="mb-2 text-4xl font-bold text-primary">{metric.value}</p>
+                      <div class="flex items-center">
+                        <h3 class="mb-2 text-lg text-left font-medium leading-tight text-dark min-h-20">{metric.metric}</h3>
+                      </div>  
                       <p class="text-sm text-tertiary">{metric.improvement}</p>
+                      
                     </div>
                   </div>
                 ))}
@@ -205,5 +229,5 @@ const relatedCaseStudies = await sanityClient.fetch(`
     </div>
   )}
   
-  <CallToAction />
+  <DynamicCTA  ctaContent={caseStudy.ctaSection} />
 </section> 

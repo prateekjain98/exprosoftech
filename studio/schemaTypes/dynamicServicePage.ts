@@ -264,6 +264,62 @@ export const dynamicServicePageType = defineType({
       ]
     }),
 
+    // Partner Logos Section
+    defineField({
+      name: 'partnerLogosSection',
+      title: 'Partner Logos Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Partner Logos Section',
+          type: 'boolean',
+          initialValue: false,
+          description: 'Toggle to show or hide the entire partner logos section'
+        }),
+        defineField({
+          name: 'title',
+          title: 'Section Title',
+          type: 'string',
+          description: 'Main heading for the partner logos section'
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'string',
+          description: 'Description text that appears below the title'
+        }),
+        defineField({
+          name: 'logos',
+          title: 'Partner Logos',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'src',
+                title: 'Logo Image',
+                type: 'image',
+                description: 'Upload the partner logo image'
+              }),
+              defineField({
+                name: 'alt',
+                title: 'Alt Text',
+                type: 'string',
+                description: 'Alternative text for the logo (for accessibility)'
+              }),
+              defineField({
+                name: 'name',
+                title: 'Partner Name',
+                type: 'string',
+                description: 'Name of the partner company'
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+
     defineField({
       name: 'offeringsSection',
       title: 'Managed Services Section',
@@ -597,8 +653,8 @@ export const dynamicServicePageType = defineType({
               defineField({
                 name: 'features',
                 title: 'Features',
-                type: 'array',
-                of: [{type: 'string'}]
+                type: 'blockContent',
+                description: 'Rich text content for features'
               })
             ]
           }]
