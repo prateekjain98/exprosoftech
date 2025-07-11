@@ -3,6 +3,8 @@ import Base from "../layouts/Base.astro";
 import { sanityClient } from "sanity:client";
 import { AlternatingIndustries } from "../components/AlternatingIndustries";
 import IndustriesHero from "../components/IndustriesHero";
+import { DynamicCTA } from "../components/DynamicCTA";
+import NewFAQ from "../components/NewFAQ";
 
 const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
     title,
@@ -44,6 +46,25 @@ const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
                 title
             }
         }
+    },
+    faqSection {
+        pageTitle,
+        faqItems[] {
+            question,
+            answer,
+            active
+        }
+    },
+    cta {
+        tagline,
+        title,
+        description,
+        metrices,
+        buttonText,
+        image {
+            asset->,
+            alt
+        }
     }
 }`)
 
@@ -53,6 +74,9 @@ if (!industriesData) {
 
 // Use hero data directly for IndustriesHero component
 const heroData = industriesData.hero;
+
+const ctaData = industriesData.cta;
+const faqData = industriesData.faqSection;
 ---
 
 <Base 
@@ -66,4 +90,6 @@ const heroData = industriesData.hero;
         features={industriesData.industries.industries}     
         heading={industriesData.industries.heading}
     />
+    <NewFAQ client:load Faq={faqData} />
+    <DynamicCTA client:load ctaContent={ctaData} />
 </Base>

@@ -4,6 +4,7 @@ import ImageMod from "@/components/ImageMod.astro";
 import DynamicIcon from "@/layouts/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
 import { getEntry } from "astro:content";
+import ContactForm from "../../components/ContactForm";
 
 interface Hero {
   heroImage?: string;
@@ -147,126 +148,12 @@ const iconMap: Record<string, string> = {
                     alt="Hero background"
                     loading="eager"
                   /> */}
-                  {/* Logo container - positioned on hero image */}
-                  {/* <div class="absolute left-1/2 bottom-0 translate-y-1/2 -translate-x-1/2 z-10">
-                    <div class="relative">
-                      
-                      <div class="absolute inset-0 -m-1 rounded-full bg-gradient-to-r from-white via-primary/5 to-white"></div>
-                      
-                      <div class="relative bg-white rounded-full p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] backdrop-blur-sm">
-                        <ImageMod
-                          class="w-20 h-20 object-contain transition-transform duration-300 hover:scale-105"
-                          src={hero.logo?.src || ""}
-                          alt={hero.logo?.alt || "Company logo"}
-                          loading="eager"
-                        />
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               )}
 
+              {/* Salesforce Contact Form */}
               
-
-              {/* Form container */}
-              <div class={`relative rounded-2xl bg-theme-dark p-5 ${hero.heroImage ? 'pt-16' : 'pt-20'} md:p-10 ${hero.heroImage ? 'md:pt-20' : 'md:pt-24'} shadow-lg border border-border/5`}>
-                <div class="absolute inset-0 bg-theme-dark  opacity-50 rounded-2xl" />
-                <div class="relative">
-                  <h3 class="h3 mb-8 text-center text-light">Get In Touch</h3>
-                  <form
-                    class="row g-4"
-                    action={contact_form_action}
-                    method="POST"
-                  >
-                    <div class="lg:col-6">
-                      <label for="first-name" class="form-label text-light">
-                        First Name <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="first-name"
-                        name="first-name"
-                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
-                        placeholder="Your First Name"
-                        required
-                        type="text"
-                      />
-                    </div>
-                    <div class="lg:col-6">
-                      <label for="last-name" class="form-label text-light">
-                        Last Name <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="last-name"
-                        name="last-name"
-                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
-                        placeholder="Your Last Name"
-                        required
-                        type="text"
-                      />
-                    </div>
-                    <div class="col-12">
-                      <label for="email" class="form-label text-light">
-                        Email <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="email"
-                        name="email"
-                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
-                        placeholder="youremail@email.com"
-                        required
-                        type="email"
-                      />
-                    </div>
-                    <div class="col-12">
-                      <label for="company-name" class="form-label text-light">
-                        Company Name <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="company-name"
-                        name="company-name"
-                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
-                        placeholder="Your Company Name"
-                        required
-                        type="text"
-                      />
-                    </div>
-                    <div class="col-12">
-                      <label for="subject" class="form-label text-light">
-                        Subject <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="subject"
-                        name="subject"
-                        class="form-input focus:ring-2 focus:ring-primary/20 transition-shadow"
-                        placeholder="Message Subject"
-                        required
-                        type="text"
-                      />
-                    </div>
-                    <div class="col-12">
-                      <label for="message" class="form-label text-light">
-                        Write Message <span class="text-red-500">*</span>
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        class="form-input min-h-[120px] focus:ring-2 focus:ring-primary/20 transition-shadow"
-                        placeholder="Write Your Message Here"
-                        required
-                        rows="3"
-                      />
-                    </div>
-                    <div>
-                      <button
-                        type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-full transition-colors duration-300"
-                      >
-                        Send Message
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+                <ContactForm client:load />
             </div>
           </div>
         </div>

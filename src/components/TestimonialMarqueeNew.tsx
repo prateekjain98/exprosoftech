@@ -203,39 +203,59 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
 
 const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => {
   return (
-    <div className="flex-shrink-0 w-[350px] bg-gray-900 rounded-lg border border-gray-700 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-blue-500/20 hover:shadow-lg hover:border-blue-500/50 ">
-      <div className="p-5">
-        {/* Author info at the top */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center">
-            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold mr-3">
-              {testimonial.avatar ? (
-                <img 
-                  src={testimonial.avatar} 
-                  alt={testimonial.name} 
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                testimonial.name.charAt(0)
-              )}
-            </div>
-            <div>
-              <p className="font-medium text-gray-100">{testimonial.name}</p>
-              <p className="text-sm text-gray-400">{testimonial.role}</p>
-            </div>
+    <div className="flex-shrink-0 w-[350px] group">
+      <div className="relative overflow-hidden rounded-2xl backdrop-blur-lg bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700/50 transition-all duration-500 h-full 
+        hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-[1.02] hover:border-blue-500/30">
+        
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        {/* Content container */}
+        <div className="relative z-10 p-8">
+          {/* Quote icon */}
+          <div className="absolute top-6 right-6 text-blue-500/20 group-hover:text-blue-500/30 transition-colors duration-500">
+            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 32 32">
+              <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z"/>
+            </svg>
           </div>
-          <div className="text-sm font-medium text-gray-300">
-            {testimonial.company}
+
+          {/* Testimonial content at the top */}
+          <p className="text-gray-300 text-lg leading-relaxed mb-8 font-medium">
+            "{testimonial.content}"
+          </p>
+          
+          {/* Author info at the bottom */}
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              {/* Avatar background glow */}
+              <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-lg transform scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              {/* Avatar */}
+              <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-semibold border-2 border-blue-400/20 shadow-lg">
+                {testimonial.avatar ? (
+                  <img 
+                    src={testimonial.avatar} 
+                    alt={testimonial.name} 
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  testimonial.name.charAt(0)
+                )}
+              </div>
+            </div>
+            
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-white truncate transition-colors duration-300">
+                {testimonial.name}
+              </p>
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <span className="truncate">{testimonial.role}</span>
+                <span className="text-gray-600">•</span>
+                <span className="truncate text-gray-400">{testimonial.company}</span>
+              </div>
+            </div>
           </div>
         </div>
-        
-        {/* Divider */}
-        <hr className="my-4 border-gray-700" />
-        
-        {/* Testimonial content at the bottom */}
-        <p className="text-gray-300 text-base leading-relaxed">
-          "{testimonial.content}"
-        </p>
       </div>
     </div>
   );

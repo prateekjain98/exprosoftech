@@ -100,6 +100,7 @@ export default defineType({
         type: 'object',
         fields: [
           defineField({
+
             name: 'heading',
             title: 'Section Heading',
             type: 'object',
@@ -214,7 +215,173 @@ export default defineType({
             }]
           })
         ]
-      })
+      }),
+
+      // FAQ Section
+    defineField({
+      name: 'faqSection',
+      title: 'FAQ Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'pageTitle',
+          title: 'Page Title',
+          type: 'string'
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'string'
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text'
+        }),
+        defineField({
+          name: 'list',
+          title: 'FAQ List',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'title',
+                title: 'Question',
+                type: 'string'
+              }),
+              defineField({
+                name: 'description',
+                title: 'Answer',
+                type: 'text'
+              }),
+              defineField({
+                name: 'active',
+                title: 'Initially Active',
+                type: 'boolean',
+                initialValue: false
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+    
+      defineField({
+        name: 'ctaSection',
+        title: 'CTA Section',
+        type: 'object',
+        fields: [
+          defineField({
+            name: 'tagline',
+            title: 'Tagline',
+            type: 'string',
+            
+          }),
+          defineField({
+            name: 'title',
+            title: 'Title',
+            type: 'string',
+            
+          }),
+          defineField({
+            name: 'subtitle',
+            title: 'Subtitle',
+            type: 'string',
+            
+          }),
+          defineField({
+            name: 'description',
+            title: 'Description',
+            type: 'text',
+            
+          }),
+          defineField({
+            name: 'metrices',
+            title: 'Metrics',
+            type: 'array',
+            of: [
+              {
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'value',
+                    title: 'Value',
+                    type: 'string',
+                    
+                  }),
+                  defineField({
+                    name: 'label',
+                    title: 'Label',
+                    type: 'string',
+                    
+                  }),
+                  defineField({
+                    name: 'icon',
+                    title: 'Icon',
+                    type: 'string',
+                    options:{
+                        list: [
+                          'Cube',
+                          'ChartLineUp',
+                          'Gear',
+                          'ChartPieSlice',
+                          'Brain',
+                          'Truck',
+                          'Package',
+                          'Coins',
+                          'ChartBar',
+                          'Medal',
+                          'Gauge',
+                          'Robot',
+                          'Receipt',
+                          'Wallet',
+                          'ChartDonut',
+                          'Clock',
+                          'Database',
+                          'Plugs',
+                          'Lightning',
+                          'Handshake',
+                          'Target'
+                        ]
+                      },
+                    description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
+                    
+                  })
+                ]
+              }
+            ],
+          }),
+          defineField({
+            name: 'buttonText',
+            title: 'Button Text',
+            type: 'string',
+            
+          }),
+          defineField({
+            name: 'image',
+            title: 'Image',
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'src',
+                title: 'Image Source',
+                type: 'image',
+                
+              }),
+              defineField({
+                name: 'alt',
+                title: 'Alt Text',
+                type: 'string',
+                
+              })
+            ],
+            
+          })
+        ],
+        
+      }),
+
     ],
     preview: {
       select: {

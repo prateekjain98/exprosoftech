@@ -503,6 +503,43 @@ export default defineType({
     }),
 
     defineField({
+      name: 'cloudSpecializations',
+      title: 'Cloud Specializations',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'heading',
+          type: 'object',
+          fields: [
+            defineField({ name: 'tagline', type: 'string', title: 'Tagline' }),
+            defineField({ name: 'title', type: 'string', title: 'Title' }),
+            defineField({ name: 'description', type: 'text', title: 'Description' })
+          ]
+        }),
+        defineField({
+          name: 'specializations',
+          title: 'Cloud Specializations',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({ name: 'id', type: 'string', title: 'ID' }),
+              defineField({ name: 'name', type: 'string', title: 'Name' }),
+              defineField({ name: 'description', type: 'text', title: 'Description' }),
+              defineField({ name: 'icon', type: 'string', title: 'Icon' }),
+              defineField({
+                name: 'features',
+                type: 'array',
+                of: [{ type: 'string' }],
+                title: 'Features'
+              })
+            ]
+          }]
+        })
+      ]
+    }),
+
+    defineField({
       name: 'ctaSection',
       title: 'CTA Section',
       type: 'object',

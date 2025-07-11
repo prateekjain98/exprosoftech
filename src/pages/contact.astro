@@ -7,8 +7,7 @@ import { getEntry } from "astro:content";
 import ConsultationCTA from "../components/ConsultationCTA";
 import { sanityClient } from "sanity:client";
 import NewFAQ from "../components/NewFAQ";
-
-// const contact = await getEntry("contact", "-index");
+import ContactForm from "../components/ContactForm";
 
 const contactQuery = `*[_type == "contact"][0] {
   title,
