@@ -7,6 +7,18 @@ export default defineType({
   fields: [
     // Hero Banner Section
     defineField({
+      name: 'metaTitle',
+      title: 'Meta Title',
+      type: 'string',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'Meta Description',
+      type: 'text',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
       name: 'heroBanner',
       title: 'Hero Banner',
       type: 'object',

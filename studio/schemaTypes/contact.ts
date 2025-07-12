@@ -23,6 +23,11 @@ export default defineType({
         type: "string",
       }),
       defineField({
+        name: "meta_description",
+        title: "Meta Description",
+        type: "string",
+      }),
+      defineField({
         name: "image",
         title: "Featured Image",
         type: "image",
