@@ -41,14 +41,18 @@ const ContentSection: React.FC<ContentSectionProps> = ({ data }) => {
                 <img
                   src={image.asset.url}
                   alt="Exprosoftech Business Transformation Team"
-                  className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-contain"
+                  className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                 />
-                <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 bg-blue-600 text-white p-4 lg:p-6 rounded-lg lg:rounded-xl shadow-lg lg:shadow-xl">
-                  <p className="text-xl lg:text-2xl font-bold">{imageOverlay?.value}</p>
-                <p className="text-xs lg:text-sm opacity-90">
-                    {imageOverlay?.label}
-                  </p>
-                </div>
+                {imageOverlay?.label && (
+                  <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 bg-blue-600 text-white p-4 lg:p-6 rounded-lg lg:rounded-xl shadow-lg lg:shadow-xl">
+                    <p className="text-xl lg:text-2xl font-bold">
+                      {imageOverlay?.value}
+                    </p>
+                    <p className="text-xs lg:text-sm opacity-90">
+                      {imageOverlay?.label}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 

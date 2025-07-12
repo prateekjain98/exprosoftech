@@ -354,7 +354,7 @@ export const IndustriesWeServe: React.FC<Props> = ({
               isCalendlyButton={false}
               showArrow={true}
             >
-              Find Out How It Works for Your Industry
+              Get Started
             </Button>
           </motion.div>
         </div>  
