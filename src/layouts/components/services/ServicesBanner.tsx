@@ -68,7 +68,7 @@ export const  ServicesBanner: React.FC<Props> = ({ className, content }) => {
             </ul>
           </div>
 
-          <div className="relative px-4 md:px-0 order-1 lg:order-2">
+          <div className="relative hidden lg:block px-4 md:px-0 order-1 lg:order-2">
             <div
               className="relative max-w-[580px] mx-auto"
               data-aos="fade-up-sm"

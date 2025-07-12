@@ -367,13 +367,13 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
           </AnimatePresence> */}
         {/* </div> */}
 
-        <div className="max-w-[100rem] h-fit mx-auto px-3 pt-20 lg:pt-0">
+        <div className="max-w-[100rem] h-fit mx-auto px-3 pt-10 lg:pt-0">
           {/* Mobile Layout - Image First */}
           <div className="lg:hidden">
             {/* Image/Visualization for Mobile */}
             <div className="flex justify-center mb-12">
               <div
-                className="relative w-[90%]"
+                className="relative w-[100%]"
                 data-aos="fade-up-sm"
                 data-aos-delay="100"
               >
@@ -431,11 +431,11 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
             <div className="text-center">
               {data.title && (
                 <div data-aos="fade-up-sm" data-aos-delay="200" className="mb-10 max-w-4xl mx-auto h-fit">
-                  <h1 className="text-black mb-2 text-h3 lg:text-h1 lg:font-medium">
+                  <h1 className="text-black mb-2 text-h4 lg:text-h1 lg:font-medium">
                     {data.title}
                   </h1>
                   {data.blueTitle && (
-                    <span className="bg-gradient-to-r to-[#111b57] from-primary bg-clip-text text-transparent text-h3 lg:text-h1 font-semibold lg:font-medium">{data.blueTitle}</span>
+                    <span className="bg-gradient-to-r to-[#111b57] from-primary bg-clip-text text-transparent text-h4 lg:text-h1 font-semibold lg:font-medium">{data.blueTitle}</span>
                   )}
                 </div>
               )}

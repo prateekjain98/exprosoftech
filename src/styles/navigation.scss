@@ -105,7 +105,7 @@ input#nav-toggle:checked ~ #nav-menu {
     @apply px-6 py-8 overflow-y-auto flex-col space-x-0;
     @apply rounded shadow-xl order-2 items-start;
     height: calc(100vh - 60px);
-    max-height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     

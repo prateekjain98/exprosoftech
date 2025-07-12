@@ -253,7 +253,7 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
   // Accept Sanity data or individual props
   data,
   applicationsHeading,
-  ctaText = "Find Out How It Works for Your Industry ",
+  ctaText = "Get Started",
   ctaLink = "#contact",
   isCalendly = false,
   applicationIndustries,
