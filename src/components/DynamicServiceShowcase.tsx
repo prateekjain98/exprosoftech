@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PortableText } from '@portabletext/react';
+import { Grid } from "./Offerings";
 
 interface ServiceItem {
   id: string;
@@ -54,11 +55,15 @@ const DynamicServiceShowcase: React.FC<DynamicServiceShowcaseProps> = ({
             {/* Left Navigation Panel */}
             <div className="lg:col-span-5">
               <div 
-                className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-6 lg:p-8 shadow-2xl"
+                className="relative bg-dark rounded-2xl p-6 lg:p-8 shadow-2xl overflow-hidden"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                <div className="space-y-1">
+                {/* Grid pattern background */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                  <Grid size={20} />
+                </div>
+                <div className="relative z-10 space-y-1">
                   {services.map((service, index) => (
                     <motion.button
                       key={service.id}
@@ -75,9 +80,9 @@ const DynamicServiceShowcase: React.FC<DynamicServiceShowcaseProps> = ({
                         <h3 className="text-white font-medium text-lg lg:text-xl leading-tight">
                           {service.title}
                         </h3>
-                        {activeIndex === index && (
+                        {/* {activeIndex === index && (
                           <div className="w-3 h-3 bg-white rounded-full" />
-                        )}
+                        )} */}
                       </div>
                       
                       {/* Progress bar for active item */}
@@ -149,4 +154,4 @@ const DynamicServiceShowcase: React.FC<DynamicServiceShowcaseProps> = ({
   );
 };
 
-export default DynamicServiceShowcase; 
+export default DynamicServiceShowcase;
