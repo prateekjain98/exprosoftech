@@ -1,13 +1,61 @@
 import React, { useRef, useEffect } from "react";
+import { FaCloud, FaDatabase, FaChartLine, FaDollarSign , FaHeadphones, FaGlobe, FaBolt, FaIndustry, FaMoneyBillWave, FaGraduationCap, FaBoxOpen ,} from "react-icons/fa";
+import {  FiUsers,
+  FiSettings,
+  FiBox,
+  FiTrendingUp,
+  FiTarget,
+  FiShield,
+  FiZap,
+  FiCpu,
+  FiGlobe,
+  FiLayers,
+  FiDatabase,
+  FiCloud,
+  FiCode,
+  FiBriefcase,
+  FiBarChart2,}
+  from "react-icons/fi";
 import { motion, useScroll } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
-// Export the interface for use in other components
+
+// Icon map for cloud specializations
+const cloudIconMap = {
+  FaCloud,
+  FaDatabase,
+  FaChartLine,
+  FaHeadphones,
+  FaDollarSign,
+  FaGlobe,
+  FaBolt,
+  FaIndustry,
+  FaMoneyBillWave,
+  FaGraduationCap,
+  FaBoxOpen,
+
+  FiUsers,
+  FiSettings,
+  FiBox,
+  FiTrendingUp,
+  FiTarget,
+  FiShield,
+  FiZap,
+  FiCpu,
+  FiGlobe,
+  FiLayers,
+  FiDatabase,
+  FiCloud,
+  FiCode,
+  FiBriefcase,
+  FiBarChart2,
+};
+
 export interface CloudSpecialization {
   id: string;
   name: string;
   description: string;
-  icon: string;
+  icon: string; // icon name, e.g. 'FaCloud', or emoji fallback
   features: string[];
 }
 
@@ -35,68 +83,70 @@ export const defaultCloudSpecializations: CloudSpecialization[] = [
     id: "data-cloud",
     name: "Data Cloud",
     description: "Unify and activate your customer data across every touchpoint with intelligent data management and real-time insights.",
-    icon: "🗃️",
+    icon: "FaDatabase",
     features: ["Data Integration", "Real-time Analytics", "Customer 360", "AI Insights"]
   },
   {
     id: "sales-cloud",
     name: "Sales Cloud",
     description: "Accelerate your sales process with intelligent automation, pipeline management, and predictive analytics.",
-    icon: "📊",
+    icon: "FaChartLine",
     features: ["Lead Management", "Opportunity Tracking", "Sales Automation", "Forecasting"]
   },
   {
     id: "service-cloud",
     name: "Service Cloud",
     description: "Deliver exceptional customer service with omnichannel support, case management, and AI-powered solutions.",
-    icon: "🎧",
+    icon: "FaHeadphones",
     features: ["Case Management", "Omnichannel Support", "Knowledge Base", "Service Analytics"]
   },
   {
     id: "experience-cloud",
     name: "Experience Cloud",
     description: "Create personalized digital experiences that connect customers, partners, and employees seamlessly.",
-    icon: "🌐",
+    icon: "FaGlobe",
     features: ["Community Building", "Partner Portals", "Customer Portals", "Digital Experiences"]
   },
   {
     id: "field-service",
     name: "Field Service Lightning",
     description: "Optimize field operations with intelligent scheduling, mobile workforce management, and IoT integration.",
-    icon: "⚡",
+    icon: "FaBolt",
     features: ["Work Order Management", "Mobile App", "Scheduling Optimization", "IoT Integration"]
   },
   {
     id: "manufacturing-cloud",
     name: "Manufacturing Cloud",
     description: "Transform manufacturing operations with account-based forecasting, partner management, and supply chain visibility.",
-    icon: "🏭",
+    icon: "FaIndustry",
     features: ["Account Planning", "Partner Management", "Supply Chain", "Production Tracking"]
   },
   {
     id: "crm-analytics",
     name: "CRM Analytics",
     description: "Turn data into actionable insights with advanced analytics, AI-powered predictions, and interactive dashboards.",
-    icon: "📈",
+    icon: "FaChartLine",
     features: ["Advanced Analytics", "AI Predictions", "Interactive Dashboards", "Data Visualization"]
   },
   {
     id: "revenue-cloud",
     name: "Revenue Cloud",
     description: "Streamline your revenue operations with intelligent quoting, contract management, and subscription billing.",
-    icon: "💰",
+    icon: "FaMoneyBillWave",
     features: ["Configure Price Quote", "Contract Management", "Subscription Billing", "Revenue Recognition"]
   },
   {
     id: "education-cloud",
     name: "Education Cloud",
     description: "Transform educational experiences with student lifecycle management, recruitment, and engagement tools.",
-    icon: "🎓",
+    icon: "FaGraduationCap",
     features: ["Student Management", "Recruitment", "Academic Planning", "Alumni Engagement"]
   }
 ];
 
 const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cloud, index }) => {
+  // Render icon from map or fallback to emoji/string
+  const IconComponent = cloudIconMap[cloud.icon as keyof typeof cloudIconMap];
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -128,7 +178,11 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
               className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600
                 shadow-lg transform-gpu"
             >
-              <span className="text-xl sm:text-2xl">{cloud.icon}</span>
+              {IconComponent ? (
+                <IconComponent className="text-white text-xl sm:text-2xl" />
+              ) : (
+                <span className="text-xl sm:text-2xl">{cloud.icon}</span>
+              )}
             </motion.div>
             <div>
               <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent">
@@ -151,7 +205,7 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
               Key Features
             </h4>
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
-              {cloud.features.map((feature, featureIndex) => (
+              {cloud.features?.map((feature, featureIndex) => (
                 <div
                   key={feature}
                   className="flex items-center gap-2 sm:gap-3 group/feature"

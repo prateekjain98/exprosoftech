@@ -520,6 +520,11 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({
+          name: 'isVisible',
+          type: 'boolean',
+          title: 'Is Visible',
+        }),
+        defineField({
           name: 'heading',
           type: 'object',
           fields: [
@@ -538,7 +543,35 @@ export default defineType({
               defineField({ name: 'id', type: 'string', title: 'ID' }),
               defineField({ name: 'name', type: 'string', title: 'Name' }),
               defineField({ name: 'description', type: 'text', title: 'Description' }),
-              defineField({ name: 'icon', type: 'string', title: 'Icon' }),
+              defineField({ name: 'icon', type: 'string', options: {
+                list:[
+                  { title: 'Cloud', value: 'FaCloud' },
+                  { title: 'Database', value: 'FaDatabase' },
+                  { title: 'Sales' , value:'FaDollarSign'},
+                  { title: 'ChartLine', value: 'FaChartLine' },
+                  { title: 'Headphones', value: 'FaHeadphones' },
+                  { title: 'Globe', value: 'FaGlobe' },
+                  { title: 'Bolt', value: 'FaBolt' },
+                  { title: 'Industry', value: 'FaIndustry' },
+                  { title: 'MoneyBillWave', value: 'FaMoneyBillWave' },
+                  { title: 'GraduationCap', value: 'FaGraduationCap' },
+                  { title: 'BoxOpen', value: 'FaBoxOpen' },
+                  { title: 'Users', value: 'FiUsers' },
+                  { title: 'Settings', value: 'FiSettings' },
+                  { title: 'Box', value: 'FiBox' },
+                  { title: 'TrendingUp', value: 'FiTrendingUp' },
+                  { title: 'Target', value: 'FiTarget' },
+                  { title: 'Shield', value: 'FiShield' },
+                  { title: 'Zap', value: 'FiZap' },
+                  { title: 'Cpu', value: 'FiCpu' },
+                  { title: 'Globe', value: 'FiGlobe' },
+                  { title: 'Layers', value: 'FiLayers' },
+                  { title: 'Database', value: 'FiDatabase' },
+                  { title: 'Code', value: 'FiCode' },
+                  { title: 'Briefcase', value: 'FiBriefcase' },
+                  { title: 'BarChart', value: 'FiBarChart2' }
+                ]
+              }, title: 'Icon' }),
               defineField({
                 name: 'features',
                 type: 'array',
