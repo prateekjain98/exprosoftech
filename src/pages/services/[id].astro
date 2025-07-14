@@ -445,11 +445,10 @@ if (!service) {
     />
   )}
 
- 
+  <HomeBlogSection /> 
 
   <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
 
-  <HomeBlogSection />
   
   {service.faqSection && (
     <NewFAQ client:visible Faq={[service.faqSection]} />
