@@ -59,7 +59,7 @@ const service = await sanityClient.fetch(`
       buttons[] {
         label,
         link,
-        isCalendly
+        isOpenBooking
       },
       image {
         "src": src.asset->url,
@@ -297,7 +297,11 @@ const service = await sanityClient.fetch(`
         label,
         icon
       },
-      buttonText,
+      buttons[] {
+        label,
+        link,
+        isOpenBooking
+      },
       image {
         "src": src.asset->url,
         alt
@@ -430,8 +434,8 @@ if (!service) {
       heading={service.bestPracticesSection?.heading}
     /> 
   )}
-  
-  <IndustriesWeServe client:visible />
+<!--   
+  <IndustriesWeServe client:visible /> -->
   
   {service.benefitsSection?.isVisible && (
     <ServicesBenefits 

@@ -48,7 +48,7 @@ const pageData = await sanityClient.fetch(`
         "src": src.asset->url,
         alt
       },
-      buttons[] { label, link, isCalendly }
+      buttons[] { label, link, isOpenBooking }
     },
     clientsSection { isVisible, clients[] { name, "logo": logo.asset->url } },
     offeringsSection {
@@ -123,7 +123,7 @@ const pageData = await sanityClient.fetch(`
         label,
         icon
       },
-      buttonText,
+       buttons[] { label, link, isOpenBooking },
       image {
         "src": src.asset->url,
         alt

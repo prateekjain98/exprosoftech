@@ -9,6 +9,7 @@ import { sanityClient } from "sanity:client";
 import BusinessGuidance from "../components/BusinessGuidance";
 import Offerings from "../components/Offerings";
 import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
+import { DynamicCTA } from "../components/DynamicCTA";
 
 // GROQ query to fetch all about page data
 const aboutQuery = `*[_type == "about"][0] {
@@ -27,6 +28,11 @@ const aboutQuery = `*[_type == "about"][0] {
     content,
     image {
       asset->
+    },
+    buttons[] {
+      label,
+      link,
+      isOpenBooking
     }
   },
   businessGuidance {
@@ -119,13 +125,35 @@ const aboutQuery = `*[_type == "about"][0] {
       description,
       active
     }
+  },
+  ctaSection {
+    tagline,
+    title,
+    subtitle,
+    description,
+    metrices[] {
+      value,
+      label,
+      icon
+    },
+    buttons[] {
+      label,
+      link,
+      isOpenBooking
+    },
+    image {
+      asset-> {
+        url
+      },
+      alt
+    }
   }
 }`
 
 const pageData = await sanityClient.fetch(aboutQuery);
 
 // Destructure meta data
-const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection } = pageData;
+const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection, ctaSection } = pageData;
 
 // Structure data for each component
 const bannerData = {
@@ -133,30 +161,31 @@ const bannerData = {
   title: bannerSection.title,
   description: bannerSection.description,
   content: bannerSection.content,
-  featuredImage: bannerSection.image
+  featuredImage: bannerSection.image,
+  buttons: bannerSection.buttons
 };
 
-// const businessGuidanceData = {
-//   title: pageData.businessGuidance.title,
-//   subtitle: pageData.businessGuidance.subtitle,
-//   description: pageData.businessGuidance.description,
-//   image: {
-//     src: pageData.businessGuidance.image?.asset?.url || '',
-//     alt: pageData.businessGuidance.image?.alt || ''
-//   },
-//   guidancePoints: pageData.businessGuidance.guidancePoints
-// };
+const businessGuidanceData = {
+  title: pageData.businessGuidance.title,
+  subtitle: pageData.businessGuidance.subtitle,
+  description: pageData.businessGuidance.description,
+  image: {
+    src: pageData.businessGuidance.image?.asset?.url || '',
+    alt: pageData.businessGuidance.image?.alt || ''
+  },
+  guidancePoints: pageData.businessGuidance.guidancePoints
+};
 
-// const empowermentData = {
-//   title: pageData.businessGuidance.empowerment.title,
-//   subtitle: pageData.businessGuidance.empowerment.subtitle,
-//   description: pageData.businessGuidance.empowerment.description,
-//   points: pageData.businessGuidance.empowerment.points,
-//   empowermentImage: {
-//     src: pageData.businessGuidance.empowerment.empowermentImage?.asset?.url || '',
-//     alt: pageData.businessGuidance.empowerment.empowermentImage?.alt || ''
-//   }
-// };
+const empowermentData = {
+  title: pageData.businessGuidance.empowerment.title,
+  subtitle: pageData.businessGuidance.empowerment.subtitle,
+  description: pageData.businessGuidance.empowerment.description,
+  points: pageData.businessGuidance.empowerment.points,
+  empowermentImage: {
+    src: pageData.businessGuidance.empowerment.empowermentImage?.asset?.url || '',
+    alt: pageData.businessGuidance.empowerment.empowermentImage?.alt || ''
+  }
+};
 
 const offeringsData = {
   heading: {
@@ -199,6 +228,19 @@ const faqData = [{
   description: faqSection.description,
   list: faqSection.list
 }];
+
+// const ctaData = {
+//   tagline: ctaSection.tagline,
+//   title: ctaSection.title,
+//   subtitle: ctaSection.subtitle || "",
+//   description: ctaSection.description,
+//   metrices: ctaSection.metrices || [],
+//   buttons: ctaSection.buttons,
+//   image: {
+//     src: ctaSection.image?.asset?.url || "",
+//     alt: ctaSection.image?.alt || ""
+//   }
+// };
 ---
 
 <Base
@@ -208,11 +250,13 @@ const faqData = [{
   image={meta.image}
 >
   <AboutBanner client:load data={bannerData} />
-  <!-- <BusinessGuidance 
+
+  <BusinessGuidance 
     client:visible 
     businessGuidanceData={businessGuidanceData}
     empowermentData={empowermentData}
-  /> -->
+  />
+
   {companySection && (
     <AboutCompany client:load data={companyData} />
   )}
@@ -228,4 +272,5 @@ const faqData = [{
   />
   <WhyGreymetre client:load data={whyGreymetreData} />
   <NewFAQ client:load Faq={faqData} />
+  <!-- <DynamicCTA client:visible ctaContent={ctaData} /> -->
 </Base>

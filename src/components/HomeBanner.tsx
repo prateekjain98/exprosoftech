@@ -240,8 +240,6 @@ interface HomeBannerProps {
       label: string;
       link: string;
       isOpenBooking?: boolean;
-      overlayIframeSrc?: string;
-      overlayTitle?: string;
     }>;
   };
 }
@@ -449,7 +447,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
               )}
               {data.buttons && (
                 <div className="flex flex-wrap justify-center gap-4">
-                  {data.buttons.map(({ label, link, isOpenBooking, overlayIframeSrc, overlayTitle }: { label: string, link: string, isOpenBooking?: boolean, overlayIframeSrc?: string, overlayTitle?: string }, index: number) => (
+                  {data.buttons.map(({ label, link, isOpenBooking, }: { label: string, link: string, isOpenBooking?: boolean }, index: number) => (
                     <div
                       key={index}
                       data-aos="fade-up-sm"
@@ -460,8 +458,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
                         variant={index === 0 ? "primary" : "outline-primary"}
                         target={link && link.startsWith("http") ? "_blank" : "_self"}
                         hasOverlay={isOpenBooking}
-                        overlayIframeSrc={overlayIframeSrc}
-                        overlayTitle={overlayTitle}
+
                       >
                         {label}
                       </Button>
@@ -497,7 +494,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
               {/* Buttons - Show only on xl and above screens */}
               {data.buttons && (
                 <div className="hidden xl:flex flex-wrap justify-center gap-4">
-                  {data.buttons.map(({ label, link, isOpenBooking, overlayIframeSrc, overlayTitle }: { label: string, link: string, isOpenBooking?: boolean, overlayIframeSrc?: string, overlayTitle?: string }, index: number) => (
+                  {data.buttons.map(({ label, link, isOpenBooking, }: { label: string, link: string, isOpenBooking?: boolean }, index: number) => (
                     <div
                       key={index}
                       data-aos="fade-up-sm"
@@ -508,8 +505,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
                         variant={index === 0 ? "primary" : "outline-primary"}
                         target={link && link.startsWith("http") ? "_blank" : "_self"}
                         hasOverlay={isOpenBooking}
-                        overlayIframeSrc={overlayIframeSrc}
-                        overlayTitle={overlayTitle}
+
                       >
                         {label}
                       </Button>
@@ -579,7 +575,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
             {/* Buttons - Show only on lg screens */}
             {data.buttons && (
               <div className="lg:flex xl:hidden flex-wrap justify-center gap-4 mt-8">
-                {data.buttons.map(({ label, link, isOpenBooking, overlayIframeSrc, overlayTitle }: { label: string, link: string, isOpenBooking?: boolean, overlayIframeSrc?: string, overlayTitle?: string }, index: number) => (
+                {data.buttons.map(({ label, link, isOpenBooking, }: { label: string, link: string, isOpenBooking?: boolean }, index: number) => (
                   <div
                     key={index}
                     data-aos="fade-up-sm"
@@ -590,8 +586,7 @@ export const HomeBanner: React.FC<HomeBannerProps> = ({ data }: HomeBannerProps)
                       variant={index === 0 ? "primary" : "outline-primary"}
                       target={link && link.startsWith("http") ? "_blank" : "_self"}
                       hasOverlay={isOpenBooking}
-                      overlayIframeSrc={overlayIframeSrc}
-                      overlayTitle={overlayTitle}
+
                     >
                       {label}
                     </Button>

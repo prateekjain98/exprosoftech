@@ -27,8 +27,6 @@ interface ButtonProps {
   disabled?: boolean;
   // Overlay props
   hasOverlay?: boolean;
-  overlayIframeSrc?: string;
-  overlayTitle?: string;
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
@@ -66,10 +64,13 @@ export const Button: React.FC<ButtonProps> = ({
   type = "button",
   disabled = false,
   hasOverlay = false,
-  overlayIframeSrc = "",
-  overlayTitle = "Content",
+
 }) => {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+
+  // Hardcoded overlay values
+  const overlayIframeSrc = 'https://outlook.office.com/book/MeetingwithNeel@exprosoftech.com/?ismsaljsauthenabled';
+  const overlayTitle = "Schedule a Meeting";
 
   const baseStyles =
     "btn flex items-center gap-2 font-medium transition-all duration-300";

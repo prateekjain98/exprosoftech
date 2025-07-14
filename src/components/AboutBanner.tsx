@@ -13,6 +13,11 @@ interface BannerData {
       url: string;
     }
   };
+  buttons: {
+    label: string;
+    link: string;
+    isOpenBooking: boolean;
+  }[];
 }
 
 interface AboutBannerProps {
@@ -20,7 +25,7 @@ interface AboutBannerProps {
 }
 
 const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
-  const { title, subtitle, description, content, featuredImage } = data;
+  const { title, subtitle, description, content, featuredImage, buttons } = data;
 
   return (
     <section className="relative py-20 lg:pb-28 overflow-hidden">
@@ -57,8 +62,8 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
               <div className="mt-10" data-aos="fade-up" data-aos-delay="300">
                 <ul className="flex flex-wrap justify-center lg:justify-start gap-4">
                   <li>
-                    <Button href="#leadership" size="lg" >
-                      Meet Our Team
+                    <Button href={buttons[0].link} size="lg" hasOverlay={buttons[0].isOpenBooking}>
+                      {buttons[0].label}
                     </Button>
                   </li>
                 </ul>

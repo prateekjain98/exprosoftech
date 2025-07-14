@@ -15,7 +15,7 @@ interface FloatingElement {
 interface Button {
   label: string;
   link: string;
-  isCalendly: boolean;
+  isOpenBooking: boolean;
 }
 
 interface BannerContent {
@@ -38,7 +38,7 @@ export const  ServicesBanner: React.FC<Props> = ({ className, content }) => {
   // Default button if none provided
   const primaryButton = content.buttons && content.buttons.length > 0 
     ? content.buttons[0] 
-    : { label: "Get Started", link: "#", isCalendly: false };
+    : { label: "Get Started", link: "#", isOpenBooking: true };
 
   return (
     <section className="relative z-[1] pt-16 pb-24 lg:pt-[7rem] lg:pb-32">
@@ -60,7 +60,7 @@ export const  ServicesBanner: React.FC<Props> = ({ className, content }) => {
             <ul className="flex flex-wrap lg:justify-start justify-center gap-4">
               {content.buttons && content.buttons.map((button, index) => (
                 <li key={index} data-aos="fade-up-sm" data-aos-delay={100 + (index * 50)}>
-                  <Button href={button.link} variant="primary" isCalendlyButton={button.isCalendly}>
+                  <Button href={button.link} variant="primary" hasOverlay={button.isOpenBooking}>
                     {button.label}
                   </Button>
                 </li>

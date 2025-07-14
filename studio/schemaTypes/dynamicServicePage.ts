@@ -58,27 +58,22 @@ export const dynamicServicePageType = defineType({
           name: 'buttons',
           title: 'Buttons',
           type: 'array',
-          of: [{
-            type: 'object',
-            fields: [
-              defineField({
-                name: 'label',
-                title: 'Label',
-                type: 'string'
-              }),
-              defineField({
-                name: 'link',
-                title: 'Link',
-                type: 'string'
-              }),
-              defineField({
-                name: 'isCalendly',
-                title: 'Is Calendly Link',
-                type: 'boolean',
-                initialValue: false
-              })
-            ]
-          }]
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'label', type: 'string', title: 'Label' }),
+                defineField({ name: 'link', type: 'string', title: 'Link' }),
+                defineField({ 
+                  name: 'isOpenBooking', 
+                  type: 'boolean', 
+                  title: 'Opens Booking Form',
+                  description: 'Enable overlay with iframe functionality instead of regular link'
+                }),
+                
+              ]
+            }
+          ]
         }),
         defineField({
           name: 'image',
@@ -1411,10 +1406,25 @@ export const dynamicServicePageType = defineType({
           ],
         }),
         defineField({
-          name: 'buttonText',
-          title: 'Button Text',
-          type: 'string',
-          
+          name: 'buttons',
+          title: 'Buttons',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'label', type: 'string', title: 'Label' }),
+                defineField({ name: 'link', type: 'string', title: 'Link' }),
+                defineField({ 
+                  name: 'isOpenBooking', 
+                  type: 'boolean', 
+                  title: 'Opens Booking Form',
+                  description: 'Enable overlay with iframe functionality instead of regular link'
+                }),
+                
+              ]
+            }
+          ]
         }),
         defineField({
           name: 'image',

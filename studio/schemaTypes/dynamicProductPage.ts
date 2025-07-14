@@ -94,40 +94,19 @@ export const dynamicProductPageType = defineType({
             {
               type: 'object',
               fields: [
-                defineField({
-                  name: 'label',
-                  title: 'Button Label',
-                  type: 'string',
-                  
+                defineField({ name: 'label', type: 'string', title: 'Label' }),
+                defineField({ name: 'link', type: 'string', title: 'Link' }),
+                defineField({ 
+                  name: 'isOpenBooking', 
+                  type: 'boolean', 
+                  title: 'Opens Booking Form',
+                  description: 'Enable overlay with iframe functionality instead of regular link'
                 }),
-                defineField({
-                  name: 'link',
-                  title: 'Button Link',
-                  type: 'string',
-                  
-                }),
-                defineField({
-                  name: 'variant',
-                  title: 'Button Variant',
-                  type: 'string',
-                  options: {
-                    list: [
-                      {title: 'Primary', value: 'primary'},
-                      {title: 'Secondary', value: 'secondary'}
-                    ]
-                  },
-                  initialValue: 'primary'
-                }),
-                defineField({
-                  name: 'isCalendly',
-                  title: 'Is Calendly Link',
-                  type: 'boolean',
-                  initialValue: false
-                })
+                
               ]
             }
-          ],
-        })
+          ]
+        }),
       ],
     }),
 
@@ -921,10 +900,25 @@ export const dynamicProductPageType = defineType({
 
         }),
         defineField({
-          name: 'buttonText',
-          title: 'Button Text',
-          type: 'string',
-          
+          name: 'buttons',
+          title: 'Buttons',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'label', type: 'string', title: 'Label' }),
+                defineField({ name: 'link', type: 'string', title: 'Link' }),
+                defineField({ 
+                  name: 'isOpenBooking', 
+                  type: 'boolean', 
+                  title: 'Opens Booking Form',
+                  description: 'Enable overlay with iframe functionality instead of regular link'
+                }),
+                
+              ]
+            }
+          ]
         }),
         defineField({
           name: 'image',

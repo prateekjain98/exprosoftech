@@ -20,7 +20,7 @@ const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
         buttons[] {
             label,
             link,
-            isCalendly
+            isOpenBooking
         }
     },
     industries {
@@ -60,7 +60,11 @@ const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
         title,
         description,
         metrices,
-        buttonText,
+        buttons[] {
+            label,
+            link,
+            isOpenBooking
+        },
         image {
             asset->,
             alt

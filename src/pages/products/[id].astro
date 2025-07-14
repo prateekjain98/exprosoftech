@@ -49,7 +49,11 @@ const product = await sanityClient.fetch(`
         "src": src.asset->url,
         alt
       },
-      buttons
+      buttons[] {
+        label,
+        link,
+        isOpenBooking
+      }
     },
     clients,
     featuresGridSection,
@@ -107,7 +111,11 @@ const product = await sanityClient.fetch(`
       subtitle,
       description,
       metrices,
-      buttonText,
+      buttons[] {
+        label,
+        link,
+        isOpenBooking
+      },
       image {
         "src": src.asset->url,
         alt
@@ -156,7 +164,6 @@ const carouselPosts = productBlogs.map((blog: any) => ({
 >
   <ProductHeader {...product.headerContent} client:load />
   <!-- <Clients client:visible data={product.clients} /> -->
-  
   
   <MobileFeatures 
     client:visible 

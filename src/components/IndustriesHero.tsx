@@ -5,7 +5,7 @@ import Button from "./common/Button";
 interface HeroButton {
   label: string;
   link: string;
-  isCalendly?: boolean;
+  isOpenBooking?: boolean;
 }
 
 interface HeroData {
@@ -53,7 +53,7 @@ const IndustriesHero: React.FC<IndustriesHeroProps> = ({ data }) => {
                 <ul className="flex flex-wrap justify-center lg:justify-start gap-4">
                   {buttons?.map((button: HeroButton, index: number) => (
                     <li key={index}>
-                      <Button href={button.link} size="lg">
+                      <Button href={button.link} size="lg" hasOverlay={button.isOpenBooking}>
                         {button.label}
                       </Button>
                     </li>

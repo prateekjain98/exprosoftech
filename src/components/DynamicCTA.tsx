@@ -50,7 +50,7 @@ interface CTAProps {
     subtitle: string;
     description: string;
     metrices: MetricType[];
-    buttonText: string;
+    buttons: { label: string; link: string; isOpenBooking: boolean }[];
     image: {
       src: string;
       alt: string;
@@ -197,8 +197,9 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
 
                 <Button
                   variant="primary"
+                  hasOverlay={ctaContent.buttons[0].isOpenBooking}
                 >
-                  {ctaContent.buttonText || "Get Started"}
+                  {ctaContent.buttons[0].label || "Get Started"}
                 </Button>
               </div>
 

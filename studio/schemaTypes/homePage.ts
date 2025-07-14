@@ -69,21 +69,6 @@ export default defineType({
                   title: 'Opens Booking Form',
                   description: 'Enable overlay with iframe functionality instead of regular link'
                 }),
-                defineField({ 
-                  name: 'overlayIframeSrc', 
-                  type: 'string', 
-                  title: 'Overlay iFrame Source',
-                  description: 'URL to load in the overlay iframe (required when Has Overlay is enabled)',
-                  hidden: ({ parent }) => !parent?.hasOverlay
-                }),
-                defineField({ 
-                  name: 'overlayTitle', 
-                  type: 'string', 
-                  title: 'Overlay Title',
-                  description: 'Title displayed in the overlay header',
-                  hidden: ({ parent }) => !parent?.hasOverlay,
-                  initialValue: 'Content'
-                })
               ]
             }
           ]
@@ -670,10 +655,25 @@ export default defineType({
           ],
         }),
         defineField({
-          name: 'buttonText',
-          title: 'Button Text',
-          type: 'string',
-          
+          name: 'buttons',
+          title: 'Buttons',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'label', type: 'string', title: 'Label' }),
+                defineField({ name: 'link', type: 'string', title: 'Link' }),
+                defineField({ 
+                  name: 'isOpenBooking', 
+                  type: 'boolean', 
+                  title: 'Opens Booking Form',
+                  description: 'Enable overlay with iframe functionality instead of regular link'
+                }),
+                
+              ]
+            }
+          ]
         }),
         defineField({
           name: 'image',
