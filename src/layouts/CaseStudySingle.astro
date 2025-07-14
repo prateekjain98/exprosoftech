@@ -48,11 +48,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
       },
       buttonText,
       image {
-        src {
-          asset->{
-            url
-          }
-        },
+        "src": src.asset->url,
         alt
       }
     },

@@ -155,16 +155,16 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
               {/* Content Side */}
               <div className="lg:col-span-3 text-center lg:text-left">
                 <span className="inline-block px-4 py-1.5 mb-6 text-xs font-medium tracking-wide text-blue-400 bg-blue-500/10 rounded-full border border-blue-500/20">
-                  {ctaContent.tagline}
+                  {ctaContent.tagline || ""}
                 </span>
                 <h2 className="text-3xl lg:text-4xl font-medium mb-6 text-white">
-                  {ctaContent.title}{" "}
+                  {ctaContent.title || ""}{" "}
                   <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                    {ctaContent.subtitle}
+                    {ctaContent.subtitle || ""}
                   </span>
                 </h2>
                 <p className="text-lg text-gray-300/90 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                  {ctaContent.description}
+                  {ctaContent.description || ""}
                 </p>
 
                 {/* Metrics Grid */}
