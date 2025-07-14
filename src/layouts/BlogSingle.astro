@@ -8,9 +8,9 @@ import CallToAction from "./partials/CallToAction.astro";
 import { sanityClient } from "sanity:client";
 import { PortableText } from "astro-portabletext";
 import { urlForImage } from "@/lib/utils/sanityImage";
-
+import { DynamicCTA } from "../components/DynamicCTA";
 const { post } = Astro.props;
-const { title, author, image, date, body, slug } = post;
+const { title, author, image, date, body, slug, ctaSection } = post;
 
 // Debug logs
 
@@ -133,5 +133,5 @@ const relatedPosts = await sanityClient.fetch(`
   </div>
   <!-- Related posts -->
   <BlogSection visiblePosts={3} posts={relatedPosts} />
-  <CallToAction />
+  <DynamicCTA client:visible ctaContent={ctaSection} />
 </section>
