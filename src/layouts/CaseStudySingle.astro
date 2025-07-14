@@ -21,7 +21,8 @@ const {
   featuredImage, 
   logo, 
   publishedAt,
-  slug 
+  slug, 
+  ctaSection
 } = caseStudy;
 
 // Define components for PortableText
@@ -224,7 +225,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
       </div>
     </div>
   )}
-  {caseStudy.ctaSection && (
-    <DynamicCTA  ctaContent={caseStudy.ctaSection} />
+  {ctaSection && (
+    <DynamicCTA  ctaContent={ctaSection} />
   )}
 </section> 

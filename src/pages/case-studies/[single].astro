@@ -32,6 +32,23 @@ export async function getStaticPaths() {
           url
         },
         alt
+      },
+      
+      ctaSection {
+        tagline,
+        title,
+        subtitle,
+        description,
+        metrices[] {
+          value,
+          label,
+          icon
+        },
+        buttonText,
+        image {
+          "src": src.asset->url,
+          alt
+        }
       }
     }
   `);
