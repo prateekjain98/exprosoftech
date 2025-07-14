@@ -225,7 +225,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
       </div>
     </div>
   )}
-  {ctaSection && (
-    <DynamicCTA  ctaContent={ctaSection} />
+  {ctaSection && ctaSection.isVisible && (
+    <DynamicCTA ctaContent={ctaSection} />
   )}
 </section> 

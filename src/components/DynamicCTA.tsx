@@ -136,6 +136,11 @@ const iconMap: { [key: string]: React.ComponentType<any> } = {
 };
 
 export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
+  // Early return if ctaContent is null or undefined
+  if (!ctaContent) {
+    return null;
+  }
+
   const getIcon = (iconName: string) => {
     return iconMap[iconName] || FiHelpCircle;
   };
@@ -191,10 +196,9 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                 </div>
 
                 <Button
-                
                   variant="primary"
                 >
-                  {ctaContent.buttonText}
+                  {ctaContent.buttonText || "Get Started"}
                 </Button>
               </div>
 

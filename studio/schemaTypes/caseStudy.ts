@@ -152,6 +152,12 @@ export const caseStudyType = defineType({
       type: 'object',
       fields: [
         defineField({
+          name:'isVisible',
+          title: 'Is Visible',
+          type: 'boolean',
+          initialValue: false
+        }),
+        defineField({
           name: 'tagline',
           title: 'Tagline',
           type: 'string',
