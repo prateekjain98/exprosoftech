@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {FaRobot} from "react-icons/fa";
 import {
   FiSettings,
   FiTrendingUp,
@@ -15,6 +16,21 @@ import {
   FiShield,
   FiTruck,
   FiUser,
+  FiPackage,
+  FiClock,
+  FiTarget,
+  FiActivity,
+  FiCheckCircle,
+  FiStar,
+  FiAward,
+  FiBox,
+  FiCpu,
+  FiBarChart,
+  FiFileText,
+  FiPieChart,
+  FiPower,
+  FiHeart,
+  FiCreditCard,
 } from "react-icons/fi";
 import {
   HiOutlineLightBulb,
@@ -128,29 +144,46 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
   // Convert icon string to component - Enhanced with more options
   const getIconComponent = (iconName: string) => {
     const icons = {
-      // Current icons (keeping these as they're good choices)
-      Gear: FiSettings,
+      // Schema icons mapped to available alternatives
+      Activity: FiActivity,
+      ArrowRight: FiArrowRight,
+      Brain: FiCpu,
+      Briefcase: FiBriefcase,
+      ChartBar: TbChartBar,
       ChartLineUp: FiTrendingUp,
+      ChartPie: FiPieChart,
+      CheckCircle: FiCheckCircle,
+      Clock: FiClock,
+      Cloud: FiCloud,
+      Code: FiCode,
+      Coins: FiDollarSign,
+      Cube: FiBox,
       Database: FiDatabase,
+      Desktop: FiMonitor,
+      DollarSign: FiDollarSign,
+      Gauge: FiZap,
+      Gear: FiSettings,
+      Globe: FiGlobe,
+      Handshake: FiHeart,
+      LightbulbFilament: HiOutlineLightBulb,
+      Lightning: FiZap,
+      Lock: TbLock,
+      Medal: FiAward,
+      Package: FiPackage,
+      Plugs: FiPower,
+      Receipt: FiFileText,
+      Robot: FaRobot,
+      Rocket: HiOutlineRocketLaunch,
+      Settings: FiSettings,
+      ShieldCheck: HiOutlineShieldCheck,
+      Star: FiStar,
+      Storefront: HiOutlineBuildingStorefront,
+      Target: FiTarget,
+      Trophy: FiAward,
+      Truck: FiTruck,
+      UserCircle: FiUser,
       Users: FiUsers,
-      
-             // Additional schema icons with better alternatives
-       ArrowRight: FiArrowRight,
-       Briefcase: FiBriefcase,
-       ChartBar: TbChartBar, // Better chart bar icon from Tabler
-       Cloud: FiCloud,
-       Code: FiCode,
-       CurrencyDollar: FiDollarSign,
-       Desktop: FiMonitor,
-       Globe: FiGlobe,
-       LightbulbFilament: HiOutlineLightBulb, // Beautiful lightbulb from Heroicons
-       Lightning: FiZap, // More modern lightning icon
-       Lock: TbLock, // Clean lock icon from Tabler
-       Rocket: HiOutlineRocketLaunch, // Modern rocket from Heroicons v2
-       ShieldCheck: HiOutlineShieldCheck, // Better shield with check from Heroicons
-       Storefront: HiOutlineBuildingStorefront, // Modern storefront icon
-       Truck: FiTruck,
-       UserCircle: FiUser,
+      Wallet: FiCreditCard,
     };
     return icons[iconName as keyof typeof icons] || FiSettings;
   };
