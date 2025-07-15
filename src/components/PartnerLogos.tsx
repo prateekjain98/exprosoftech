@@ -73,11 +73,11 @@ export const PartnerLogos = ({ data }: PartnerLogosProps) => {
                 />
               </div>
               {/* Company Name */}
-              {logo.name && (
+              {/* {logo.name && (
                 <h3 className="text-lg font-semibold text-white text-center mt-4">
                   {logo.name}
                 </h3>
-              )}
+              )} */}
             </div>
           ))}
         </div>

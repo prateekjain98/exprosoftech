@@ -16,6 +16,7 @@ import HomeBlogSection from "../components/HomeBlogSection.astro";
 import DynamicCTA from "../components/DynamicCTA";
 import { CloudSpecializations } from "../components/CloudSpecializations";
 import CaseStudyCarousel from "../components/CaseStudyCarousel";
+import { PartnerLogos } from "../components/PartnerLogos";
 
 interface CaseStudy {
   _id: string;
@@ -115,6 +116,16 @@ const pageData = await sanityClient.fetch(`
         features,
       }
     },
+    partnerLogosSection {
+      isVisible,
+      title,
+      subtitle,
+      logos[] {
+        "src": src.asset->url,
+        alt,
+        name
+      }
+    },
     ctaSection {
       tagline,
       title,
@@ -200,7 +211,10 @@ const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
   
   <HomeBlogSection />
 
-
+  {pageData.partnerLogosSection?.isVisible && (
+    <PartnerLogos client:visible data={pageData.partnerLogosSection} />
+  )}
+  
   
   <!-- <ProductSection client:visible data={pageData.productsSection} />  -->
   <TestimonialMarquee client:load data={testimonialData} />
