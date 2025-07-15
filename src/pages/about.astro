@@ -10,6 +10,7 @@ import BusinessGuidance from "../components/BusinessGuidance";
 import Offerings from "../components/Offerings";
 import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
 import { DynamicCTA } from "../components/DynamicCTA";
+import ContentSection from "../components/ContentSection";
 
 // GROQ query to fetch all about page data
 const aboutQuery = `*[_type == "about"][0] {
@@ -38,6 +39,27 @@ const aboutQuery = `*[_type == "about"][0] {
       link,
       isOpenBooking
     }
+  },
+  contentSection {
+      isVisible,
+      subtitle,
+      title,
+      content,
+      image {
+        asset->{
+          url
+        }
+      },
+      imageOverlay {
+        value,
+        label,
+        position
+      },
+      cta {
+        label,
+        link,
+        isOpenBooking
+      }
   },
   businessGuidance {
     title,
@@ -159,7 +181,7 @@ const aboutQuery = `*[_type == "about"][0] {
 const pageData = await sanityClient.fetch(aboutQuery);
 
 // Destructure meta data
-const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection, ctaSection } = pageData;
+const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection, ctaSection, contentSection } = pageData;
 
 // Structure data for each component
 const bannerData = {
@@ -170,6 +192,16 @@ const bannerData = {
   featuredImage: bannerSection.image,
   imageOverlay: bannerSection.imageOverlay,
   buttons: bannerSection.buttons
+};
+
+const contentData = {
+  subtitle: contentSection.subtitle,
+  title: contentSection.title,
+  description: contentSection.description,
+  content: contentSection.content,
+  image: contentSection.image,
+  imageOverlay: contentSection.imageOverlay,
+  buttons: contentSection.buttons
 };
 
 const businessGuidanceData = {
@@ -258,6 +290,10 @@ const ctaData = {
   image={meta.image}
 >
   <AboutBanner client:load data={bannerData} />
+
+  {contentSection?.isVisible && (
+    <ContentSection client:visible data={contentData} />
+  )}
 
   <BusinessGuidance 
     client:visible 

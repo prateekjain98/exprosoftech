@@ -193,60 +193,62 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({
             )}
 
             {/* Navigation Buttons */}
-            <div className="absolute left-1/2 -translate-x-1/2 -bottom-6">
-              <div className="flex gap-3 bg-white rounded-full shadow-lg p-2">
-                <button
-                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors disabled:opacity-50"
-                  onClick={() =>
-                    setActiveMember((prev) =>
-                      prev === 0 ? leaders.length - 1 : prev - 1
-                    )
-                  }
-                  aria-label="Previous team member"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+            {leaders.length > 1 && (
+              <div className="absolute left-1/2 -translate-x-1/2 -bottom-6">
+                <div className="flex gap-3 bg-white rounded-full shadow-lg p-2">
+                  <button
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors disabled:opacity-50"
+                    onClick={() =>
+                      setActiveMember((prev) =>
+                        prev === 0 ? leaders.length - 1 : prev - 1
+                      )
+                    }
+                    aria-label="Previous team member"
                   >
-                    <path
-                      d="M12.5 15L7.5 10L12.5 5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-                <button
-                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-                  onClick={() =>
-                    setActiveMember((prev) =>
-                      prev === leaders.length - 1 ? 0 : prev + 1
-                    )
-                  }
-                  aria-label="Next team member"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.5 15L7.5 10L12.5 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                    onClick={() =>
+                      setActiveMember((prev) =>
+                        prev === leaders.length - 1 ? 0 : prev + 1
+                      )
+                    }
+                    aria-label="Next team member"
                   >
-                    <path
-                      d="M7.5 15L12.5 10L7.5 5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M7.5 15L12.5 10L7.5 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

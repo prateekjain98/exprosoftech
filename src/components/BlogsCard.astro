@@ -46,7 +46,7 @@ const { title, slug, image, date, excerpt, body } = content;
   {
     title && (
       <h3 class="h5 mb-3">
-        <a href={`/products/blogs/${slug}/`}>{title}</a>
+        <a href={`/blog/${slug}/`}>{title}</a>
       </h3>
     )
   }
@@ -57,7 +57,7 @@ const { title, slug, image, date, excerpt, body } = content;
       <p class="mb-6">{typeof body === 'string' ? body.slice(0, Number(summary_length)) : 'Read more...'}</p>
     ) : null
   }
-  <a class="btn btn-text border-none" href={`/products/blogs/${slug}/`}>
+  <a class="btn btn-text border-none" href={`/blog/${slug}/`}>
     Read More
     <div class="icon-wrapper">
       <span class="icon" aria-hidden="true">
