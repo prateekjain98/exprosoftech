@@ -162,7 +162,7 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
 
   return (
     <>
-      <section className="py-8 sm:py-12 lg:py-24 bg-gradient-to-b from-white to-slate-50/30 overflow-hidden">
+      {/* <section className="py-8 sm:py-12 lg:py-24 bg-gradient-to-b from-white to-slate-50/30 overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             <div className="relative flex items-center justify-center order-2 lg:order-1">
@@ -188,6 +188,7 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
                   <br />
                   <span className="text-[#0066FF] mt-1 block">{businessGuidanceData.subtitle}</span>
                 </h2>
+                
                 <p
                   className="text-[15px] sm:text-[16px] text-gray-600 leading-relaxed"
                   data-aos="fade-up-sm"
@@ -252,7 +253,7 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="py-8 sm:py-12 lg:py-24 bg-gradient-to-b from-slate-50/30 to-white overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -269,11 +270,11 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
                 {empowermentData.description}
               </p>
 
-              <div className="space-y-6 sm:space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 {empowermentData.points.map((point: EmpowermentPoint, index: number) => (
                   <div
                     key={index}
-                    className="flex gap-3 sm:gap-4 w-full"
+                    className="flex gap-3 sm:gap-4 w-full items-center"
                     data-aos="fade-up"
                     data-aos-delay={index * 100}
                   >
@@ -291,9 +292,11 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
                       <h3 className="text-[15px] sm:text-[16px] font-medium text-gray-900 mb-2">
                         {point.title}
                       </h3>
+                      {/* { point.description && 
                       <p className="text-[14px] sm:text-[16px] text-gray-600 leading-relaxed">
                         {point.description}
                       </p>
+                      } */}
                     </div>
                   </div>
                 ))}
