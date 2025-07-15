@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PortableText } from '@portabletext/react';
 import { Grid } from "./Offerings";
+import SectionHeader from "./SectionHeader";
 
 interface ServiceItem {
   id: string;
@@ -11,12 +12,18 @@ interface ServiceItem {
 }
 
 interface DynamicServiceShowcaseProps {
+  heading: {
+    tagline: string;
+    title: string;
+    description: string;
+  };
   services: ServiceItem[];
   autoRotateInterval?: number; // in milliseconds
   className?: string;
 }
 
 const DynamicServiceShowcase: React.FC<DynamicServiceShowcaseProps> = ({
+  heading,
   services,
   autoRotateInterval = 5000,
   className = "",
@@ -51,6 +58,16 @@ const DynamicServiceShowcase: React.FC<DynamicServiceShowcaseProps> = ({
 
       <div className="container mx-auto px-4 relative">
         <div className="max-w-7xl mx-auto">
+          <div className="mt-12 mb-10">
+          <SectionHeader
+            tagline={heading.tagline}
+            heading={heading.title}
+            subheading={heading.description}
+            alignment="center"
+          />
+          </div>
+          
+          
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
             {/* Left Navigation Panel */}
             <div className="lg:col-span-5">

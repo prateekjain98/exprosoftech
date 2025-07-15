@@ -12,6 +12,10 @@ interface CompanyData {
       url: string;
     }
   };
+  imageOverlay: {
+    value: string;
+    label: string;
+  };
 }
 
 interface AboutCompanyProps {
@@ -19,7 +23,7 @@ interface AboutCompanyProps {
 }
 
 const AboutCompany: React.FC<AboutCompanyProps> = ({ data }) => {
-  const { title, subtitle, description, content, featuredImage } = data;
+  const { title, subtitle, description, content, featuredImage, imageOverlay } = data;
 
   return (
     <section className="relative py-20 lg:py-28">
@@ -40,9 +44,9 @@ const AboutCompany: React.FC<AboutCompanyProps> = ({ data }) => {
                   className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                 />
                 <div className="absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-6 bg-blue-600 text-white p-4 lg:p-6 rounded-lg lg:rounded-xl shadow-lg lg:shadow-xl">
-                  <p className="text-xl lg:text-2xl font-bold">25+</p>
+                  <p className="text-xl lg:text-2xl font-bold">{imageOverlay.value}</p>
                   <p className="text-xs lg:text-sm opacity-90">
-                    Companies Transformed
+                    {imageOverlay.label}
                   </p>
                 </div>
               </div>

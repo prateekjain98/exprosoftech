@@ -80,6 +80,15 @@ export default defineType({
           options: { hotspot: true }
         }),
         defineField({
+          name: 'imageOverlay',
+          title: 'Image Overlay',
+          type: 'object',
+          fields: [
+            defineField({ name: 'value', type: 'string', title: 'Value' }),
+            defineField({ name: 'label', type: 'string', title: 'Label' }),
+          ]
+        }),
+        defineField({
           name: 'buttons',
           title: 'Buttons',
           type: 'array',
@@ -287,7 +296,16 @@ export default defineType({
           title: 'Featured Image',
           type: 'image',
           options: { hotspot: true }
-        })
+        }),
+        defineField({
+          name: 'imageOverlay',
+          title: 'Image Overlay',
+          type: 'object',
+          fields: [
+            defineField({ name: 'value', type: 'string', title: 'Value' }),
+            defineField({ name: 'label', type: 'string', title: 'Label' }),
+          ]
+        }),
       ]
     }),
 

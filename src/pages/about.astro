@@ -29,6 +29,10 @@ const aboutQuery = `*[_type == "about"][0] {
     image {
       asset->
     },
+    imageOverlay {
+      value,
+      label
+    },
     buttons[] {
       label,
       link,
@@ -86,6 +90,10 @@ const aboutQuery = `*[_type == "about"][0] {
     content,
     image {
       asset->
+    },
+    imageOverlay {
+      value,
+      label
     }
   },
   leadershipSection {
@@ -142,9 +150,7 @@ const aboutQuery = `*[_type == "about"][0] {
       isOpenBooking
     },
     image {
-      asset-> {
-        url
-      },
+      "src": src.asset->url,
       alt
     }
   }
@@ -162,6 +168,7 @@ const bannerData = {
   description: bannerSection.description,
   content: bannerSection.content,
   featuredImage: bannerSection.image,
+  imageOverlay: bannerSection.imageOverlay,
   buttons: bannerSection.buttons
 };
 
@@ -205,7 +212,8 @@ const companyData = {
   title: companySection?.title,
   description: companySection?.description,
   content: companySection?.content,
-  featuredImage: companySection?.image
+  featuredImage: companySection?.image,
+  imageOverlay: companySection?.imageOverlay
 };
 
 const leadershipData = {
@@ -229,18 +237,18 @@ const faqData = [{
   list: faqSection.list
 }];
 
-// const ctaData = {
-//   tagline: ctaSection.tagline,
-//   title: ctaSection.title,
-//   subtitle: ctaSection.subtitle || "",
-//   description: ctaSection.description,
-//   metrices: ctaSection.metrices || [],
-//   buttons: ctaSection.buttons,
-//   image: {
-//     src: ctaSection.image?.asset?.url || "",
-//     alt: ctaSection.image?.alt || ""
-//   }
-// };
+const ctaData = {
+  tagline: ctaSection.tagline,
+  title: ctaSection.title,
+  subtitle: ctaSection.subtitle || "",
+  description: ctaSection.description,
+  metrices: ctaSection.metrices || [],
+  buttons: ctaSection.buttons,
+  image: {
+    src: ctaSection.image?.src || "",
+    alt: ctaSection.image?.alt || ""
+  }
+};
 ---
 
 <Base
@@ -272,5 +280,5 @@ const faqData = [{
   />
   <WhyGreymetre client:load data={whyGreymetreData} />
   <NewFAQ client:load Faq={faqData} />
-  <!-- <DynamicCTA client:visible ctaContent={ctaData} /> -->
+  <DynamicCTA client:visible ctaContent={ctaData} />
 </Base>

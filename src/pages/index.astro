@@ -100,7 +100,9 @@ const pageData = await sanityClient.fetch(`
     },
     industriesSection {
       heading { title, subtitle, description },
-      industries[] { name, description, icon }
+      industries[] { name, description, icon },
+      ctaText,
+      ctaLink
     },
     cloudSpecializations {
       isVisible,
@@ -186,10 +188,13 @@ const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
   
 
   <WhyGreymetre client:visible data={pageData.whySection} />
+  
+  <CloudSpecializations client:visible data={pageData.cloudSpecializations} />
+
   {pageData.whySection.isVisible && (
     <WhyGreymetre client:visible data={pageData.whySection} />
   )}
-  <CloudSpecializations client:visible data={pageData.cloudSpecializations} />
+
 
   <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
   

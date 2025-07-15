@@ -40,9 +40,11 @@ export const PartnerLogos = ({ data }: PartnerLogosProps) => {
     ]
   } = data || {};
 
+  // No need for dynamic grid classes with flexbox
+
   return (
     <section className="section py-16 bg-dark">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header using SectionHeader component */}
         <div className="mb-12">
           <SectionHeader
@@ -54,15 +56,15 @@ export const PartnerLogos = ({ data }: PartnerLogosProps) => {
           />
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Dynamic Flex Container */}
+        <div className="flex flex-wrap justify-center items-center gap-8">
           {logos.map((logo, index) => (
             <div
               key={index}
-              className="rounded-xl transition-shadow duration-300 flex flex-col items-center justify-center group"
+              className="rounded-xl transition-shadow duration-300 flex flex-col items-center justify-center group flex-shrink-0"
             >
               {/* Logo Container with Fixed Dimensions */}
-              <div className="w-40 h-auto flex items-center justify-center  group-hover:scale-105 transition-transform duration-300">
+              <div className="w-40 h-32 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <img
                   src={logo.src}
                   alt={logo.alt}
@@ -72,7 +74,7 @@ export const PartnerLogos = ({ data }: PartnerLogosProps) => {
               </div>
               {/* Company Name */}
               {logo.name && (
-                <h3 className="text-lg font-semibold text-gray-800 text-center">
+                <h3 className="text-lg font-semibold text-white text-center mt-4">
                   {logo.name}
                 </h3>
               )}

@@ -3,13 +3,13 @@ import ImageMod from "@/components/ImageMod.astro";
 import config from "@/config/config.json";
 import product from "@/config/product.json";
 import social from "@/config/social.json";
-import { FaEnvelope, FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaEnvelope, FaFacebook, FaPhoneAlt, FaLinkedin, FaTwitter } from "react-icons/fa";
 import {
   mainMenu,
   type NavigationLink,
   type ChildNavigationLink,
 } from "@/components/Header";
-
+import { sanityClient } from "sanity:client";
 const { logo, logo_width, logo_height, title } = config.site;
 
 interface FooterLink {
@@ -29,6 +29,34 @@ const footerLinks = mainMenu.flatMap(
         ) || []
       : [] // Don't include non-dropdown items like About Us and Contact Us
 );
+
+// Footer data query
+const footerQuery = `*[_type == "footer"][0] {
+    companyName,
+    description,
+    logo {
+      asset->{
+        url
+      }
+    },
+    contactInfo {
+      phone,
+      email
+    },
+    partnerLogos[] {
+      name,
+      logo {
+        asset->{
+          url
+        }
+      },
+      url,
+      description
+    },
+    copyright
+  }`;
+
+  const footerData = await sanityClient.fetch(footerQuery);
 ---
 
 <footer class="bg-[#111827] py-16">
@@ -43,46 +71,28 @@ const footerLinks = mainMenu.flatMap(
           <div class="space-y-6">
             <div class="flex items-end justify-start gap-4">
               <a href="/" class="block">
-                <ImageMod
-                  src="/images/new-logo.png"
-                  class="h-auto w-[80px] md:w-[90px]"
-                  width={Number(logo_width.replace("px", "")) * 2}
-                  height={Number(logo_height.replace("px", "")) * 2}
-                  alt={title}
-                  format="webp"
-                />
+                {footerData?.logo?.asset?.url ? (
+                  <img
+                    src={footerData.logo.asset.url}
+                    class="h-auto w-[80px] md:w-[90px]"
+                    alt={footerData?.companyName || title}
+                  />
+                ) : (
+                  <ImageMod
+                    src="/images/new-logo.png"
+                    class="h-auto w-[80px] md:w-[90px]"
+                    width={Number(logo_width.replace("px", "")) * 2}
+                    height={Number(logo_height.replace("px", "")) * 2}
+                    alt={title}
+                    format="webp"
+                  />
+                )}
               </a>
-              <p class="text-white text-2xl lg:text-3xl font-bold">Exporsoftech Pvt. Ltd.</p>
+              <p class="text-white text-2xl lg:text-3xl font-bold">{footerData?.companyName}</p>
             </div>
             <p class="text-light/70 max-w-md">
-              Streamline operations with cutting-edge solutions that
-              future-proof your business.
+              {footerData?.description}
             </p>
-
-            <!-- {
-              config.subscription?.enable && (
-                <div class="pt-0">
-                  <form
-                    action={config.subscription.action}
-                    method="post"
-                    class="flex flex-row gap-2"
-                  >
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      class="bg-dark/50 text-light placeholder:text-light/50 rounded-full px-4 py-2 flex-grow focus:outline-none focus:ring-2 focus:ring-primary border border-light/10"
-                      required
-                    />
-                    <button
-                      type="submit"
-                      class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-primary/90 transition-colors whitespace-nowrap"
-                    >
-                      Subscribe
-                    </button>
-                  </form>
-                </div>
-              )
-            } -->
 
             <!-- Add Social Icons -->
             <div class="flex gap-3 mt-4 items-center justify-start">
@@ -102,16 +112,53 @@ const footerLinks = mainMenu.flatMap(
                 ))
               }
             </div>
-            {/* Salesforce Logo Section */}
-            <div class="mt-6 flex flex-col items-start gap-2">
-              <img
-                src="/images/salesforce-logo.png"
-                alt="Salesforce"
-                class="h-20 w-auto"
-                loading="lazy"
-              />
-              <!-- <span class="text-light/70 text-base font-medium">Salesforce Partner</span> -->
+            <div class="flex gap-3 mt-4 items-center justify-start">
+              <div class="flex items-center gap-2">
+                <FaPhoneAlt/>
+                <span class="text-light/70 text-base font-medium">{footerData?.contactInfo?.phone }</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <FaEnvelope/>
+                <span class="text-light/70 text-base font-medium">{footerData?.contactInfo?.email }</span>
+              </div>
             </div>
+            
+            {/* Partner Logos Section */}
+            {footerData?.partnerLogos && footerData.partnerLogos.length > 0 ? (
+              <div class="mt-6 flex flex-col items-start gap-2">
+                {footerData.partnerLogos.map((partner: any, index: number) => (
+                  <div class="flex flex-col items-start gap-2">
+                    {partner.url ? (
+                      <a href={partner.url} target="_blank" rel="noopener noreferrer">
+                        <img
+                          src={partner.logo.asset.url}
+                          alt={partner.name}
+                          class="h-20 w-auto"
+                          loading="lazy"
+                        />
+                      </a>
+                    ) : (
+                      <img
+                        src={partner.logo.asset.url}
+                        alt={partner.name}
+                        class="h-20 w-auto"
+                        loading="lazy"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Fallback for when no partner logos are available */
+              <div class="mt-6 flex flex-col items-start gap-2">
+                <img
+                  src="/images/salesforce-logo.png"
+                  alt="Salesforce"
+                  class="h-20 w-auto"
+                  loading="lazy"
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -201,13 +248,17 @@ const footerLinks = mainMenu.flatMap(
       <!-- Copyright -->
       <div class="mt-16 pt-8 border-t border-light/10 text-center">
         <p class="text-light/50">
-          Copyright 2025 By Exporsoftech. Designed & Developed by
-          <a
-            href="https://suprdash.com"
-            class="text-light/70 hover:text-primary transition-colors"
-          >
-            Suprdash
-          </a>
+          {footerData?.copyright &&
+            <span set:html={footerData.copyright} />
+            <a
+              href="https://suprdash.com"
+              class="text-light/70 hover:text-primary transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Suprdash
+            </a>
+          }
         </p>
       </div>
     </div>

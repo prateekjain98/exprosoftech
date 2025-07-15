@@ -97,8 +97,26 @@ const service = await sanityClient.fetch(`
         value,
         label,
         position
+      },
+      cta {
+        label,
+        link,
+        isOpenBooking
       }
     },
+
+    cloudSpecializations {
+      isVisible,
+      heading { tagline, title, description },
+      specializations[] {
+        id,
+        name,
+        description,
+        icon,
+        features,
+      }
+    },
+
     offeringsSection {
       isVisible,
       heading {
@@ -347,10 +365,15 @@ if (!service) {
     <ContentSection client:visible data={service.contentSection} />
   )}
 
+{service.cloudSpecializations?.isVisible && (
+  <CloudSpecializations client:visible data={service.cloudSpecializations} />
+)}
+
 {service.dynamicServiceShowcaseSection?.isVisible && (
   <DynamicServiceShowcase 
     client:visible 
     services={service.dynamicServiceShowcaseSection.services}
+    heading={service.dynamicServiceShowcaseSection.heading}
   />
 )}
 

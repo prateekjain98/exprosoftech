@@ -121,10 +121,12 @@ interface IndustriesSectionData {
     description?: string;
   };
   industries: IndustryApp[];
+  ctaText?: string;
+  ctaLink?: string;
 }
 
 // Enhanced Industry Card Component
-const IndustryCard: React.FC<{ industry: IndustryApp; index: number }> = ({ industry, index }) => {
+const IndustryCard: React.FC<{ industry: IndustryApp; index: number }> = ({ industry, index  }) => {
   const [isHovered, setIsHovered] = useState(false);
   
   // Assign color scheme based on index
@@ -253,8 +255,8 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
   // Accept Sanity data or individual props
   data,
   applicationsHeading,
-  ctaText = "Get Started",
-  ctaLink = "#contact",
+  ctaText ,
+  ctaLink ,
   isCalendly = false,
   applicationIndustries,
 
@@ -270,6 +272,8 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
   });
   
   const industries = data?.industries || applicationIndustries || [];
+  const finalCtaText = data?.ctaText || ctaText;
+  const finalCtaLink = data?.ctaLink || ctaLink;
   
   // Create a ref for the stats section to detect when it's in view
   const statsRef = React.useRef(null);
@@ -296,23 +300,24 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
         </div>
         
         {/* CTA Button */}
-        <div className="flex justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <Button
-              href={ctaLink}
-              variant="primary"
-              isCalendlyButton={isCalendly}
-              showArrow={true}
+        {finalCtaText && finalCtaLink && (
+          <div className="flex justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
             >
-              {ctaText}
-            </Button>
-          </motion.div>
-        </div>
+              <Button
+                href={finalCtaLink}
+                variant="primary"
+                showArrow={true}
+              >
+                {finalCtaText}
+              </Button>
+            </motion.div>
+          </div>
+        )}
         
         
 

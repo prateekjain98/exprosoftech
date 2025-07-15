@@ -13,6 +13,10 @@ interface BannerData {
       url: string;
     }
   };
+  imageOverlay: {
+    value: string;
+    label: string;
+  };
   buttons: {
     label: string;
     link: string;
@@ -25,7 +29,7 @@ interface AboutBannerProps {
 }
 
 const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
-  const { title, subtitle, description, content, featuredImage, buttons } = data;
+  const { title, subtitle, description, content, featuredImage, buttons, imageOverlay } = data;
 
   return (
     <section className="relative py-20 lg:pb-28 overflow-hidden">
@@ -84,9 +88,9 @@ const AboutBanner: React.FC<AboutBannerProps> = ({ data }) => {
                   className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                 />
                 <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 bg-blue-600 text-white p-4 lg:p-6 rounded-lg lg:rounded-xl shadow-lg lg:shadow-xl">
-                  <p className="text-xl lg:text-2xl font-bold">35+</p>
+                  <p className="text-xl lg:text-2xl font-bold">{imageOverlay.value}</p>
                   <p className="text-xs lg:text-sm opacity-90">
-                    Years of Combined Experience
+                    {imageOverlay.label}
                   </p>
                 </div>
               </div>

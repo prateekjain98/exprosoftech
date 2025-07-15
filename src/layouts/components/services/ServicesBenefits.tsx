@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons/lib";
 import {
@@ -115,25 +115,108 @@ const iconMap: { [key: string]: IconType } = {
   FaCloud,
 };
 
-// Update the Industry interface to be more specific about icon type
+// Define color schemes for benefits (matching IndustriesWeServe pattern)
+const benefitColorSchemes = [
+  {
+    primary: "from-primary to-primary-light",
+    secondary: "from-secondary-100 to-secondary-200",
+    accent: "border-primary/20"
+  },
+  {
+    primary: "from-primary-dark to-primary",
+    secondary: "from-blue-50 to-blue-100",
+    accent: "border-primary-dark/20"
+  },
+  {
+    primary: "from-secondary-400 to-secondary-300",
+    secondary: "from-slate-50 to-slate-100",
+    accent: "border-secondary-400/20"
+  },
+  {
+    primary: "from-primary-light to-secondary",
+    secondary: "from-indigo-50 to-blue-50",
+    accent: "border-primary-light/20"
+  },
+  {
+    primary: "from-secondary-300 to-secondary-400",
+    secondary: "from-gray-50 to-blue-50",
+    accent: "border-secondary-300/20"
+  },
+  {
+    primary: "from-primary to-secondary-400",
+    secondary: "from-slate-50 to-blue-50",
+    accent: "border-primary/20"
+  }
+];
+
+// Update the Benefits interface to be more specific about icon type
 interface Benefits {
   title: string;
   description: string;
   icon: keyof typeof iconMap; // This ensures icon must be a key from iconMap
 }
 
-// Content structure for the section
-// interface BenefitsContent {
-//   tagline: string;
-//   heading: string;
-//   subheading: string;
-// }
-
 interface HeadingProps {
   tagline: string;
   title: string;
   description: string;
 }
+
+// Enhanced Benefit Card Component (matching IndustriesWeServe pattern)
+const BenefitCard: React.FC<{ benefit: Benefits; index: number }> = ({ benefit, index }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  // Assign color scheme based on index
+  const colorScheme = benefitColorSchemes[index % benefitColorSchemes.length];
+  
+  const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
+    const IconComponent = iconMap[iconName];
+    if (!IconComponent) {
+      console.warn(`Icon "${iconName}" not found in iconMap`);
+      return React.createElement(iconMap.FaStore, { size: 24 });
+    }
+    return React.createElement(IconComponent, { size: 24 });
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="group relative"
+    >
+      <div className={`relative h-full rounded-2xl border-2 ${colorScheme.accent} bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 dark:bg-darkmode-theme-light`}>
+        {/* Gradient background on hover */}
+        <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${colorScheme.secondary} opacity-0 transition-opacity duration-300 group-hover:opacity-100`} />
+        
+        {/* Content */}
+        <div className="relative z-10">
+          {/* Icon and Title */}
+          <div className="mb-4 flex items-center gap-3">
+            <motion.div 
+              animate={{ scale: isHovered ? 1.1 : 1, rotate: isHovered ? 5 : 0 }}
+              transition={{ duration: 0.3 }}
+              className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r ${colorScheme.primary} shadow-lg`}
+            >
+              <div className="text-white">
+                {renderIcon(benefit.icon)}
+              </div>
+            </motion.div>
+            <h3 className="text-xl font-bold text-gray-900">{benefit.title}</h3>
+          </div>
+
+          {/* Description */}
+          <p className="text-gray-600 leading-relaxed">
+            {benefit.description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 // Component props
 interface Props {
@@ -147,42 +230,19 @@ export const ServicesBenefits: React.FC<Props> = ({
   heading,
   benefits = []
 }): JSX.Element => {
-  const renderIcon = (iconName: keyof typeof iconMap): JSX.Element => {
-    const IconComponent = iconMap[iconName];
-    if (!IconComponent) {
-      console.warn(`Icon "${iconName}" not found in iconMap`);
-      return React.createElement(iconMap.FaStore, { size: 28 });
-    }
-    return React.createElement(IconComponent, { size: 28 });
-  };
-
   return (
-    <section className={`py-20 ${className}`}>
+    <section className={`py-20 bg-gray-50/50 ${className}`}>
       <div className="container">
-       
-          <SectionHeader
-            tagline={heading?.tagline || ""}
-            heading={heading?.title || ""}
-            subheading={heading?.description || ""}
-          />
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-8 lg:grid-cols-3">
+        <SectionHeader
+          tagline={heading?.tagline || ""}
+          heading={heading?.title || ""}
+          subheading={heading?.description || ""}
+          alignment="center"
+        />
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           {benefits.map((benefit, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-darkmode-theme-light"
-            >
-              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-600 transition-colors duration-300 group-hover:from-blue-500 group-hover:to-purple-500 group-hover:text-white dark:text-blue-400">
-                {renderIcon(benefit.icon)}
-              </div>
-              <h3 className="mb-3 text-xl font-medium text-gray-900">
-                {benefit.title}
-              </h3>
-              <p className="text-gray-500">{benefit.description}</p>
-            </motion.div>
+            <BenefitCard key={index} benefit={benefit} index={index} />
           ))}
         </div>
       </div>

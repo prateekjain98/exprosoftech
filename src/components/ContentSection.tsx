@@ -16,6 +16,11 @@ interface BannerData {
     label: string;
     position: 'bottomRight' | 'bottomLeft' | 'topRight' | 'topLeft';
   };
+  cta?: {
+    label: string;
+    link: string;
+    isOpenBooking: boolean;
+  };
 }
 
 interface ContentSectionProps {
@@ -23,7 +28,7 @@ interface ContentSectionProps {
 }
 
 const ContentSection: React.FC<ContentSectionProps> = ({ data }) => {
-  const { title, subtitle, content, image, imageOverlay } = data;
+  const { title, subtitle, content, image, imageOverlay, cta } = data;
 
   return (
     <section className="relative py-20 lg:pb-28 overflow-hidden">
@@ -83,13 +88,15 @@ const ContentSection: React.FC<ContentSectionProps> = ({ data }) => {
               </div>
 
               <div className="mt-10" data-aos="fade-up" data-aos-delay="300">
-                <ul className="flex flex-wrap justify-center lg:justify-start gap-4">
-                  <li>
-                    <Button href="/contact/" size="lg" >
-                     Contact Us
-                    </Button>
-                  </li>
-                </ul>
+                {cta && (
+                  <ul className="flex flex-wrap justify-center lg:justify-start gap-4">
+                    <li>
+                      <Button href={cta.link} size="lg" hasOverlay={cta.isOpenBooking} >
+                       {cta.label}
+                      </Button>
+                    </li>
+                  </ul>
+                )}
               </div>
             </div>
           </div>
