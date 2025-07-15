@@ -202,7 +202,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
             <div class="row gx-4 gy-4">
               {relatedCaseStudies.map((related: any) => (
                 <div class="col-12 md:col-6 lg:col-4">
-                  <a href={`/case-studies/${related.slug}`} class="group block bg-dark p-6 rounded-3xl">
+                  <a href={`/case-studies/${related.slug}/`} class="group block bg-dark p-6 rounded-3xl">
                     <div class="relative overflow-hidden rounded-xl bg-body ">
                       <img
                         src={related.featuredImage}
