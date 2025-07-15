@@ -21,6 +21,7 @@ import HomeBlogSection from "../../components/HomeBlogSection.astro";
 import { PartnerLogos } from "../../components/PartnerLogos";
 import CaseStudyCarousel from "../../components/CaseStudyCarousel";
 import DynamicServiceShowcase from "../../components/DynamicServiceShowcase";
+import { ProductCardGrid } from "../../components/common/ProductCardGrid";
 
 interface Service {
   id: string;
@@ -42,6 +43,7 @@ interface Service {
   faqSection: any;
   accordionSection: any;
   ctaSection: any;
+  productCardsSection: any;
 }
 
 const { id } = Astro.params;
@@ -178,6 +180,21 @@ const service = await sanityClient.fetch(`
         },
         icon,
         "imageUrl": image.asset->url
+      }
+    },
+    productCardsSection {
+      isVisible,
+      heading {
+        subtitle,
+        title,
+        description
+      },
+      cards[] {
+        "image": image.asset->url,
+        title,
+        description,
+        linkText,
+        linkHref
       }
     },
     servicesSection {
@@ -408,6 +425,16 @@ if (!service) {
       heading={service.featuresSection.heading}
     />
   )}
+
+  {service.productCardsSection?.isVisible && (
+  <ProductCardGrid
+    client:visible
+    cards={service.productCardsSection.cards}
+      heading={service.productCardsSection.heading}
+    />
+  )}
+
+
   {service.integrationTypesSection?.isVisible && (
     <ScrollableLogos 
       client:visible 

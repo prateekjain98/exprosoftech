@@ -753,6 +753,95 @@ export const dynamicServicePageType = defineType({
       ]
     }),
 
+       // Product Cards Section
+       defineField({
+        name: 'productCardsSection',
+        title: 'AppExchange Products',
+        type: 'object',
+        fields: [
+          defineField({
+            name: 'isVisible',
+            title: 'Show Product Cards Section',
+            type: 'boolean',
+            initialValue: true,
+            description: 'Toggle to show or hide the product cards section'
+          }),
+          defineField({
+            name: 'heading',
+            title: 'Section Heading',
+            type: 'object',
+            fields: [
+              defineField({
+                name: 'subtitle',
+                title: 'Subtitle',
+                type: 'string',
+                description: 'Small text above the main title'
+              }),
+              defineField({
+                name: 'title',
+                title: 'Title',
+                type: 'string',
+                
+              }),
+              defineField({
+                name: 'description',
+                title: 'Description',
+                type: 'text',
+                
+              })
+            ]
+          }),
+          defineField({
+            name: 'cards',
+            title: 'Product Cards',
+            type: 'array',
+            of: [
+              {
+                type: 'object',
+                fields: [
+                  defineField({
+                    name: 'image',
+                    title: 'Product Image',
+                    type: 'image',
+                    
+                  }),
+                  defineField({
+                    name: 'title',
+                    title: 'Product Title',
+                    type: 'string',
+                    
+                  }),
+                  defineField({
+                    name: 'description',
+                    title: 'Product Description',
+                    type: 'text',
+                    
+                  }),
+                  defineField({
+                    name: 'linkText',
+                    title: 'Link Text',
+                    type: 'string',
+                    initialValue: 'Learn More',
+                    
+                  }),
+                  defineField({
+                    name: 'linkHref',
+                    title: 'Link URL',
+                    type: 'string',
+                    description: 'URL or path for the card link',
+                    
+                  })
+                ]
+              }
+            ],
+            
+          })
+        ],
+        
+      }),
+  
+      
+
     // Services Section
     defineField({
       name: 'servicesSection',
