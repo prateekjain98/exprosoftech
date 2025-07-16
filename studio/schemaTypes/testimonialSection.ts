@@ -54,7 +54,6 @@ export default defineType({
               title: 'Company',
               type: 'string',
               description: 'Company or organization name',
-              validation: Rule => Rule.required()
             }),
             defineField({
               name: 'content',

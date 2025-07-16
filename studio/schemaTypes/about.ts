@@ -707,6 +707,51 @@ export default defineType({
       
     }),
 
+    // Image Content Section
+    defineField({
+      name: 'companyActivitiesSection',
+      title: 'Company Activities Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'isVisible',
+          title: 'Show Image Content Section',
+          type: 'boolean',
+          initialValue: true,
+          description: 'Toggle to show or hide the entire image content section'
+        }),
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'blockContent',
+          validation: Rule => Rule.required()
+        }),
+        defineField({
+          name: 'image',
+          title: 'Featured Image',
+          type: 'image',
+          options: {
+            hotspot: true
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Alternative text for the image (for accessibility)'
+            })
+          ],
+          validation: Rule => Rule.required()
+        })
+      ]
+    }),
+
     // FAQ Section
     defineField({
       name: 'faqSection',

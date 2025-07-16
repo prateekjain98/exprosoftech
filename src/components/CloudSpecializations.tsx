@@ -210,9 +210,10 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
                   key={feature}
                   className="flex items-center gap-2 sm:gap-3 group/feature"
                 >
-                  <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-600
-                    group-hover/feature:scale-125 transition-transform duration-300" />
-                  <span className="text-xs sm:text-sm text-gray-400 group-hover/feature:text-gray-100 transition-colors duration-300">
+                  <div className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex-shrink-0
+                    group-hover/feature:scale-125 group-hover/feature:shadow-lg group-hover/feature:shadow-blue-500/50 
+                    transition-all duration-300" />
+                  <span className="text-xs sm:text-sm text-gray-400 group-hover/feature:text-gray-100 transition-colors duration-300 leading-relaxed">
                     {feature}
                   </span>
                 </div>
@@ -277,7 +278,7 @@ export const CloudSpecializations: React.FC<Props> = ({
     };
   }, [scrollYProgress]);
 
-  return (
+return (
     <section 
       ref={containerRef}
       className={`section min-h-[300vh] sm:min-h-[250vh] lg:min-h-[200vh] ${className} bg-white`}

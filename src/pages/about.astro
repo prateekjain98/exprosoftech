@@ -11,6 +11,7 @@ import Offerings from "../components/Offerings";
 import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
 import { DynamicCTA } from "../components/DynamicCTA";
 import ContentSection from "../components/ContentSection";
+import CompanyActivitiesSection from "../components/CompanyActivitiesSection";
 
 // GROQ query to fetch all about page data
 const aboutQuery = `*[_type == "about"][0] {
@@ -118,6 +119,17 @@ const aboutQuery = `*[_type == "about"][0] {
       label
     }
   },
+  companyActivitiesSection {
+    isVisible,
+    title,
+    description,
+    image {
+      asset->{
+        url
+      },
+      alt
+    }
+  },
   leadershipSection {
     subtitle,
     title,
@@ -181,7 +193,7 @@ const aboutQuery = `*[_type == "about"][0] {
 const pageData = await sanityClient.fetch(aboutQuery);
 
 // Destructure meta data
-const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection, ctaSection, contentSection } = pageData;
+const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection, ctaSection, contentSection, companyActivitiesSection } = pageData;
 
 // Structure data for each component
 const bannerData = {
@@ -246,6 +258,17 @@ const companyData = {
   content: companySection?.content,
   featuredImage: companySection?.image,
   imageOverlay: companySection?.imageOverlay
+};
+
+const companyActivitiesData = {
+  title: companyActivitiesSection.title,
+  description: companyActivitiesSection.description,
+  image: {
+    asset: {
+      url: companyActivitiesSection.image?.asset?.url || ''
+    },
+    alt: companyActivitiesSection.image?.alt || ''
+  }
 };
 
 const leadershipData = {
@@ -314,6 +337,11 @@ const ctaData = {
     description={leadershipData.description}
     leadershipTeamData={{ leaders: leadershipData.leaders }} 
   />
+
+  {companyActivitiesSection?.isVisible && (
+    <CompanyActivitiesSection client:load data={companyActivitiesData} />
+  )}
+
   <WhyGreymetre client:load data={whyGreymetreData} />
   <NewFAQ client:load Faq={faqData} />
   <DynamicCTA client:visible ctaContent={ctaData} />

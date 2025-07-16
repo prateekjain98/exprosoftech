@@ -70,10 +70,6 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
   // Use provided data or fallback to default testimonials
   const testimonials = data?.testimonials || testimonialsObject;
 
-  // Split testimonials for two rows
-  const firstRowTestimonials = testimonials.slice(0, Math.ceil(testimonials.length / 2));
-  const secondRowTestimonials = testimonials.slice(Math.ceil(testimonials.length / 2));
-
   // If no testimonials are available after all fallbacks, show a message
   if (testimonials.length === 0) {
     return <div className="py-20 text-center">No testimonials available.</div>;
@@ -89,23 +85,14 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
         />
 
         <div className="mt-16 relative group">
-          {/* First row */}
+          {/* Single row with all testimonials */}
           <div className="overflow-x-hidden">
             <div className="flex animate-marquee gap-6 w-max">
-              {[...firstRowTestimonials, ...firstRowTestimonials, ...firstRowTestimonials].map((testimonial, idx) => (
-                <TestimonialCard key={`row1-${idx}`} testimonial={testimonial} />
+              {[...testimonials, ...testimonials, ...testimonials].map((testimonial, idx) => (
+                <TestimonialCard key={`testimonial-${idx}`} testimonial={testimonial} />
               ))}
             </div>
           </div>
-          
-          {/* Second row */}
-          {/* <div className="overflow-hidden mt-4">
-            <div className="flex animate-marquee-reverse gap-6 w-max">
-              {[...secondRowTestimonials, ...secondRowTestimonials, ...secondRowTestimonials].map((testimonial, idx) => (
-                <TestimonialCard key={`row2-${idx}`} testimonial={testimonial} />
-              ))}
-            </div>
-          </div> */}
         </div>
       </div>
       
