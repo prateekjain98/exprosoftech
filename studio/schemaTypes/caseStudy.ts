@@ -238,10 +238,24 @@ export const caseStudyType = defineType({
           ],
         }),
         defineField({
-          name: 'buttonText',
-          title: 'Button Text',
-          type: 'string',
-          
+          name: 'buttons',
+          title: 'Buttons',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'label', type: 'string', title: 'Label' }),
+                defineField({ name: 'link', type: 'string', title: 'Link' }),
+                defineField({ 
+                  name: 'isOpenBooking', 
+                  type: 'boolean', 
+                  title: 'Opens Booking Form',
+                  description: 'Enable overlay with iframe functionality instead of regular link'
+                }),
+              ]
+            }
+          ]
         }),
         defineField({
           name: 'image',

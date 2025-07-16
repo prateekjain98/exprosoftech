@@ -316,7 +316,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
                             <img
                               src={feature.image}
                               alt={feature.title}
-                              className="w-full h-full object-contain"
+                              className="w-full h-full object-contain rounded-2xl"
                               width={600}
                               height={450}
                             />
