@@ -18,7 +18,12 @@ import {  FiUsers,
   from "react-icons/fi";
 import { motion, useScroll } from "framer-motion";
 import SectionHeader from "./SectionHeader";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+    
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(useGSAP,ScrollTrigger);
 
 // Icon map for cloud specializations
 const cloudIconMap = {
@@ -243,48 +248,49 @@ export const CloudSpecializations: React.FC<Props> = ({
   const displayHeading = data?.heading || heading;
   const displaySpecializations = data?.specializations || cloudSpecializations;
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  useEffect(() => {
-    if (!scrollRef.current) return;
+  useGSAP(() => {
+    // Calculate total width needed for all cards
+    const cards = scrollRef.current?.children || [];
+    let totalWidth = 0;
     
-    const scrollWidth = scrollRef.current.scrollWidth;
-    const viewportWidth = window.innerWidth;
-    const scrollDistance = scrollWidth - viewportWidth + 200;
-
-    const handleScroll = () => {
-      if (!scrollRef.current || !containerRef.current) return;
-      const progress = scrollYProgress.get();
-      
-      // Apply easing function for smoother scrolling on smaller screens
-      let easedProgress = progress;
-      if (viewportWidth < 640) {
-        // Slower start and end, but still reaches full distance
-        easedProgress = progress * progress * (3 - 2 * progress); // Smooth step function
-      } else if (viewportWidth < 1024) {
-        // Moderate easing for tablets
-        easedProgress = progress * progress * (2 - progress); // Quadratic easing
+    Array.from(cards).forEach(card => {
+      if (card instanceof HTMLElement) {
+        totalWidth += card.offsetWidth + 32; // 32px for gap (adjust as needed)
       }
-      
-      scrollRef.current.scrollLeft = easedProgress * scrollDistance;
-    };
+    });
+  
+    // Set container width to fit all cards
+    if (scrollRef.current) {
+      scrollRef.current.style.width = `${totalWidth}px`;
+    }
 
-    scrollYProgress.on("change", handleScroll);
-    return () => {
-      scrollYProgress.clearListeners();
-    };
-  }, [scrollYProgress]);
+    const startOffset = window.innerWidth < 768 ? '-100px' : '-=50px';
+  
+    // Animation
+    gsap.to(scrollRef.current, {
+      x: () => -(totalWidth - window.innerWidth), // Scroll to show all cards
+      ease: "none",
+      scrollTrigger: {
+        trigger: scrollRef.current, // Use the section as trigger
+        start: `${startOffset} top`,
+        end: () => `+=${totalWidth * 0.8}`, // Dynamic end point
+        pin: true,
+        scrub: 1,
+        markers: true,
+        invalidateOnRefresh: true // Important for responsive adjustments
+      }
+    });
+  }, [displaySpecializations]); // Re-run when specializations change
+
+
 
 return (
     <section 
       ref={containerRef}
-      className={`section min-h-[300vh] sm:min-h-[250vh] lg:min-h-[200vh] ${className} bg-white`}
+      className={`section min-h-screen sm:min-h-[150vh] lg:min-h-screen ${className} bg-white`}
     >
       <div className="sticky top-0 overflow-hidden">
-        <div className="max-w-[100vw] mx-auto px-3 py-20 relative">
+        <div className="max-w-[100vw] mx-auto px-3 py-0 lg:py-20 relative">
           <div className="row">
             <div className="mx-auto mb-12">
               <SectionHeader
@@ -294,7 +300,7 @@ return (
                 alignment="center"
               />
             </div>
-            <div className="col-12">
+            <div className="col-12 " >
               <div 
                 ref={scrollRef}
                 className="flex gap-4 sm:gap-6 lg:gap-8 overflow-x-hidden w-full overflow-y-hidden lg:pt-12"
