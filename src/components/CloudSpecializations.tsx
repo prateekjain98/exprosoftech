@@ -20,9 +20,10 @@ import { motion, useScroll } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-    
-import { ScrollTrigger } from "gsap/all";
-gsap.registerPlugin(useGSAP,ScrollTrigger);
+
+// Standard ScrollTrigger import
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Icon map for cloud specializations
 const cloudIconMap = {
