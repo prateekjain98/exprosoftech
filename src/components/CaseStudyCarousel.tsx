@@ -168,7 +168,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
             <>
               <button
                 onClick={goToPrevious}
-                className="absolute left-[75%] bottom-2 lg:left-[85%] xl:-left-16 xl:top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
+                className=" hidden absolute left-[75%] bottom-2 lg:left-[85%] xl:-left-16 xl:top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 lg:flex items-center justify-center"
                 aria-label="Previous case study"
               >
                 <FaChevronLeft className="w-5 h-5" />
@@ -176,7 +176,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
               
               <button
                 onClick={goToNext}
-                className="absolute right-4 bottom-2 xl:-right-16 xl:top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
+                className="hidden absolute right-4 bottom-2 xl:-right-16 xl:top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 lg:flex items-center justify-center"
                 aria-label="Next case study"
               >
                 <FaChevronRight className="w-5 h-5" />

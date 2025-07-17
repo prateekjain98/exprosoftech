@@ -21,7 +21,6 @@ import SectionHeader from "./SectionHeader";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
     
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(useGSAP,ScrollTrigger);
 
@@ -276,7 +275,6 @@ export const CloudSpecializations: React.FC<Props> = ({
         end: () => `+=${totalWidth * 0.8}`, // Dynamic end point
         pin: true,
         scrub: 1,
-        markers: true,
         invalidateOnRefresh: true // Important for responsive adjustments
       }
     });
