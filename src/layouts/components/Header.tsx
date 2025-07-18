@@ -95,7 +95,7 @@ export const mainMenu: NavigationLink[] = [
       },
       {
         name: "Salesforce Data & AI",
-        url: "/services/salesforce-data-and-ai/",
+        url: "/services/salesforce-data-cloud-and-ai/",
         description:
           "Drive customer retention with personalized rewards, gamification, and engagement analytics",
       },
@@ -512,7 +512,7 @@ const Header: React.FC<HeaderProps> = ({
                 <li className="lg:hidden flex justify-start mt-4"> 
                   <Button
                     className="pill-cta-button-mobile"
-                    isCalendlyButton={true}
+                    
                     onClick={() => setIsMobileMenuOpen(false)}
                     height="compact"
                   >
@@ -527,7 +527,7 @@ const Header: React.FC<HeaderProps> = ({
               {navigation_button.enable && (
                 <Button
                   className="pill-cta-button hidden lg:flex"
-                  isCalendlyButton={true}
+                  hasOverlay={true}
                   height="compact"
                 >
                   {navigation_button.label}

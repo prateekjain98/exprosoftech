@@ -236,7 +236,6 @@ export const ServicesFeatures: React.FC<Props> = ({
           heading={heading.title}
           subheading={heading.description}
         />
-
         <div className="mt-12">
           {/* Navigation Tabs */}
           <nav
@@ -283,7 +282,7 @@ export const ServicesFeatures: React.FC<Props> = ({
 
           {/* Feature Cards */}
           <div
-            className="mt-8 min-h-[400px] relative"
+            className="mt-8 min-h-[500px] lg:min-h-[400px] relative"
             data-aos="fade-up"
             data-aos-delay="200"
           >

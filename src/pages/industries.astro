@@ -49,24 +49,31 @@ const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
     },
     faqSection {
         pageTitle,
-        faqItems[] {
-            question,
-            answer,
+        subtitle,
+        description,
+        list[] {
+            title,
+            description,
             active
         }
     },
-    cta {
+    ctaSection {
         tagline,
         title,
+        subtitle,
         description,
-        metrices,
+        metrices[] {
+            value,
+            label,
+            icon
+        },
         buttons[] {
             label,
             link,
             isOpenBooking
         },
         image {
-            asset->,
+            "src": src.asset->url,
             alt
         }
     }
@@ -79,7 +86,7 @@ if (!industriesData) {
 // Use hero data directly for IndustriesHero component
 const heroData = industriesData.hero;
 
-const ctaData = industriesData.cta;
+const ctaData = industriesData.ctaSection;
 const faqData = industriesData.faqSection;
 ---
 
@@ -94,6 +101,6 @@ const faqData = industriesData.faqSection;
         features={industriesData.industries.industries}     
         heading={industriesData.industries.heading}
     />
-    <NewFAQ client:load Faq={faqData} />
+    <NewFAQ client:load Faq={[faqData]} />
     <DynamicCTA client:load ctaContent={ctaData} />
 </Base>

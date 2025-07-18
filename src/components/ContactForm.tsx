@@ -29,7 +29,11 @@ const ContactForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
+    
+    // Hide the form and show success message
     setShowSuccess(true);
+    
+    // Submit the form to Salesforce
     form.submit();
   };
 
@@ -51,6 +55,9 @@ const ContactForm: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-dark rounded-lg shadow-lg">
+      {/* Hidden iframe for form submission */}
+      <iframe name="hidden_iframe" id="hidden_iframe" style={{ display: 'none' }} />
+      
       <h2 className="text-2xl font-bold mb-6 text-center text-white">Contact Us</h2>
 
       <form
@@ -60,44 +67,44 @@ const ContactForm: React.FC = () => {
         onSubmit={handleSubmit}
         className="space-y-4"
       >
-        <iframe name="hidden_iframe" id="hidden_iframe" style={{ display: 'none' }} />
         <input type="hidden" name="oid" value="00D5j00000BcTDI" />
         <input type="hidden" name="retURL" value="http://" />
+        <input type="hidden" name="lead_source" value="Web" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="form-group">
-            <label htmlFor="first_name" className="block text-sm font-medium text-white mb-1">
-              First Name
-            </label>
-            <input
-              id="first_name"
-              name="first_name"
-              type="text"
-              required
-              pattern="^[A-Za-z\s\-]+$"
-              title="Only letters, spaces, and hyphens allowed"
-              value={formData.first_name}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="first_name" className="block text-sm font-medium text-white mb-1">
+            First Name
+          </label>
+          <input
+            id="first_name"
+            name="first_name"
+            maxLength={40}
+            type="text"
+            required
+            pattern="^[A-Za-z\s\-]+$"
+            title="Only letters, spaces, and hyphens allowed"
+            value={formData.first_name}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="last_name" className="block text-sm font-medium text-white mb-1">
-              Last Name
-            </label>
-            <input
-              id="last_name"
-              name="last_name"
-              type="text"
-              required
-              pattern="^[A-Za-z\s\-]+$"
-              title="Only letters, spaces, and hyphens allowed"
-              value={formData.last_name}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="last_name" className="block text-sm font-medium text-white mb-1">
+            Last Name
+          </label>
+          <input
+            id="last_name"
+            name="last_name"
+            maxLength={40}
+            type="text"
+            required
+            pattern="^[A-Za-z\s\-]+$"
+            title="Only letters, spaces, and hyphens allowed"
+            value={formData.last_name}
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
 
         <div className="form-group">
@@ -107,6 +114,7 @@ const ContactForm: React.FC = () => {
           <input
             id="email"
             name="email"
+            maxLength={80}
             type="email"
             required
             value={formData.email}
@@ -122,6 +130,7 @@ const ContactForm: React.FC = () => {
           <input
             id="company"
             name="company"
+            maxLength={40}
             type="text"
             required
             value={formData.company}
@@ -137,6 +146,7 @@ const ContactForm: React.FC = () => {
           <input
             id="phone"
             name="phone"
+            maxLength={40}
             type="tel"
             pattern="[0-9]{10,15}"
             title="Phone number must be 10 to 15 digits"
@@ -153,6 +163,7 @@ const ContactForm: React.FC = () => {
           <select
             id="00NJ4000004WaPG"
             name="00NJ4000004WaPG"
+            title="Interested Services"
             value={formData['00NJ4000004WaPG']}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -187,6 +198,7 @@ const ContactForm: React.FC = () => {
           <select
             id="00NJ4000004WaPF"
             name="00NJ4000004WaPF"
+            title="Country"
             value={formData['00NJ4000004WaPF']}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -207,6 +219,7 @@ const ContactForm: React.FC = () => {
           <select
             id="00NJ4000004WaPH"
             name="00NJ4000004WaPH"
+            title="Preferred Contact Method"
             value={formData['00NJ4000004WaPH']}
             onChange={handleInputChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -219,6 +232,7 @@ const ContactForm: React.FC = () => {
 
         <button
           type="submit"
+          name="submit"
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
         >
           Submit

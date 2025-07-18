@@ -151,11 +151,11 @@ export const ServicesBestPractices: React.FC<Props> = ({
               theme="dark"
             />
           </div>
-          <div className="col-12">
+          <div className="col-12 px-0">
             <div className="relative group">
               {/* Gradient overlays */}
-              <div className="absolute left-0 top-0 bottom-0 w-12 lg:w-24 bg-gradient-to-r from-dark to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-12 lg:w-24 bg-gradient-to-l from-dark to-transparent z-10"></div>
+              <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-12 lg:w-24 bg-gradient-to-r from-dark to-transparent z-10"></div>
+              <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-12 lg:w-24 bg-gradient-to-l from-dark to-transparent z-10"></div>
               
               {/* Marquee animation */}
               <div className="overflow-hidden">
