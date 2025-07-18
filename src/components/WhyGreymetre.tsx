@@ -154,7 +154,7 @@ const WhyGreymetre: React.FC<WhyGreymetreProps> = ({ data }) => {
       className="py-24 bg-gray-50"
     >
       <div className="container max-w-7xl mx-auto px-4">
-        <div className="bg-dark rounded-[3rem] p-8 lg:p-12">
+        <div className="bg-dark rounded-2xl sm:rounded-[3rem] p-8 lg:p-12">
           {/* Background Elements */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[3rem]">
             <div className="absolute left-0 top-0 w-96 h-96 bg-blue-600/10 rounded-full filter blur-3xl" />

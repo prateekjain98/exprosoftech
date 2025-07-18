@@ -195,7 +195,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ data }) => {
           {/* Checkered Background Pattern */}
           
 
-          <div className="relative px-4 py-12 sm:px-6 md:px-12 lg:px-0 lg:py-0">
+          <div className="relative px-0 py-12 sm:px-6 md:px-12 lg:px-0 lg:py-0">
             <div className="mx-auto lg:col-11 mb-10 lg:mb-16">
               <SectionHeader
                 tagline={data.heading.subtitle || ""}

@@ -20,7 +20,7 @@ const postsQuery = `*[_type == "post"] | order(date desc) {
 //comment
 
 const posts = await sanityClient.fetch(postsQuery);
-const totalPages: number = Math.ceil(posts.length / config.settings.pagination);
+// const totalPages: number = Math.ceil(posts.length / config.settings.pagination);
 
 const postIndex = await getEntry("sections", "blog");
 const headingContent = postIndex?.data.hero;
@@ -35,11 +35,8 @@ const headingContent = postIndex?.data.hero;
   <BlogSection
     largeHeading={true}
     content={headingContent}
-    visiblePosts={3}
-    cardLayout="creative"
+    visiblePosts={8}
     showHeader={true}
+    posts={posts}
   />
-  <BlogSection visiblePosts={3} posts={posts} showHeader={false} />
-  <Pagination section={BLOG_FOLDER} totalPages={totalPages} />
-  <!-- <CallToAction /> -->
 </Base>

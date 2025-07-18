@@ -63,13 +63,6 @@ interface ScrollableServicesProps {
 //   },
 // ];
 
-const sectionHeader = {
-  tagline: "Services",
-  heading: "Driving Growth as an extension of your team",
-  subheading:
-    "We deliver targeted solutions across loyalty management, channel expansion, and B2B sales to help businesses achieve sustainable growth and market leadership. Our integrated approach ensures measurable results and long-term success.",
-};
-
 export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
@@ -149,7 +142,7 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) 
   return (
     <section className="py-24 bg-gray-50">
       <div className="container max-w-7xl mx-auto px-4">
-        <div className="bg-gray-900 rounded-[3rem] p-8 lg:p-12">
+        <div className="bg-gray-900 rounded-2xl sm:rounded-[3rem] p-8 lg:p-12">
           <SectionHeader
             tagline={data.heading.subtitle}
             heading={data.heading.title}

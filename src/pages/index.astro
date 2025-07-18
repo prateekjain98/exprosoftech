@@ -169,7 +169,7 @@ const testimonialData = await sanityClient.fetch(`
   }
 `);
 
-console.log(testimonialData);
+
 
 // Fetch top 3 case studies for carousel
 const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...3] {
