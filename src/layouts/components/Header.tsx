@@ -512,7 +512,7 @@ const Header: React.FC<HeaderProps> = ({
                 <li className="lg:hidden flex justify-start mt-4"> 
                   <Button
                     className="pill-cta-button-mobile"
-                    
+                    hasOverlay={true}
                     onClick={() => setIsMobileMenuOpen(false)}
                     height="compact"
                   >
