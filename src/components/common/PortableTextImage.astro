@@ -1,0 +1,34 @@
+---
+export interface Props {
+  value: {
+    asset?: {
+      url: string;
+    };
+    alt?: string;
+    caption?: string;
+  };
+}
+
+const { value } = Astro.props;
+const imageUrl = value?.asset?.url;
+
+if (!imageUrl) {
+  console.error('No image URL found for:', value);
+}
+---
+
+{imageUrl && (
+  <figure class="my-8">
+    <img 
+      src={imageUrl} 
+      alt={value.alt || ''} 
+      loading="lazy" 
+      class="rounded-lg w-full h-auto"
+    />
+    {value.caption && (
+      <figcaption class="mt-2 text-center text-sm text-gray-500">
+        {value.caption}
+      </figcaption>
+    )}
+  </figure>
+)} 

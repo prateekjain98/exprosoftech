@@ -9,51 +9,18 @@ import { sanityClient } from "sanity:client";
 import { PortableText } from "astro-portabletext";
 import { urlForImage } from "@/lib/utils/sanityImage";
 import { DynamicCTA } from "../components/DynamicCTA";
+import PortableTextImage from "../components/common/PortableTextImage.astro";
+
 const { post } = Astro.props;
 const { title, author, image, date, body, slug, ctaSection } = post;
 
 // Debug logs
-
 const imageBlocks = body.filter((block: any) => block._type === 'image');
-
 
 // Define components for PortableText
 const components = {
   type: {
-    image: ({ value }: { value: any }) => {
-      // Get the direct URL from the asset
-      const imageUrl = value?.asset?.url;
-      
-      if (!imageUrl) {
-        console.error('No image URL found for:', value);
-        return null;
-      }
-
-      return {
-        Component: 'figure',
-        props: {
-          class: 'my-8',
-          children: [
-            {
-              Component: 'img',
-              props: {
-                src: imageUrl,
-                alt: value.alt || ' ',
-                loading: 'lazy',
-                class: 'rounded-lg w-full h-auto'
-              }
-            },
-            value.caption && {
-              Component: 'figcaption',
-              props: {
-                class: 'mt-2 text-center text-sm text-gray-500',
-                children: value.caption
-              }
-            }
-          ].filter(Boolean)
-        }
-      };
-    }
+    image: PortableTextImage,
   }
 };
 
