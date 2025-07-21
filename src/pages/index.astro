@@ -41,6 +41,7 @@ const pageData = await sanityClient.fetch(`
   *[_type == "homepage"][0] {
     metaTitle,
     metaDescription,
+    image,
     heroBanner {
       title,
       blueTitle,
@@ -189,7 +190,7 @@ const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
 
 ---
 
-<Base title="Home" meta_title={pageData.metaTitle} description={pageData.metaDescription}>
+<Base title="Home" meta_title={pageData.metaTitle} description={pageData.metaDescription} image={pageData.image}>
   <HomeBanner client:load data={pageData.heroBanner} />
   {pageData.clientsSection?.isVisible && (
     <Clients client:visible data={pageData.clientsSection} />

@@ -32,6 +32,14 @@ export default defineType({
         type: 'text'
       }),
       defineField({
+        name: 'image',
+        title: 'Featured Image',
+        type: 'image',
+        options: {
+          hotspot: true
+        }
+      }),
+      defineField({
         name: 'hero',
         title: 'Hero Section',
         type: 'object',

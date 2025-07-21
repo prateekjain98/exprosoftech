@@ -36,6 +36,14 @@ export const dynamicProductPageType = defineType({
       description: 'Description used for SEO purposes',
       
     }),
+    defineField({
+      name: 'image',
+      title: 'Featured Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
+    }),
         
     // Header Content Section
     defineField({

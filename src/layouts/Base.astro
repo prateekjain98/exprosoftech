@@ -384,6 +384,13 @@ const {
       property="og:url"
       content={`${config.site.base_url}/${Astro.url.pathname.replace("/", "")}`}
     />
+    <!-- og-image -->
+    <meta
+      property="og:image"
+      content={`${config.site.base_url}${
+        image ? image : config.metadata.meta_image
+      }`}
+    />
 
     <!-- twitter-title -->
     <meta
@@ -399,14 +406,6 @@ const {
       content={plainify(
         description ? description : config.metadata.meta_description
       )}
-    />
-
-    <!-- og-image -->
-    <meta
-      property="og:image"
-      content={`${config.site.base_url}${
-        image ? image : config.metadata.meta_image
-      }`}
     />
 
     <!-- twitter-image -->
