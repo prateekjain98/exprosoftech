@@ -1,6 +1,6 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
-import sitemap from "@astrojs/sitemap";
+import sitemap from '@inox-tools/sitemap-ext';  
 import tailwind from "@astrojs/tailwind";
 import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
@@ -24,7 +24,12 @@ export default defineConfig({
       entrypoint: "astro/assets/services/sharp"
     }
   },
-  integrations: [react(), sitemap(), tailwind({
+  integrations: [react(), sitemap({
+    // Enable discovery of dynamic routes in SSR mode
+    dynamicRoutes: true,
+    // Ensure all static pages are included
+    includeByDefault: true,
+  }), tailwind({
     config: {
       applyBaseStyles: false,
     },
