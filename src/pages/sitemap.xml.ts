@@ -30,6 +30,7 @@ export const GET: APIRoute = async ({ site }) => {
     '',
     'about',
     'contact',
+    'industries',
   ];
 
   // Build all URLs
