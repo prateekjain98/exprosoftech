@@ -163,12 +163,12 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
             </div>
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Desktop Only */}
           {caseStudies.length > 1 && (
             <>
               <button
                 onClick={goToPrevious}
-                className=" hidden absolute left-[75%] bottom-2 lg:left-[85%] xl:-left-16 xl:top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 lg:flex items-center justify-center"
+                className="hidden xl:flex absolute -left-16 top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 items-center justify-center"
                 aria-label="Previous case study"
               >
                 <FaChevronLeft className="w-5 h-5" />
@@ -176,7 +176,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
               
               <button
                 onClick={goToNext}
-                className="hidden absolute right-4 bottom-2 xl:-right-16 xl:top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 lg:flex items-center justify-center"
+                className="hidden xl:flex absolute -right-16 top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 items-center justify-center"
                 aria-label="Next case study"
               >
                 <FaChevronRight className="w-5 h-5" />
@@ -184,9 +184,34 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
             </>
           )}
 
-          {/* Dots Indicator */}
+          {/* Mobile Navigation Buttons */}
           {caseStudies.length > 1 && (
-            <div className="flex justify-center mt-6 space-x-2">
+            <div className="flex justify-center items-center mt-6 space-x-4 lg:hidden">
+              <button
+                onClick={goToPrevious}
+                className="bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-10 h-10 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
+                aria-label="Previous case study"
+              >
+                <FaChevronLeft className="w-4 h-4" />
+              </button>
+              
+              <span className="text-gray-400 text-sm px-3">
+                {currentIndex + 1} / {caseStudies.length}
+              </span>
+              
+              <button
+                onClick={goToNext}
+                className="bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-10 h-10 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
+                aria-label="Next case study"
+              >
+                <FaChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          {/* Dots Indicator - Desktop Only */}
+          {caseStudies.length > 1 && (
+            <div className="hidden lg:flex justify-center mt-6 space-x-2">
               {caseStudies.map((_, index) => (
                 <button
                   key={index}

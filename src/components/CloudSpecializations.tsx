@@ -149,8 +149,8 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
   const IconComponent = cloudIconMap[cloud.icon as keyof typeof cloudIconMap];
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0}}
+      whileInView={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true }}
       className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] group"
