@@ -171,7 +171,7 @@ export const ServicesProcess: React.FC<Props> = ({
                   onClick={() => setActiveStep(index)}
                   className={`relative z-10 flex-shrink-0 h-12 w-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                     activeStep === index
-                      ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25"
+                      ? "bg-gradient-to-r from-blue-500 to-blue-900 text-white shadow-lg shadow-blue-500/25"
                       : "bg-white border-2 border-blue-100 text-blue-500 hover:border-blue-200"
                   }`}
                 >
@@ -210,7 +210,7 @@ export const ServicesProcess: React.FC<Props> = ({
                           className={`flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300
                             ${
                               activeStep === index
-                                ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg shadow-blue-500/25"
+                                ? "bg-gradient-to-r from-blue-500 to-blue-900 text-white shadow-lg shadow-blue-500/25"
                                 : "bg-white border-2 border-blue-100 text-blue-500 group-hover:border-blue-200"
                             }`}
                         >
@@ -267,7 +267,7 @@ export const ServicesProcess: React.FC<Props> = ({
             <div className="relative px-4 sm:px-8">
               <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+                  className="h-full bg-gradient-to-r from-blue-500 to-blue-900"
                   initial={{ width: "0%" }}
                   animate={{
                     width: `${((activeStep + 1) / process.length) * 100}%`,
