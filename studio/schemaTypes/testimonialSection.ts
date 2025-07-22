@@ -74,20 +74,12 @@ export default defineType({
               name: 'avatar',
               title: 'Avatar',
               type: 'image',
-              description: 'Profile picture of the person (optional)',
+              description: 'Logo of the Company (optional)',
               options: {
                 hotspot: true
               }
             }),
-            defineField({
-              name: 'companyLogo',
-              title: 'Company Logo',
-              type: 'image',
-              description: 'Logo of the company (optional)',
-              options: {
-                hotspot: true
-              }
-            })
+           
           ],
           preview: {
             select: {

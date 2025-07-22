@@ -8,7 +8,6 @@ interface Testimonial {
   content: string;
   stars?: number;
   avatar?: string;
-  companyLogo?: string;
 }
 
 interface TestimonialMarqueeProps {
@@ -168,12 +167,20 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }
         </div>
 
         {/* Author info container */}
-        <div className="flex items-center gap-4 mt-8">
-          {/* Avatar with initials */}
-          <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
-            <span className="text-gray-600 font-semibold text-lg">
-              {testimonial.name.charAt(0)}
-            </span>
+        <div className="flex items-start gap-4 mt-8">
+          {/* Avatar with image or initials */}
+          <div className="w-[70px] h-[70px] rounded-full bg-white flex items-center justify-center overflow-hidden flex-shrink-0">
+            {testimonial.avatar ? (
+              <img
+                src={testimonial.avatar}
+                alt={testimonial.name}
+                className="w-full h-full object-contain"
+              />
+            ) : (
+              <span className="text-gray-600 font-semibold text-2xl">
+                {testimonial.name.charAt(0)}
+              </span>
+            )}
           </div>
 
           <div>

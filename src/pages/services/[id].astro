@@ -266,6 +266,7 @@ const service = await sanityClient.fetch(`
       }
     },
     processSection {
+      isVisible,
       heading {
         tagline,
         title,
@@ -495,11 +496,10 @@ if (!service) {
     />
   )}
 
-  <HomeBlogSection /> 
-
   <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
 
-  
+  <HomeBlogSection client:visible /> 
+
   {service.faqSection && (
     <NewFAQ client:visible Faq={[service.faqSection]} />
   )}

@@ -172,6 +172,21 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                   {ctaContent.description || ""}
                 </p>
 
+                {/* Image for Mobile - Show only on mobile screens */}
+                {ctaContent.image && (
+                  <div className="lg:hidden relative mb-10">
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                      <img
+                        src={ctaContent.image.src}
+                        alt={ctaContent.image.alt}
+                        className="w-full h-[300px] object-cover object-center"
+                      />
+                      {/* Subtle Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-gray-900/10 via-gray-900/5 to-gray-900/20" />
+                    </div>
+                  </div>
+                )}
+
                 {/* Metrics Grid */}
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
                     {ctaContent?.metrices && ctaContent.metrices.map((metric, index) => (
@@ -203,9 +218,9 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                 </Button>
               </div>
 
-              {/* Image Side */}
+              {/* Image Side - Hidden on mobile, shown on desktop */}
               {ctaContent.image && (
-              <div className="lg:col-span-2 relative hidden lg:block">
+              <div className="hidden lg:block lg:col-span-2 relative ">
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                   <img
                     src={ctaContent.image.src}
