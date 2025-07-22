@@ -3,41 +3,38 @@ import Base from "@/layouts/Base.astro";
 import BlogSingle from "@/layouts/BlogSingle.astro";
 import { sanityClient } from "sanity:client";
 
-export const prerender = true;
+const { single } = Astro.params;
 
-export async function getStaticPaths() {
-  const posts = await sanityClient.fetch(`
-    *[_type == "post"] {
-      "slug": slug.current,
-      title,
-      date,
-      "image": image.asset->url,
-      "body": body[] {
+const post = await sanityClient.fetch(`
+  *[_type == "post" && slug.current == $slug][0] {
+    "slug": slug.current,
+    title,
+    date,
+    "image": image.asset->url,
+    "body": body[] {
+      ...,
+      _type == "image" => {
         ...,
-        _type == "image" => {
+        "asset": {
           ...,
-          "asset": {
-            ...,
-            "url": asset->url
-          }
+          "url": asset->url
         }
-      },
-      excerpt,
-      "author": author->{
-        name,
-        "slug": slug.current,
-        "image": image.asset->url
       }
+    },
+    excerpt,
+    "author": author->{
+      name,
+      "slug": slug.current,
+      "image": image.asset->url
     }
-  `);
+  }
+`, { slug: single });
 
-  return posts.map((post: { slug: string }) => ({
-    params: { single: post.slug },
-    props: { post },
-  }));
+// Handle 404 if post not found
+if (!post) {
+  return Astro.redirect("/404");
 }
 
-const { post } = Astro.props;
 const { title, excerpt, image } = post;
 ---
 
