@@ -130,7 +130,7 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
           <div className="text-center w-full">
             <Button
               className="inline-flex items-center justify-center gap-2"
-              isCalendlyButton={true}
+              hasOverlay={true}
               onClick={() => setIsMobileMenuOpen(false)}
               height="compact"
             >

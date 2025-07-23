@@ -150,7 +150,7 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
           <div className="text-center">
             <Button
               className="inline-flex items-center justify-center gap-2"
-              isCalendlyButton={true}
+              hasOverlay={true}
               onClick={() => setIsMobileMenuOpen(false)}
               height="compact"
               

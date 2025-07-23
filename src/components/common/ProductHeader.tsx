@@ -81,7 +81,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
 
           <div className="relative px-4 md:px-0 order-1 lg:order-2">
             <div
-              className="relative w-full mx-auto min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[800px] flex items-center"
+              className="relative w-full mx-auto min-h-[200px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[800px] flex items-center"
               data-aos="fade-up-sm"
               data-aos-delay="400"
             >
