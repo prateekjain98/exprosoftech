@@ -12,7 +12,7 @@ import { sanityClient } from "sanity:client";
 import { TestimonialMarquee } from "../components/TestimonialMarqueeNew";
 import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
 import WhyGreymetre from "../components/WhyGreymetre";
-import HomeBlogSection from "../components/HomeBlogSection.astro";
+import BlogSection from "../components/BlogSection";
 import DynamicCTA from "../components/DynamicCTA";
 import { CloudSpecializations } from "../components/CloudSpecializations";
 import CaseStudyCarousel from "../components/CaseStudyCarousel";
@@ -168,8 +168,6 @@ const testimonialData = await sanityClient.fetch(`
   }
 `);
 
-
-
 // Fetch top 3 case studies for carousel
 const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...3] {
   title,
@@ -185,42 +183,51 @@ const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...
 }`;
 
 const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
-
 ---
 
-<Base title="Home" meta_title={pageData.metaTitle} description={pageData.metaDescription}>
+<Base
+  title="Home"
+  meta_title={pageData.metaTitle}
+  description={pageData.metaDescription}
+>
   <HomeBanner client:load data={pageData.heroBanner} />
-  {pageData.clientsSection?.isVisible && (
-    <Clients client:visible data={pageData.clientsSection} />
-  )}
+  {
+    pageData.clientsSection?.isVisible && (
+      <Clients client:visible data={pageData.clientsSection} />
+    )
+  }
   <!-- <Offerings client:visible data={pageData.offeringsSection} /> -->
   <FeaturesGrid client:visible data={pageData.FeaturesSection} />
-  <ScrollableServices client:visible data={pageData.ScrollableServicesSection} />
+  <ScrollableServices
+    client:visible
+    data={pageData.ScrollableServicesSection}
+  />
   <IndustriesWeServe client:visible data={pageData.industriesSection} />
-  
 
   <WhyGreymetre client:visible data={pageData.whySection} />
-  
+
   <CloudSpecializations client:visible data={pageData.cloudSpecializations} />
 
-  {pageData.whySection.isVisible && (
-    <WhyGreymetre client:visible data={pageData.whySection} />
-  )}
-
+  {
+    pageData.whySection.isVisible && (
+      <WhyGreymetre client:visible data={pageData.whySection} />
+    )
+  }
 
   <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
-  
-  <HomeBlogSection />
 
-  {pageData.partnerLogosSection?.isVisible && (
-    <PartnerLogos client:visible data={pageData.partnerLogosSection} />
-  )}
-  
-  
+  <BlogSection client:visible />
+
+  {
+    pageData.partnerLogosSection?.isVisible && (
+      <PartnerLogos client:visible data={pageData.partnerLogosSection} />
+    )
+  }
+
   <!-- <ProductSection client:visible data={pageData.productsSection} />  -->
   <TestimonialMarquee client:load data={testimonialData} />
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
-   
+
   <DynamicCTA client:visible ctaContent={pageData.ctaSection} />
   <NewFAQ client:visible Faq={[pageData.faqSection]} />
 </Base>

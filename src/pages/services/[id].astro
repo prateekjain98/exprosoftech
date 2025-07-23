@@ -17,7 +17,7 @@ import ContentSection from "../../components/ContentSection";
 import { Offerings } from "../../components/Offerings";
 import AccordionSection from "../../components/AccordionSection";
 import { DualGridScroller } from "../../components/DualGridScroller";
-import HomeBlogSection from "../../components/HomeBlogSection.astro";
+import BlogSection from "../../components/BlogSection";
 import { PartnerLogos } from "../../components/PartnerLogos";
 import CaseStudyCarousel from "../../components/CaseStudyCarousel";
 import DynamicServiceShowcase from "../../components/DynamicServiceShowcase";
@@ -498,7 +498,7 @@ if (!service) {
 
   <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
 
-  <HomeBlogSection client:visible /> 
+  <BlogSection client:visible /> 
 
   {service.faqSection && (
     <NewFAQ client:visible Faq={[service.faqSection]} />
