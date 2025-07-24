@@ -4,7 +4,7 @@ import type { APIRoute } from "astro";
 
 export const GET: APIRoute = async ({ site }) => {
   // Fetch all dynamic content from Sanity CMS
-  const [posts, caseStudies, products, services] = await Promise.all([
+  const [posts, caseStudies, products, services, productBlogs] = await Promise.all([
     // Blog posts
     sanityClient.fetch(`*[_type == "post"] {
       "slug": slug.current
@@ -19,6 +19,10 @@ export const GET: APIRoute = async ({ site }) => {
     }`),
     // Services
     sanityClient.fetch(`*[_type == "dynamicServicePage"] {
+      "slug": slug.current
+    }`),
+    // Product blogs
+    sanityClient.fetch(`*[_type == "productBlog"] {
       "slug": slug.current
     }`),
 
@@ -45,6 +49,8 @@ export const GET: APIRoute = async ({ site }) => {
     ...products.map((product: { slug: string }) => `${site}products/${product.slug}`),
     // Services
     ...services.map((service: { slug: string }) => `${site}services/${service.slug}`),
+    // Product blogs
+    ...productBlogs.map((blog: { slug: string }) => `${site}products/blogs/${blog.slug}`),
 
 
   ];
