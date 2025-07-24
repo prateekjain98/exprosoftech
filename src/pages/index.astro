@@ -183,6 +183,20 @@ const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...
 }`;
 
 const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
+
+// Fetch blog posts for BlogSection
+const blogPostsQuery = `*[_type == "post"] | order(date desc)[0..2] {
+  _id,
+  title,
+  "slug": slug.current,
+  date,
+  excerpt,
+  "image": image.asset->url,
+  "body": body,
+  "author": author->name
+}`;
+
+const blogPosts = await sanityClient.fetch(blogPostsQuery);
 ---
 
 <Base
@@ -216,7 +230,7 @@ const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
 
   <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
 
-  <BlogSection client:visible />
+  <BlogSection client:visible posts={blogPosts} />
 
   {
     pageData.partnerLogosSection?.isVisible && (

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { sanityClient } from "sanity:client";
+import React from "react";
 import SectionHeader from "./SectionHeader";
 import { Button } from "./common/Button";
 
@@ -14,55 +13,17 @@ interface BlogPost {
   author: string;
 }
 
-const BlogSection: React.FC = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+interface BlogSectionProps {
+  posts: BlogPost[];
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const postsQuery = `*[_type == "post"] | order(date desc)[0..2] {
-          title,
-          "slug": slug.current,
-          date,
-          excerpt,
-          "image": image.asset->url,
-          "body": body,
-          "author": author->name
-        }`;
-
-        const fetchedPosts = await sanityClient.fetch(postsQuery);
-        setPosts(fetchedPosts);
-      } catch (error) {
-        console.error("Failed to fetch posts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
+const BlogSection: React.FC<BlogSectionProps> = ({ posts = [] }) => {
   const blogSectionContent = {
     subtitle: "Latest Insights",
     title: "Our Blog",
     description:
       "Stay updated with our latest thoughts, insights, and industry trends",
   };
-
-  if (loading) {
-    return (
-      <section className="section overflow-hidden">
-        <div className="container">
-          <div className="row">
-            <div className="mx-auto text-center lg:col-10">
-              <div>Loading...</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="section overflow-hidden">
@@ -83,20 +44,56 @@ const BlogSection: React.FC = () => {
             <div className="row gx-4 gy-5 justify-center md:gx-5">
               {posts?.map((blog) => (
                 <div key={blog._id} className="md:col-6 lg:col-4">
-                  <div className="blog-card">
+                  <div className="bg-body h-full">
                     {blog.image && (
-                      <div className="blog-image">
-                        <img src={blog.image} alt={blog.title} />
+                      <div className="relative flex items-center justify-center">
+                        <div className="aspect-video w-full mb-6 overflow-hidden rounded-3xl">
+                          <img
+                            className="h-full w-full object-cover"
+                            src={blog.image}
+                            alt={blog.title}
+                          />
+                        </div>
                       </div>
                     )}
-                    <div className="blog-content">
-                      <h3>{blog.title}</h3>
-                      <p>{blog.excerpt}</p>
-                      <div className="blog-meta">
-                        <span>{blog.author}</span>
-                        <span>{new Date(blog.date).toLocaleDateString()}</span>
-                      </div>
+                    <div className="mb-4 flex items-center gap-x-2">
+                      <img
+                        className="w-5"
+                        src="/images/icons/png/date.png"
+                        alt="date icon"
+                      />
+                      <p className="inline-block font-medium text-tertiary">
+                        {new Date(blog.date).toLocaleDateString('en-US', {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        })}
+                      </p>
                     </div>
+                    {blog.title && (
+                      <h3 className="h5 mb-3">
+                        <a href={`/blog/${blog.slug}/`} className="hover:text-primary transition-colors">
+                          {blog.title}
+                        </a>
+                      </h3>
+                    )}
+                    {blog.excerpt && (
+                      <p className="mb-6 text-text">{blog.excerpt}</p>
+                    )}
+                    <a 
+                      className="btn btn-text border-none inline-flex items-center gap-2 hover:text-primary transition-colors" 
+                      href={`/blog/${blog.slug}/`}
+                    >
+                      Read More
+                      <div className="icon-wrapper">
+                        <span className="icon" aria-hidden="true">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </div>
               ))}
