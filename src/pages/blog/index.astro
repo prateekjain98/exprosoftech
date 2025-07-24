@@ -3,6 +3,7 @@ import Pagination from "@/components/Pagination.astro";
 import config from "@/config/config.json";
 import Base from "@/layouts/Base.astro";
 import BlogSection from "@/partials/BlogSection.astro";
+import Breadcrumbs from "@/layouts/components/Breadcrumbs.astro";
 import { getEntry } from "astro:content";
 import { sanityClient } from "sanity:client";
 
@@ -32,6 +33,18 @@ const headingContent = postIndex?.data.hero;
   meta_title={postIndex?.data.meta_title || postIndex?.data.title}
   image={postIndex?.data.image}
   description={postIndex?.data.description}>
+  
+  <!-- Breadcrumbs -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <Breadcrumbs className="mt-4" />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <BlogSection
     largeHeading={true}
     content={headingContent}

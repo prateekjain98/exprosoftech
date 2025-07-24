@@ -5,6 +5,7 @@ import { humanize, slugify } from "@/lib/utils/textConverter";
 import ImageMod from "./components/ImageMod.astro";
 import BlogSection from "./partials/BlogSection.astro";
 import CallToAction from "./partials/CallToAction.astro";
+import Breadcrumbs from "./components/Breadcrumbs.astro";
 import { sanityClient } from "sanity:client";
 import { PortableText } from "astro-portabletext";
 import { urlForImage } from "@/lib/utils/sanityImage";
@@ -36,6 +37,17 @@ const relatedPosts = await sanityClient.fetch(`
   }
 `, { slug });
 ---
+
+<!-- Breadcrumbs -->
+<section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <Breadcrumbs className="mt-4" />
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">
