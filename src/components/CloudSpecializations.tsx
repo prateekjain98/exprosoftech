@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { FaCloud, FaDatabase, FaChartLine, FaDollarSign , FaHeadphones, FaGlobe, FaBolt, FaIndustry, FaMoneyBillWave, FaGraduationCap, FaBoxOpen ,} from "react-icons/fa";
 import {  FiUsers,
   FiSettings,
@@ -16,9 +16,14 @@ import {  FiUsers,
   FiBriefcase,
   FiBarChart2,}
   from "react-icons/fi";
-import { motion, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import SectionHeader from "./SectionHeader";
 
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 // Icon map for cloud specializations
 const cloudIconMap = {
@@ -243,78 +248,84 @@ export const CloudSpecializations: React.FC<Props> = ({
   const displayHeading = data?.heading || heading;
   const displaySpecializations = data?.specializations || cloudSpecializations;
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  useGSAP(() => {
+    if (!containerRef.current || !scrollRef.current) return;
 
-  useEffect(() => {
-    if (!scrollRef.current) return;
+    const scrollContainer = scrollRef.current;
+    const cardsWrapper = scrollContainer.parentElement; // The h-screen wrapper
     
-    const scrollWidth = scrollRef.current.scrollWidth;
-    const viewportWidth = window.innerWidth;
-    const scrollDistance = scrollWidth - viewportWidth + 200;
-
-    const handleScroll = () => {
-      if (!scrollRef.current || !containerRef.current) return;
-      const progress = scrollYProgress.get();
+    // Calculate total scroll distance using actual scroll width
+    const getScrollAmount = () => {
+      const scrollWidth = scrollContainer.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const containerWidth = cardsWrapper?.offsetWidth || viewportWidth;
       
-      // Apply easing function for smoother scrolling on smaller screens
-      let easedProgress = progress;
-      if (viewportWidth < 640) {
-        // Slower start and end, but still reaches full distance
-        easedProgress = progress * progress * (3 - 2 * progress); // Smooth step function
-      } else if (viewportWidth < 1024) {
-        // Moderate easing for tablets
-        easedProgress = progress * progress * (2 - progress); // Quadratic easing
+      // Return negative value for leftward scroll, ensure we don't scroll past the content
+      return Math.min(0, -(scrollWidth - containerWidth));
+    };
+
+    // Create the horizontal scroll animation
+    const scrollTween = gsap.to(scrollContainer, {
+      x: getScrollAmount,
+      ease: "none",
+    });
+
+    // Create ScrollTrigger - pin when scrollRef container reaches top
+    ScrollTrigger.create({
+      trigger: cardsWrapper, // Target the cards wrapper instead of entire component
+      start: "top top",
+      end: () => `+=${Math.abs(getScrollAmount()) + window.innerHeight}`, // Dynamic end based on scroll amount
+      animation: scrollTween,
+      pin: cardsWrapper, // Pin the cards wrapper specifically
+      scrub: 1,
+      invalidateOnRefresh: true,
+      onRefresh: () => {
+        // Recalculate scroll amount on window resize
+        scrollTween.vars.x = getScrollAmount();
+        scrollTween.invalidate();
       }
-      
-      scrollRef.current.scrollLeft = easedProgress * scrollDistance;
-    };
+    });
 
-    scrollYProgress.on("change", handleScroll);
+    // Cleanup function
     return () => {
-      scrollYProgress.clearListeners();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, [scrollYProgress]);
+  }, [displaySpecializations]);
 
-return (
+  return (
     <section 
       ref={containerRef}
-      className={`section min-h-[300vh] sm:min-h-[250vh] lg:min-h-[200vh] ${className} bg-white`}
+      className={`${className} bg-white relative`}
     >
-      <div className="sticky top-0 overflow-hidden">
-        <div className="max-w-[100vw] mx-auto px-3 py-20 relative">
-          <div className="row">
-            <div className="mx-auto mb-12">
-              <SectionHeader
-                tagline={displayHeading.tagline}
-                heading={displayHeading.title}
-                subheading={displayHeading.description}
-                alignment="center"
-              />
-            </div>
-            <div className="col-12">
-              <div 
-                ref={scrollRef}
-                className="flex gap-4 sm:gap-6 lg:gap-8 overflow-x-hidden w-full overflow-y-hidden lg:pt-12"
-                style={{
-                  paddingLeft: "calc((100vw - 1280px) / 2)",
-                  paddingRight: "calc((100vw - 1280px) / 2)"
-                }}
-              >
-                {displaySpecializations.map((cloud, index) => (
-                  <CloudCard 
-                    key={cloud.id} 
-                    cloud={cloud} 
-                    index={index} 
-                  />
-                ))}
-              </div>
-            </div>
+      {/* Header section */}
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="row">
+          <div className="mx-auto mb-12">
+            <SectionHeader
+              tagline={displayHeading.tagline}
+              heading={displayHeading.title}
+              subheading={displayHeading.description}
+              alignment="center"
+            />
           </div>
+        </div>
+      </div>
+
+      {/* Scrolling cards container */}
+      <div className="h-screen flex items-center overflow-hidden">
+        <div 
+          ref={scrollRef}
+          className="flex gap-4 sm:gap-6 lg:gap-8 px-8"
+        >
+          {displaySpecializations.map((cloud, index) => (
+            <CloudCard 
+              key={cloud.id} 
+              cloud={cloud} 
+              index={index} 
+            />
+          ))}
         </div>
       </div>
     </section>
   );
-}; 
+};
