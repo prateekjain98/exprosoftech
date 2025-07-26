@@ -18,7 +18,7 @@ import {  FiUsers,
   from "react-icons/fi";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import SectionHeader from "./SectionHeader";
 
