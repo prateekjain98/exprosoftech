@@ -18,12 +18,13 @@ import {  FiUsers,
   from "react-icons/fi";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import SectionHeader from "./SectionHeader";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
+
 
 // Icon map for cloud specializations
 const cloudIconMap = {
@@ -232,6 +233,7 @@ const CloudCard: React.FC<{ cloud: CloudSpecialization; index: number }> = ({ cl
 };
 
 export const CloudSpecializations: React.FC<Props> = ({
+
   className = "",
   cloudSpecializations = defaultCloudSpecializations,
   heading = {
@@ -241,6 +243,7 @@ export const CloudSpecializations: React.FC<Props> = ({
   },
   data
 }) => {
+
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
