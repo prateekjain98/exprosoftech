@@ -194,7 +194,9 @@ const carouselPosts = productBlogs.map((blog: any) => ({
     heading={product.benfitsSection?.heading}
   />
   
-  <BlogCarousel posts={carouselPosts} client:visible />
+  {carouselPosts.length > 0 && (
+    <BlogCarousel posts={carouselPosts} client:visible />
+  )}
 
   
   <!-- <AdditionalFeatures 

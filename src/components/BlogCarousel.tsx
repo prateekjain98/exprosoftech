@@ -58,9 +58,6 @@ const BlogCarousel: React.FC<BlogCarouselProps> = ({
     window.location.href = `/products/blogs/${slug}/`;
   };
 
-  if (!posts || posts.length === 0) {
-    return <div>No blog posts available.</div>;
-  }
 
   return (
     <section className={`py-20 ${className}`}>

@@ -51,59 +51,16 @@ try {
   }`;
   
   // Add product dropdown content query
-  const productDropdownQuery = `*[_type == "productDropdownContent" && isActive == true] {
-    name,
-    dropdownContent {
-      tagline,
-      title,
-      description,
-      features,
-      backgroundImage {
-        asset->{
-          url
-        },
-        alt
-      },
-      productImages[] {
-        asset->{
-          url
-        },
-        alt
-      }
-    }
+  const productDropdownQuery = `*[_type == "productDropdownContent"] | order(_createdAt asc) {
+    title,
+    "slug": slug.current,
+    description
   }`;
 
-  const serviceDropdownQuery = `*[_type == "serviceDropdownContent" && isActive == true] | order(_createdAt asc) {
-  name,
-  isDefaultView,
-  dropdownContent {
-    tagline,
+  const serviceDropdownQuery = `*[_type == "serviceDropdownContent"] | order(_createdAt asc) {
     title,
-    subtitle,
-    description,
-    features,
-    metrics[] {
-      value,
-      label
-    },
-    successStories[] {
-      company,
-      achievement
-    },
-    hoverPrompt,
-    companyLogo {
-      asset->{
-        url
-      },
-      alt
-    },
-    backgroundImage {
-      asset->{
-        url
-      },
-      alt
-    }
-    }
+    "slug": slug.current,
+    description
   }`;
 
   const consultingDropdownQuery = `*[_type == "consultingDropdownContent" && isActive == true] {
@@ -130,7 +87,7 @@ try {
   
   const [products, services, consulting, productDropdown, serviceDropdown, consultingDropdown] = await Promise.all([
     sanityClient.fetch(productsQuery),
-  sanityClient.fetch(servicesQuery),
+    sanityClient.fetch(servicesQuery),
     sanityClient.fetch(consultingQuery),
     sanityClient.fetch(productDropdownQuery),
     sanityClient.fetch(serviceDropdownQuery),
@@ -158,9 +115,9 @@ try {
     {
       name: "Services",
       url: "",
-      hasChildren: services.length > 0,
-      children: services.map((item: {name: string; slug: string; description?: string}) => ({
-        name: item.name,
+      hasChildren: serviceDropdown.length > 0,
+      children: serviceDropdown.map((item: {title: string; slug: string; description?: string}) => ({
+        name: item.title,
         url: `/services/${item.slug}/`,
         description: item.description
       }))
@@ -168,12 +125,21 @@ try {
     {
       name: "Products",
       url: "",
-      hasChildren: products.length > 0,
-      children: products.map((item: {name: string; slug: string; description?: string}) => ({
-        name: item.name,
-        url: `/products/${item.slug}/`,
-        description: item.description
-      }))
+      hasChildren: productDropdown.length > 0 || true, // Force hasChildren to true for now
+      children: productDropdown.length > 0 
+        ? productDropdown.map((item: {title: string; slug: string; description?: string}) => ({
+            name: item.title,
+            url: `/products/${item.slug}/`,
+            description: item.description
+          }))
+        : [
+            // Fallback products if no CMS data
+            {
+              name: "FlexiToast",
+              url: "/products/flexi-toast/",
+              description: "Flexible toast notification system"
+            }
+          ]
     },
     // {
     //   name: "Solutions",

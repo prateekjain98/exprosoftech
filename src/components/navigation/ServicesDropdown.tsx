@@ -5,7 +5,7 @@ import Button from "../../components/common/Button";
 interface ServicesDropdownProps {
   children: ChildNavigationLink[];
   setIsMobileMenuOpen: (isOpen: boolean) => void;
-  serviceDropdownData: any[]; // Array of service data
+  serviceDropdownData: any[]; // Array of service data with title and description
 }
 
 const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
@@ -15,48 +15,8 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
 }) => {
   const [hoveredServiceId, setHoveredServiceId] = useState<number | null>(null);
   
-  // Find the default view service (if any)
-  const defaultService = serviceDropdownData.find(service => service.isDefaultView === true);
-  
-  // Function to find URL for a service by name
-  const findServiceUrl = (serviceName: string): string => {
-    // Try to find exact match first
-    let matchedChild = children.find(child => 
-      child.name.toLowerCase() === serviceName.toLowerCase()
-    );
-    
-    // If no exact match, try partial matching
-    if (!matchedChild) {
-      matchedChild = children.find(child => 
-        child.name.toLowerCase().includes(serviceName.toLowerCase()) ||
-        serviceName.toLowerCase().includes(child.name.toLowerCase())
-      );
-    }
-    
-    return matchedChild?.url || "#";
-  };
-  
-  // Create a merged list of services that includes all navigation children
-  // and enriches them with dropdown data if available
-  const allServices = children.map(child => {
-    // Try to find matching dropdown data
-    const dropdownData = serviceDropdownData.find(service => 
-      service.name.toLowerCase() === child.name.toLowerCase() ||
-      service.name.toLowerCase().includes(child.name.toLowerCase()) ||
-      child.name.toLowerCase().includes(service.name.toLowerCase())
-    );
-    
-    return {
-      name: child.name,
-      description: child.description,
-      url: child.url,
-      dropdownContent: dropdownData?.dropdownContent || null,
-      isDefaultView: dropdownData?.isDefaultView || false
-    };
-  });
-
-  // Filter out default view services for the left panel
-  const regularServices = allServices.filter(service => !service.isDefaultView);
+  // Use children data as the primary source since it now comes from serviceDropdownData
+  const allServices = children;
 
   return (
     <div className="w-full">
@@ -74,14 +34,14 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 002 2z"
               />
             </svg>
           </div>
           <h3 className="text-sm font-semibold text-primary">Our Services</h3>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          {regularServices.map((service, index) => (
+          {allServices.map((service, index) => (
             <div
               key={index}
               onMouseEnter={() => setHoveredServiceId(index)}
@@ -101,21 +61,9 @@ const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                 >
                   <div className="p-4">
                     <div className="flex items-start gap-3">
-                      <div className="shrink-0 h-10 w-10 rounded-lg bg-gradient-to-br from-[#111b57]/5 to-primary/5 flex items-center justify-center group-hover:from-[#111b57]/10 group-hover:to-primary/10">
-                        <svg
-                          className="w-6 h-6 text-primary hidden lg:block"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1.5}
-                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                          />
-                        </svg>
-                      </div>
+                      {/* <div className="shrink-0 h-10 w-10 rounded-lg bg-gradient-to-br from-[#111b57]/5 to-primary/5 flex items-center justify-center group-hover:from-[#111b57]/10 group-hover:to-primary/10">
+                        
+                      </div> */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <h4 className="text-base font-medium text-slate-900 group-hover:text-primary transition-colors duration-200">

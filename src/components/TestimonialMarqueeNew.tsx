@@ -188,7 +188,8 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }
               {testimonial.name}
             </p>
             <p className="text-gray-600 leading-5">
-              {testimonial.role} at {testimonial.company}
+              {testimonial.role} 
+              {testimonial.company && ` at ${testimonial.company}`}
             </p>
           </div>
         </div>
