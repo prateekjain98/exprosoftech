@@ -10,11 +10,12 @@ import contact from './contact'
 import { caseStudyType } from './caseStudy.ts'
 import testimonialSection from './testimonialSection.ts'
 import { serviceDropdownType } from './serviceDropdown'
+import { productDropdownType } from './productDropwdown'
 import industries from './industries'
 import { productBlogType } from './productBlog'
 import footer from './footer'
 
 export const schemaTypes = [ 
     clientsType , post , author , blockContent  , dynamicServicePageType , dynamicProductPageType , homePage,      
-    about , contact , caseStudyType  , serviceDropdownType , industries, productBlogType , testimonialSection, footer
+    about , contact , caseStudyType  , serviceDropdownType , productDropdownType , industries, productBlogType , testimonialSection, footer
 ]
