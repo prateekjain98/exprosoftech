@@ -142,7 +142,7 @@ export const DynamicCloudSpecialization: React.FC<Props> = ({
     <section className={`py-24 relative overflow-hidden ${className}`}>
       {/* Background decorative elements */}
       <div className="absolute inset-0 bg-white" />
-      <div className="max-w-7xl mx-auto  relative">
+      <div className="max-w-[80vw] lg:max-w-7xl mx-auto  relative">
         <SectionHeader
           tagline={heading?.subtitle ?? ""}
           heading={heading?.title ?? ""}
