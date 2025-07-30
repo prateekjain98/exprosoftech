@@ -114,5 +114,7 @@ const relatedPosts = await sanityClient.fetch(`
   </div>
   <!-- Related posts -->
   <BlogSection visiblePosts={3} posts={relatedPosts} />
-  <DynamicCTA client:visible ctaContent={ctaSection} />
+  {ctaSection && (
+    <DynamicCTA client:visible ctaContent={ctaSection} />
+  )}
 </section>

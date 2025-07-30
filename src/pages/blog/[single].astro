@@ -26,6 +26,26 @@ const post = await sanityClient.fetch(`
       name,
       "slug": slug.current,
       "image": image.asset->url
+    },
+    ctaSection {
+      tagline,
+      title,
+      subtitle,
+      description,
+      metrices[] {
+        value,
+        label,
+        icon
+      },
+      buttons[] {
+        label,
+        link,
+        isOpenBooking
+      },
+      image {
+        "src": src.asset->url,
+        alt
+      }
     }
   }
 `, { slug: single });
