@@ -230,7 +230,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
       </div>
     </div>
   )}
-  {ctaSection && ctaSection.isVisible && ctaSection.buttons && ctaSection.buttons.length > 0 && (
+  {ctaSection && ctaSection.isVisible && ctaSection.buttons  && (
     <DynamicCTA ctaContent={ctaSection}  client:visible/>
   )}
 </section> 
