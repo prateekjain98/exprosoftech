@@ -14,6 +14,7 @@ const contactQuery = `*[_type == "contact"][0] {
   description,
   meta_title,
   meta_description,
+  canonicalUrl,
   "image": image.asset->url,
   hero {
     "heroImage": heroImage.asset->url,
@@ -65,7 +66,7 @@ const contactQuery = `*[_type == "contact"][0] {
 }`
 
 const contactData = await sanityClient.fetch(contactQuery);
-const { title, meta_description, meta_title, image, hero, faq, consultationCTA } = contactData;
+const { title, meta_description, meta_title, canonicalUrl, image, hero, faq, consultationCTA } = contactData;
 
 // Transform FAQ data to match NewFAQ component's expected format
 const transformedFaq = {
@@ -84,7 +85,8 @@ const transformedFaq = {
   title={title}
   meta_title={meta_title}
   description={meta_description}
-  image={image}>
+  image={image}
+  canonical={canonicalUrl}>
   <ContactHero hero={hero} />
   <NewFAQ client:load Faq={[transformedFaq]} />
   <!-- <ConsultationCTA client:load /> -->

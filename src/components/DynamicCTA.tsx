@@ -173,9 +173,26 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                 </p>
 
                 {/* Metrics Grid */}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+                  <div className={`grid gap-4 md:gap-6 mb-10 ${
+                    ctaContent?.metrices?.length === 3 
+                      ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3' 
+                      : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3'
+                  }`}>
                     {ctaContent?.metrices && ctaContent.metrices.map((metric, index) => (
-                      <div key={index} className="relative group">
+                      <div 
+                        key={index} 
+                        className={`relative group ${
+                          ctaContent.metrices.length === 3 && index === 2 
+                            ? 'col-span-2 md:col-span-1 flex justify-center md:block' 
+                            : ''
+                        }`}
+                      >
+                        <div className={`${
+                          ctaContent.metrices.length === 3 && index === 2 
+                            ? 'w-1/2 md:w-full' 
+                            : 'w-full'
+                        }`}
+                        >
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
                         <div className="relative p-4">
                           <div className="flex items-center justify-center lg:justify-start mb-3">
@@ -191,16 +208,19 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                             {metric.label}
                           </div>
                         </div>
+                        </div>
                       </div>
                     ))}
                   </div>
 
-                <Button
-                  variant="primary"
-                  hasOverlay={ctaContent.buttons[0].isOpenBooking}
-                >
-                  {ctaContent.buttons[0].label || "Get Started"}
-                </Button>
+                <div className="flex justify-center lg:justify-start">
+                  <Button
+                    variant="primary"
+                    hasOverlay={ctaContent.buttons[0].isOpenBooking}
+                  >
+                    {ctaContent.buttons[0].label || "Get Started"}
+                  </Button>
+                </div>
               </div>
 
               {/* Image Side - Hidden on mobile, shown on desktop */}

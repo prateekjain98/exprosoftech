@@ -41,6 +41,7 @@ const product = await sanityClient.fetch(`
     metaTitle,
     metaDescription,
     image,
+    canonicalUrl,
     headerContent {
       badge,
       title,
@@ -163,6 +164,7 @@ const carouselPosts = productBlogs.map((blog: any) => ({
   meta_title={product.metaTitle}
   description={product.metaDescription}
   image={product.image}
+  canonical={product.canonicalUrl}
 >
   <ProductHeader {...product.headerContent} client:load />
   <!-- <Clients client:visible data={product.clients} /> -->

@@ -10,6 +10,7 @@ const industriesData = await sanityClient.fetch(`*[_type == "industries"][0] {
     title,
     metaTitle,
     metaDescription,
+    canonicalUrl,
     image,
     hero {
         title,
@@ -96,6 +97,7 @@ const faqData = industriesData.faqSection;
     meta_title={industriesData.metaTitle || "Industries"} 
     description={industriesData.metaDescription || "Industries"}
     image={industriesData.image}
+    canonical={industriesData.canonicalUrl}
 >
     <IndustriesHero client:load data={heroData} />
     <AlternatingIndustries 

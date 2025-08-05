@@ -19,6 +19,12 @@ export const productBlogType = defineType({
         validation: Rule => Rule.max(160)
     }),
     defineField({
+      name: 'canonicalUrl',
+      title: 'Canonical URL',
+      type: 'string',
+      description: 'Optional: Override the default canonical URL. If left empty, will use the automatic URL construction.'
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
