@@ -41,6 +41,7 @@ const pageData = await sanityClient.fetch(`
   *[_type == "homepage"][0] {
     metaTitle,
     metaDescription,
+    image,
     heroBanner {
       title,
       blueTitle,
@@ -199,11 +200,7 @@ const blogPostsQuery = `*[_type == "post"] | order(date desc)[0..2] {
 const blogPosts = await sanityClient.fetch(blogPostsQuery);
 ---
 
-<Base
-  title="Home"
-  meta_title={pageData.metaTitle}
-  description={pageData.metaDescription}
->
+<Base title="Home" meta_title={pageData.metaTitle} description={pageData.metaDescription} image={pageData.image}>
   <HomeBanner client:load data={pageData.heroBanner} />
   {
     pageData.clientsSection?.isVisible && (

@@ -19,6 +19,14 @@ export default defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
+      name: 'image',
+      title: 'Featured Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
+    }),
+    defineField({
       name: 'heroBanner',
       title: 'Hero Banner',
       type: 'object',
