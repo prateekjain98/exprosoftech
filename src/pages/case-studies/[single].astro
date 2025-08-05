@@ -1,70 +1,68 @@
 ---
 import Base from "@/layouts/Base.astro";
 import CaseStudySingle from "@/layouts/CaseStudySingle.astro";
+import Breadcrumbs from "@/layouts/components/Breadcrumbs.astro";
 import { sanityClient } from "sanity:client";
 
-export const prerender = true;
+const { single } = Astro.params;
 
-export async function getStaticPaths() {
-  const caseStudies = await sanityClient.fetch(`
-    *[_type == "caseStudy"] {
-      "slug": slug.current,
+const caseStudy = await sanityClient.fetch(`
+  *[_type == "caseStudy" && slug.current == $slug][0] {
+    "slug": slug.current,
+    title,
+    category,
+    description,
+    excerpt,
+    challenge,
+    solution,
+    results,
+    metrics,
+    industry,
+    duration,
+    services,
+    publishedAt,
+    "logo": logo {
+      asset->{
+        url
+      },
+      alt
+    },
+
+    "featuredImage": featuredImage {
+      asset->{
+        url
+      },
+      alt
+    },
+    
+    ctaSection {
+      isVisible,
+      tagline,
       title,
-      category,
-      excerpt,
-      challenge,
-      solution,
-      results,
-      metrics,
-      industry,
-      duration,
-      services,
-      publishedAt,
-      "logo": logo {
-        asset->{
-          url
-        },
-        alt
+      subtitle,
+      description,
+      metrices[] {
+        value,
+        label,
+        icon
       },
-
-      "featuredImage": featuredImage {
-        asset->{
-          url
-        },
-        alt
+      buttons[] {
+        label,
+        link,
+        isOpenBooking
       },
-      
-      ctaSection {
-        isVisible,
-        tagline,
-        title,
-        subtitle,
-        description,
-        metrices[] {
-          value,
-          label,
-          icon
-        },
-        buttons[] {
-          label,
-          link,
-          isOpenBooking
-        },
-        image {
-          "src": src.asset->url,
-          alt
-        }
+      image {
+        "src": src.asset->url,
+        alt
       }
     }
-  `);
+  }
+`, { slug: single });
 
-  return caseStudies.map((caseStudy: { slug: string }) => ({
-    params: { single: caseStudy.slug },
-    props: { caseStudy },
-  }));
+// Handle 404 if case study not found
+if (!caseStudy) {
+  return Astro.redirect("/404");
 }
-
-const { caseStudy } = Astro.props as { caseStudy: any };
 ---
 
 <Base
@@ -72,5 +70,17 @@ const { caseStudy } = Astro.props as { caseStudy: any };
   meta_title={`${caseStudy.title} - Case Study - Exprosoftech`}
   description={caseStudy.excerpt || ""}
   image={caseStudy.featuredImage?.asset?.url}>
+  
+  <!-- Breadcrumbs -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <Breadcrumbs className="mt-4" />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <CaseStudySingle caseStudy={caseStudy} />
 </Base> 

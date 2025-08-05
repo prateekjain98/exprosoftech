@@ -203,9 +203,9 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                 </Button>
               </div>
 
-              {/* Image Side */}
+              {/* Image Side - Hidden on mobile, shown on desktop */}
               {ctaContent.image && (
-              <div className="lg:col-span-2 relative hidden lg:block">
+              <div className="hidden lg:block lg:col-span-2 relative ">
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                   <img
                     src={ctaContent.image.src}

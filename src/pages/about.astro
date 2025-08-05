@@ -12,6 +12,7 @@ import IndustriesWeServe from "../layouts/components/IndustriesWeServe";
 import { DynamicCTA } from "../components/DynamicCTA";
 import ContentSection from "../components/ContentSection";
 import CompanyActivitiesSection from "../components/CompanyActivitiesSection";
+import { PartnerLogos } from "../components/PartnerLogos";
 
 // GROQ query to fetch all about page data
 const aboutQuery = `*[_type == "about"][0] {
@@ -129,6 +130,16 @@ const aboutQuery = `*[_type == "about"][0] {
       },
       alt
     }
+  },
+  partnerLogosSection {
+      isVisible,
+      title,
+      subtitle,
+      logos[] {
+        "src": src.asset->url,
+        alt,
+        name
+      }
   },
   leadershipSection {
     subtitle,
@@ -271,6 +282,13 @@ const companyActivitiesData = {
   }
 };
 
+const partnerLogosData = {
+  isVisible: pageData.partnerLogosSection?.isVisible,
+  title: pageData.partnerLogosSection?.title,
+  subtitle: pageData.partnerLogosSection?.subtitle,
+  logos: pageData.partnerLogosSection?.logos
+};
+
 const leadershipData = {
   subtitle: leadershipSection.subtitle,
   title: leadershipSection.title,
@@ -329,6 +347,13 @@ const ctaData = {
   )}
   <Offerings client:visible data={offeringsData} />
   <!-- <IndustriesWeServe client:visible data={pageData.industriesSection} /> -->
+
+  
+  {
+    partnerLogosData.isVisible && (
+      <PartnerLogos client:visible data={partnerLogosData} />
+    )
+  }
   
   <LeadershipTeam 
     client:load 

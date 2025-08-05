@@ -2,6 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import CaseStudyCard from "@/layouts/components/CaseStudyCard.astro";
 import SectionHeader from "@/components/SectionHeader.astro";
+import Breadcrumbs from "@/layouts/components/Breadcrumbs.astro";
 import { sanityClient } from "sanity:client";
 
 // Interface for case study data from Sanity
@@ -87,6 +88,17 @@ const pageDescription = "Discover how we've helped organizations achieve remarka
   description={pageDescription}
 >
   <main>
+    <!-- Breadcrumbs -->
+    <section class="section-sm">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <Breadcrumbs className="mt-4" />
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Hero Section -->
     <section class="section overflow-hidden">
       <div class="container">

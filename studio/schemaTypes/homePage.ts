@@ -493,45 +493,45 @@ export default defineType({
     ]
   }),
 
-    // Products Section
-    defineField({
-      name: 'productsSection',
-      title: 'Products Section',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'products',
-          type: 'array',
-          of: [
-            {
-              type: 'object',
-              fields: [
-                defineField({ name: 'title', type: 'string' }),
-                defineField({ name: 'description', type: 'text' }),
-                defineField({ name: 'image', type: 'image' }),
-                defineField({ name: 'label', type: 'string' }),
-                defineField({ name: 'buttonHref', type: 'string' }),
-                defineField({ name: 'buttonLabel', type: 'string' }),
-                defineField({ name: 'mainCTA', type: 'boolean' }),
-                defineField({
-                  name: 'features',
-                  type: 'array',
-                  of: [
-                    {
-                      type: 'object',
-                      fields: [
-                        defineField({ name: 'title', type: 'string' }),
-                        defineField({ name: 'description', type: 'text' })
-                      ]
-                    }
-                  ]
-                })
-              ]
-            }
-          ]
-        })
-      ]
-    }),
+    // // Products Section
+    // defineField({
+    //   name: 'productsSection',
+    //   title: 'Products Section',
+    //   type: 'object',
+    //   fields: [
+    //     defineField({
+    //       name: 'products',
+    //       type: 'array',
+    //       of: [
+    //         {
+    //           type: 'object',
+    //           fields: [
+    //             defineField({ name: 'title', type: 'string' }),
+    //             defineField({ name: 'description', type: 'text' }),
+    //             defineField({ name: 'image', type: 'image' }),
+    //             defineField({ name: 'label', type: 'string' }),
+    //             defineField({ name: 'buttonHref', type: 'string' }),
+    //             defineField({ name: 'buttonLabel', type: 'string' }),
+    //             defineField({ name: 'mainCTA', type: 'boolean' }),
+    //             defineField({
+    //               name: 'features',
+    //               type: 'array',
+    //               of: [
+    //                 {
+    //                   type: 'object',
+    //                   fields: [
+    //                     defineField({ name: 'title', type: 'string' }),
+    //                     defineField({ name: 'description', type: 'text' })
+    //                   ]
+    //                 }
+    //               ]
+    //             })
+    //           ]
+    //         }
+    //       ]
+    //     })
+    //   ]
+    // }),
 
     defineField({
       name: 'dynamicServiceShowcaseSection',

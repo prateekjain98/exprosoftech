@@ -84,10 +84,10 @@ export const DualGridScroller: React.FC<DualGridScrollerProps> = ({ data }) => {
             {data.items?.map((item, itemIndex) => (
               <div
                 key={itemIndex}
-                className="flex items-center bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-xl p-6 border border-gray-700/50 shadow-2xl"
+                className="flex items-center bg-white backdrop-blur-xl rounded-xl p-6 border border-gray-700/50 shadow-2xl"
               >
                 <div className="min-h-[60px] flex items-center">
-                  <p className="text-white text-base leading-relaxed">
+                  <p className="text-dark text-base leading-relaxed">
                     {item.description}
                   </p>
                 </div>

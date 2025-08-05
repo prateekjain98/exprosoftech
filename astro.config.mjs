@@ -1,6 +1,5 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
-import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import AutoImport from "astro-auto-import";
 import { defineConfig } from "astro/config";
@@ -16,7 +15,7 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-  site: config.site.base_url ? config.site.base_url : "http://examplesite.com",
+  site: config.site.base_url ? config.site.base_url : "https://exprosoftech-wine.vercel.app/",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
   image: {
@@ -24,7 +23,7 @@ export default defineConfig({
       entrypoint: "astro/assets/services/sharp"
     }
   },
-  integrations: [react(), sitemap(), tailwind({
+  integrations: [react(), tailwind({
     config: {
       applyBaseStyles: false,
     },
