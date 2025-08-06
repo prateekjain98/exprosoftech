@@ -152,7 +152,7 @@ export const ProductCardGrid: React.FC<CardGridProps> = ({
   }
 
   return (
-    <section className={`py-20 bg-gray-100/15 ${className}`}>
+    <section className={`py-16 bg-gray-100/15 ${className}`}>
       <div className="container mx-auto px-4">
         {/* Section Heading */}
         {heading && (

@@ -140,7 +140,7 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) 
   }, []);
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-16 bg-gray-50">
       <div className="container max-w-7xl mx-auto px-4">
         <div className="bg-gray-900 rounded-2xl sm:rounded-[3rem] p-8 lg:p-12">
           <SectionHeader

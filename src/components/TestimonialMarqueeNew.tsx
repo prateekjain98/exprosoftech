@@ -75,7 +75,7 @@ export const TestimonialMarquee: React.FC<TestimonialMarqueeProps> = ({ data }) 
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-16 bg-white">
       <div className="max-w-7xl xl:max-w-[100vw] mx-auto  xl:px-0">
         <SectionHeader
           tagline={data?.subtitle || "Testimonials"}

@@ -68,7 +68,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
   }
 
   return (
-    <section className={`py-20 bg-gray-900 ${className}`}>
+    <section className={`py-16 bg-gray-900 ${className}`}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4 text-white">Success Stories</h2>

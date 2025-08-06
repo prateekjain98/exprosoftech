@@ -31,7 +31,7 @@ export const FeatureShowcase = ({
 }: FeatureShowcaseProps) => {
   return (
     <section
-      className={`py-20 lg:py-32 bg-gradient-to-b from-white to-slate-50/30 relative overflow-hidden`}
+      className={`py-16 lg:py-16 bg-gradient-to-b from-white to-slate-50/30 relative overflow-hidden`}
     >
       <div className="container mx-auto px-4 lg:px-8 xl:px-16 max-w-[1440px] relative">
         <div className="grid grid-cols-1 items-center gap-16 lg:gap-24 lg:grid-cols-2">
@@ -99,14 +99,15 @@ export const FeatureShowcase = ({
               ))}
             </div>
 
-            <Button
-              href={showcaseContent.button.link}
-              variant="primary"
-              size="lg"
-              isCalendlyButton={true}
-            >
-              {showcaseContent.button.text}
-            </Button>
+            <div className="inline-block">
+              <Button
+                href={showcaseContent.button.link}
+                variant="primary"
+                size="lg"
+              >
+                {showcaseContent.button.text}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ export const PartnerLogos = ({ data }: PartnerLogosProps) => {
   // No need for dynamic grid classes with flexbox
 
   return (
-    <section className="section py-16 bg-dark">
+    <section className="section my-10 py-16 bg-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header using SectionHeader component */}
         <div className="mb-12">

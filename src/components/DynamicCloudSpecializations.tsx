@@ -139,7 +139,7 @@ export const DynamicCloudSpecialization: React.FC<Props> = ({
   heading 
 }) => {
   return (
-    <section className={`py-24 relative overflow-hidden ${className}`}>
+    <section className={`py-16 relative overflow-hidden ${className}`}>
       {/* Background decorative elements */}
       <div className="absolute inset-0 bg-white" />
       <div className="max-w-[80vw] lg:max-w-7xl mx-auto  relative">
