@@ -151,7 +151,7 @@ const WhyGreymetre: React.FC<WhyGreymetreProps> = ({ data }) => {
   return (
     <section
       id="why-Exprosoftech"
-      className="py-24 bg-gray-50"
+      className="py-16 bg-gray-50"
     >
       <div className="container max-w-7xl mx-auto px-4">
         <div className="bg-dark rounded-2xl sm:rounded-[3rem] p-8 lg:p-12">

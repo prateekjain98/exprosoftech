@@ -280,7 +280,7 @@ const IndustryServicesAndApplications: React.FC<IndustryServicesAndApplicationsP
   const isInView = useInView(statsRef, { once: true });
 
   return (
-    <section className={`py-20 bg-gray-50/50 ${className}`}>
+    <section className={`section bg-gray-50/50 ${className}`}>
       <div className="container">
         <SectionHeader
           tagline={heading.tagline}

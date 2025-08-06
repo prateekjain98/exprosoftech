@@ -154,7 +154,7 @@ export const ServicesSteps: React.FC<Props> = ({
   }));
 
   return (
-    <section className={`py-20 ${className}`}>
+    <section className={`py-16 ${className}`}>
       <div className="container">
         <SectionHeader
           tagline={heading?.tagline}
@@ -162,7 +162,7 @@ export const ServicesSteps: React.FC<Props> = ({
           subheading={heading?.description}
         />
 
-        <div className="mt-16">
+        <div className="mt-0">
           <Timeline data={timelineData} />
         </div>
       </div>

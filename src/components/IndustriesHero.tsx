@@ -29,7 +29,7 @@ const IndustriesHero: React.FC<IndustriesHeroProps> = ({ data }) => {
   const { title, description, image, buttons } = data;
 
   return (
-    <section className="relative py-20 lg:pb-28 overflow-hidden">
+    <section className="relative py-20 lg:pt-28 lg:pb-16 overflow-hidden">
       <div className="container mx-auto px-6 sm:px-8 lg:px-8">
         <div className="max-w-7xl mx-auto px-4 lg:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">

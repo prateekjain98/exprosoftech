@@ -231,7 +231,7 @@ export const ServicesBenefits: React.FC<Props> = ({
   benefits = []
 }): JSX.Element => {
   return (
-    <section className={`py-20 bg-gray-50/50 ${className}`}>
+    <section className={`py-16 bg-gray-50/50 ${className}`}>
       <div className="container">
         <SectionHeader
           tagline={heading?.tagline || ""}

@@ -139,7 +139,7 @@ export const ServicesBestPractices: React.FC<Props> = ({
   benefits = []
 }) => {
   return (
-    <section className={`section py-20 ${className} bg-dark`}>
+    <section className={`section ${className} bg-dark`}>
       <div className="max-w-[85rem] mx-auto px-3 relative">
         <div className="row">
           <div className="mx-auto mb-12">

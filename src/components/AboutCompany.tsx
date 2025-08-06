@@ -26,7 +26,7 @@ const AboutCompany: React.FC<AboutCompanyProps> = ({ data }) => {
   const { title, subtitle, description, content, featuredImage, imageOverlay } = data;
 
   return (
-    <section className="relative py-20 lg:py-28">
+    <section className="relative py-16">
       <div className="container mx-auto px-6 sm:px-8 lg:px-8">
         <div className="max-w-7xl mx-auto px-4 lg:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">

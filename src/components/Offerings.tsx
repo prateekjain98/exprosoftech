@@ -242,7 +242,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
 
   return (
     <section className="section ">
-      <div className="max-w-[90vw] lg:max-w-[85rem] mx-auto px-3 py-16 rounded-[3rem]">
+      <div className="max-w-[90vw] lg:max-w-[85rem] mx-auto px-3  rounded-[3rem]">
       <div className="max-w-[100%] lg:max-w-[85%] mx-auto px-3 ">
         <div className="row">
           <div className="mx-auto ">
@@ -253,7 +253,7 @@ export const Offerings: React.FC<OfferingsProps> = ({ data }) => {
               alignment="center"
             />
           </div>
-          <div className="col-12 pt-20 mt-10 ">
+          <div className="col-12 pt-20 ">
             <div className="row g-4 justify-start">
                 {data.offerings.map((card: OfferingCard, index: number) => (
                 <div

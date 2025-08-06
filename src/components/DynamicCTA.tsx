@@ -146,7 +146,7 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
   };
 
   return (
-    <section className="py-16 lg:py-24">
+    <section className="py-16 ">
       <div className="max-w-[100vw] lg:max-w-[85rem] mx-auto px-0 md:px-8">
         <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 lg:rounded-[2.5rem] overflow-hidden border border-gray-800/50">
           {/* Background Gradients */}
