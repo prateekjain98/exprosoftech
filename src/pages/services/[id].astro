@@ -55,6 +55,7 @@ const service = await sanityClient.fetch(`
     title,
     metaTitle,
     metaDescription,
+    canonicalUrl,
     banner {
       title,
       description,
@@ -385,6 +386,7 @@ if (!service) {
   meta_title={service.metaTitle}
   description={service.metaDescription}
   image={service.image}
+  canonical={service.canonicalUrl}
 >
   <ServicesBanner client:load content={service.banner} />
   

@@ -10,6 +10,7 @@ const post = await sanityClient.fetch(`
     "slug": slug.current,
     seoTitle,
     seoDescription,
+    canonicalUrl,
     title,
     date,
     "image": image.asset->url,
@@ -36,13 +37,14 @@ const post = await sanityClient.fetch(`
 if (!post) {
   return Astro.redirect("/404");
 }
-const { title, excerpt, image, seoTitle, seoDescription } = post;
+const { title, excerpt, image, seoTitle, seoDescription, canonicalUrl } = post;
 ---
 
 <Base
   title={seoTitle || title}
   meta_title={seoTitle || title}
   description={seoDescription || excerpt || ""}
-  image={image}>
+  image={image}
+  canonical={canonicalUrl}>
   <BlogSingle post={post} />
 </Base> 

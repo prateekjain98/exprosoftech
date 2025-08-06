@@ -44,6 +44,12 @@ export const dynamicProductPageType = defineType({
         hotspot: true
       }
     }),
+    defineField({
+      name: 'canonicalUrl',
+      title: 'Canonical URL',
+      type: 'string',
+      description: 'Optional: Override the default canonical URL. If left empty, will use the automatic URL construction.'
+    }),
         
     // Header Content Section
     defineField({
