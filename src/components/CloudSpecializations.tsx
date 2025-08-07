@@ -284,7 +284,7 @@ return (
       className={`section min-h-[300vh] sm:min-h-[250vh] lg:min-h-[200vh] ${className} bg-white`}
     >
       <div className="sticky top-0 overflow-hidden">
-        <div className="max-w-[100vw] mx-auto px-3 py-0 pb-12 relative">
+        <div className="max-w-[100vw] mx-auto px-3 py-0 relative">
           <div className="row">
             <div className="mx-auto mb-12">
               <SectionHeader

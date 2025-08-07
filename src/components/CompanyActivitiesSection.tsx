@@ -18,7 +18,7 @@ const CompanyActivitiesSection: React.FC<ImageContentSectionProps> = ({ data }) 
   const { title, description, image } = data;
 
   return (
-    <section className="relative py-16 lg:py-24 bg-gradient-to-b from-white to-slate-50/30 w-full">
+    <section className="relative py-16 bg-gradient-to-b from-white to-slate-50/30 w-full">
       <div className="w-full">
         <div className="w-full max-w-none">
           {/* Title */}
