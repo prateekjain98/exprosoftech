@@ -6,6 +6,32 @@ export const caseStudyType = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'metaTitle',
+      title: 'Meta Title',
+      type: 'string',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'Meta Description',
+      type: 'text',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'image',
+      title: 'SEO Featured Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
+    }),
+    defineField({
+      name: 'canonicalUrl',
+      title: 'Canonical URL',
+      type: 'string',
+      description: 'Optional: Override the default canonical URL. If left empty, will use the automatic URL construction.'
+    }),
+    defineField({
       name: 'title',
       title: 'Company Name',
       type: 'string',

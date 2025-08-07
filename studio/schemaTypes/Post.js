@@ -1,15 +1,43 @@
+import { defineField } from 'sanity'
+
 export default {
   name: 'post',
   title: 'Blog Post',
   type: 'document',
   fields: [
-    {
+    defineField({
+      name: 'metaTitle',
+      title: 'Meta Title',
+      type: 'string',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'Meta Description',
+      type: 'text',
+      validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'image',
+      title: 'Featured Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
+    }),
+    defineField({
+      name: 'canonicalUrl',
+      title: 'Canonical URL',
+      type: 'string',
+      description: 'Optional: Override the default canonical URL. If left empty, will use the automatic URL construction.'
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
       validation: Rule => Rule.required()
-    },
-    {
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -18,39 +46,31 @@ export default {
         maxLength: 96
       },
       validation: Rule => Rule.required()
-    },
-    {
-      name: 'image',
-      title: 'Featured Image',
-      type: 'image',
-      options: {
-        hotspot: true
-      }
-    },
-    {
+    }),
+    defineField({
       name: 'date',
       title: 'Publication Date',
       type: 'datetime',
       validation: Rule => Rule.required()
-    },
-    {
+    }),
+    defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
       description: 'A short summary of the post'
-    },
-    {
+    }),
+    defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',
       to: [{type: 'author'}]
-    },
-    {
+    }),
+    defineField({
       name: 'body',
       title: 'Body Content',
       type: 'blockContent'
-    },
-    {
+    }),
+    defineField({
       name: 'ctaSection',
       title: 'CTA Section',
       type: 'object',
@@ -146,7 +166,7 @@ export default {
                   type: 'boolean', 
                   title: 'Opens Booking Form',
                   description: 'Enable overlay with iframe functionality instead of regular link'
-                },
+                }
               ]
             }
           ]
@@ -166,10 +186,10 @@ export default {
               title: 'Alt Text',
               type: 'string',
             }
-          ],
-        }
-      ],
-    }
+          ]
+        },
+      ]
+    }),
   ],
   preview: {
     select: {

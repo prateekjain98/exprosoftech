@@ -9,6 +9,9 @@ const post = await sanityClient.fetch(`
   *[_type == "post" && slug.current == $slug][0] {
     "slug": slug.current,
     title,
+    metaTitle,
+    metaDescription,
+    canonicalUrl,
     date,
     "image": image.asset->url,
     "body": body[] {
@@ -55,13 +58,14 @@ if (!post) {
   return Astro.redirect("/404");
 }
 
-const { title, excerpt, image } = post;
+const { title, metaTitle, metaDescription, canonicalUrl, excerpt, image } = post;
 ---
 
 <Base
   title={title}
-  meta_title={title}
-  description={excerpt || ""}
+  meta_title={metaTitle || title}
+  description={metaDescription || excerpt || ""}
+  canonical={canonicalUrl}
   image={image}>
   <BlogSingle post={post} />
 </Base>

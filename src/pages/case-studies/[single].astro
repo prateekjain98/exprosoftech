@@ -10,6 +10,10 @@ const caseStudy = await sanityClient.fetch(`
   *[_type == "caseStudy" && slug.current == $slug][0] {
     "slug": slug.current,
     title,
+    metaTitle,
+    metaDescription,
+    canonicalUrl,
+    "seoImage": image.asset->url,
     category,
     description,
     excerpt,
@@ -63,13 +67,16 @@ const caseStudy = await sanityClient.fetch(`
 if (!caseStudy) {
   return Astro.redirect("/404");
 }
+
+const { title, metaTitle, metaDescription, canonicalUrl, seoImage, excerpt, featuredImage } = caseStudy;
 ---
 
 <Base
-  title={caseStudy.title}
-  meta_title={`${caseStudy.title} - Case Study - Exprosoftech`}
-  description={caseStudy.excerpt || ""}
-  image={caseStudy.featuredImage?.asset?.url}>
+  title={title}
+  meta_title={metaTitle || `${title} - Case Study - Exprosoftech`}
+  description={metaDescription || excerpt || ""}
+  canonical={canonicalUrl}
+  image={seoImage || featuredImage?.asset?.url}>
   
   <!-- Breadcrumbs -->
   <section class="section-sm">
