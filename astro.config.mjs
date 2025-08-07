@@ -15,33 +15,41 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-  site: config.site.base_url ? config.site.base_url : "https://exprosoftech-wine.vercel.app/",
+  site: config.site.base_url
+    ? config.site.base_url
+    : "https://exprosoftech-wine.vercel.app/",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
   image: {
     service: {
-      entrypoint: "astro/assets/services/sharp"
-    }
-  },
-  integrations: [react(), tailwind({
-    config: {
-      applyBaseStyles: false,
+      entrypoint: "astro/assets/services/sharp",
     },
-  }), AutoImport({
-    imports: [
-      "@/shortcodes/Button",
-      "@/shortcodes/Accordion",
-      "@/shortcodes/Notice",
-      "@/shortcodes/Video",
-      "@/shortcodes/Youtube",
-      "@/shortcodes/Tabs",
-      "@/shortcodes/Tab",
-    ],
-  }), mdx(), sanity({
-    projectId: "wc6w49nw",
-    dataset: "production",
-    useCdn: false,
-  })],
+  },
+  integrations: [
+    react(),
+    tailwind({
+      config: {
+        applyBaseStyles: false,
+      },
+    }),
+    AutoImport({
+      imports: [
+        "@/shortcodes/Button",
+        "@/shortcodes/Accordion",
+        "@/shortcodes/Notice",
+        "@/shortcodes/Video",
+        "@/shortcodes/Youtube",
+        "@/shortcodes/Tabs",
+        "@/shortcodes/Tab",
+      ],
+    }),
+    mdx(),
+    sanity({
+      projectId: "wc6w49nw",
+      dataset: "production",
+      useCdn: false,
+    }),
+  ],
 
   markdown: {
     remarkPlugins: [
@@ -67,28 +75,31 @@ export default defineConfig({
     functionPerRoute: false,
     edgeMiddleware: false,
     webAnalytics: {
-      enabled: false
-    }
+      enabled: false,
+    },
   }),
   vite: {
     build: {
       rollupOptions: {
         output: {
           manualChunks: {
-            'react-vendor': ['react', 'react-dom'],
-            'astro-vendor': ['astro'],
-            'utils': ['dayjs', 'github-slugger', 'marked']
-          }
-        }
-      }
+            "react-vendor": ["react", "react-dom"],
+            "astro-vendor": ["astro"],
+            utils: ["dayjs", "github-slugger", "marked"],
+          },
+        },
+      },
     },
     server: {
       fs: {
-        strict: false
-      }
+        strict: false,
+      },
     },
     ssr: {
-      noExternal: ['marked']
-    }
-  }
+      noExternal: ["marked", "gsap"],
+    },
+    optimizeDeps: {
+      include: ["gsap", "gsap/ScrollTrigger"],
+    },
+  },
 });
