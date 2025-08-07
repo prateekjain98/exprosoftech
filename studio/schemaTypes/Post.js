@@ -119,7 +119,10 @@ export default {
                       'Plugs',
                       'Lightning',
                       'Handshake',
-                      'Target'
+                      'Target',
+                      'User',
+                      'Bug',
+                      'ShoppingCart'
                     ]
                   },
                   description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',

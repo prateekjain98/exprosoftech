@@ -16,6 +16,11 @@
       "link": "https://www.linkedin.com/company/expro-softech"
     },
     {
+      "name": "Instagram",
+      "icon": "FaInstagram",
+      "link": "https://www.instagram.com/exprosoftech/"
+    },
+    {
       "name": "Contact Us",
       "icon": "FaEnvelope",
       "link": "mailto:info@Exprosoftech.com"

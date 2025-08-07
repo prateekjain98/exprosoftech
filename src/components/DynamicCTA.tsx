@@ -18,6 +18,9 @@ import {
   FiBarChart,
   FiDatabase,
   FiZap as FiLightning,
+  FiUser,
+  FiShoppingCart,
+  FiAlertTriangle,
 } from "react-icons/fi";
 import { 
   HiLightBulb,
@@ -132,6 +135,12 @@ const iconMap: { [key: string]: React.ComponentType<any> } = {
   Settings: FiSettings,
   
   ChartPie: TbChartPie,
+  
+  User: FiUser,
+  
+  Bug: FiAlertTriangle, 
+  
+  ShoppingCart: FiShoppingCart,
    
 };
 
