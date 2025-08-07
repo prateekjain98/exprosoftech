@@ -20,6 +20,7 @@ const aboutQuery = `*[_type == "about"][0] {
     title,
     description,
     meta_title,
+    canonicalUrl,
     image {
       asset->
     }
@@ -329,6 +330,7 @@ const ctaData = {
   meta_title={meta.meta_title}
   description={meta.description}
   image={meta.image}
+  canonical={meta.canonicalUrl}
 >
   <AboutBanner client:load data={bannerData} />
 

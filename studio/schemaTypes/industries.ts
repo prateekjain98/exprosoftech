@@ -40,6 +40,12 @@ export default defineType({
         }
       }),
       defineField({
+        name: 'canonicalUrl',
+        title: 'Canonical URL',
+        type: 'string',
+        description: 'Optional: Override the default canonical URL. If left empty, will use the automatic URL construction.'
+      }),
+      defineField({
         name: 'hero',
         title: 'Hero Section',
         type: 'object',
