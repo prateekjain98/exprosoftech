@@ -143,7 +143,7 @@ export const AlternatingIndustries: FC<AlternatingIndustriesProps> = ({
   };
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-16">
       <div className="container">
         {/* Section Header */}
         <motion.div 
@@ -153,17 +153,29 @@ export const AlternatingIndustries: FC<AlternatingIndustriesProps> = ({
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-primary mb-4">{heading.tagline}</p>
-          <h2 className="h2 mb-4">{heading.title}</h2>
-          <div className="content">
-            {Array.isArray(heading.description) ? (
-              heading.description.map((desc, idx) => (
-                <p key={idx} className="text-lg text-gray-600">
-                  {desc}
-                </p>
-              ))
-            ) : (
-              <p className="text-lg text-gray-600">{heading.description}</p>
+          <div className="flex flex-col text-center space-y-3 sm:space-y-4 lg:space-y-5">
+            {heading.tagline && (
+              <div className="flex justify-center">
+                <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-xs sm:text-sm font-medium shadow-lg text-blue-600">
+                  {heading.tagline}
+                </span>
+              </div>
+            )}
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-medium text-gray-900">
+              {heading.title}
+            </h2>
+            {heading.description && (
+              <div className="text-sm sm:text-base max-w-3xl sm:max-w-4xl lg:max-w-5xl mx-auto leading-relaxed text-gray-600">
+                {Array.isArray(heading.description) ? (
+                  heading.description.map((desc, idx) => (
+                    <p key={idx}>
+                      {desc}
+                    </p>
+                  ))
+                ) : (
+                  <p>{heading.description}</p>
+                )}
+              </div>
             )}
           </div>
         </motion.div>

@@ -106,7 +106,7 @@ const LeadershipTeam: React.FC<LeadershipTeamProps> = ({
   const { leaders } = leadershipTeamData;
 
   return (
-    <section id="leadership" className="py-20 lg:py-28 bg-white relative">
+    <section id="leadership" className="py-16 bg-white relative">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center mb-16" data-aos="fade-up">
           <SectionHeader

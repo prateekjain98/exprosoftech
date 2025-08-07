@@ -255,7 +255,7 @@ const BusinessGuidance = ({businessGuidanceData, empowermentData}: {
         </div>
       </section> */}
 
-      <section className="py-8 sm:py-12 lg:py-24 bg-gradient-to-b from-slate-50/30 to-white overflow-hidden">
+      <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-slate-50/30 to-white overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="flex flex-col w-full" data-aos="fade-right">

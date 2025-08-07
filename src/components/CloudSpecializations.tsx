@@ -356,6 +356,7 @@ export const CloudSpecializations: React.FC<Props> = ({
           pin: cardsWrapper, // Pin the cards wrapper specifically
           scrub: 1,
           invalidateOnRefresh: true,
+          markers: true,
           onRefresh: () => {
             // Recalculate scroll amount on window resize
             scrollTween.vars.x = getScrollAmount();
@@ -380,7 +381,7 @@ export const CloudSpecializations: React.FC<Props> = ({
   return (
     <section ref={containerRef} className={`${className} bg-white relative`}>
       {/* Header section */}
-      <div className="max-w-7xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 pt-20">
         <div className="row">
           <div className="mx-auto mb-12">
             <SectionHeader
@@ -394,7 +395,7 @@ export const CloudSpecializations: React.FC<Props> = ({
       </div>
 
       {/* Scrolling cards container */}
-      <div className="h-screen flex items-center overflow-hidden">
+      <div className="h-screen flex items-center overflow-hidden pt-12">
         <div ref={scrollRef} className="flex gap-4 sm:gap-6 lg:gap-8 px-8">
           {displaySpecializations.map((cloud, index) => (
             <CloudCard key={cloud.id} cloud={cloud} index={index} />

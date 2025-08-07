@@ -103,7 +103,7 @@ export const ScrollableLogos: React.FC<ScrollableLogosProps> = ({ data }) => {
   }, []);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-16 bg-gradient-to-b from-white to-gray-50">
       <div className="container max-w-[1440px] mx-auto px-4">
         <SectionHeader
           tagline={data.heading.subtitle}

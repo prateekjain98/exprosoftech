@@ -152,7 +152,7 @@ export const ProductCardGrid: React.FC<CardGridProps> = ({
   }
 
   return (
-    <section className={`py-20 bg-gray-100/15 ${className}`}>
+    <section className={`py-16 bg-gray-100/15 ${className}`}>
       <div className="container mx-auto px-4">
         {/* Section Heading */}
         {heading && (
@@ -191,7 +191,7 @@ export const ProductCardGrid: React.FC<CardGridProps> = ({
                         <img 
                           src={card.image}
                           alt={card.title}
-                          className="w-full h-full object-cover rounded-lg"
+                          className="w-full h-full object-contain rounded-lg"
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center rounded-lg">

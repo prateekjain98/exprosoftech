@@ -183,7 +183,7 @@ export const ServicesFeatures: React.FC<Props> = ({
   // Add error handling for missing features
   if (!features || features.length === 0) {
     return (
-      <section className={`py-20 ${className}`}>
+      <section className={`py-16 ${className}`}>
         <div className="container">
           <SectionHeader
             tagline={heading.tagline}
@@ -229,7 +229,7 @@ export const ServicesFeatures: React.FC<Props> = ({
   };
 
   return (
-    <section className={`py-20 ${className}`}>
+    <section className={`py-16 ${className}`}>
       <div className="container">
         <SectionHeader
           tagline={heading.tagline}

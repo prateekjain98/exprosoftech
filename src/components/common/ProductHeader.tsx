@@ -31,7 +31,7 @@ export const ProductHeader: React.FC<ProductHeaderProps> = ({
   className,
 }) => {
   return (
-    <section className="relative z-[1] pb-12 overflow-hidden">
+    <section className="relative z-[1] pb-0 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8 xl:px-16 max-w-[1440px] relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="text-center lg:text-left order-2 lg:order-1">

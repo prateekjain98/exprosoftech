@@ -49,6 +49,126 @@ export default {
       name: 'body',
       title: 'Body Content',
       type: 'blockContent'
+    },
+    {
+      name: 'ctaSection',
+      title: 'CTA Section',
+      type: 'object',
+      fields: [
+        {
+          name: 'tagline',
+          title: 'Tagline',
+          type: 'string',
+        },
+        {
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+        },
+        {
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'string',
+        },
+        {
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+        },
+        {
+          name: 'metrices',
+          title: 'Metrics',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                },
+                {
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                },
+                {
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'string',
+                  options: {
+                    list: [
+                      'Cube',
+                      'ChartLineUp',
+                      'Gear',
+                      'ChartPieSlice',
+                      'Brain',
+                      'Truck',
+                      'Package',
+                      'Coins',
+                      'ChartBar',
+                      'Medal',
+                      'Gauge',
+                      'Robot',
+                      'Receipt',
+                      'Wallet',
+                      'ChartDonut',
+                      'Clock',
+                      'Database',
+                      'Plugs',
+                      'Lightning',
+                      'Handshake',
+                      'Target',
+                      'User',
+                      'Bug',
+                      'ShoppingCart'
+                    ]
+                  },
+                  description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
+                }
+              ]
+            }
+          ],
+        },
+        {
+          name: 'buttons',
+          title: 'Buttons',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                { name: 'label', type: 'string', title: 'Label' },
+                { name: 'link', type: 'string', title: 'Link' },
+                { 
+                  name: 'isOpenBooking', 
+                  type: 'boolean', 
+                  title: 'Opens Booking Form',
+                  description: 'Enable overlay with iframe functionality instead of regular link'
+                },
+              ]
+            }
+          ]
+        },
+        {
+          name: 'image',
+          title: 'Image',
+          type: 'object',
+          fields: [
+            {
+              name: 'src',
+              title: 'Image Source',
+              type: 'image',
+            },
+            {
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+            }
+          ],
+        }
+      ],
     }
   ],
   preview: {

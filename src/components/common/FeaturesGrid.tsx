@@ -122,7 +122,7 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({
   const displayDescription = heading?.description || description || "";
 
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-b from-white to-slate-50/30 relative overflow-hidden">
+    <section className="py-16 bg-gradient-to-b from-white to-slate-50/30 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 right-0 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl" />

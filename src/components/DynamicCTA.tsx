@@ -18,6 +18,9 @@ import {
   FiBarChart,
   FiDatabase,
   FiZap as FiLightning,
+  FiUser,
+  FiShoppingCart,
+  FiAlertTriangle,
 } from "react-icons/fi";
 import { 
   HiLightBulb,
@@ -132,6 +135,12 @@ const iconMap: { [key: string]: React.ComponentType<any> } = {
   Settings: FiSettings,
   
   ChartPie: TbChartPie,
+  
+  User: FiUser,
+  
+  Bug: FiAlertTriangle, 
+  
+  ShoppingCart: FiShoppingCart,
    
 };
 
@@ -146,7 +155,7 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
   };
 
   return (
-    <section className="py-16 lg:py-24">
+    <section className="py-16 ">
       <div className="max-w-[100vw] lg:max-w-[85rem] mx-auto px-0 md:px-8">
         <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 lg:rounded-[2.5rem] overflow-hidden border border-gray-800/50">
           {/* Background Gradients */}
@@ -172,25 +181,27 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                   {ctaContent.description || ""}
                 </p>
 
-                {/* Image for Mobile - Show only on mobile screens */}
-                {ctaContent.image && (
-                  <div className="lg:hidden relative mb-10">
-                    <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                      <img
-                        src={ctaContent.image.src}
-                        alt={ctaContent.image.alt}
-                        className="w-full h-[300px] object-cover object-center"
-                      />
-                      {/* Subtle Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-gray-900/10 via-gray-900/5 to-gray-900/20" />
-                    </div>
-                  </div>
-                )}
-
                 {/* Metrics Grid */}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+                  <div className={`grid gap-4 md:gap-6 mb-10 ${
+                    ctaContent?.metrices?.length === 3 
+                      ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3' 
+                      : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3'
+                  }`}>
                     {ctaContent?.metrices && ctaContent.metrices.map((metric, index) => (
-                      <div key={index} className="relative group">
+                      <div 
+                        key={index} 
+                        className={`relative group ${
+                          ctaContent.metrices.length === 3 && index === 2 
+                            ? 'col-span-2 md:col-span-1 flex justify-center md:block' 
+                            : ''
+                        }`}
+                      >
+                        <div className={`${
+                          ctaContent.metrices.length === 3 && index === 2 
+                            ? 'w-1/2 md:w-full' 
+                            : 'w-full'
+                        }`}
+                        >
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-xl transform transition-transform group-hover:scale-105 duration-300" />
                         <div className="relative p-4">
                           <div className="flex items-center justify-center lg:justify-start mb-3">
@@ -206,16 +217,19 @@ export const DynamicCTA: React.FC<CTAProps> = ({ ctaContent }) => {
                             {metric.label}
                           </div>
                         </div>
+                        </div>
                       </div>
                     ))}
                   </div>
 
-                <Button
-                  variant="primary"
-                  hasOverlay={ctaContent.buttons[0].isOpenBooking}
-                >
-                  {ctaContent.buttons[0].label || "Get Started"}
-                </Button>
+                <div className="flex justify-center lg:justify-start">
+                  <Button
+                    variant="primary"
+                    hasOverlay={ctaContent.buttons[0].isOpenBooking}
+                  >
+                    {ctaContent.buttons[0].label || "Get Started"}
+                  </Button>
+                </div>
               </div>
 
               {/* Image Side - Hidden on mobile, shown on desktop */}

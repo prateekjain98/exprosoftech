@@ -49,7 +49,7 @@ const DynamicServiceShowcase: React.FC<DynamicServiceShowcaseProps> = ({
   };
 
   return (
-    <section className={`py-16 lg:py-24 bg-gradient-to-b from-white via-gray-50/50 to-white ${className}`}>
+    <section className={`pt-16 pb-24 bg-gradient-to-b from-white via-gray-50/50 to-white ${className}`}>
       {/* Background Gradients */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full filter blur-3xl" />

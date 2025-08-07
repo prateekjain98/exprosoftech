@@ -36,6 +36,20 @@ export const dynamicProductPageType = defineType({
       description: 'Description used for SEO purposes',
       
     }),
+    defineField({
+      name: 'image',
+      title: 'Featured Image',
+      type: 'image',
+      options: {
+        hotspot: true
+      }
+    }),
+    defineField({
+      name: 'canonicalUrl',
+      title: 'Canonical URL',
+      type: 'string',
+      description: 'Optional: Override the default canonical URL. If left empty, will use the automatic URL construction.'
+    }),
         
     // Header Content Section
     defineField({
