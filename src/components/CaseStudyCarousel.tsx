@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { motion, useMotionValue } from 'motion/react';
 import Button from './common/Button';
 
 interface CaseStudy {
@@ -28,7 +29,9 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const dragX = useMotionValue(0);
 
   // Auto-advance carousel
   useEffect(() => {
@@ -59,8 +62,42 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
     setCurrentIndex(currentIndex === caseStudies.length - 1 ? 0 : currentIndex + 1);
   };
 
+  // Handle drag start
+  const onDragStart = () => {
+    setIsDragging(true);
+  };
+
+  // Handle drag end for swiping
+  const onDragEnd = () => {
+    const x = dragX.get();
+    
+    // Threshold for swipe detection (adjust as needed)
+    const swipeThreshold = 50;
+    
+    if (x <= -swipeThreshold && currentIndex < caseStudies.length - 1) {
+      // Swipe left - go to next
+      goToNext();
+    } else if (x >= swipeThreshold && currentIndex > 0) {
+      // Swipe right - go to previous
+      goToPrevious();
+    } else if (x <= -swipeThreshold && currentIndex === caseStudies.length - 1) {
+      // At last slide, swipe left - go to first
+      setCurrentIndex(0);
+    } else if (x >= swipeThreshold && currentIndex === 0) {
+      // At first slide, swipe right - go to last
+      setCurrentIndex(caseStudies.length - 1);
+    }
+    
+    // Reset drag position and state
+    dragX.set(0);
+    setTimeout(() => setIsDragging(false), 100); // Small delay to prevent click after drag
+  };
+
   const handleCaseStudyClick = (slug: string) => {
-    window.location.href = `/case-studies/${slug}/`;
+    // Prevent navigation if user was dragging
+    if (!isDragging) {
+      window.location.href = `/case-studies/${slug}/`;
+    }
   };
 
   if (!caseStudies || caseStudies.length === 0) {
@@ -84,9 +121,27 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
         >
           {/* Carousel Container */}
           <div className="relative overflow-hidden rounded-2xl bg-gray-800 shadow-2xl border border-gray-700">
-            <div 
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            <motion.div 
+              className="flex cursor-grab active:cursor-grabbing"
+              style={{ 
+                x: dragX,
+                transform: `translateX(-${currentIndex * 100}%)` 
+              }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragMomentum={false}
+              onDragStart={onDragStart}
+              onDragEnd={onDragEnd}
+              animate={{ 
+                x: 0,
+                transform: `translateX(-${currentIndex * 100}%)` 
+              }}
+              transition={{
+                type: "spring",
+                damping: 18,
+                stiffness: 90,
+                duration: 0.3
+              }}
             >
               {caseStudies.map((caseStudy, index) => (
                 <div key={index} className="w-full flex-shrink-0">
@@ -160,7 +215,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
                   </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Navigation Arrows - Desktop Only */}
