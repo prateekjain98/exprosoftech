@@ -216,15 +216,9 @@ const blogPosts = await sanityClient.fetch(blogPostsQuery);
   />
   <IndustriesWeServe client:visible data={pageData.industriesSection} />
 
-  <WhyGreymetre client:visible data={pageData.whySection} />
-
   <CloudSpecializations client:visible data={pageData.cloudSpecializations} />
 
-  {
-    pageData.whySection.isVisible && (
-      <WhyGreymetre client:visible data={pageData.whySection} />
-    )
-  }
+  <WhyGreymetre client:visible data={pageData.whySection} />
 
   <CaseStudyCarousel client:visible caseStudies={caseStudiesData} />
 
