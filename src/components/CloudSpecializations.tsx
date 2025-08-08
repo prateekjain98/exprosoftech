@@ -331,6 +331,9 @@ export const CloudSpecializations: React.FC<Props> = ({
 
         if (!scrollContainer || !cardsWrapper) return;
 
+        // Check if we're on a smaller screen (mobile/tablet)
+        const isSmallScreen = () => window.innerWidth < 1024; // lg breakpoint
+
         // Calculate total scroll distance using actual scroll width
         const getScrollAmount = () => {
           const scrollWidth = scrollContainer.scrollWidth;
@@ -347,20 +350,41 @@ export const CloudSpecializations: React.FC<Props> = ({
           ease: "none",
         });
 
-        // Create ScrollTrigger - pin when scrollRef container reaches top
+        // Determine trigger and pin elements based on screen size
+        const getTriggerAndPinElements = () => {
+          if (isSmallScreen()) {
+            return {
+              trigger: containerRef.current,
+              pin: containerRef.current,
+            };
+          } else {
+            return {
+              trigger: cardsWrapper,
+              pin: cardsWrapper,
+            };
+          }
+        };
+
+        const { trigger, pin } = getTriggerAndPinElements();
+
+        // Create ScrollTrigger with responsive pinning
         ScrollTrigger.create({
-          trigger: cardsWrapper, // Target the cards wrapper instead of entire component
+          trigger: trigger,
           start: "top top",
           end: () => `+=${Math.abs(getScrollAmount()) + window.innerHeight}`, // Dynamic end based on scroll amount
           animation: scrollTween,
-          pin: cardsWrapper, // Pin the cards wrapper specifically
+          pin: pin,
           scrub: 1,
           invalidateOnRefresh: true,
           markers: true,
           onRefresh: () => {
-            // Recalculate scroll amount on window resize
+            // Recalculate scroll amount and update trigger/pin elements on window resize
+            const newElements = getTriggerAndPinElements();
             scrollTween.vars.x = getScrollAmount();
             scrollTween.invalidate();
+            
+            // Note: ScrollTrigger will handle the trigger/pin element changes automatically
+            // when invalidateOnRefresh is true
           },
         });
       })
@@ -395,7 +419,7 @@ export const CloudSpecializations: React.FC<Props> = ({
       </div>
 
       {/* Scrolling cards container */}
-      <div className="h-screen flex items-center overflow-hidden pt-12">
+      <div className="lg:h-screen flex items-center overflow-hidden lg:pt-12">
         <div ref={scrollRef} className="flex gap-4 sm:gap-6 lg:gap-8 px-8">
           {displaySpecializations.map((cloud, index) => (
             <CloudCard key={cloud.id} cloud={cloud} index={index} />
