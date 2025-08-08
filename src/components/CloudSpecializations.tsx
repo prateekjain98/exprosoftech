@@ -376,7 +376,6 @@ export const CloudSpecializations: React.FC<Props> = ({
           pin: pin,
           scrub: 1,
           invalidateOnRefresh: true,
-          markers: true,
           onRefresh: () => {
             // Recalculate scroll amount and update trigger/pin elements on window resize
             const newElements = getTriggerAndPinElements();
