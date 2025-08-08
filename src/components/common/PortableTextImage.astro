@@ -1,19 +1,30 @@
 ---
 export interface Props {
-  value: {
+  value?: {
     asset?: {
       url: string;
     };
     alt?: string;
     caption?: string;
   };
+  node?: {
+    asset?: {
+      _ref?: string;
+      url?: string;
+    };
+    alt?: string;
+    caption?: string;
+  };
 }
 
-const { value } = Astro.props;
-const imageUrl = value?.asset?.url;
+const { value, node, ...props } = Astro.props;
+
+// Try both value and node approaches (different astro-portabletext versions use different prop names)
+const imageData = value || node;
+const imageUrl = imageData?.asset?.url;
 
 if (!imageUrl) {
-  console.error('No image URL found for:', value);
+  console.error('PortableTextImage: No image URL found. Available props:', Object.keys(Astro.props));
 }
 ---
 
@@ -21,13 +32,13 @@ if (!imageUrl) {
   <figure class="my-8">
     <img 
       src={imageUrl} 
-      alt={value.alt || ''} 
+      alt={imageData?.alt || ''} 
       loading="lazy" 
       class="rounded-lg w-full h-auto"
     />
-    {value.caption && (
+    {imageData?.caption && (
       <figcaption class="mt-2 text-center text-sm text-gray-500">
-        {value.caption}
+        {imageData.caption}
       </figcaption>
     )}
   </figure>

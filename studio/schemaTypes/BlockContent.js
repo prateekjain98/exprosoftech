@@ -49,6 +49,11 @@ export default {
           name: 'alt',
           title: 'Alternate Text',
           type: 'string'
+        },
+        {
+          name: 'caption',
+          title: 'Caption',
+          type: 'string'
         }
       ]
     }

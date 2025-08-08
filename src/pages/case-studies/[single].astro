@@ -18,8 +18,26 @@ const caseStudy = await sanityClient.fetch(`
     description,
     excerpt,
     challenge,
-    solution,
-    results,
+    "solution": solution[] {
+      ...,
+      _type == "image" => {
+        ...,
+        "asset": {
+          ...,
+          "url": asset->url
+        }
+      }
+    },
+    "results": results[] {
+      ...,
+      _type == "image" => {
+        ...,
+        "asset": {
+          ...,
+          "url": asset->url
+        }
+      }
+    },
     metrics,
     industry,
     duration,

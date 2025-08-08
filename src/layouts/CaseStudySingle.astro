@@ -6,6 +6,7 @@ import CallToAction from "./partials/CallToAction.astro";
 import { sanityClient } from "sanity:client";
 import { PortableText } from "astro-portabletext";
 import DynamicCTA from "../components/DynamicCTA";
+import PortableTextImage from "../components/common/PortableTextImage.astro";
 
 const { caseStudy } = Astro.props;
 const { 
@@ -26,8 +27,14 @@ const {
   ctaSection
 } = caseStudy;
 
+
+
 // Define components for PortableText
-const components = {};
+const components = {
+  type: {
+    image: PortableTextImage,
+  }
+};
 
 // Fetch related case studies
 const relatedCaseStudies = await sanityClient.fetch(`
