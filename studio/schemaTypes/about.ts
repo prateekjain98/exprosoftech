@@ -813,6 +813,75 @@ export default defineType({
       ]
     }),
 
+    defineField({
+      name: 'whySalesforceSection',
+      title: 'Why Salesforce Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string'
+        }),
+        defineField({
+          name: 'content',
+          title: 'Content',
+          type: 'blockContent'
+        }),
+        defineField({
+          name: 'image',
+          title: 'Featured Image',
+          type: 'image',
+          options: { hotspot: true }
+        }),
+        defineField({
+          name: 'imageOverlay',
+          title: 'Image Overlay',
+          type: 'object',
+          description: 'Overlay element that appears on the bottom-right of the image',
+          fields: [
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'string',
+              description: 'Main value to display (e.g., "35+", "100%", "50K+")',
+            }),
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              description: 'Description text below the value',
+            }),
+            defineField({
+               name: 'position',
+               title: 'Position',
+               type: 'string',
+               description: 'Position of the overlay on the image',
+               options: {
+                 list: [
+                   { title: 'Bottom Right', value: 'bottomRight' },
+                   { title: 'Bottom Left', value: 'bottomLeft' },
+                   { title: 'Top Right', value: 'topRight' },
+                   { title: 'Top Left', value: 'topLeft' }
+                 ]
+               },
+               initialValue: 'bottomRight'
+             })
+          ]
+        }),
+        defineField({
+          name: 'cta',
+          title: 'CTA Button',
+          type: 'object',
+          fields: [
+            defineField({ name: 'label', type: 'string', title: 'Label' }),
+            defineField({ name: 'link', type: 'string', title: 'Link' }),
+            defineField({ name: 'isOpenBooking', type: 'boolean', title: 'Opens Booking Form' })
+          ]
+        })
+      ]
+    }),
+
     // FAQ Section
     defineField({
       name: 'faqSection',

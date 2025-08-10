@@ -13,6 +13,7 @@ import { DynamicCTA } from "../components/DynamicCTA";
 import ContentSection from "../components/ContentSection";
 import CompanyActivitiesSection from "../components/CompanyActivitiesSection";
 import { PartnerLogos } from "../components/PartnerLogos";
+import WhySalesforce from "../components/WhySalesforce";
 
 // GROQ query to fetch all about page data
 const aboutQuery = `*[_type == "about"][0] {
@@ -180,6 +181,23 @@ const aboutQuery = `*[_type == "about"][0] {
       active
     }
   },
+  whySalesforceSection {
+    title,
+    content,
+    image {
+      asset->
+    },
+    imageOverlay {
+      value,
+      label,
+      position
+    },
+    cta {
+      label,
+      link,
+      isOpenBooking
+    }
+  },
   ctaSection {
     tagline,
     title,
@@ -205,7 +223,7 @@ const aboutQuery = `*[_type == "about"][0] {
 const pageData = await sanityClient.fetch(aboutQuery);
 
 // Destructure meta data
-const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection, ctaSection, contentSection, companyActivitiesSection } = pageData;
+const { meta, bannerSection, companySection, leadershipSection, whySection, faqSection, offeringsSection, ctaSection, contentSection, companyActivitiesSection, whySalesforceSection } = pageData;
 
 // Structure data for each component
 const bannerData = {
@@ -311,6 +329,18 @@ const faqData = [{
   list: faqSection.list
 }];
 
+const whySalesforceData = {
+  title: whySalesforceSection?.title || "",
+  content: whySalesforceSection?.content || null,
+  image: {
+    asset: {
+      url: whySalesforceSection?.image?.asset?.url || ""
+    }
+  },
+  imageOverlay: whySalesforceSection?.imageOverlay || null,
+  cta: whySalesforceSection?.cta || null
+};
+
 const ctaData = {
   tagline: ctaSection.tagline,
   title: ctaSection.title,
@@ -368,6 +398,8 @@ const ctaData = {
   {companyActivitiesSection?.isVisible && (
     <CompanyActivitiesSection client:load data={companyActivitiesData} />
   )}
+
+  <WhySalesforce client:visible data={whySalesforceData} />
 
   <WhyGreymetre client:load data={whyGreymetreData} />
   <NewFAQ client:load Faq={faqData} />
