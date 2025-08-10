@@ -205,28 +205,7 @@ export default defineType({
       title: 'Provide Value Section',
       type: 'object',
       fields: [
-        defineField({ name: 'title', type: 'string' }),
-        defineField({ name: 'subtitle', type: 'string' }),
-        defineField({ name: 'description', type: 'text' }),
-        defineField({
-          name: 'image',
-          type: 'image',
-          fields: [
-            defineField({ name: 'alt', type: 'string' })
-          ]
-        }),
-        defineField({
-          name: 'guidancePoints',
-          type: 'array',
-          of: [{
-            type: 'object',
-            fields: [
-              defineField({ name: 'id', type: 'number' }),
-              defineField({ name: 'title', type: 'string' }),
-              defineField({ name: 'description', type: 'text' })
-            ]
-          }]
-        }),
+        
         defineField({
           name: 'empowerment',
           type: 'object',
