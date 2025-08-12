@@ -166,25 +166,33 @@ const carouselPosts = productBlogs.map((blog: any) => ({
   image={product.image}
   canonical={product.canonicalUrl}
 >
+{product.headerContent && (
   <ProductHeader {...product.headerContent} client:load />
-  <!-- <Clients client:visible data={product.clients} /> -->
+  )
+}
   
+  <!-- <Clients client:visible data={product.clients} /> -->
+
+{product.mobileFeaturesSection}
   <MobileFeatures 
     client:visible 
     mobileFeatures={product.mobileFeaturesSection} 
   />
 
-  <FeatureShowcase 
+  {product.featureShowcaseSection && 
+    <FeatureShowcase 
     showcaseContent={product.featureShowcaseSection} 
     client:load 
-  />
-
-  <FeaturesGrid 
+    />
+  }
+  
+  {product.featuresGridSection && (
+    <FeaturesGrid 
     client:visible 
     features={product.featuresGridSection.features} 
     heading={product.featuresGridSection.heading} 
-  />
-
+    />
+  )}
 
   <!-- <ServicesBestPractices
     client:visible 
@@ -192,11 +200,13 @@ const carouselPosts = productBlogs.map((blog: any) => ({
     heading={product.bestPracticesSection?.heading}
   />  -->
 
-  <DynamicCloudSpecialization
-    client:visible
-    cloudSpecializations={product.benfitsSection?.benefits}
-    heading={product.benfitsSection?.heading}
-  />
+  {product.benfitsSection && (
+    <DynamicCloudSpecialization
+      client:visible
+      cloudSpecializations={product.benfitsSection?.benefits}
+      heading={product.benfitsSection?.heading}
+    />
+  )}
   
   {carouselPosts.length > 0 && (
     <BlogCarousel posts={carouselPosts} client:visible />
