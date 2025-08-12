@@ -173,11 +173,12 @@ const carouselPosts = productBlogs.map((blog: any) => ({
   
   <!-- <Clients client:visible data={product.clients} /> -->
 
-{product.mobileFeaturesSection}
+{product.mobileFeaturesSection &&
   <MobileFeatures 
     client:visible 
     mobileFeatures={product.mobileFeaturesSection} 
   />
+}
 
   {product.featureShowcaseSection && 
     <FeatureShowcase 
