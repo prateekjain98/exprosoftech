@@ -15,7 +15,7 @@ const {
   content
 } = Astro.props;
 
-const { title, slug, image, date, excerpt, body } = content;
+const { title, slug, image, imageAlt, date, excerpt, body } = content;
 ---
 
 <div class="bg-body">
@@ -26,7 +26,7 @@ const { title, slug, image, date, excerpt, body } = content;
           <img
             class="h-full w-full object-cover"
             src={image}
-            alt={title}
+            alt={imageAlt || title}
           />
         </div>
       </div>

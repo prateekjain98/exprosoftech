@@ -33,6 +33,7 @@ const relatedPosts = await sanityClient.fetch(`
     date,
     excerpt,
     "image": image.asset->url,
+    "imageAlt": image.alt,
     "author": author->name
   }
 `, { slug });
@@ -95,7 +96,7 @@ const relatedPosts = await sanityClient.fetch(`
                   src={image}
                   height={500}
                   width={1200}
-                  alt={title}
+                  alt={post.imageAlt || title}
                   class="h-full w-full object-contain"
                 />
               </div>
