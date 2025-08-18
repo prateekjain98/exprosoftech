@@ -23,7 +23,10 @@ const aboutQuery = `*[_type == "about"][0] {
     meta_title,
     canonicalUrl,
     image {
-      asset->
+      asset->{
+        url
+      },
+      alt
     }
   },
   bannerSection {
@@ -32,7 +35,10 @@ const aboutQuery = `*[_type == "about"][0] {
     description,
     content,
     image {
-      asset->
+      asset->{
+        url
+      },
+      alt
     },
     imageOverlay {
       value,
@@ -52,7 +58,8 @@ const aboutQuery = `*[_type == "about"][0] {
       image {
         asset->{
           url
-        }
+        },
+        alt
       },
       imageOverlay {
         value,
@@ -115,7 +122,10 @@ const aboutQuery = `*[_type == "about"][0] {
     description,
     content,
     image {
-      asset->
+      asset->{
+        url
+      },
+      alt
     },
     imageOverlay {
       value,
@@ -153,7 +163,10 @@ const aboutQuery = `*[_type == "about"][0] {
       description,
       linkedin,
       image {
-        asset->
+        asset->{
+          url
+        },
+        alt
       }
     }
   },
@@ -185,7 +198,10 @@ const aboutQuery = `*[_type == "about"][0] {
     title,
     content,
     image {
-      asset->
+      asset->{
+        url
+      },
+      alt
     },
     imageOverlay {
       value,
@@ -231,7 +247,12 @@ const bannerData = {
   title: bannerSection.title,
   description: bannerSection.description,
   content: bannerSection.content,
-  featuredImage: bannerSection.image,
+  featuredImage: {
+    asset: {
+      url: bannerSection.image?.asset?.url || ''
+    },
+    alt: bannerSection.image?.alt || ''
+  },
   imageOverlay: bannerSection.imageOverlay,
   buttons: bannerSection.buttons
 };
@@ -241,7 +262,12 @@ const contentData = {
   title: contentSection.title,
   description: contentSection.description,
   content: contentSection.content,
-  image: contentSection.image,
+  image: {
+    asset: {
+      url: contentSection.image?.asset?.url || ''
+    },
+    alt: contentSection.image?.alt || ''
+  },
   imageOverlay: contentSection.imageOverlay,
   buttons: contentSection.buttons
 };
@@ -286,7 +312,12 @@ const companyData = {
   title: companySection?.title,
   description: companySection?.description,
   content: companySection?.content,
-  featuredImage: companySection?.image,
+  featuredImage: {
+    asset: {
+      url: companySection?.image?.asset?.url || ''
+    },
+    alt: companySection?.image?.alt || ''
+  },
   imageOverlay: companySection?.imageOverlay
 };
 
@@ -312,7 +343,18 @@ const leadershipData = {
   subtitle: leadershipSection.subtitle,
   title: leadershipSection.title,
   description: leadershipSection.description,
-  leaders: leadershipSection.leaders
+  leaders: leadershipSection.leaders?.map((leader: any) => ({
+    name: leader.name,
+    title: leader.title,
+    description: leader.description,
+    linkedin: leader.linkedin,
+    image: {
+      asset: {
+        url: leader.image?.asset?.url || ''
+      },
+      alt: leader.image?.alt || ''
+    }
+  })) || []
 };
 
 const whyGreymetreData = {
@@ -335,7 +377,8 @@ const whySalesforceData = {
   image: {
     asset: {
       url: whySalesforceSection?.image?.asset?.url || ""
-    }
+    },
+    alt: whySalesforceSection?.image?.alt || ""
   },
   imageOverlay: whySalesforceSection?.imageOverlay || null,
   cta: whySalesforceSection?.cta || null
@@ -359,7 +402,7 @@ const ctaData = {
   title={meta.title}
   meta_title={meta.meta_title}
   description={meta.description}
-  image={meta.image}
+  image={meta.image?.asset?.url}
   canonical={meta.canonicalUrl}
 >
   <AboutBanner client:load data={bannerData} />

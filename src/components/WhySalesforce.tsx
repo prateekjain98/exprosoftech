@@ -10,6 +10,7 @@ interface WhySalesforceData {
     asset: {
       url: string;
     };
+    alt?: string;
   };
   imageOverlay?: {
     value: string;
@@ -80,7 +81,7 @@ const WhySalesforce: React.FC<WhySalesforceProps> = ({ data }) => {
                 <div className="absolute inset-0 -translate-x-4 -translate-y-4 lg:-translate-x-8 lg:-translate-y-8 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl lg:rounded-3xl transform"></div>
                 <img
                   src={image.asset.url}
-                  alt="Why Salesforce - Business Solutions"
+                  alt={image.alt || "Why Salesforce - Business Solutions"}
                   className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                 />
                 {imageOverlay?.label && (
