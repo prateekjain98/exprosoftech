@@ -13,6 +13,7 @@ const caseStudy = await sanityClient.fetch(`
     metaTitle,
     metaDescription,
     canonicalUrl,
+    isLive,
     "seoImage": image.asset->url,
     category,
     description,
@@ -84,6 +85,12 @@ const caseStudy = await sanityClient.fetch(`
 // Handle 404 if case study not found
 if (!caseStudy) {
   return Astro.redirect("/404");
+}
+
+// Check hostname and isLive status
+const hostname = Astro.url.hostname;
+if (hostname === 'exprosoftech.com' && !caseStudy.isLive) {
+  return Astro.redirect('/404');
 }
 
 const { title, metaTitle, metaDescription, canonicalUrl, seoImage, excerpt, featuredImage } = caseStudy;

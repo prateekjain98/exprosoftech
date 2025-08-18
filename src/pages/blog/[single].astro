@@ -12,6 +12,7 @@ const post = await sanityClient.fetch(`
     metaTitle,
     metaDescription,
     canonicalUrl,
+    isLive,
     date,
     "image": image.asset->url,
     "body": body[] {
@@ -56,6 +57,12 @@ const post = await sanityClient.fetch(`
 // Handle 404 if post not found
 if (!post) {
   return Astro.redirect("/404");
+}
+
+// Check hostname and isLive status
+const hostname = Astro.url.hostname;
+if (hostname === 'exprosoftech.com' && !post.isLive) {
+  return Astro.redirect('/404');
 }
 
 const { title, metaTitle, metaDescription, canonicalUrl, excerpt, image } = post;
