@@ -56,6 +56,7 @@ const service = await sanityClient.fetch(`
     metaTitle,
     metaDescription,
     canonicalUrl,
+    isLive,
     banner {
       title,
       description,
@@ -377,6 +378,12 @@ const blogPostsQuery = `*[_type == "post"] | order(date desc)[0..2] {
 const blogPosts = await sanityClient.fetch(blogPostsQuery);
 
 if (!service) {
+  return Astro.redirect('/404');
+}
+
+// Check hostname and isLive status
+const hostname = Astro.url.hostname;
+if (hostname === 'exprosoftech.com' && !service.isLive) {
   return Astro.redirect('/404');
 }
 ---

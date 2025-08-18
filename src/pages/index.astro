@@ -199,6 +199,10 @@ const blogPostsQuery = `*[_type == "post"] | order(date desc)[0..2] {
 }`;
 
 const blogPosts = await sanityClient.fetch(blogPostsQuery);
+
+// Log hostname for debugging
+const hostname = Astro.url.hostname;
+console.log('Current hostname:', hostname);
 ---
 
 <Base title="Home" meta_title={pageData.metaTitle} description={pageData.metaDescription} image={pageData.image} canonical={pageData.canonicalUrl}>

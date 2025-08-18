@@ -41,6 +41,13 @@ export const dynamicServicePageType = defineType({
       type: 'string',
       description: 'Optional: Override the default canonical URL. If left empty, will use the automatic URL construction.'
     }),
+    defineField({
+      name: 'isLive',
+      title: 'Is Live',
+      type: 'boolean',
+      initialValue: true,
+      description: 'Controls page visibility on exprosoftech.com. When false, page will be hidden on production but visible on other hostnames.'
+    }),
 
     // Banner Section
     defineField({

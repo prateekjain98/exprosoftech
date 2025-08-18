@@ -42,6 +42,7 @@ const product = await sanityClient.fetch(`
     metaDescription,
     image,
     canonicalUrl,
+    isLive,
     headerContent {
       badge,
       title,
@@ -146,6 +147,11 @@ const productBlogsQuery = `*[_type == "productBlog"] | order(date desc)[0...5] {
 const productBlogs = await sanityClient.fetch(productBlogsQuery);
 
 
+// Check hostname and isLive status
+const hostname = Astro.url.hostname;
+if (hostname === 'exprosoftech.com' && !product.isLive) {
+  return Astro.redirect('/404');
+}
 
 // Transform data for carousel component
 const carouselPosts = productBlogs.map((blog: any) => ({
