@@ -54,6 +54,14 @@ export const productBlogType = defineType({
       options: {
         hotspot: true
       },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          description: 'Alternative text for the featured image (for accessibility)'
+        })
+      ],
       validation: Rule => Rule.required()
     }),
     defineField({
@@ -90,6 +98,139 @@ export const productBlogType = defineType({
       options: {
         layout: 'tags'
       }
+    }),
+
+    defineField({
+      name: 'ctaSection',
+      title: 'CTA Section',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'tagline',
+          title: 'Tagline',
+          type: 'string',
+          
+        }),
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          
+        }),
+        defineField({
+          name: 'subtitle',
+          title: 'Subtitle',
+          type: 'string',
+          
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          
+        }),
+        defineField({
+          name: 'metrices',
+          title: 'Metrics',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Value',
+                  type: 'string',
+                  
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                  
+                }),
+                defineField({
+                  name: 'icon',
+                  title: 'Icon',
+                  type: 'string',
+                  options:{
+                      list: [
+                        'Activity',
+                        'Brain',
+                        'ChartBar',
+                        'ChartLineUp',
+                        'ChartPie',
+                        'CheckCircle',
+                        'Clock',
+                        'Coins',
+                        'Cube',
+                        'Database',
+                        'Gauge',
+                        'Gear',
+                        'Handshake',
+                        'Lightning',
+                        'Medal',
+                        'Package',
+                        'Plugs',
+                        'Receipt',
+                        'Robot',
+                        'Settings',
+                        'Target',
+                        'Trophy',
+                        'Truck',
+                        'Wallet'
+                      ]
+                    },
+                  description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
+                  
+                })
+              ]
+            }
+          ],
+        }),
+        defineField({
+          name: 'buttons',
+          title: 'Buttons',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({ name: 'label', type: 'string', title: 'Label' }),
+                defineField({ name: 'link', type: 'string', title: 'Link' }),
+                defineField({ 
+                  name: 'isOpenBooking', 
+                  type: 'boolean', 
+                  title: 'Opens Booking Form',
+                  description: 'Enable overlay with iframe functionality instead of regular link'
+                }),
+                
+              ]
+            }
+          ]
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'src',
+              title: 'Image Source',
+              type: 'image',
+              
+            }),
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              
+            })
+          ],
+          
+        })
+      ],
+      
     }),
     
   ],

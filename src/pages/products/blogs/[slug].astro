@@ -2,6 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import BlogSingle from "@/layouts/BlogSingle.astro";
 import { sanityClient } from "sanity:client";
+import { DynamicCTA } from "../../../components/DynamicCTA";
 
 const { slug } = Astro.params;
 
@@ -15,6 +16,7 @@ const post = await sanityClient.fetch(`
     title,
     date,
     "image": image.asset->url,
+    "imageAlt": image.alt,
     "body": body[] {
       ...,
       _type == "image" => {
@@ -30,6 +32,26 @@ const post = await sanityClient.fetch(`
       name,
       "slug": slug.current,
       "image": image.asset->url
+    },
+    ctaSection {
+      tagline,
+      title,
+      subtitle,
+      description,
+      metrices[] {
+        value,
+        label,
+        icon
+      },
+      buttons[] {
+        label,
+        link,
+        isOpenBooking
+      },
+      image {
+        "src": src.asset->url,
+        alt
+      }
     }
   }
 `, { slug });
@@ -44,7 +66,7 @@ const hostname = Astro.url.hostname;
 if (hostname === 'exprosoftech.com' && !post.isLive) {
   return Astro.redirect('/404');
 }
-const { title, excerpt, image, seoTitle, seoDescription, canonicalUrl } = post;
+const { title, excerpt, image, imageAlt, seoTitle, seoDescription, canonicalUrl } = post;
 ---
 
 <Base
@@ -53,5 +75,9 @@ const { title, excerpt, image, seoTitle, seoDescription, canonicalUrl } = post;
   description={seoDescription || excerpt || ""}
   image={image}
   canonical={canonicalUrl}>
-  <BlogSingle post={post} />
+  <BlogSingle post={{...post, imageAlt}} />
+  
+  {post.ctaSection && (
+    <DynamicCTA client:visible ctaContent={post.ctaSection} />
+  )}
 </Base> 

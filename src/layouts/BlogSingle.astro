@@ -58,8 +58,7 @@ const relatedPosts = await sanityClient.fetch(`
         <ul class="mb-4 flex items-center justify-center gap-4">
           {author && (
             <li class="text-lg/[inherit]">
-              <a
-                href={`/authors/${author.slug}`}
+              <div
                 class="flex gap-2 font-medium">
                 {author.image && (
                   <img
@@ -69,7 +68,7 @@ const relatedPosts = await sanityClient.fetch(`
                   />
                 )}
                 {humanize(author.name)}
-              </a>
+              </div>
             </li>
           )}
           <li class="flex items-center gap-x-2">
