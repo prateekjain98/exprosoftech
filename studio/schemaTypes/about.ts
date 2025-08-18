@@ -41,7 +41,15 @@ export default defineType({
           type: 'image',
           options: {
             hotspot: true
-          }
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Alternative text for the featured image (for accessibility and SEO)'
+            })
+          ]
         }),
         defineField({
           name: 'canonicalUrl',
@@ -83,7 +91,15 @@ export default defineType({
           name: 'image',
           title: 'Featured Image',
           type: 'image',
-          options: { hotspot: true }
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Alternative text for the banner image (for accessibility)'
+            })
+          ]
         }),
         defineField({
           name: 'imageOverlay',
@@ -150,7 +166,15 @@ export default defineType({
           name: 'image',
           title: 'Featured Image',
           type: 'image',
-          options: { hotspot: true }
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Alternative text for the content section image (for accessibility)'
+            })
+          ]
         }),
         defineField({
           name: 'imageOverlay',
@@ -361,7 +385,15 @@ export default defineType({
           name: 'image',
           title: 'Featured Image',
           type: 'image',
-          options: { hotspot: true }
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Alternative text for the company section image (for accessibility)'
+            })
+          ]
         }),
         defineField({
           name: 'imageOverlay',
@@ -466,7 +498,15 @@ export default defineType({
                 name: 'image',
                 type: 'image',
                 title: 'Profile Image',
-                options: { hotspot: true }
+                options: { hotspot: true },
+                fields: [
+                  defineField({
+                    name: 'alt',
+                    title: 'Alt Text',
+                    type: 'string',
+                    description: 'Alternative text for the profile image (for accessibility)'
+                  })
+                ]
               })
             ]
           }]
@@ -811,7 +851,15 @@ export default defineType({
           name: 'image',
           title: 'Featured Image',
           type: 'image',
-          options: { hotspot: true }
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt Text',
+              type: 'string',
+              description: 'Alternative text for the why salesforce image (for accessibility)'
+            })
+          ]
         }),
         defineField({
           name: 'imageOverlay',

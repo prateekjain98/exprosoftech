@@ -23,7 +23,15 @@ export const caseStudyType = defineType({
       type: 'image',
       options: {
         hotspot: true
-      }
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          description: 'Alternative text for the SEO featured image (for accessibility)'
+        })
+      ]
     }),
     defineField({
       name: 'canonicalUrl',

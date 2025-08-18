@@ -15,6 +15,7 @@ const post = await sanityClient.fetch(`
     isLive,
     date,
     "image": image.asset->url,
+    "imageAlt": image.alt,
     "body": body[] {
       ...,
       _type == "image" => {
@@ -65,7 +66,7 @@ if (hostname === 'exprosoftech.com' && !post.isLive) {
   return Astro.redirect('/404');
 }
 
-const { title, metaTitle, metaDescription, canonicalUrl, excerpt, image } = post;
+const { title, metaTitle, metaDescription, canonicalUrl, excerpt, image, imageAlt } = post;
 ---
 
 <Base
@@ -74,5 +75,5 @@ const { title, metaTitle, metaDescription, canonicalUrl, excerpt, image } = post
   description={metaDescription || excerpt || ""}
   canonical={canonicalUrl}
   image={image}>
-  <BlogSingle post={post} />
+  <BlogSingle post={{...post, imageAlt}} />
 </Base>

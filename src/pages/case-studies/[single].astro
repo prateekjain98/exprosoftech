@@ -15,6 +15,7 @@ const caseStudy = await sanityClient.fetch(`
     canonicalUrl,
     isLive,
     "seoImage": image.asset->url,
+    "seoImageAlt": image.alt,
     category,
     description,
     excerpt,
@@ -93,7 +94,7 @@ if (hostname === 'exprosoftech.com' && !caseStudy.isLive) {
   return Astro.redirect('/404');
 }
 
-const { title, metaTitle, metaDescription, canonicalUrl, seoImage, excerpt, featuredImage } = caseStudy;
+const { title, metaTitle, metaDescription, canonicalUrl, seoImage, seoImageAlt, excerpt, featuredImage } = caseStudy;
 ---
 
 <Base
@@ -114,5 +115,5 @@ const { title, metaTitle, metaDescription, canonicalUrl, seoImage, excerpt, feat
     </div>
   </section>
 
-  <CaseStudySingle caseStudy={caseStudy} />
+  <CaseStudySingle caseStudy={{...caseStudy, seoImageAlt}} />
 </Base> 
