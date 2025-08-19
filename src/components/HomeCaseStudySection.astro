@@ -3,7 +3,7 @@ import CaseStudyCarousel from "./CaseStudyCarousel";
 import { sanityClient } from "sanity:client";
 
 // Fetch the top 3 case studies
-const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0..2] {
+const caseStudiesQuery = `*[_type == "caseStudy" && isLive == true] | order(publishedAt desc)[0..2] {
   title,
   "slug": slug.current,
   category,
@@ -14,7 +14,8 @@ const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0..2
   "logo": logo.asset->url,
   "featuredImage": featuredImage.asset->url,
   publishedAt,
-  services
+  services,
+  isLive
 }`;
 
 const caseStudies = await sanityClient.fetch(caseStudiesQuery);

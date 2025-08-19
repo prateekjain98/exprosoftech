@@ -348,7 +348,7 @@ const service = await sanityClient.fetch(`
   }
 `, { id });
 
-const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...3] {
+const caseStudiesQuery = `*[_type == "caseStudy" && isLive == true] | order(publishedAt desc)[0...3] {
   title,
   "slug": slug.current,
   category,
@@ -358,13 +358,14 @@ const caseStudiesQuery = `*[_type == "caseStudy"] | order(publishedAt desc)[0...
   duration,
   services,
   "featuredImage": featuredImage.asset->url,
-  publishedAt
+  publishedAt,
+  isLive
 }`;
 
 const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
 
 // Fetch blog posts for BlogSection
-const blogPostsQuery = `*[_type == "post"] | order(date desc)[0..2] {
+const blogPostsQuery = `*[_type == "post" && isLive == true] | order(date desc)[0..2] {
   _id,
   title,
   "slug": slug.current,
@@ -372,7 +373,8 @@ const blogPostsQuery = `*[_type == "post"] | order(date desc)[0..2] {
   excerpt,
   "image": image.asset->url,
   "body": body,
-  "author": author->name
+  "author": author->name,
+  isLive
 }`;
 
 const blogPosts = await sanityClient.fetch(blogPostsQuery);

@@ -7,7 +7,7 @@ import { sanityClient } from "sanity:client";
 const { single } = Astro.params;
 
 const caseStudy = await sanityClient.fetch(`
-  *[_type == "caseStudy" && slug.current == $slug][0] {
+  *[_type == "caseStudy" && slug.current == $slug && isLive == true][0] {
     "slug": slug.current,
     title,
     metaTitle,

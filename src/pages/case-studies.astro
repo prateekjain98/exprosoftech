@@ -32,7 +32,7 @@ interface CaseStudyData {
 
 // Fetch case studies data from Sanity
 const caseStudiesData = await sanityClient.fetch(`
-  *[_type == "caseStudy"] | order(publishedAt desc) {
+  *[_type == "caseStudy" && isLive == true] | order(publishedAt desc) {
     _id,
     title,
     category,
@@ -42,6 +42,7 @@ const caseStudiesData = await sanityClient.fetch(`
     duration,
     "slug": slug.current,
     publishedAt,
+    isLive,
     logo {
       asset->{
         url

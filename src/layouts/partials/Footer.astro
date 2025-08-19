@@ -39,17 +39,19 @@ const footerQuery = `*[_type == "footer"][0] {
   }`;
 
 // Query for dynamic service pages
-const servicesQuery = `*[_type == "dynamicServicePage"] | order(title asc) {
+const servicesQuery = `*[_type == "dynamicServicePage" && isLive == true] | order(title asc) {
   title,
   "slug": slug.current,
-  metaDescription
+  metaDescription,
+  isLive
 }`;
 
 // Query for dynamic product pages
-const productsQuery = `*[_type == "dynamicProductPage"] | order(title asc) {
+const productsQuery = `*[_type == "dynamicProductPage" && isLive == true] | order(title asc) {
   title,
   "slug": slug.current,
-  metaDescription
+  metaDescription,
+  isLive
 }`;
 
 // Fetch all data

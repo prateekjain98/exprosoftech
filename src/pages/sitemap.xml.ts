@@ -6,12 +6,14 @@ export const GET: APIRoute = async ({ site }) => {
   // Fetch all dynamic content from Sanity CMS
   const [posts, caseStudies, products, services, productBlogs] = await Promise.all([
     // Blog posts
-    sanityClient.fetch(`*[_type == "post"] {
-      "slug": slug.current
+    sanityClient.fetch(`*[_type == "post" && isLive == true] {
+      "slug": slug.current,
+      isLive
     }`),
     // Case studies
-    sanityClient.fetch(`*[_type == "caseStudy"] {
-      "slug": slug.current
+    sanityClient.fetch(`*[_type == "caseStudy" && isLive == true] {
+      "slug": slug.current,
+      isLive
     }`),
     // Products
     sanityClient.fetch(`*[_type == "dynamicProductPage"] {
@@ -22,8 +24,9 @@ export const GET: APIRoute = async ({ site }) => {
       "slug": slug.current
     }`),
     // Product blogs
-    sanityClient.fetch(`*[_type == "productBlog"] {
-      "slug": slug.current
+    sanityClient.fetch(`*[_type == "productBlog" && isLive == true] {
+      "slug": slug.current,
+      isLive
     }`),
 
 

@@ -27,14 +27,15 @@ const components = {
 
 // Fetch related posts
 const relatedPosts = await sanityClient.fetch(`
-  *[_type == "post" && slug.current != $slug] | order(date desc)[0...3] {
+  *[_type == "post" && slug.current != $slug && isLive == true] | order(date desc)[0...3] {
     title,
     "slug": slug.current,
     date,
     excerpt,
     "image": image.asset->url,
     "imageAlt": image.alt,
-    "author": author->name
+    "author": author->name,
+    isLive
   }
 `, { slug });
 ---

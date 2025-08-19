@@ -128,7 +128,7 @@ const product = await sanityClient.fetch(`
 `, { id });
 
 // Fetch product blogs for carousel
-const productBlogsQuery = `*[_type == "productBlog"] | order(date desc)[0...5] {
+const productBlogsQuery = `*[_type == "productBlog" && isLive == true] | order(date desc)[0...5] {
   seoTitle,
   seoDescription,
   title,
@@ -141,7 +141,7 @@ const productBlogsQuery = `*[_type == "productBlog"] | order(date desc)[0...5] {
     "image": image.asset->url
   },
   tags,
-  
+  isLive
 }`;
 
 const productBlogs = await sanityClient.fetch(productBlogsQuery);

@@ -29,6 +29,13 @@ export const serviceDropdownType = defineType({
       type: 'text',
       description: 'Service description',
       validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'isLive',
+      title: 'Is Live',
+      type: 'boolean',
+      description: 'Toggle to show/hide this service in the navigation dropdown',
+      initialValue: true
     })
   ],
   preview: {

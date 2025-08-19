@@ -9,14 +9,15 @@ import { sanityClient } from "sanity:client";
 
 const BLOG_FOLDER = "blog";
 
-const postsQuery = `*[_type == "post"] | order(date desc) {
+const postsQuery = `*[_type == "post" && isLive == true] | order(date desc) {
   title,
   "slug": slug.current,
   date,
   excerpt,
   "image": image.asset->url,
   "body": body,
-  "author": author->name
+  "author": author->name,
+  isLive
 }`; 
 //comment
 

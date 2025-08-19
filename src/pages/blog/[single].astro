@@ -6,7 +6,7 @@ import { sanityClient } from "sanity:client";
 const { single } = Astro.params;
 
 const post = await sanityClient.fetch(`
-  *[_type == "post" && slug.current == $slug][0] {
+  *[_type == "post" && slug.current == $slug && isLive == true][0] {
     "slug": slug.current,
     title,
     metaTitle,

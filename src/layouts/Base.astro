@@ -30,17 +30,19 @@ try {
   
   
   // Fetch products
-  const productsQuery = `*[_type == "dynamicProductPage"] | order(_createdAt asc) {
+  const productsQuery = `*[_type == "dynamicProductPage" && isLive == true] | order(_createdAt asc) {
     "name": title,
     "slug": slug.current,
-    "description": metaDescription
+    "description": metaDescription,
+    isLive
   }`;
   
   // Fetch services
-  const servicesQuery = `*[_type == "dynamicServicePage"] | order(_createdAt asc) {
+  const servicesQuery = `*[_type == "dynamicServicePage" && isLive == true] | order(_createdAt asc) {
     "name": title,
     "slug": slug.current,
-    "description": metaDescription
+    "description": metaDescription,
+    isLive
   }`;
   
   // Fetch consulting pages
@@ -50,17 +52,19 @@ try {
     "description": metaDescription
   }`;
   
-  // Add product dropdown content query
-  const productDropdownQuery = `*[_type == "productDropdownContent"] | order(_createdAt asc) {
+  // Use dropdown content types for navigation
+  const productDropdownQuery = `*[_type == "productDropdownContent" && isLive == true] | order(_createdAt asc) {
     title,
     "slug": slug.current,
-    description
+    description,
+    isLive
   }`;
 
-  const serviceDropdownQuery = `*[_type == "serviceDropdownContent"] | order(_createdAt asc) {
+  const serviceDropdownQuery = `*[_type == "serviceDropdownContent" && isLive == true] | order(_createdAt asc) {
     title,
     "slug": slug.current,
-    description
+    description,
+    isLive
   }`;
 
   const consultingDropdownQuery = `*[_type == "consultingDropdownContent" && isActive == true] {
@@ -93,6 +97,8 @@ try {
     sanityClient.fetch(serviceDropdownQuery),
     sanityClient.fetch(consultingDropdownQuery)
   ]);
+
+
   
   
   // Store the product dropdown data
@@ -101,6 +107,7 @@ try {
   consultingDropdownData = consultingDropdown;
   
   // Build navigation structure
+  
   navigationData = [
     // {
     //   name: "Consulting",

@@ -38,7 +38,7 @@ const components = {
 
 // Fetch related case studies
 const relatedCaseStudies = await sanityClient.fetch(`
-  *[_type == "caseStudy" && slug.current != $slug] | order(publishedAt desc)[0...3] {
+  *[_type == "caseStudy" && slug.current != $slug && isLive == true] | order(publishedAt desc)[0...3] {
     title,
     "slug": slug.current,
     category,
@@ -47,6 +47,7 @@ const relatedCaseStudies = await sanityClient.fetch(`
     "logo": logo.asset->url,
     "featuredImage": featuredImage.asset->url,
     "featuredImageAlt": featuredImage.alt,
+    isLive,
     ctaSection {
       tagline,
       title,

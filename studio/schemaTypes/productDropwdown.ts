@@ -29,6 +29,13 @@ export const productDropdownType = defineType({
       type: 'text',
       description: 'Product description',
       validation: Rule => Rule.required()
+    }),
+    defineField({
+      name: 'isLive',
+      title: 'Is Live',
+      type: 'boolean',
+      description: 'Toggle to show/hide this product in the navigation dropdown',
+      initialValue: true
     })
   ],
   preview: {
