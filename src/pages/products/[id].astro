@@ -108,7 +108,6 @@ const product = await sanityClient.fetch(`
     additionalFeaturesSection,
     faqSection,
     ctaSection {
-      isVisible,
       tagline,
       title,
       subtitle,
@@ -228,7 +227,7 @@ const carouselPosts = productBlogs.map((blog: any) => ({
     }} 
   /> -->
   <!-- <NewFAQ client:load Faq={[product.faqSection]} /> -->
-  {product.ctaSection && product.ctaSection.isVisible && (
+  {product.ctaSection &&  (
     <DynamicCTA client:visible ctaContent={product.ctaSection} /> 
   )}
 </Base>
