@@ -17,7 +17,7 @@ import vercel from "@astrojs/vercel";
 export default defineConfig({
   site: config.site.base_url
     ? config.site.base_url
-    : "https://exprosoftech-wine.vercel.app/",
+    : "https://exprosoftech.com/",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
   image: {
