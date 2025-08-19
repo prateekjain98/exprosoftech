@@ -132,21 +132,12 @@ try {
     {
       name: "Products",
       url: "",
-      hasChildren: productDropdown.length > 0 || true, // Force hasChildren to true for now
-      children: productDropdown.length > 0 
-        ? productDropdown.map((item: {title: string; slug: string; description?: string}) => ({
-            name: item.title,
-            url: `/products/${item.slug}/`,
-            description: item.description
-          }))
-        : [
-            // Fallback products if no CMS data
-            {
-              name: "FlexiToast",
-              url: "/products/flexi-toast/",
-              description: "Flexible toast notification system"
-            }
-          ]
+      hasChildren: productDropdown.length > 0,
+      children: productDropdown.map((item: {title: string; slug: string; description?: string}) => ({
+        name: item.title,
+        url: `/products/${item.slug}/`,
+        description: item.description
+      }))
     },
     // {
     //   name: "Solutions",
