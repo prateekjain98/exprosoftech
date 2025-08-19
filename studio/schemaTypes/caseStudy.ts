@@ -268,7 +268,10 @@ export const caseStudyType = defineType({
                         'Plugs',
                         'Lightning',
                         'Handshake',
-                        'Target'
+                        'Target',
+                        'Bug',
+                        'ShoppingCart',
+                        'User'
                       ]
                     },
                   description: 'Icon name from Phosphor Icons (e.g., ChartLine, Gauge, Clock)',
