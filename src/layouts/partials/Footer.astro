@@ -5,6 +5,7 @@ import config from "@/config/config.json";
 import social from "@/config/social.json";
 // Remove the react-icons import and use Astro icons instead
 import { sanityClient } from "sanity:client";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 const { logo, logo_width, logo_height, title } = config.site;
 
 interface FooterLink {
@@ -38,16 +39,20 @@ const footerQuery = `*[_type == "footer"][0] {
     copyright
   }`;
 
-// Query for dynamic service pages
-const servicesQuery = `*[_type == "dynamicServicePage" && isLive == true] | order(title asc) {
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+const queries = createQueries(hostname);
+
+// Query for dynamic service pages with hostname-aware filtering
+const servicesQuery = `${queries.services()} {
   title,
   "slug": slug.current,
   metaDescription,
   isLive
 }`;
 
-// Query for dynamic product pages
-const productsQuery = `*[_type == "dynamicProductPage" && isLive == true] | order(title asc) {
+// Query for dynamic product pages with hostname-aware filtering
+const productsQuery = `${queries.products()} {
   title,
   "slug": slug.current,
   metaDescription,

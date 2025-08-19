@@ -170,8 +170,16 @@ const testimonialData = await sanityClient.fetch(`
   }
 `);
 
-// Fetch top 3 case studies for carousel
-const caseStudiesQuery = `*[_type == "caseStudy" && isLive == true] | order(publishedAt desc)[0...3] {
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+console.log('Current hostname:', hostname);
+
+// Import utility for hostname-aware filtering
+import { createQueries } from "@/lib/utils/hostnameFIltering";
+const queries = createQueries(hostname);
+
+// Fetch top 3 case studies for carousel with hostname-aware filtering
+const caseStudiesQuery = `${queries.caseStudies(3)} {
   title,
   "slug": slug.current,
   category,
@@ -187,8 +195,8 @@ const caseStudiesQuery = `*[_type == "caseStudy" && isLive == true] | order(publ
 
 const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
 
-// Fetch blog posts for BlogSection
-const blogPostsQuery = `*[_type == "post" && isLive == true] | order(date desc)[0..2] {
+// Fetch blog posts for BlogSection with hostname-aware filtering
+const blogPostsQuery = `${queries.blogPosts(3)} {
   _id,
   title,
   "slug": slug.current,
@@ -201,10 +209,6 @@ const blogPostsQuery = `*[_type == "post" && isLive == true] | order(date desc)[
 }`;
 
 const blogPosts = await sanityClient.fetch(blogPostsQuery);
-
-// Log hostname for debugging
-const hostname = Astro.url.hostname;
-console.log('Current hostname:', hostname);
 ---
 
 <Base title="Home" meta_title={pageData.metaTitle} description={pageData.metaDescription} image={pageData.image} canonical={pageData.canonicalUrl}>

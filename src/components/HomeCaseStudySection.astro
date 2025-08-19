@@ -1,9 +1,14 @@
 ---
 import CaseStudyCarousel from "./CaseStudyCarousel";
 import { sanityClient } from "sanity:client";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
-// Fetch the top 3 case studies
-const caseStudiesQuery = `*[_type == "caseStudy" && isLive == true] | order(publishedAt desc)[0..2] {
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+const queries = createQueries(hostname);
+
+// Fetch the top 3 case studies with hostname-aware filtering
+const caseStudiesQuery = `${queries.caseStudies(3)} {
   title,
   "slug": slug.current,
   category,

@@ -6,10 +6,15 @@ import BlogSection from "@/partials/BlogSection.astro";
 import Breadcrumbs from "@/layouts/components/Breadcrumbs.astro";
 import { getEntry } from "astro:content";
 import { sanityClient } from "sanity:client";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
 const BLOG_FOLDER = "blog";
 
-const postsQuery = `*[_type == "post" && isLive == true] | order(date desc) {
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+const queries = createQueries(hostname);
+
+const postsQuery = `${queries.blogPosts()} {
   title,
   "slug": slug.current,
   date,

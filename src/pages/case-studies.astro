@@ -4,6 +4,7 @@ import CaseStudyCard from "@/layouts/components/CaseStudyCard.astro";
 import SectionHeader from "@/components/SectionHeader.astro";
 import Breadcrumbs from "@/layouts/components/Breadcrumbs.astro";
 import { sanityClient } from "sanity:client";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
 // Interface for case study data from Sanity
 interface CaseStudyData {
@@ -30,9 +31,13 @@ interface CaseStudyData {
   };
 }
 
-// Fetch case studies data from Sanity
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+const queries = createQueries(hostname);
+
+// Fetch case studies data from Sanity with hostname-aware filtering
 const caseStudiesData = await sanityClient.fetch(`
-  *[_type == "caseStudy" && isLive == true] | order(publishedAt desc) {
+  ${queries.caseStudies()} {
     _id,
     title,
     category,

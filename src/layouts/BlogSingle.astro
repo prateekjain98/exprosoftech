@@ -11,6 +11,7 @@ import { PortableText } from "astro-portabletext";
 import { urlForImage } from "@/lib/utils/sanityImage";
 import { DynamicCTA } from "../components/DynamicCTA";
 import PortableTextImage from "../components/common/PortableTextImage.astro";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
 const { post } = Astro.props;
 const { title, author, image, date, body, slug, ctaSection } = post;
@@ -25,9 +26,13 @@ const components = {
   }
 };
 
-// Fetch related posts
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+const queries = createQueries(hostname);
+
+// Fetch related posts with hostname-aware filtering
 const relatedPosts = await sanityClient.fetch(`
-  *[_type == "post" && slug.current != $slug && isLive == true] | order(date desc)[0...3] {
+  *[_type == "post" && slug.current != $slug${hostname === 'exprosoftech.com' ? ' && isLive == true' : ''}] | order(date desc)[0...3] {
     title,
     "slug": slug.current,
     date,

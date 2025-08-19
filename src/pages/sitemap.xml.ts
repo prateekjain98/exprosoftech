@@ -1,30 +1,35 @@
 // src/pages/sitemap.xml.ts
 import { sanityClient } from "sanity:client";
 import type { APIRoute } from "astro";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
-export const GET: APIRoute = async ({ site }) => {
-  // Fetch all dynamic content from Sanity CMS
+export const GET: APIRoute = async ({ site, request }) => {
+  // Get hostname for filtering
+  const hostname = new URL(request.url).hostname;
+  const queries = createQueries(hostname);
+  
+  // Fetch all dynamic content from Sanity CMS with hostname-aware filtering
   const [posts, caseStudies, products, services, productBlogs] = await Promise.all([
     // Blog posts
-    sanityClient.fetch(`*[_type == "post" && isLive == true] {
+    sanityClient.fetch(`${queries.blogPosts()} {
       "slug": slug.current,
       isLive
     }`),
     // Case studies
-    sanityClient.fetch(`*[_type == "caseStudy" && isLive == true] {
+    sanityClient.fetch(`${queries.caseStudies()} {
       "slug": slug.current,
       isLive
     }`),
     // Products
-    sanityClient.fetch(`*[_type == "dynamicProductPage"] {
+    sanityClient.fetch(`${queries.products()} {
       "slug": slug.current
     }`),
     // Services
-    sanityClient.fetch(`*[_type == "dynamicServicePage"] {
+    sanityClient.fetch(`${queries.services()} {
       "slug": slug.current
     }`),
     // Product blogs
-    sanityClient.fetch(`*[_type == "productBlog" && isLive == true] {
+    sanityClient.fetch(`${queries.productBlogs()} {
       "slug": slug.current,
       isLive
     }`),

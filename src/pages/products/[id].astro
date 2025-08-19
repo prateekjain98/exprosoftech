@@ -12,6 +12,7 @@ import { DynamicCTA } from "../../components/DynamicCTA";
 import { ServicesBestPractices } from "@/components/services";
 import { DynamicCloudSpecialization } from "../../components/DynamicCloudSpecializations";
 import BlogCarousel from "../../components/BlogCarousel";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
 //ssr
 
@@ -126,8 +127,12 @@ const product = await sanityClient.fetch(`
   }
 `, { id });
 
-// Fetch product blogs for carousel
-const productBlogsQuery = `*[_type == "productBlog" && isLive == true] | order(date desc)[0...5] {
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+const queries = createQueries(hostname);
+
+// Fetch product blogs for carousel with hostname-aware filtering
+const productBlogsQuery = `${queries.productBlogs(5)} {
   seoTitle,
   seoDescription,
   title,
@@ -147,7 +152,6 @@ const productBlogs = await sanityClient.fetch(productBlogsQuery);
 
 
 // Check hostname and isLive status
-const hostname = Astro.url.hostname;
 if (hostname === 'exprosoftech.com' && !product.isLive) {
   return Astro.redirect('/404');
 }

@@ -22,6 +22,7 @@ import { PartnerLogos } from "../../components/PartnerLogos";
 import CaseStudyCarousel from "../../components/CaseStudyCarousel";
 import DynamicServiceShowcase from "../../components/DynamicServiceShowcase";
 import { ProductCardGrid } from "../../components/common/ProductCardGrid";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
 interface Service {
   id: string;
@@ -348,7 +349,11 @@ const service = await sanityClient.fetch(`
   }
 `, { id });
 
-const caseStudiesQuery = `*[_type == "caseStudy" && isLive == true] | order(publishedAt desc)[0...3] {
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+const queries = createQueries(hostname);
+
+const caseStudiesQuery = `${queries.caseStudies(3)} {
   title,
   "slug": slug.current,
   category,
@@ -364,8 +369,8 @@ const caseStudiesQuery = `*[_type == "caseStudy" && isLive == true] | order(publ
 
 const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
 
-// Fetch blog posts for BlogSection
-const blogPostsQuery = `*[_type == "post" && isLive == true] | order(date desc)[0..2] {
+// Fetch blog posts for BlogSection with hostname-aware filtering
+const blogPostsQuery = `${queries.blogPosts(3)} {
   _id,
   title,
   "slug": slug.current,
@@ -384,7 +389,6 @@ if (!service) {
 }
 
 // Check hostname and isLive status
-const hostname = Astro.url.hostname;
 if (hostname === 'exprosoftech.com' && !service.isLive) {
   return Astro.redirect('/404');
 }

@@ -11,6 +11,7 @@ import { AstroFont } from "astro-font";
 import { ViewTransitions } from "astro:transitions";
 import { sanityClient } from "sanity:client";
 import type { NavigationLink } from "@/components/Header";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
 // Fetch navigation data from Sanity
 let navigationData: NavigationLink[] = [];
@@ -19,6 +20,10 @@ let serviceDropdownData: any[] = [];
 let consultingDropdownData: any[] = [];
 
 try {
+  // Get hostname for filtering
+  const hostname = Astro.url.hostname;
+  const queries = createQueries(hostname);
+  
   // First, let's test what's actually in the database
   const testQuery = `*[_type == "dynamicServicePage"] {
     _id,
@@ -28,39 +33,37 @@ try {
     _updatedAt
   }`;
   
-  
-  // Fetch products
-  const productsQuery = `*[_type == "dynamicProductPage" && isLive == true] | order(_createdAt asc) {
+  // Build queries with hostname-aware filtering
+  const productsQuery = `${queries.products()} {
     "name": title,
     "slug": slug.current,
     "description": metaDescription,
     isLive
   }`;
   
-  // Fetch services
-  const servicesQuery = `*[_type == "dynamicServicePage" && isLive == true] | order(_createdAt asc) {
+  const servicesQuery = `${queries.services()} {
     "name": title,
     "slug": slug.current,
     "description": metaDescription,
     isLive
   }`;
   
-  // Fetch consulting pages
+  // Fetch consulting pages (no isLive filtering needed)
   const consultingQuery = `*[_type == "dynamicConsultingsPage"] | order(_createdAt asc) {
     "name": title,
     "slug": slug.current,
     "description": metaDescription
   }`;
   
-  // Use dropdown content types for navigation
-  const productDropdownQuery = `*[_type == "productDropdownContent" && isLive == true] | order(_createdAt asc) {
+  // Use dropdown content types for navigation with hostname-aware filtering
+  const productDropdownQuery = `${queries.productDropdown()} {
     title,
     "slug": slug.current,
     description,
     isLive
   }`;
 
-  const serviceDropdownQuery = `*[_type == "serviceDropdownContent" && isLive == true] | order(_createdAt asc) {
+  const serviceDropdownQuery = `${queries.serviceDropdown()} {
     title,
     "slug": slug.current,
     description,

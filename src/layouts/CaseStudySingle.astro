@@ -7,6 +7,7 @@ import { sanityClient } from "sanity:client";
 import { PortableText } from "astro-portabletext";
 import DynamicCTA from "../components/DynamicCTA";
 import PortableTextImage from "../components/common/PortableTextImage.astro";
+import { createQueries } from "@/lib/utils/hostnameFIltering";
 
 const { caseStudy } = Astro.props;
 const { 
@@ -36,9 +37,12 @@ const components = {
   }
 };
 
-// Fetch related case studies
+// Get hostname for filtering
+const hostname = Astro.url.hostname;
+
+// Fetch related case studies with hostname-aware filtering
 const relatedCaseStudies = await sanityClient.fetch(`
-  *[_type == "caseStudy" && slug.current != $slug && isLive == true] | order(publishedAt desc)[0...3] {
+  *[_type == "caseStudy" && slug.current != $slug${hostname === 'exprosoftech.com' ? ' && isLive == true' : ''}] | order(publishedAt desc)[0...3] {
     title,
     "slug": slug.current,
     category,
