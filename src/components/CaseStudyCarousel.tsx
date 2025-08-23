@@ -223,7 +223,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
             <>
               <button
                 onClick={goToPrevious}
-                className="hidden xl:flex absolute -left-16 top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 items-center justify-center"
+                className="hidden xl:flex absolute -left-16 top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-11 h-11 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 items-center justify-center"
                 aria-label="Previous case study"
               >
                 <FaChevronLeft className="w-5 h-5" />
@@ -231,7 +231,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
               
               <button
                 onClick={goToNext}
-                className="hidden xl:flex absolute -right-16 top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-12 h-12 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 items-center justify-center"
+                className="hidden xl:flex absolute -right-16 top-1/2 -translate-y-1/2 bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-11 h-11 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 items-center justify-center"
                 aria-label="Next case study"
               >
                 <FaChevronRight className="w-5 h-5" />
@@ -244,7 +244,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
             <div className="flex justify-center items-center mt-6 space-x-4 lg:hidden">
               <button
                 onClick={goToPrevious}
-                className="bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-10 h-10 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
+                className="bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-11 h-11 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
                 aria-label="Previous case study"
               >
                 <FaChevronLeft className="w-4 h-4" />
@@ -256,7 +256,7 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
               
               <button
                 onClick={goToNext}
-                className="bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-10 h-10 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
+                className="bg-gray-700 hover:bg-blue-600 text-gray-300 hover:text-white w-11 h-11 rounded-full transition-all duration-200 shadow-lg border border-gray-600 hover:border-blue-500 flex items-center justify-center"
                 aria-label="Next case study"
               >
                 <FaChevronRight className="w-4 h-4" />
@@ -266,18 +266,20 @@ const CaseStudyCarousel: React.FC<CaseStudyCarouselProps> = ({
 
           {/* Dots Indicator - Desktop Only */}
           {caseStudies.length > 1 && (
-            <div className="hidden lg:flex justify-center mt-6 space-x-2">
+            <div className="hidden lg:flex justify-center mt-6 space-x-1">
               {caseStudies.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                  className="w-8 h-8 rounded-full transition-all duration-200 flex items-center justify-center"
+                  aria-label={`Go to case study ${index + 1}`}
+                >
+                  <div className={`w-4 h-4 rounded-full transition-all duration-200 ${
                     index === currentIndex 
                       ? 'bg-blue-600 scale-110' 
                       : 'bg-gray-600 hover:bg-gray-500'
-                  }`}
-                  aria-label={`Go to case study ${index + 1}`}
-                />
+                  }`} />
+                </button>
               ))}
             </div>
           )}
