@@ -122,7 +122,8 @@ const productLinks: FooterLink[] = productsData.map((product: any) => ({
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-light/70 hover:text-primary transition-colors p-1.5"
+                    class="text-light/70 hover:text-primary transition-colors duration-200 p-1.5"
+                    aria-label={`Follow us on ${item.icon.replace('Fa', '')}`}
                   >
                     {item.icon === "FaFacebook" && (
                       <svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24">
@@ -161,7 +162,7 @@ const productLinks: FooterLink[] = productsData.map((product: any) => ({
                 {footerData?.contactInfo?.phone ? (
                   <a 
                     href={`tel:${footerData.contactInfo.phone.trim()}`}
-                    class="text-light/70 hover:text-primary transition-colors text-base font-medium"
+                    class="text-light/70 hover:text-primary transition-colors duration-200 text-base font-medium"
                   >
                     {footerData.contactInfo.phone}
                   </a>
@@ -178,7 +179,7 @@ const productLinks: FooterLink[] = productsData.map((product: any) => ({
                 {footerData?.contactInfo?.email ? (
                   <a 
                     href={`mailto:${footerData.contactInfo.email.trim()}`}
-                    class="text-light/70 hover:text-primary transition-colors text-base font-medium"
+                    class="text-light/70 hover:text-primary transition-colors duration-200 text-base font-medium"
                   >
                     {footerData.contactInfo.email}
                   </a>
@@ -319,9 +320,10 @@ const productLinks: FooterLink[] = productsData.map((product: any) => ({
             <span set:html={footerData.copyright} />
             <a
               href="https://suprdash.com"
-              class="text-light/70 hover:text-primary transition-colors"
+              class="text-light/70 hover:text-primary transition-colors duration-200"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Visit Suprdash website"
             >
               Suprdash
             </a>

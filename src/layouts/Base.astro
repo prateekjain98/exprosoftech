@@ -220,6 +220,8 @@ const {
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
     <link rel="sitemap" href="/sitemap.xml" />
+    <!-- preload logo for LCP optimization -->
+    <link rel="preload" as="image" href={config.site.logo} fetchpriority="high" />
     <!-- theme meta -->
     <meta name="theme-name" content="Exprosoftech-astro" />
     <meta name="msapplication-TileColor" content="#000000" />
