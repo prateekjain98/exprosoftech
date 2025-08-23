@@ -57,7 +57,7 @@ const { title, slug, image, date, excerpt, body } = content;
       <p class="mb-6">{typeof body === 'string' ? body.slice(0, Number(summary_length)) : 'Read more...'}</p>
     ) : null
   }
-  <a class="btn btn-text border-none" href={`/blog/${slug}/`}>
+  <a class="btn btn-text border-none" href={`/blog/${slug}/`} aria-label={`Read more about ${title}`}>
     Read More
     <div class="icon-wrapper">
       <span class="icon" aria-hidden="true">

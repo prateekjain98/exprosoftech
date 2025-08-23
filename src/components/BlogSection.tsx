@@ -84,6 +84,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts = [] }) => {
                     <a 
                       className="btn btn-text border-none inline-flex items-center gap-2 hover:text-primary transition-colors" 
                       href={`/blog/${blog.slug}/`}
+                      aria-label={`Read more about ${blog.title}`}
                     >
                       Read More
                       <div className="icon-wrapper">
