@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState, type ReactNode } from 'react';
-import { LoadingPlaceholder } from './LoadingPlaceholder';
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
+import { LoadingPlaceholder } from "./LoadingPlaceholder";
 
 interface LazySectionProps {
   children: ReactNode;
@@ -13,10 +13,10 @@ interface LazySectionProps {
 export const LazySection: React.FC<LazySectionProps> = ({
   children,
   fallback,
-  rootMargin = '50px',
+  rootMargin = "50px",
   threshold = 0.1,
-  className = '',
-  minHeight = '200px',
+  className = "",
+  minHeight = "200px",
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -45,16 +45,14 @@ export const LazySection: React.FC<LazySectionProps> = ({
   }, [rootMargin, threshold, hasLoaded]);
 
   const style = {
-    minHeight: typeof minHeight === 'number' ? `${minHeight}px` : minHeight,
+    minHeight: typeof minHeight === "number" ? `${minHeight}px` : minHeight,
   };
 
   return (
     <div ref={ref} className={className} style={style}>
-      {isVisible ? (
-        children
-      ) : (
-        fallback || <LoadingPlaceholder height={minHeight} />
-      )}
+      {isVisible
+        ? children
+        : fallback || <LoadingPlaceholder height={minHeight} />}
     </div>
   );
 };
