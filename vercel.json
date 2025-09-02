@@ -45,7 +45,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(js|css|woff|woff2|eot|ttf|otf|svg|png|jpg|jpeg|webp|avif|gif|ico))",
+      "source": "/(.*\\.(?:js|css|woff|woff2|eot|ttf|otf|svg|png|jpg|jpeg|webp|avif|gif|ico))",
       "headers": [
         {
           "key": "Cache-Control",
@@ -53,11 +53,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "src/pages/**/*.astro": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  }
+  ]
 }
