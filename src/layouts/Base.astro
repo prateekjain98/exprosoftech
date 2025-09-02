@@ -227,43 +227,12 @@ const {
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
     <link rel="sitemap" href="/sitemap.xml" />
-    <!-- preload logo for LCP optimization with proper dimensions -->
+    <!-- preload logo for LCP optimization -->
     <link
       rel="preload"
       as="image"
-      href="/_vercel/image?url=%2Fimages%2Fnew-logo.webp&w=50&q=90"
+      href={config.site.logo}
       fetchpriority="high"
-      imagesrcset="/_vercel/image?url=%2Fimages%2Fnew-logo.webp&w=50&q=90 50w, /_vercel/image?url=%2Fimages%2Fnew-logo.webp&w=100&q=90 100w"
-      imagesizes="50px"
-    />
-
-    <!-- preconnect to external domains -->
-    <link rel="preconnect" href="https://cdn.sanity.io" />
-    <link rel="preconnect" href="https://js.zi-scripts.com" />
-    <link rel="dns-prefetch" href="https://cdn.sanity.io" />
-    <link rel="dns-prefetch" href="https://js.zi-scripts.com" />
-
-    <!-- preload critical fonts -->
-    <link
-      rel="preload"
-      href="/fonts/Satoshi-Regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/Satoshi-Medium.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/ClashGrotesk-Medium.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
     />
     <!-- theme meta -->
     <meta name="theme-name" content="Exprosoftech-astro" />
@@ -318,7 +287,7 @@ const {
               ),
             },
           ],
-          preload: true,
+          preload: false,
           display: "swap",
           selector: "body",
           fallback: "sans-serif",
@@ -338,7 +307,7 @@ const {
               ),
             },
           ],
-          preload: true,
+          preload: false,
           display: "swap",
           selector: "body",
           fallback: "sans-serif",
@@ -435,57 +404,6 @@ const {
      -->
 
     <style is:global>
-      /* Critical CSS for above-the-fold content */
-      body {
-        font-family: "Satoshi", sans-serif;
-        font-display: swap;
-        line-height: 1.6;
-        color: #475569;
-        background-color: #fff;
-      }
-
-      /* Prevent layout shift by setting dimensions */
-      img {
-        height: auto;
-        max-width: 100%;
-      }
-
-      /* Header and navigation critical styles */
-      header {
-        position: relative;
-        z-index: 1000;
-      }
-
-      /* Main content container - prevent layout shift */
-      #main-content {
-        min-height: 50vh;
-        contain: layout style paint;
-      }
-
-      /* Prevent layout shift for common elements */
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1rem;
-      }
-
-      /* Ensure proper aspect ratios for images */
-      .aspect-ratio-container {
-        position: relative;
-        width: 100%;
-        height: 0;
-      }
-
-      .aspect-ratio-container img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      /* Menu overlay styles */
       body.menu-open::after {
         content: "";
         position: fixed;
@@ -506,42 +424,30 @@ const {
           opacity: 1;
         }
       }
-
-      /* Prevent FOUC (Flash of Unstyled Content) */
-      .astro-loading {
-        visibility: hidden;
-      }
-
-      .astro-loaded {
-        visibility: visible;
-      }
     </style>
 
-    <!-- ZoomInfo Script - Optimized for performance -->
+    <!-- ZoomInfo Script -->
     <script is:inline>
-      // Defer ZoomInfo loading until after critical resources
-      function loadZoomInfo() {
-        window[
-          (function (_7lr, _tq) {
-            var _DZY9D = "";
-            for (var _iqRIip = 0; _iqRIip < _7lr.length; _iqRIip++) {
-              _IbJL != _iqRIip;
-              var _IbJL = _7lr[_iqRIip].charCodeAt();
-              _IbJL -= _tq;
-              _IbJL += 61;
-              _IbJL %= 94;
-              _IbJL += 33;
-              _tq > 3;
-              _DZY9D += String.fromCharCode(_IbJL);
-            }
-            return _DZY9D;
-          })(atob("IW51OTYxLCo7cCxA"), 37)
-        ] = "3f462c45901741670764";
-        var zi = document.createElement("script");
-        zi.type = "text/javascript";
-        zi.async = true;
-        zi.defer = true;
-        zi.src = (function (_GSN, _t4) {
+      window[
+        (function (_7lr, _tq) {
+          var _DZY9D = "";
+          for (var _iqRIip = 0; _iqRIip < _7lr.length; _iqRIip++) {
+            _IbJL != _iqRIip;
+            var _IbJL = _7lr[_iqRIip].charCodeAt();
+            _IbJL -= _tq;
+            _IbJL += 61;
+            _IbJL %= 94;
+            _IbJL += 33;
+            _tq > 3;
+            _DZY9D += String.fromCharCode(_IbJL);
+          }
+          return _DZY9D;
+        })(atob("IW51OTYxLCo7cCxA"), 37)
+      ] = "3f462c45901741670764";
+      var zi = document.createElement("script");
+      ((zi.type = "text/javascript"),
+        (zi.async = true),
+        (zi.src = (function (_GSN, _t4) {
           var _aUlL9 = "";
           for (var _NpzqWL = 0; _NpzqWL < _GSN.length; _NpzqWL++) {
             var _HjNJ = _GSN[_NpzqWL].charCodeAt();
@@ -555,21 +461,15 @@ const {
             _aUlL9 += String.fromCharCode(_HjNJ);
           }
           return _aUlL9;
-        })(atob("N0NDP0JnXFw5QltJOFpCMkE4P0NCWzI+PFxJOFpDMDZbOUI="), 45);
-        document.head.appendChild(zi);
-      }
-
-      // Load after page is interactive
-      if (document.readyState === "complete") {
-        setTimeout(loadZoomInfo, 1000);
-      } else {
-        window.addEventListener("load", function () {
-          setTimeout(loadZoomInfo, 1000);
-        });
-      }
+        })(atob("N0NDP0JnXFw5QltJOFpCMkE4P0NCWzI+PFxJOFpDMDZbOUI="), 45)),
+        document.readyState === "complete"
+          ? document.body.appendChild(zi)
+          : window.addEventListener("load", function () {
+              document.body.appendChild(zi);
+            }));
     </script>
   </head>
-  <body class="astro-loading">
+  <body>
     <TwSizeIndicator />
     <Header
       client:only="react"
@@ -621,9 +521,6 @@ const {
       document.addEventListener("astro:page-load", () => {
         scriptInit();
         aosInit();
-        // Remove loading class to prevent FOUC
-        document.body.classList.remove("astro-loading");
-        document.body.classList.add("astro-loaded");
       });
     </script>
   </body>

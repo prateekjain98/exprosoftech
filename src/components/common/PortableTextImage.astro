@@ -1,6 +1,4 @@
 ---
-import SanityImage from "./SanityImage.astro";
-
 export interface Props {
   value?: {
     asset?: {
@@ -36,15 +34,11 @@ if (!imageUrl) {
 {
   imageUrl && (
     <figure class="my-8">
-      <SanityImage
+      <img
         src={imageUrl}
         alt={imageData?.alt || ""}
-        width={800}
-        height={600}
         loading="lazy"
         class="rounded-lg w-full h-auto"
-        sizes="(max-width: 768px) 100vw, 800px"
-        quality={85}
       />
       {imageData?.caption && (
         <figcaption class="mt-2 text-center text-sm text-gray-500">

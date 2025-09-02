@@ -24,15 +24,7 @@ export default defineConfig({
     service: {
       entrypoint: "astro/assets/services/sharp",
     },
-    domains: ["cdn.sanity.io"],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.sanity.io",
-      },
-    ],
   },
-  compressHTML: true,
   integrations: [
     react(),
     tailwind({
@@ -81,24 +73,9 @@ export default defineConfig({
   output: "server",
   adapter: vercel({
     functionPerRoute: false,
-    edgeMiddleware: true,
+    edgeMiddleware: false,
     webAnalytics: {
-      enabled: true,
-    },
-    imageService: true,
-    imagesConfig: {
-      sizes: [256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-      domains: ["cdn.sanity.io"],
-      remotePatterns: [
-        {
-          protocol: "https",
-          hostname: "cdn.sanity.io",
-          pathname: "/images/**",
-        },
-      ],
-      minimumCacheTTL: 31536000,
-      formats: ["image/avif", "image/webp"],
-      qualities: [50, 75, 90],
+      enabled: false,
     },
   }),
   vite: {
@@ -109,30 +86,7 @@ export default defineConfig({
             "react-vendor": ["react", "react-dom"],
             "astro-vendor": ["astro"],
             utils: ["dayjs", "github-slugger", "marked"],
-            "ui-components": [
-              "@heroicons/react",
-              "@phosphor-icons/react",
-              "@tabler/icons-react",
-            ],
-            animation: ["gsap", "framer-motion", "aos"],
           },
-        },
-      },
-      cssCodeSplit: true,
-      minify: "terser",
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
-      },
-      assetsInlineLimit: 4096,
-    },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          // Enable source maps for development
-          sourceMap: true,
         },
       },
     },
