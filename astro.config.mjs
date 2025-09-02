@@ -20,10 +20,23 @@ export default defineConfig({
     : "https://exprosoftech.com/",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
+  // Performance: Optimize image processing
   image: {
     service: {
       entrypoint: "astro/assets/services/sharp",
     },
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
+  },
+  // Performance: Enable HTML compression
+  compressHTML: true,
+  // Performance: Enable experimental optimizations
+  experimental: {
+    contentCollectionCache: true,
   },
   integrations: [
     react(),
@@ -82,11 +95,26 @@ export default defineConfig({
     build: {
       rollupOptions: {
         output: {
+          // Performance: Optimize chunk splitting for better caching
           manualChunks: {
             "react-vendor": ["react", "react-dom"],
             "astro-vendor": ["astro"],
-            utils: ["dayjs", "github-slugger", "marked"],
+            "animation-vendor": ["framer-motion", "gsap", "aos"],
+            "chart-vendor": ["recharts"],
+            "carousel-vendor": [
+              "embla-carousel-react",
+              "embla-carousel-autoplay",
+            ],
+            utils: ["dayjs", "github-slugger", "marked", "clsx"],
           },
+        },
+      },
+      // Performance: Enable minification and compression
+      minify: "terser",
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
         },
       },
     },
@@ -96,10 +124,16 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: ["marked", "gsap"],
+      noExternal: ["marked", "gsap", "framer-motion"],
     },
     optimizeDeps: {
-      include: ["gsap", "gsap/ScrollTrigger"],
+      include: [
+        "gsap",
+        "gsap/ScrollTrigger",
+        "framer-motion",
+        "react",
+        "react-dom",
+      ],
     },
   },
 });

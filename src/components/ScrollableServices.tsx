@@ -17,8 +17,6 @@ interface Heading {
   description: string;
 }
 
-
-
 interface ScrollableServicesProps {
   data: {
     heading: {
@@ -31,7 +29,7 @@ interface ScrollableServicesProps {
       title: string;
       subheading: string;
       description: string;
-      image: string;  // This will be the resolved URL
+      image: string; // This will be the resolved URL
     }>;
   };
 }
@@ -63,7 +61,9 @@ interface ScrollableServicesProps {
 //   },
 // ];
 
-export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) => {
+export const ScrollableServices: React.FC<ScrollableServicesProps> = ({
+  data,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -178,6 +178,8 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) 
                             src={service.image}
                             alt={service.title}
                             className="w-full h-full object-contain transform transition-all duration-1000"
+                            width={500}
+                            height={300}
                             style={{
                               filter:
                                 "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3))",
@@ -235,6 +237,8 @@ export const ScrollableServices: React.FC<ScrollableServicesProps> = ({ data }) 
                         src={service.image}
                         alt={service.title}
                         className="w-full h-auto object-contain"
+                        width={300}
+                        height={180}
                       />
                     </div>
 

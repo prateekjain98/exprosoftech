@@ -224,15 +224,42 @@ const {
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Performance: Critical resource hints -->
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://js.zi-scripts.com" />
+
     <!-- favicon -->
     <link rel="shortcut icon" href={config.site.favicon} />
     <link rel="sitemap" href="/sitemap.xml" />
-    <!-- preload logo for LCP optimization -->
+
+    <!-- Performance: Preload critical resources -->
     <link
       rel="preload"
       as="image"
       href={config.site.logo}
       fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/fonts/Satoshi-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Satoshi-Medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/ClashGrotesk-Medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <!-- theme meta -->
     <meta name="theme-name" content="Exprosoftech-astro" />
@@ -287,7 +314,7 @@ const {
               ),
             },
           ],
-          preload: false,
+          preload: true,
           display: "swap",
           selector: "body",
           fallback: "sans-serif",
@@ -307,7 +334,7 @@ const {
               ),
             },
           ],
-          preload: false,
+          preload: true,
           display: "swap",
           selector: "body",
           fallback: "sans-serif",
@@ -403,7 +430,21 @@ const {
     <!-- 
      -->
 
+    <!-- Performance: Inline critical CSS to prevent render blocking -->
     <style is:global>
+      /* Performance: Critical above-the-fold styles */
+      body {
+        font-family: var(--font-primary), sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      #main-content {
+        min-height: 100vh;
+      }
+
+      /* Menu overlay styles */
       body.menu-open::after {
         content: "";
         position: fixed;
@@ -422,6 +463,33 @@ const {
         }
         to {
           opacity: 1;
+        }
+      }
+
+      /* Performance: Prevent layout shifts */
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Loading states to prevent CLS */
+      .loading-placeholder {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+
+      @keyframes loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
         }
       }
     </style>
@@ -471,8 +539,9 @@ const {
   </head>
   <body>
     <TwSizeIndicator />
+    <!-- Performance: Load header with idle strategy for better performance -->
     <Header
-      client:only="react"
+      client:idle
       banner={Astro.url.pathname === "/"}
       errorPage={notFoundPage}
       pathname={Astro.url.pathname}

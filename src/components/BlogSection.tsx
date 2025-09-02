@@ -52,6 +52,8 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts = [] }) => {
                             className="h-full w-full object-cover"
                             src={blog.image}
                             alt={blog.title}
+                            width={400}
+                            height={250}
                           />
                         </div>
                       </div>
@@ -61,19 +63,24 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts = [] }) => {
                         className="w-5"
                         src="/images/icons/png/date.png"
                         alt="date icon"
+                        width={20}
+                        height={20}
                       />
                       <p className="inline-block font-medium text-tertiary">
-                        {new Date(blog.date).toLocaleDateString('en-US', {
-                          weekday: 'long',
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric'
+                        {new Date(blog.date).toLocaleDateString("en-US", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
                         })}
                       </p>
                     </div>
                     {blog.title && (
                       <h3 className="h5 mb-3">
-                        <a href={`/blog/${blog.slug}/`} className="hover:text-primary transition-colors">
+                        <a
+                          href={`/blog/${blog.slug}/`}
+                          className="hover:text-primary transition-colors"
+                        >
                           {blog.title}
                         </a>
                       </h3>
@@ -81,16 +88,26 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts = [] }) => {
                     {blog.excerpt && (
                       <p className="mb-6 text-text">{blog.excerpt}</p>
                     )}
-                    <a 
-                      className="btn btn-text border-none inline-flex items-center gap-2 hover:text-primary transition-colors" 
+                    <a
+                      className="btn btn-text border-none inline-flex items-center gap-2 hover:text-primary transition-colors"
                       href={`/blog/${blog.slug}/`}
                       aria-label={`Read more about ${blog.title}`}
                     >
                       Read More
                       <div className="icon-wrapper">
                         <span className="icon" aria-hidden="true">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
                           </svg>
                         </span>
                       </div>

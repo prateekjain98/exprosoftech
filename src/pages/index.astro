@@ -172,7 +172,7 @@ const testimonialData = await sanityClient.fetch(`
 
 // Get hostname for filtering
 const hostname = Astro.url.hostname;
-console.log('Current hostname:', hostname);
+console.log("Current hostname:", hostname);
 
 // Import utility for hostname-aware filtering
 import { createQueries } from "@/lib/utils/hostnameFIltering";
@@ -193,26 +193,35 @@ const caseStudiesQuery = `${queries.caseStudies(3)} {
   isLive
 }`;
 
-const caseStudiesData = await sanityClient.fetch(caseStudiesQuery);
-
-// Fetch blog posts for BlogSection with hostname-aware filtering
+// Performance: Optimize blog posts query with responsive images
 const blogPostsQuery = `${queries.blogPosts(3)} {
   _id,
   title,
   "slug": slug.current,
   date,
   excerpt,
-  "image": image.asset->url,
-  "body": body,
+  "image": image.asset->url + "?w=400&h=250&fit=crop&auto=format",
+  "imageMobile": image.asset->url + "?w=300&h=200&fit=crop&auto=format",
   "author": author->name,
   isLive
 }`;
 
-const blogPosts = await sanityClient.fetch(blogPostsQuery);
+// Performance: Parallel data fetching for better performance
+const [caseStudiesData, blogPosts] = await Promise.all([
+  sanityClient.fetch(caseStudiesQuery),
+  sanityClient.fetch(blogPostsQuery),
+]);
 ---
 
-<Base title="Home" meta_title={pageData.metaTitle} description={pageData.metaDescription} image={pageData.image} canonical={pageData.canonicalUrl}>
-  <HomeBanner client:load data={pageData.heroBanner} />
+<Base
+  title="Home"
+  meta_title={pageData.metaTitle}
+  description={pageData.metaDescription}
+  image={pageData.image}
+  canonical={pageData.canonicalUrl}
+>
+  <!-- Performance: Critical above-the-fold content loads immediately -->
+  <HomeBanner client:idle data={pageData.heroBanner} />
   {
     pageData.clientsSection?.isVisible && (
       <Clients client:visible data={pageData.clientsSection} />
@@ -241,7 +250,8 @@ const blogPosts = await sanityClient.fetch(blogPostsQuery);
   }
 
   <!-- <ProductSection client:visible data={pageData.productsSection} />  -->
-  <TestimonialMarquee client:load data={testimonialData} />
+  <!-- Performance: Defer testimonials to reduce initial load -->
+  <TestimonialMarquee client:visible data={testimonialData} />
   <!-- <CaseStudies client:load caseStudies={transformedCaseStudies} /> -->
 
   <DynamicCTA client:visible ctaContent={pageData.ctaSection} />
