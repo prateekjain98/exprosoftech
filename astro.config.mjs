@@ -24,7 +24,15 @@ export default defineConfig({
     service: {
       entrypoint: "astro/assets/services/sharp",
     },
+    domains: ["cdn.sanity.io"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+    ],
   },
+  compressHTML: true,
   integrations: [
     react(),
     tailwind({
@@ -86,7 +94,21 @@ export default defineConfig({
             "react-vendor": ["react", "react-dom"],
             "astro-vendor": ["astro"],
             utils: ["dayjs", "github-slugger", "marked"],
+            "ui-components": [
+              "@heroicons/react",
+              "@phosphor-icons/react",
+              "@tabler/icons-react",
+            ],
+            animation: ["gsap", "framer-motion", "aos"],
           },
+        },
+      },
+      cssCodeSplit: true,
+      minify: "terser",
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
         },
       },
     },

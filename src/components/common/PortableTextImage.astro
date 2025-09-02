@@ -1,4 +1,6 @@
 ---
+import OptimizedImage from "./OptimizedImage.astro";
+
 export interface Props {
   value?: {
     asset?: {
@@ -24,22 +26,34 @@ const imageData = value || node;
 const imageUrl = imageData?.asset?.url;
 
 if (!imageUrl) {
-  console.error('PortableTextImage: No image URL found. Available props:', Object.keys(Astro.props));
+  console.error(
+    "PortableTextImage: No image URL found. Available props:",
+    Object.keys(Astro.props)
+  );
 }
 ---
 
-{imageUrl && (
-  <figure class="my-8">
-    <img 
-      src={imageUrl} 
-      alt={imageData?.alt || ''} 
-      loading="lazy" 
-      class="rounded-lg w-full h-auto"
-    />
-    {imageData?.caption && (
-      <figcaption class="mt-2 text-center text-sm text-gray-500">
-        {imageData.caption}
-      </figcaption>
-    )}
-  </figure>
-)} 
+{
+  imageUrl && (
+    <figure class="my-8">
+      <OptimizedImage
+        src={imageUrl}
+        alt={imageData?.alt || ""}
+        width={800}
+        height={600}
+        loading="lazy"
+        class="rounded-lg w-full h-auto"
+        sizes="(max-width: 768px) 100vw, 800px"
+        widths={[400, 600, 800, 1200]}
+        formats={["avif", "webp", "jpeg"]}
+        quality={85}
+      />
+      {imageData?.caption && (
+        <figcaption class="mt-2 text-center text-sm text-gray-500">
+          {imageData.caption}
+        </figcaption>
+      )}
+    </figure>
+  )
+}
+

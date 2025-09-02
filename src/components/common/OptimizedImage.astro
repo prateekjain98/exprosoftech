@@ -1,0 +1,85 @@
+---
+import { Image } from "astro:assets";
+
+export interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
+  sizes?: string;
+  widths?: number[];
+  formats?: ("avif" | "webp" | "jpeg" | "png")[];
+  quality?: number;
+  densities?: number[];
+}
+
+const {
+  src,
+  alt,
+  width = 800,
+  height = 600,
+  class: className = "",
+  loading = "lazy",
+  fetchpriority = "auto",
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+  widths = [320, 640, 768, 1024, 1280, 1600],
+  formats = ["avif", "webp", "jpeg"],
+  quality = 80,
+  densities = [1, 2],
+  ...props
+} = Astro.props;
+
+// Check if it's an external URL (Sanity CDN)
+const isExternal = src.startsWith("http");
+
+// For external images (Sanity CDN), create responsive URLs
+const generateSanityUrl = (w: number, format: string = "webp") => {
+  if (!isExternal) return src;
+  const baseUrl = src.split("?")[0];
+  return `${baseUrl}?w=${w}&h=${Math.round(height * (w / width))}&fit=crop&fm=${format}&q=${quality}`;
+};
+---
+
+{
+  isExternal ? (
+    <picture>
+      {formats.map((format: string) => (
+        <source
+          type={`image/${format}`}
+          srcset={widths
+            .map((w: number) => `${generateSanityUrl(w, format)} ${w}w`)
+            .join(", ")}
+          sizes={sizes}
+        />
+      ))}
+      <img
+        src={generateSanityUrl(width)}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        fetchpriority={fetchpriority}
+        class={className}
+        {...props}
+      />
+    </picture>
+  ) : (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      widths={widths}
+      sizes={sizes}
+      format="webp"
+      quality={quality}
+      loading={loading}
+      fetchpriority={fetchpriority}
+      class={className}
+      {...props}
+    />
+  )
+}
