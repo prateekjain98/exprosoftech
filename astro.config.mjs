@@ -34,10 +34,6 @@ export default defineConfig({
   },
   // Performance: Enable HTML compression
   compressHTML: true,
-  // Performance: Enable experimental optimizations
-  experimental: {
-    contentCollectionCache: true,
-  },
   integrations: [
     react(),
     tailwind({
