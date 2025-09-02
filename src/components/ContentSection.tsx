@@ -1,7 +1,7 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
 import Button from "./common/Button";
-import OptimizedImage from "./common/OptimizedImage";
+import SanityImage from "./common/SanityImage";
 
 interface BannerData {
   subtitle: string;
@@ -44,7 +44,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({ data }) => {
             >
               <div className="relative aspect-[4/3] lg:aspect-[16/10]">
                 {/* <div className="absolute inset-0 -translate-x-4 -translate-y-4 lg:-translate-x-8 lg:-translate-y-8 bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-2xl lg:rounded-3xl transform"></div> */}
-                <OptimizedImage
+                <SanityImage
                   src={image.asset.url}
                   alt="Exprosoftech Business Transformation Team"
                   width={800}
@@ -52,6 +52,7 @@ const ContentSection: React.FC<ContentSectionProps> = ({ data }) => {
                   className="relative w-full h-full rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   loading="lazy"
+                  quality={85}
                 />
                 {imageOverlay?.label && (
                   <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 bg-blue-600 text-white p-4 lg:p-6 rounded-lg lg:rounded-xl shadow-lg lg:shadow-xl">

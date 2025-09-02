@@ -1,0 +1,71 @@
+---
+export interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
+  sizes?: string;
+  quality?: number;
+  style?: string;
+}
+
+const {
+  src,
+  alt,
+  width = 800,
+  height = 600,
+  class: className = "",
+  loading = "lazy",
+  fetchpriority = "auto",
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
+  quality = 75,
+  style,
+  ...props
+} = Astro.props;
+
+// Check if it's a Sanity CDN URL
+const isSanityImage = src.includes('cdn.sanity.io');
+
+// Generate Vercel optimized image URL for Sanity images
+const generateVercelImageUrl = (originalSrc: string, targetWidth: number, targetQuality: number = quality) => {
+  if (!isSanityImage) return originalSrc;
+  
+  // Use Vercel's image optimization API
+  const params = new URLSearchParams({
+    url: originalSrc,
+    w: targetWidth.toString(),
+    q: targetQuality.toString()
+  });
+  
+  return `/_vercel/image?${params.toString()}`;
+};
+
+// Generate responsive image URLs for different screen sizes
+const responsiveWidths = [384, 640, 750, 828, 1080, 1200, 1920];
+const srcSet = isSanityImage 
+  ? responsiveWidths
+      .filter(w => w <= width * 2) // Don't generate larger than 2x the display size
+      .map(w => `${generateVercelImageUrl(src, w)} ${w}w`)
+      .join(', ')
+  : undefined;
+
+// Fallback image URL
+const fallbackSrc = isSanityImage ? generateVercelImageUrl(src, width) : src;
+---
+
+<img
+  src={fallbackSrc}
+  srcset={srcSet}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  sizes={sizes}
+  class={className}
+  style={`aspect-ratio: ${width} / ${height}; object-fit: cover; ${style || ''}`}
+  {...props}
+/>

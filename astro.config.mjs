@@ -81,9 +81,24 @@ export default defineConfig({
   output: "server",
   adapter: vercel({
     functionPerRoute: false,
-    edgeMiddleware: false,
+    edgeMiddleware: true,
     webAnalytics: {
-      enabled: false,
+      enabled: true,
+    },
+    imageService: true,
+    imagesConfig: {
+      sizes: [256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+      domains: ["cdn.sanity.io"],
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "cdn.sanity.io",
+          pathname: "/images/**",
+        },
+      ],
+      minimumCacheTTL: 31536000,
+      formats: ["image/avif", "image/webp"],
+      qualities: [50, 75, 90],
     },
   }),
   vite: {
@@ -109,6 +124,15 @@ export default defineConfig({
         compress: {
           drop_console: true,
           drop_debugger: true,
+        },
+      },
+      assetsInlineLimit: 4096,
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // Enable source maps for development
+          sourceMap: true,
         },
       },
     },

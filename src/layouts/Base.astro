@@ -231,15 +231,15 @@ const {
     <link
       rel="preload"
       as="image"
-      href={config.site.logo}
+      href="/_vercel/image?url=%2Fimages%2Fnew-logo.webp&w=50&q=90"
       fetchpriority="high"
-      imagesrcset="/images/new-logo.webp 50w"
+      imagesrcset="/_vercel/image?url=%2Fimages%2Fnew-logo.webp&w=50&q=90 50w, /_vercel/image?url=%2Fimages%2Fnew-logo.webp&w=100&q=90 100w"
       imagesizes="50px"
     />
 
     <!-- preconnect to external domains -->
-    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
-    <link rel="preconnect" href="https://js.zi-scripts.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.sanity.io" />
+    <link rel="preconnect" href="https://js.zi-scripts.com" />
     <link rel="dns-prefetch" href="https://cdn.sanity.io" />
     <link rel="dns-prefetch" href="https://js.zi-scripts.com" />
 
